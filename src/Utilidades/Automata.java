@@ -11,7 +11,7 @@ public class Automata {
 		id = null;
 		totalEstados = 0;
 		adyacencia = null;
-	}
+	}	
 
 	public Automata(Automata a) {
 		totalEstados = a.getNumEstados();
