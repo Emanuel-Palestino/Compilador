@@ -1,58 +1,87 @@
+//Tengo este problema que quiero que cuando haga click en el boton de analizador lexico me aparezcan los dos botones afd y thompson
+//Sin embargo, no salen a menos que le de click a archivo, vaya no puedo encontrar mi problema, quiero creer que es el actionperformed pero ya hice unas pruebas y ando más perdido 
 package Pruebas;
-import java.awt.Color;
+import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import Pruebas.alexico.VentanaAThompson;
+import Utilidades.ImagenFondo;
 public class VentanaPrincipal extends JFrame{
     private static final long serialVersionUID = 1L;
     public JPanel panel;
-    private JMenuBar menuBar;
     
     public VentanaPrincipal (){
         super ("Compilador");
+        ImagenFondo ejemplo = new ImagenFondo ();
         panel = new JPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize (new Dimension(1000,700));
+        this.setContentPane(ejemplo); // Aqui va la imagen de fondo de la ventana, use una clase ImagenFondo que se encuentra en utilidades 
+        this.setSize (new Dimension(600,400)); // Cambie las dimensiones de la Ventana Principal, esto fue más por la resolución de la imagen
         this.getContentPane().add(panel);
-        this.getContentPane().setBackground (Color.BLACK);  //CHECAR QUE MARQUE EL FONDO NEGRO 
+        panel.setOpaque(false);  //Esto opaca el menú de selección, se ve mucho mejor en mi opinión, hay otra alternativa que es panel.setBackground(new Color (0,0,0,64))
         ini ();
     }
     public void ini (){
-        //menuArchivo ();
+        menuArchivo ();
         menuAnalizadorLexico();
-        //menuAnalizadorSintactico();
-        //menuAnalizadorSemántico();
+        menuAnalizadorSintactico();
+        menuAnalizadorSemántico();
     }
-    //public void menuArchivo (){
-        
-    //}
+    public void menuArchivo (){
+        //Esto es una prueba usando JPopupMenu dentro de un botón, una propuesta de menú desplegable, solo eso una propuesta
+        JButton botonArchivo = new JButton("Archivo");
+        JPopupMenu mnArchivo = new JPopupMenu ();
+        mnArchivo.add ("Abrir");
+        mnArchivo.add ("Nuevo");
+        mnArchivo.add ("Guardar");
+        botonArchivo.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ev) {
+                mnArchivo.show(botonArchivo, 20, 25);
+            }
+        });
+        panel.add(botonArchivo);
+    }
     public void menuAnalizadorLexico(){
-        menuBar = new JMenuBar();
-        setJMenuBar(menuBar);
-        JMenu mnAlexico= new JMenu ("Analizador léxico");
-        menuBar.add (mnAlexico);
-        JMenuItem mntmAThompson = new JMenuItem ("Algoritmo de Thompson AFN");
-        mntmAThompson.addActionListener(new ActionListener(){
+        JButton botonAnalizadorlex = new JButton("Analizador léxico");
+        botonAnalizadorlex.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed (ActionEvent e){
                 thompson(e);
+                afd (e);
             }
         });
-        mnAlexico.add (mntmAThompson);
+        panel.add (botonAnalizadorlex);
     }
-    //public void menuAnalizadorSintactico(){
-
-    //}
-    //public void menuAnalizadorSemántico(){
-
-    //}
+    public void menuAnalizadorSintactico(){
+        JButton botonAnalizadorSin = new JButton("Analizador Sintactico");
+        botonAnalizadorSin.setEnabled(false);
+        panel.add(botonAnalizadorSin);
+    }
+    public void menuAnalizadorSemántico(){
+        JButton botonAnalizadorSem = new JButton("Analizador Semántico");
+        botonAnalizadorSem.setEnabled(false);
+        panel.add(botonAnalizadorSem);
+    }
     public void thompson (ActionEvent evt){
-        //VentanaAThompson vthompson = new VentanaAThompson (this,true);    //ESTE CHECALO YA QUE ESTA RELACIONADO CON LA OTRA CLASE
+        JButton botonthompson = new JButton("Algoritmo de Thompson");
+        botonthompson.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed (ActionEvent event){
+                 //VentanaAThompson vthompson = new VentanaAThompson (this,true);    //ESTE CHECALO YA QUE ESTA RELACIONADO CON LA OTRA CLASE
+            }
+        });
+        add (botonthompson);  //El boton lo agrego al Jframe en vez del panel, intente usar otro panel pero me salia una cosa bien fea 
+    }
+    public void afd (ActionEvent evt){
+        JButton botonafd = new JButton("AFN -> AFD");
+        botonafd.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed (ActionEvent event){
+                //
+            }
+        });
+        add (botonafd);   
     }
 }
