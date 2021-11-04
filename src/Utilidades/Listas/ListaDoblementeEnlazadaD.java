@@ -6,11 +6,13 @@ public class ListaDoblementeEnlazadaD {
   
   private NodoListaD inicio;
   private NodoListaD fin;
+  private ConjuntoEstados estado;
 
 
   public ListaDoblementeEnlazadaD() {
     inicio = null;
     fin = null;
+	estado = new ConjuntoEstados();
   }
 
 	// Getters and Setters
@@ -22,12 +24,20 @@ public class ListaDoblementeEnlazadaD {
 		return fin;
 	}
 
+	public ConjuntoEstados getEstado() {
+		return estado;
+	}
+
 	public void setInicio(NodoListaD i) {
 		inicio = i;
 	}
 
 	public void setFinal(NodoListaD f) {
 		fin = f;
+	}
+
+	public void setEstado(ConjuntoEstados conjunto) {
+		estado = conjunto;
 	}
 
   public void insertar(ConjuntoEstados estadoDestino, String simbolo) {

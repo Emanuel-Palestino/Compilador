@@ -80,6 +80,7 @@ public class ConvierteAFD {
         if(i == tranD.size()){
           ListaDoblementeEnlazadaD lista = new ListaDoblementeEnlazadaD();
           lista.insertar(U, transiciones.get(k));
+          lista.setEstado(estadosD.get(i));
           tranD.add(lista);
         }else{
           tranD.get(i).insertar(U, transiciones.get(k));

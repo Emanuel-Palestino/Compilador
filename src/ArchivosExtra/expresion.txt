@@ -1,2 +1,2 @@
-abcd
-cª(a|b)*ªdªd
+ab
+(a|b)*ªaªbªb
