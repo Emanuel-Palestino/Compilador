@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 import AnalizadorLexico.AlgoritmoThompson.IniciarThompson;
-import AnalizadorLexico.AlgoritmoThompson.IniciarConjuntos;
+import AnalizadorLexico.ConversionAFD.IniciarConjuntos;
 public class Main {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {

@@ -1,4 +1,4 @@
-package AnalizadorLexico.AlgoritmoThompson;
+package AnalizadorLexico.ConversionAFD;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;

@@ -1,4 +1,4 @@
-package AnalizadorLexico.AlgoritmoThompson;
+package AnalizadorLexico.ConversionAFD;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
