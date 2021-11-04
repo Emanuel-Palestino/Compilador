@@ -97,7 +97,8 @@ public class Automata {
 		ArrayList<Integer> resultado = new ArrayList<Integer>();
 		NodoLista aux = adyacencia[estado].getInicio();
 		while(aux != null) {
-			resultado.add(aux.getEstadoDestino());
+			if (aux.getSimbolo().equals(simbolo))
+				resultado.add(aux.getEstadoDestino());
 			aux = aux.getSiguiente();
 		}
 
