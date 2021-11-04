@@ -1,9 +1,7 @@
 package AnalizadorLexico.ConversionAFD;
 
 import java.util.ArrayList;
-import java.util.List;
-
-
+import AnalizadorLexico.AlgoritmoThompson.Thompson;
 import Utilidades.Automata;
 import Utilidades.ConjuntoEstados;
 import Utilidades.Listas.ListaDoblementeEnlazadaD;
@@ -11,6 +9,19 @@ import Utilidades.Listas.ListaDoblementeEnlazadaD;
 public class ConvierteAFD {
 
 
+  public static void main(String[] args) {
+
+    Thompson thomp = new Thompson();
+    Automata a = new Automata("a");
+    Automata b = new Automata("b");
+    Automata aob = thomp.union(a, b);
+    Automata res = thomp.concatenacion(b, aob);
+
+    ConvierteAFD afd = new ConvierteAFD();
+    ArrayList<ListaDoblementeEnlazadaD> resultado = afd.convierteAFD(res);
+    System.out.println("a");
+
+  }
 
   //Identificador de conjunto de estados "A", "B"
   public ArrayList<ListaDoblementeEnlazadaD> convierteAFD(Automata automata) {
@@ -20,7 +31,9 @@ public class ConvierteAFD {
     char letra = 'A';
     
     //Suponiendo que Rugal hara un metodo cerradura para la clase cerraduraEpsilon
-    estadosD.add(CerraduraEpsilon.doCerradura(0, automata));
+    ConjuntoEstados inicio = new ConjuntoEstados();
+    inicio.insertarEstado(0);
+    estadosD.add(CerraduraEpsilon.doCerraduraEpsilon(inicio, automata));
     estadosD.get(0).setId("A");
     
     //recorrer la lista; mientras no haya marcados o llegemos al final de la lista
@@ -44,8 +57,7 @@ public class ConvierteAFD {
         
         ConjuntoEstados U = new ConjuntoEstados();
         // Suponiendo que Roborto hace un metodo mover para la clase mueve
-        U = CerraduraEpsilon.doCerradura(Mueve.mueve(estadosD.get(i), automata),automata);
-        
+        U = CerraduraEpsilon.doCerraduraEpsilon(Mueve.mueve(estadosD.get(i), transiciones.get(k), automata),automata);
         if(!estadosD.contains(U)){ //Index of regresa -1 si U no se encuentra en el Arreglo
           
           U.setId(letra +"");
