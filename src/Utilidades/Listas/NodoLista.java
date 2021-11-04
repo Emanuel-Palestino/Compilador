@@ -1,6 +1,7 @@
 package Utilidades.Listas;
 
 public class NodoLista {
+	
 	private NodoLista anterior, siguiente;
 	private int estadoDestino;	
 	private String simboloTransicion;
