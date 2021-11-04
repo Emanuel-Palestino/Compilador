@@ -19,7 +19,8 @@ public class Main {
 		} catch (Exception e) {
 			System.out.println("Error al aplicar estilo Windows");
 		}
-		new IniciarThompson();
+		IniciarThompson tompson = new IniciarThompson();
+		
 
 	}
 }
