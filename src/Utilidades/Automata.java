@@ -1,5 +1,7 @@
 package Utilidades;
 
+import java.util.ArrayList;
+
 import Utilidades.Listas.*;
 
 public class Automata {
@@ -76,11 +78,36 @@ public class Automata {
 
 
 	public String[] getSimbolosTransiciones(int estado) {
-		return new String[0];
+		ArrayList<String> resultado = new ArrayList<String>();
+		NodoLista aux = adyacencia[estado].getInicio();
+		while (aux != null) {
+			resultado.add(aux.getSimbolo());
+			aux = aux.getSiguiente();
+		}
+
+		// Devolver Arreglo 
+		String[] res = new String[resultado.size()];
+		for(int i = 0; i < res.length; i++) {
+			res[i] = resultado.get(i);
+		}
+		return res;
 	}
 
 	public int[] getEstadosDestinoSimbolo(int estado, String simbolo) {
-		return new int[0];
+		ArrayList<Integer> resultado = new ArrayList<Integer>();
+		NodoLista aux = adyacencia[estado].getInicio();
+		while(aux != null) {
+			if (aux.getSimbolo().equals(simbolo))
+				resultado.add(aux.getEstadoDestino());
+			aux = aux.getSiguiente();
+		}
+
+		// Devolver Arreglo
+		int [] res = new int[resultado.size()];
+		for (int i = 0; i < res.length; i++)
+			res[i] = resultado.get(i);
+		
+		return res;
 	}
 
 	public String[][] getMatrizAdyacencia() {
