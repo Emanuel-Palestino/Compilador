@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 import AnalizadorLexico.AlgoritmoThompson.IniciarThompson;
-
+import AnalizadorLexico.ConversionAFD.IniciarConjuntos;
 public class Main {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
@@ -19,7 +19,7 @@ public class Main {
 		} catch (Exception e) {
 			System.out.println("Error al aplicar estilo Windows");
 		}
-		new IniciarThompson();
-
+		//new IniciarThompson();
+		new IniciarConjuntos();
 	}
 }
