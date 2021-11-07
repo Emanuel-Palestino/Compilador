@@ -2,17 +2,20 @@ package Utilidades;
 
 import java.util.ArrayList;
 
+import Utilidades.Alfabeto.Alfabeto;
 import Utilidades.Listas.*;
 
 public class Automata {
 	private String id;
 	private int totalEstados;
 	private ListaDoblementeEnlazada[] adyacencia;
+	private Alfabeto alfabeto;
 
 	public Automata() {
 		id = null;
 		totalEstados = 0;
 		adyacencia = null;
+		alfabeto = null;
 	}	
 
 	public Automata(Automata a) {
@@ -53,6 +56,10 @@ public class Automata {
 		return adyacencia[estado];
 	}
 
+	public Alfabeto getAlfabeto() {
+		return alfabeto;
+	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -61,6 +68,10 @@ public class Automata {
 		totalEstados = t;
 	}
 
+	public void setAlfabeto(Alfabeto alf) {
+		alfabeto = alf;
+	}
+	
 	// Metodos
 	public void insertarTransicion(int estadoOrigen, int estadoDestino, String simbolo) {
 		if (adyacencia[estadoOrigen] == null)
