@@ -32,11 +32,11 @@ public class EvaluarAFD {
 
 	public static void main(String[] args) throws ExcepcionLexico, ExcepcionER {
 		Thompson thomp = new Thompson();
-		Automata afn = thomp.evaluarER("(a|b)*ªaªbªb", "ab");
+		Automata afn = thomp.evaluarER("┌ a ı b ┐ × ┼ a ┼ b ┼ b", "a b");
 		ConvierteAFD convierte = new ConvierteAFD();
 		ArrayList<ListaDoblementeEnlazadaD> AFD = convierte.convierteAFD(afn);
 		try {
-			if (EvaluarAFD.evaluar(AFD, "bbbdab"))
+			if (EvaluarAFD.evaluar(AFD, "bbbab"))
 				System.out.println("simon");
 			else
 				System.out.println("no");
