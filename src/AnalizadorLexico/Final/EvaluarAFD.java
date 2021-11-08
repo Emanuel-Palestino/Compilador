@@ -7,6 +7,7 @@ import AnalizadorLexico.ConversionAFD.ConvierteAFD;
 import AnalizadorLexico.ConversionAFD.Mueve;
 import Utilidades.Automata;
 import Utilidades.ConjuntoEstados;
+import Utilidades.Excepciones.ExcepcionER;
 import Utilidades.Excepciones.ExcepcionLexico;
 import Utilidades.Listas.ListaDoblementeEnlazadaD;
 
@@ -29,7 +30,7 @@ public class EvaluarAFD {
 		return false;
 	}
 
-	public static void main(String[] args) throws ExcepcionLexico {
+	public static void main(String[] args) throws ExcepcionLexico, ExcepcionER {
 		Thompson thomp = new Thompson();
 		Automata afn = thomp.evaluarER("(a|b)*ªaªbªb", "ab");
 		ConvierteAFD convierte = new ConvierteAFD();

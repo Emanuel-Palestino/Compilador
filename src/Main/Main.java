@@ -7,11 +7,11 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
-import AnalizadorLexico.AlgoritmoThompson.IniciarThompson;
 import AnalizadorLexico.ConversionAFD.IniciarConjuntos;
+import Utilidades.Excepciones.ExcepcionER;
 public class Main {
 
-	public static void main(String[] args) throws FileNotFoundException, IOException {
+	public static void main(String[] args) throws FileNotFoundException, IOException, ExcepcionER {
 		try {
 			JFrame.setDefaultLookAndFeelDecorated(true);
 			JDialog.setDefaultLookAndFeelDecorated(true);

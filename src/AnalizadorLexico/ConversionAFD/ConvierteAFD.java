@@ -1,31 +1,12 @@
 package AnalizadorLexico.ConversionAFD;
 
 import java.util.ArrayList;
-import AnalizadorLexico.AlgoritmoThompson.Thompson;
 import Utilidades.Automata;
 import Utilidades.ConjuntoEstados;
 import Utilidades.Listas.ListaDoblementeEnlazadaD;
 
 public class ConvierteAFD {
 
-	public static void main(String[] args) {
-
-		Thompson thomp = new Thompson();
-		Automata a = new Automata("a");
-		Automata b = new Automata("b");
-		Automata aob = thomp.union(a, b);
-		Automata aobk = thomp.cerraduraKlenee(aob);
-		Automata aobka = thomp.concatenacion(aobk, a);
-		Automata aobkab = thomp.concatenacion(aobka, b);
-		Automata res = thomp.concatenacion(aobkab, b);
-
-		ConvierteAFD afd = new ConvierteAFD();
-		ArrayList<ListaDoblementeEnlazadaD> resultado = afd.convierteAFD(res);
-		System.out.println("a");
-
-	}
-
-	// Identificador de conjunto de estados "A", "B"
 	public ArrayList<ListaDoblementeEnlazadaD> convierteAFD(Automata automata) {
 
 		ArrayList<ListaDoblementeEnlazadaD> tranD = new ArrayList<ListaDoblementeEnlazadaD>();

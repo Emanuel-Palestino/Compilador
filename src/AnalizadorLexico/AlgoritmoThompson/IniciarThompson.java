@@ -6,12 +6,13 @@ import java.util.ArrayList;
 
 import Utilidades.Archivo;
 import Utilidades.Automata;
+import Utilidades.Excepciones.ExcepcionER;
 import Utilidades.Listas.ListaDoblementeEnlazada;
 import Utilidades.Listas.NodoLista;
 
 public class IniciarThompson {
 
-	public IniciarThompson() throws FileNotFoundException, IOException {
+	public IniciarThompson() throws FileNotFoundException, IOException, ExcepcionER {
 
 		Thompson thomp = new Thompson();
 		Archivo file = new Archivo();

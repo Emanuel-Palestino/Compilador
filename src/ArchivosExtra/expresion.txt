@@ -1,2 +1,2 @@
-ab
-(a|b)*ªaªbªb
+a b
+┌ a ı b ┐ × ┼ a ┼ b ┼ b

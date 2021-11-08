@@ -7,13 +7,17 @@ import java.util.ArrayList;
 import AnalizadorLexico.AlgoritmoThompson.Thompson;
 import Utilidades.Archivo;
 import Utilidades.Automata;
-import Utilidades.Listas.ListaDoblementeEnlazada;
+import Utilidades.Excepciones.ExcepcionER;
 import Utilidades.Listas.ListaDoblementeEnlazadaD;
-import Utilidades.Listas.NodoLista;
 import Utilidades.Listas.NodoListaD;
 
 public class IniciarConjuntos{
-    public IniciarConjuntos() throws FileNotFoundException, IOException {
+
+    public static void main(String[] args) throws FileNotFoundException, IOException, ExcepcionER {
+        new IniciarConjuntos();
+    }
+
+    public IniciarConjuntos() throws FileNotFoundException, IOException, ExcepcionER {
         //Codigo del pale para unir la ventana
 
         Thompson thomp = new Thompson();
@@ -23,10 +27,10 @@ public class IniciarConjuntos{
         ConvierteAFD conversion = new ConvierteAFD();
         ArrayList<ListaDoblementeEnlazadaD> AFD = conversion.convierteAFD(AFN);
 
-        String[] encabezado = new String[expr.get(0).length() + 1];
+        String[] encabezado = new String[AFN.getAlfabeto().getLista().size() + 1];
         encabezado[0] = "Estado";
-        for (int i = 0; i < expr.get(0).length(); i++)
-            encabezado[i + 1] = "" + expr.get(0).charAt(i);
+        for (int i = 0; i < AFN.getAlfabeto().getLista().size(); i++)
+            encabezado[i + 1] = AFN.getAlfabeto().getLista().get(i);
 
         // Rellenar matriz con datos
         String[][] datos = new String[AFD.size()][encabezado.length];

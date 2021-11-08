@@ -71,7 +71,7 @@ public class Automata {
 	public void setAlfabeto(Alfabeto alf) {
 		alfabeto = alf;
 	}
-	
+
 	// Metodos
 	public void insertarTransicion(int estadoOrigen, int estadoDestino, String simbolo) {
 		if (adyacencia[estadoOrigen] == null)
