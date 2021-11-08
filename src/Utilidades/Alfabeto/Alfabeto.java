@@ -12,20 +12,35 @@ public class Alfabeto {
 			simbolos.add(simbolo);
 	}
 
+	public Alfabeto(Alfabeto alf) {
+		simbolos = new ArrayList<String>();
+		ArrayList<String> lista = alf.getLista();
+		for (String simbolo : lista)
+			simbolos.add(simbolo);
+	}
+
 	// Metodos
-	public boolean simboloValido(String s) {
+	public Boolean simboloValido(String s) {
 		if (simbolos.contains(s))
+			return true;
+		else if (simbolos.contains("letra") && letraValido(s))
+			return true;
+		else if (simbolos.contains("digito") && digitoValido(s))
 			return true;
 		else
 			return false;
 	}
 
 	public boolean letraValido(String s) {
+		if (s.length() != 1)
+			return false;
 		char letra = s.charAt(0);
 		return Character.isLetter(letra);
 	}
 
 	public boolean digitoValido(String s) {
+		if (s.length() != 1)
+			return false;
 		char digito = s.charAt(0);
 		return Character.isDigit(digito);
 	}
