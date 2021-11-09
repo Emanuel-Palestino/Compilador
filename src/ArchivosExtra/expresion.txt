@@ -1,2 +1,4 @@
+i f letra digito
+i ┼ f ı letra ┼ ┌ letra ı digito ┐ ×
 a b
 ┌ a ı b ┐ × ┼ a ┼ b ┼ b

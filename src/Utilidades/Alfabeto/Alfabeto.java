@@ -23,7 +23,7 @@ public class Alfabeto {
 	public Boolean simboloValido(String s) {
 		if (simbolos.contains(s))
 			return true;
-		else if (simbolos.contains("letra") && letraValido(s))
+		else if (simbolos.contains("letra") && letraValido(s) && !s.equals("ı"))
 			return true;
 		else if (simbolos.contains("digito") && digitoValido(s))
 			return true;
