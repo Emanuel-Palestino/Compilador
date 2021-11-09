@@ -20,3 +20,7 @@ Así mismo, el alfabeto se debe escribir con espacios entre cada simbolo o palab
 
 ## Simbolos utilizados en los automatas
 - Ɛ: se usa para representar epsilon
+
+## Palabras que se pueden utilizar como alfabeto
+- letra: para representar cualquier letra del alfabeto mayuscula o minuscula
+- digito: para representar cualquier digito
