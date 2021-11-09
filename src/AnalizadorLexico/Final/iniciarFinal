@@ -1,0 +1,20 @@
+package AnalizadorLexico.Final;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import Utilidades.Archivo;
+import Utilidades.Automata;
+import Utilidades.Listas.ListaDoblementeEnlazada;
+import Utilidades.Listas.ListaDoblementeEnlazadaD;
+import Utilidades.Listas.NodoLista;
+import Utilidades.Listas.NodoListaD;
+
+public class iniciarFinal{
+    public iniciarFinal() throws FileNotFoundException,IOException{
+        new ventanaFinal(null,false);
+
+        /*Codigo de pale para unir*/
+    }
+}

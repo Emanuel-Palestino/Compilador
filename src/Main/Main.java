@@ -20,6 +20,6 @@ public class Main {
 			System.out.println("Error al aplicar estilo Windows");
 		}
 		//new IniciarThompson();
-		new IniciarConjuntos();
+		//new IniciarConjuntos();
 	}
 }
