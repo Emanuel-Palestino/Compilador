@@ -13,10 +13,30 @@ public class Mueve {
         ArrayList<Integer> auxiliar = T.getEstados();
         int[] arrayAux;
 
-        for (int i = 0; i < auxiliar.size(); i++) {
-            arrayAux = AFN.getEstadosDestinoSimbolo(auxiliar.get(i), simbolo);
-            for (int estado : arrayAux) {
-                resultado.getEstados().add(estado);
+        // Tratar simbolo
+        ArrayList<String> simbolos = new ArrayList<String>();
+        String[] simbols = simbolo.split("-");
+        if (simbols.length > 1) {
+            if (simbols[0].equals("letra")) // letra
+                simbolos.add("letra");
+            else if (simbols[0].equals("digito")) // digito
+                simbolos.add("digito");
+        } else if (AFN.getAlfabeto().letraValido(simbolo)) {
+            simbolos.add(simbolo);
+            simbolos.add("letra");
+        } else if (AFN.getAlfabeto().digitoValido(simbolo)) {
+            simbolos.add(simbolo);
+            simbolos.add("digito");
+        } else if (simbolo.equals("digito"))
+            simbolos.add("digito");
+        else if (simbolo.equals("letra"))
+            simbolos.add("letra");
+
+        for (Integer estado : auxiliar) {
+            for (String simbol : simbolos) {
+                arrayAux = AFN.getEstadosDestinoSimbolo(estado, simbol);
+                for (int edo : arrayAux)
+                    resultado.getEstados().add(edo);
             }
         }
         return resultado;
@@ -25,15 +45,15 @@ public class Mueve {
     public static ConjuntoEstados mueve(ConjuntoEstados T, String simbolo, ArrayList<ListaDoblementeEnlazadaD> AFD) {
         ConjuntoEstados resultado = new ConjuntoEstados();
         ListaDoblementeEnlazadaD estado = new ListaDoblementeEnlazadaD();
-        for(ListaDoblementeEnlazadaD lista : AFD) {
-           if (lista.getEstado().equals(T)) {
-               estado = lista;
-               break;
-           } 
+        for (ListaDoblementeEnlazadaD lista : AFD) {
+            if (lista.getEstado().equals(T)) {
+                estado = lista;
+                break;
+            }
         }
 
         NodoListaD aux = estado.getInicio();
-        while(aux != null) {
+        while (aux != null) {
             if (aux.getTransicion().equals(simbolo)) {
                 resultado = aux.getEstados();
                 break;
