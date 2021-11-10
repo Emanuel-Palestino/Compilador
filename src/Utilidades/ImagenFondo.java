@@ -7,7 +7,7 @@ public class ImagenFondo extends JPanel {
     private Image imagen;
     @Override
     public void paint (Graphics g){
-        imagen = new ImageIcon (getClass().getResource("/ArchivosExtra/background.jpg")).getImage();
+        imagen = new ImageIcon (getClass().getResource("/ArchivosExtra/background1.png")).getImage();
         g.drawImage(imagen, 0, 0, getWidth(),getHeight(),this);
         setOpaque(false);
         super.paint (g);
