@@ -3,4 +3,5 @@ function esto() {
 	while (true) {
 		ala
 	}
+	@
 }
