@@ -8,7 +8,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-
+import javax.swing.JButton;
+import java.awt.event.*;
 import java.awt.*;
 
 public class VentanaConjuntos extends JDialog{
@@ -19,6 +20,7 @@ public class VentanaConjuntos extends JDialog{
 	JLabel lblAlfabeto, lblExpresionRegular;
 	JTextField textAlfabeto, textExpresionRegular;
 	JTable transiciones;
+	JButton boton;
 
     public VentanaConjuntos(JFrame parent, boolean modal, String alfabeto, String expresion, String[] encabezado, String[][] datos) {
 		super(parent, modal);
@@ -75,11 +77,24 @@ public class VentanaConjuntos extends JDialog{
 		textExpresionRegular.setPreferredSize(new Dimension(200, 30));
 		textExpresionRegular.setEditable(false);
 
+		//agregamos boton
+        boton = new JButton("Buscar archivo");
+        boton.setPreferredSize(new Dimension(200,30));
+
+		//Agregamos que el boton accione
+		boton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed (ActionEvent e) {
+				/*Codigo para buscar archivo*/
+			}
+		});
+
 		// Agregar elementos al panel Informacion
 		panelInformacion.add(lblAlfabeto);
 		panelInformacion.add(textAlfabeto);
 		panelInformacion.add(lblExpresionRegular);
 		panelInformacion.add(textExpresionRegular);
+		panelInformacion.add(boton);
 
 		ventana.add(panelInformacion);
     }

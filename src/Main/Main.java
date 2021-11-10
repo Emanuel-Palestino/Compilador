@@ -9,6 +9,7 @@ import javax.swing.UIManager;
 
 import AnalizadorLexico.AlgoritmoThompson.IniciarThompson;
 import AnalizadorLexico.ConversionAFD.IniciarConjuntos;
+import AnalizadorLexico.Final.iniciarFinal;
 public class Main {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
@@ -21,5 +22,6 @@ public class Main {
 		}
 		//new IniciarThompson();
 		//new IniciarConjuntos();
+		new iniciarFinal();
 	}
 }
