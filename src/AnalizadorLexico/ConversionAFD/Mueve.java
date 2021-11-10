@@ -3,6 +3,7 @@ package AnalizadorLexico.ConversionAFD;
 import java.util.ArrayList;
 
 import Utilidades.Automata;
+import Utilidades.AutomataDeterminista;
 import Utilidades.ConjuntoEstados;
 import Utilidades.Listas.ListaDoblementeEnlazadaD;
 import Utilidades.Listas.NodoListaD;
@@ -31,6 +32,9 @@ public class Mueve {
             simbolos.add("digito");
         else if (simbolo.equals("letra"))
             simbolos.add("letra");
+        else if (AFN.getAlfabeto().simboloValido(simbolo)) {
+            simbolos.add(simbolo);
+        }
 
         for (Integer estado : auxiliar) {
             for (String simbol : simbolos) {
@@ -42,21 +46,48 @@ public class Mueve {
         return resultado;
     }
 
-    public static ConjuntoEstados mueve(ConjuntoEstados T, String simbolo, ArrayList<ListaDoblementeEnlazadaD> AFD) {
+    public static ConjuntoEstados mueve(ConjuntoEstados T, String simbolo, AutomataDeterminista AFD) {
         ConjuntoEstados resultado = new ConjuntoEstados();
         ListaDoblementeEnlazadaD estado = new ListaDoblementeEnlazadaD();
-        for (ListaDoblementeEnlazadaD lista : AFD) {
+
+        // obtener la listaEnlazada que corresponda al conjunto
+        for (int i = 0; i < AFD.getTotalEstados(); i++) {
+            ListaDoblementeEnlazadaD lista = AFD.getTransiciones(i);
             if (lista.getEstado().equals(T)) {
                 estado = lista;
                 break;
             }
         }
 
+        // comprobar transicion
         NodoListaD aux = estado.getInicio();
         while (aux != null) {
             if (aux.getTransicion().equals(simbolo)) {
                 resultado = aux.getEstados();
                 break;
+            } else if (aux.getTransicion().equals("letra")) {
+                if (AFD.getAlfabeto().letraValido(simbolo)) {
+                    resultado = aux.getEstados();
+                    break;
+                }
+            } else if (aux.getTransicion().equals("digito")) {
+                if (AFD.getAlfabeto().digitoValido(simbolo)) {
+                    resultado = aux.getEstados();
+                    break;
+                }
+            } else {
+                String[] parte = aux.getTransicion().split("-");
+                if (parte.length > 1 && parte[0].equals("letra") && !parte[1].equals(simbolo)) {
+                    if (AFD.getAlfabeto().letraValido(simbolo)) {
+                        resultado = aux.getEstados();
+                        break;
+                    }
+                } else if (parte.length > 1 && parte[0].equals("digito") && !parte[1].equals(simbolo)) {
+                    if (AFD.getAlfabeto().digitoValido(simbolo)) {
+                        resultado = aux.getEstados();
+                        break;
+                    }
+                }
             }
             aux = aux.getSiguiente();
         }

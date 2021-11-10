@@ -13,10 +13,14 @@ import Utilidades.Listas.NodoListaD;
 
 public class IniciarConjuntos{
 
+    public static void main(String[] args) throws FileNotFoundException, IOException, ExcepcionER {
+        new IniciarConjuntos();
+    }
+
     public IniciarConjuntos() throws FileNotFoundException, IOException, ExcepcionER {
         Thompson thomp = new Thompson();
         Archivo file = new Archivo();
-        ArrayList<String> expr = file.capturaDatosArchivo("src/ArchivosExtra/expresion.txt");
+        ArrayList<String> expr = file.capturaDatosArchivo("src/ArchivosExtra/ExpresionRegular.txt");
         Automata AFN = thomp.evaluarER(expr.get(1), expr.get(0));
         AutomataDeterminista AFD = ConvierteAFD.convierte(AFN);
 

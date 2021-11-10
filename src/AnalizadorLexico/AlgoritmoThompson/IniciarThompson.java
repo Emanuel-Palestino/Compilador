@@ -12,10 +12,14 @@ import Utilidades.Listas.NodoLista;
 
 public class IniciarThompson {
 
+	public static void main(String[] args) throws FileNotFoundException, IOException, ExcepcionER {
+		new IniciarThompson();
+	}
+
 	public IniciarThompson() throws FileNotFoundException, IOException, ExcepcionER {
 		Thompson thomp = new Thompson();
 		Archivo file = new Archivo();
-		ArrayList<String> expr = file.capturaDatosArchivo("src/ArchivosExtra/expresion.txt");
+		ArrayList<String> expr = file.capturaDatosArchivo("src/ArchivosExtra/ExpresionRegular.txt");
 		Automata result = thomp.evaluarER(expr.get(1), expr.get(0));
 
 		String[] alfa = expr.get(0).split(" ");

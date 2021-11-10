@@ -40,9 +40,11 @@ public class Thompson {
 					switch (simbolo) {
 						case "┼":
 							resultadoOperacion = concatenacion(operando1, operando2);
+							resultadoOperacion.setId(operando1.getId() + operando2.getId());
 							break;
 						case "ı":
 							resultadoOperacion = union(operando1, operando2);
+							resultadoOperacion.setId(operando1.getId() + "|" + operando2.getId());
 							break;
 					}
 				} else {			// Evaluacion para operadores unarios
@@ -52,12 +54,15 @@ public class Thompson {
 					switch (simbolo) {
 						case "×":
 							resultadoOperacion = cerraduraKlenee(operando);
+							resultadoOperacion.setId(operando.getId() + "*");
 							break;
 						case "ß":
 							resultadoOperacion = cerraduraPositiva(operando);
+							resultadoOperacion.setId(operando.getId() + "+");
 							break;
 						case "º":
 							resultadoOperacion = cerraduraOpcional(operando);
+							resultadoOperacion.setId(operando.getId() + "?");
 							break;
 					}
 				}

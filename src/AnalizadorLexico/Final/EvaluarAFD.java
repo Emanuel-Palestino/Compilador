@@ -1,20 +1,18 @@
 package AnalizadorLexico.Final;
 
-import java.util.ArrayList;
-
 import AnalizadorLexico.AlgoritmoThompson.Thompson;
 import AnalizadorLexico.ConversionAFD.ConvierteAFD;
 import AnalizadorLexico.ConversionAFD.Mueve;
 import Utilidades.Automata;
+import Utilidades.AutomataDeterminista;
 import Utilidades.ConjuntoEstados;
 import Utilidades.Excepciones.ExcepcionER;
 import Utilidades.Excepciones.ExcepcionLexico;
-import Utilidades.Listas.ListaDoblementeEnlazadaD;
 
 public class EvaluarAFD {
 
-	public static boolean evaluar(ArrayList<ListaDoblementeEnlazadaD> AFD, String cadena) throws ExcepcionLexico {
-		ConjuntoEstados estado = AFD.get(0).getEstado();
+	public static boolean evaluar(AutomataDeterminista AFD, String cadena) throws ExcepcionLexico {
+		ConjuntoEstados estado = AFD.getTransiciones(0).getEstado();
 		String caracter;
 		for (int i = 0; i < cadena.length(); i++) {
 			caracter = cadena.charAt(i) + "";
@@ -33,10 +31,9 @@ public class EvaluarAFD {
 	public static void main(String[] args) throws ExcepcionLexico, ExcepcionER {
 		Thompson thomp = new Thompson();
 		Automata afn = thomp.evaluarER("┌ a ı b ┐ × ┼ a ┼ b ┼ b", "a b");
-		ConvierteAFD convierte = new ConvierteAFD();
-		ArrayList<ListaDoblementeEnlazadaD> AFD = convierte.convierteAFD(afn);
+		AutomataDeterminista AFD = ConvierteAFD.convierte(afn);
 		try {
-			if (EvaluarAFD.evaluar(AFD, "bbbab"))
+			if (EvaluarAFD.evaluar(AFD, "bbbabb"))
 				System.out.println("simon");
 			else
 				System.out.println("no");

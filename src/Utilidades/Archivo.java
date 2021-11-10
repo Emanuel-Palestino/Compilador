@@ -17,5 +17,10 @@ public class Archivo {
 		return contenido;
 	}
 
+	public static BufferedReader abrirArchivo(String direccionArchivo) throws FileNotFoundException {
+		FileReader archivo = null;
+		archivo = new FileReader(direccionArchivo);
+		return new BufferedReader(archivo);
+	}
 
 }

@@ -110,7 +110,7 @@ public class Postfija {
 
 	private boolean esOperador(String o) {
 		String[] res = o.split("[┌|┐|×|º|ß|┼|ı]+");
-		if (res.length > 0)
+		if (res.length > 0 || o.equals("|"))
 			return false;
 		else
 			return true;
