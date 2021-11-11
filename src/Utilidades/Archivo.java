@@ -28,7 +28,9 @@ public class Archivo {
 
 	public  String obtenerRutaArchivo(){
 		campoTexto=new JTextField();
-		JFileChooser chooser = new JFileChooser();
+		//JFileChooser chooser = new JFileChooser();
+
+		JFileChooser chooser = new JFileChooser(System.getProperty("user.dir")+"\\src\\ArchivosExtra");
 		int seleccion = chooser.showOpenDialog(parent);
 		String rutaAux = "";
 
