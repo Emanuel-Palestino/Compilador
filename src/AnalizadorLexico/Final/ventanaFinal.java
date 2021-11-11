@@ -16,24 +16,24 @@ public class ventanaFinal extends JDialog{
 	JDialog ventana;
     FlowLayout diseñoPanel;
     JPanel panelInformacion;
-    JScrollPane panelTabla;
+    JScrollPane panelTabla,panelErrores,panelId;
 	JLabel lblAlfabeto,lblExpresionRegular;
 	JTextField textAlfabeto,textExpresionRegular;
-	JTable transiciones;
+	JTable transiciones,tablaErrores,tablaId;
     JButton boton;
 
-    public ventanaFinal(JFrame parent, boolean modal, String alfabeto, String expresion, String[] encabezado, String[][] datos) {
+    public ventanaFinal(JFrame parent, boolean modal, String alfabeto, String expresion, String[] encabezado, String[][] datos, String [] encabezadoErr, String[][] datosErrores, String [] encabezadoId, String [][] datosId) {
 		super(parent, modal);
                 
 		// Iniciar componentes que se muestran en la ventana
 		inicializarInformacion();
 		rellenarInformacion(alfabeto, expresion);
-		mostrarTabla(encabezado, datos);
+		mostrarTabla(encabezado, datos,encabezadoErr,datosErrores,encabezadoId,datosId); 
 		ventana.setVisible(true);
 	}
 
 	public ventanaFinal(JFrame parent, boolean modal){
-		super(parent,modal);
+		super(parent,modal); 
 		String [] encabezado = {"Encabezado prueba"};
 		String [][] datos ={
 			{"Juan", "25"},
@@ -41,10 +41,22 @@ public class ventanaFinal extends JDialog{
             {"Pedro", "42"}
 		};
 
+		String [] encabezadoErr = {"Errores","Valor"};
+		String [][] datosErrores={
+			{"a","2"},
+			{"b","3"}
+		};
+
+		String [] encabezadoId = {"Id Prueba","Valor"};
+		String [][] datosId={
+			{"c","4"},
+			{"d","6"}
+		};
+
 		//Iniciar componentes
 		inicializarInformacion();
 		//rellenarInformacion(alfabeto, expresion);
-		mostrarTabla(encabezado, datos);
+		mostrarTabla(encabezado, datos,encabezadoErr,datosErrores,encabezadoId,datosId);
 		ventana.setVisible(true);
 	}
 
@@ -99,18 +111,40 @@ public class ventanaFinal extends JDialog{
 
 	}
 
-	public void mostrarTabla(String [] encabezado, String[][] datos){
+	
+	public void mostrarTabla(String [] encabezado, String[][] datos, String[] encabezadoErrores, String[][] datosErrores, String[] encabezadoId, String[][] datosId){
 		DefaultTableModel modeloTabla = new DefaultTableModel(datos,encabezado);
+		DefaultTableModel modeloErrores = new DefaultTableModel(datosErrores,encabezadoErrores);
+		DefaultTableModel modeloId = new DefaultTableModel(datosId,encabezadoId);
+
 		transiciones = new JTable(modeloTabla);
 		transiciones.setEnabled(false);
 		transiciones.getTableHeader().setReorderingAllowed(false);
 		transiciones.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-		panelTabla = new JScrollPane(transiciones);
-		panelTabla.setPreferredSize(new Dimension(960,410));
+		tablaErrores = new JTable(modeloErrores);
+		tablaErrores.setEnabled(false);
+		tablaErrores.getTableHeader().setReorderingAllowed(false);
+		tablaErrores.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
+		tablaId = new JTable(modeloId);
+		tablaId.setEnabled(false);
+		tablaId.getTableHeader().setReorderingAllowed(false);
+		tablaId.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+		panelTabla = new JScrollPane(transiciones);
+		panelTabla.setPreferredSize(new Dimension(500,410));
+
+		panelErrores = new JScrollPane(tablaErrores);
+		panelErrores.setPreferredSize(new Dimension(200,410));
+
+		panelId = new JScrollPane(tablaId);
+		panelId.setPreferredSize(new Dimension(200,410));
+		
 		//Hacemos visible la tabla
 		ventana.add(panelTabla);
+		ventana.add(panelErrores);
+		ventana.add(panelId);
 	}
 
 	public void rellenarInformacion(String alfabeto, String expresion){

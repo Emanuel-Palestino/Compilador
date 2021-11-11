@@ -23,12 +23,12 @@ public class VentanaConjuntos extends JDialog{
 	JButton boton;
 
     public VentanaConjuntos(JFrame parent, boolean modal, String alfabeto, String expresion, String[] encabezado, String[][] datos) {
-		super(parent, modal);
-                
+		super(parent, modal);  
+		   
 		// Iniciar componentes que se muestran en la ventana
 		inicializarInformacion();
 		rellenarInformacion(alfabeto, expresion);
-		mostrarTabla(encabezado, datos);
+		mostrarTabla(encabezado, datos);	//Para la funcion ocupa otros 4 parametros que son los encabezadosErrores,datosErrores,encabezadosId,datosId
 		ventana.setVisible(true);
 	}
 
@@ -39,7 +39,7 @@ public class VentanaConjuntos extends JDialog{
 			{"Juan", "25"},
             {"Sonia", "33"},
             {"Pedro", "42"}
-		};
+		};	
 		// Iniciar componentes que se muestran en la ventana
 		inicializarInformacion();
 		//rellenarInformacion(alfabeto, expresion);
