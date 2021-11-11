@@ -8,6 +8,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.BorderFactory;
+import javax.swing.border.TitledBorder;
 import javax.swing.JButton;
 import java.awt.event.*;
 import java.awt.*;
@@ -41,16 +43,16 @@ public class ventanaFinal extends JDialog{
             {"Pedro", "42"}
 		};
 
-		String [] encabezadoErr = {"Errores","Valor"};
+		String [] encabezadoErr = {"Errores","Valor","ejemplo"};
 		String [][] datosErrores={
-			{"a","2"},
-			{"b","3"}
+			{"a","2","33"},
+			{"b","3","32"}
 		};
 
-		String [] encabezadoId = {"Id Prueba","Valor"};
+		String [] encabezadoId = {"Id Prueba","Valor","ejemplo"};
 		String [][] datosId={
-			{"c","4"},
-			{"d","6"}
+			{"c","4","32"},
+			{"d","6","33"}
 		};
 
 		//Iniciar componentes
@@ -63,7 +65,7 @@ public class ventanaFinal extends JDialog{
 	private void inicializarInformacion(){
 		diseñoPanel = new FlowLayout(FlowLayout.LEFT,10,10);
 		ventana = new JDialog();
-		ventana.setSize(1000,720);
+		ventana.setSize(1150,940);
 		ventana.setLocationRelativeTo(null);
 		ventana.setResizable(false);
 		ventana.setLayout(diseñoPanel);
@@ -133,13 +135,18 @@ public class ventanaFinal extends JDialog{
 		tablaId.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
 		panelTabla = new JScrollPane(transiciones);
-		panelTabla.setPreferredSize(new Dimension(500,410));
-
-		panelErrores = new JScrollPane(tablaErrores);
-		panelErrores.setPreferredSize(new Dimension(200,410));
+		panelTabla.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),"1. Tabla de Tokens",TitledBorder.CENTER,TitledBorder.TOP));
+		panelTabla.setPreferredSize(new Dimension(661,650));
 
 		panelId = new JScrollPane(tablaId);
-		panelId.setPreferredSize(new Dimension(200,410));
+		panelId.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),"2. Tabla de símbolos",TitledBorder.CENTER,TitledBorder.TOP));
+		panelId.setPreferredSize(new Dimension(220,650));
+
+		panelErrores = new JScrollPane(tablaErrores);
+		panelErrores.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),"3. Tabla de Errores",TitledBorder.CENTER,TitledBorder.TOP));
+		panelErrores.setPreferredSize(new Dimension(220,650));
+
+		
 		
 		//Hacemos visible la tabla
 		ventana.add(panelTabla);
@@ -151,5 +158,6 @@ public class ventanaFinal extends JDialog{
 		textAlfabeto.setText(alfabeto);
 		textExpresionRegular.setText(expresion);
     }
-}
 
+	
+}
