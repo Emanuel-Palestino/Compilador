@@ -5,88 +5,76 @@ import java.util.Stack;
 import Utilidades.Automata;
 import Utilidades.Postfija;
 import Utilidades.Alfabeto.Alfabeto;
+import Utilidades.Excepciones.ExcepcionER;
 
 public class Thompson {
 
-	public Thompson() {
-	};
-
 	// Metodos
-	public Automata evaluarER(String expR, String cadenaAlfabeto) {
+	public Automata evaluarER(String expR, String cadenaAlfabeto) throws ExcepcionER {
 		Postfija post = new Postfija();
-		String postfija;
+		String[] postfija;
 
 		// Crear Alfabeto
-		int cantidadSimbolos = cadenaAlfabeto.length();
-		String[] simbolosAlfabeto = new String[cantidadSimbolos];
-		for (int i = 0; i < cantidadSimbolos; i++) {
-			simbolosAlfabeto[i] = "" + cadenaAlfabeto.charAt(i);
-		}
-		Alfabeto alfabeto = new Alfabeto(simbolosAlfabeto);
+		Alfabeto alfabeto = new Alfabeto(cadenaAlfabeto.split(" "));
 
 		// Transformar Expresion regular a su forma postfija
-		postfija = post.crear(expR, alfabeto);
+		postfija = post.crear(expR);
 
 		// Pila de Operandos y Operandos Automatas
-		Stack<String> operandos = new Stack<String>();
 		Stack<Automata> operandosAutomatas = new Stack<Automata>();
 
 		// Algoritmo para evaluar la expresion postfija
-		int tamaño = postfija.length();
-		String simbolo = "";
-		for (int i = 0; i < tamaño; i++) {
-			simbolo = "" + postfija.charAt(i);
+		for (String simbolo : postfija) {
 			if (alfabeto.simboloValido(simbolo)) {
-				operandos.push(simbolo);
 				operandosAutomatas.push(new Automata(simbolo));
 			} else {
 				Automata resultadoOperacion = new Automata();
 
 				// EVALUACION
-
-				if (operadorBinario(simbolo)) { // Evaluacion para operadores binarios
-					Automata operando1;
-					Automata operando2;
+				if (operadorBinario(simbolo)) {			// Evaluacion para operadores binarios
+					Automata operando1, operando2;
 					operando2 = operandosAutomatas.pop();
 					operando1 = operandosAutomatas.pop();
-					operandos.pop();
-					operandos.pop();
 
 					// Realizar operaciones
 					switch (simbolo) {
-					case "ª":
-						resultadoOperacion = concatenacion(operando1, operando2);
-						break;
-					case "|":
-						resultadoOperacion = union(operando1, operando2);
-						break;
+						case "┼":
+							resultadoOperacion = concatenacion(operando1, operando2);
+							resultadoOperacion.setId(operando1.getId() + operando2.getId());
+							break;
+						case "ı":
+							resultadoOperacion = union(operando1, operando2);
+							resultadoOperacion.setId(operando1.getId() + "|" + operando2.getId());
+							break;
 					}
-
-				} else { // Evaluacion para operadores unarios
-					Automata operando1 = operandosAutomatas.pop();
-					operandos.pop();
+				} else {			// Evaluacion para operadores unarios
+					Automata operando = operandosAutomatas.pop();
 
 					// Realizar operaciones
 					switch (simbolo) {
-					case "*":
-						resultadoOperacion = cerraduraKlenee(operando1);
-						break;
-					case "+":
-						resultadoOperacion = cerraduraPositiva(operando1);
-						break;
-					case "?":
-						resultadoOperacion = cerraduraOpcional(operando1);
-						break;
+						case "×":
+							resultadoOperacion = cerraduraKlenee(operando);
+							resultadoOperacion.setId(operando.getId() + "*");
+							break;
+						case "ß":
+							resultadoOperacion = cerraduraPositiva(operando);
+							resultadoOperacion.setId(operando.getId() + "+");
+							break;
+						case "º":
+							resultadoOperacion = cerraduraOpcional(operando);
+							resultadoOperacion.setId(operando.getId() + "?");
+							break;
 					}
-
 				}
 				operandosAutomatas.push(resultadoOperacion);
-				operandos.push("a");
 			}
-			operandos.peek();
 		}
 
-		return operandosAutomatas.pop();
+		// Asignar alfabeto al automata
+		Automata resultado = operandosAutomatas.pop();
+		resultado.setAlfabeto(alfabeto);
+
+		return resultado;
 	}
 
 	public Automata concatenacion(Automata A1, Automata A2) {
@@ -243,9 +231,9 @@ public class Thompson {
 	private boolean operadorBinario(String op) {
 		boolean resultado;
 		switch (op) {
-		case "*":
-		case "+":
-		case "?":
+		case "×":
+		case "ß":
+		case "º":
 			resultado = false;
 			break;
 		default:
@@ -254,4 +242,5 @@ public class Thompson {
 		}
 		return resultado;
 	}
+
 }

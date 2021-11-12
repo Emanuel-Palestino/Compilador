@@ -44,7 +44,7 @@ public class ListaDoblementeEnlazada {
 		actual = this.inicio;
 
 		// La segunda comparación es para que la lista quede ordeanda.
-		while (actual != null && actual.getEstadoDestino() > estadoDestino) {
+		while (actual != null && actual.getEstadoDestino() < estadoDestino) {
 			anterior = actual;
 			actual = actual.getSiguiente();
 		}

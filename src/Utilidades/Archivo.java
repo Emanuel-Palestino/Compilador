@@ -26,9 +26,16 @@ public class Archivo {
 		return contenido;
 	}
 
+	public static BufferedReader abrirArchivo(String direccionArchivo) throws FileNotFoundException {
+		FileReader archivo = null;
+		archivo = new FileReader(direccionArchivo);
+		return new BufferedReader(archivo);
+	}
+
 	public  String obtenerRutaArchivo(){
 		campoTexto=new JTextField();
 		//JFileChooser chooser = new JFileChooser();
+
 
 		JFileChooser chooser = new JFileChooser(System.getProperty("user.dir")+"\\src\\ArchivosExtra");
 		int seleccion = chooser.showOpenDialog(parent);

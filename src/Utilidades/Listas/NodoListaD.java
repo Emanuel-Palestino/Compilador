@@ -19,8 +19,8 @@ public class NodoListaD {
   public NodoListaD(NodoListaD ant, NodoListaD sig, ConjuntoEstados estados, String transicion) {
 		anterior = ant;
 		siguiente = sig;
-		estados = estados;
-		transicion = transicion;
+		this.estados = estados;
+		this.transicion = transicion;
 	}
 
   public NodoListaD(ConjuntoEstados estados, String sT) {
