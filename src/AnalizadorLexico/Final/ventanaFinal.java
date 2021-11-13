@@ -92,15 +92,8 @@ public class VentanaFinal extends JDialog{
 		boton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed (ActionEvent e) {
-				selectorArchivo.setCurrentDirectory(new java.io.File("."));
-				selectorArchivo.setDialogTitle("Selecciona tu archivo");
-				selectorArchivo.setAcceptAllFileFilterUsed(false);
-
-				if(selectorArchivo.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
-					System.out.println("getCurrentDirectory(): " + selectorArchivo.getCurrentDirectory());
-  					System.out.println("getSelectedFile() : " + selectorArchivo.getSelectedFile());
-				}
-
+				
+				/**/ 
 			}
 		});
 
