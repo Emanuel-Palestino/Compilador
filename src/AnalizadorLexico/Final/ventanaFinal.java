@@ -15,6 +15,7 @@ import javax.swing.JFileChooser;
 import java.awt.event.*;
 import java.io.File;
 import java.awt.*;
+import Utilidades.Archivo;
 
 public class VentanaFinal extends JDialog{
 	JDialog ventana;
@@ -26,6 +27,7 @@ public class VentanaFinal extends JDialog{
 	JTable transiciones,tablaErrores,tablaId;
 	JFileChooser selectorArchivo;
     JButton boton;
+    Archivo archivo;
 
     public VentanaFinal(JFrame parent, boolean modal, String alfabeto, String expresion, String[] encabezado, String[][] datos, String [] encabezadoErr, String[][] datosErrores, String [] encabezadoId, String [][] datosId) {
 		super(parent, modal);
@@ -92,8 +94,7 @@ public class VentanaFinal extends JDialog{
 		boton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed (ActionEvent e) {
-				
-				/**/ 
+                Archivo.obtenerRutaArchivo();
 			}
 		});
 
