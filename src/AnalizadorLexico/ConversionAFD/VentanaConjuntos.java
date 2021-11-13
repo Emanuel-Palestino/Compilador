@@ -18,9 +18,10 @@ public class VentanaConjuntos extends JDialog{
     JPanel panelInformacion;
     JScrollPane panelTabla;
 	JLabel lblAlfabeto, lblExpresionRegular;
-	JTextField textAlfabeto, textExpresionRegular;
+	JTextField textAlfabeto, textExpresionRegular, mostrarArchivo;
 	JTable transiciones;
 	JButton boton;
+	String prueba = "C:/Descargas/AnalizadorLexico/archivo.txt";
 
     public VentanaConjuntos(JFrame parent, boolean modal, String alfabeto, String expresion, String[] encabezado, String[][] datos) {
 		super(parent, modal);  
@@ -81,6 +82,11 @@ public class VentanaConjuntos extends JDialog{
         boton = new JButton("Buscar archivo");
         boton.setPreferredSize(new Dimension(200,30));
 
+		mostrarArchivo = new JTextField();
+		mostrarArchivo.setPreferredSize(new Dimension(350, 30));
+		mostrarArchivo.setEditable(false);
+        mostrarRutaArchivo(mostrarArchivo,prueba);
+
 		//Agregamos que el boton accione
 		boton.addActionListener(new ActionListener(){
 			@Override
@@ -117,4 +123,8 @@ public class VentanaConjuntos extends JDialog{
 		textAlfabeto.setText(alfabeto);
 		textExpresionRegular.setText(expresion);
 	}
+
+	public void mostrarRutaArchivo(JTextField mostrarText, String rutaArchvo){
+        mostrarText.setText(rutaArchvo);
+    }
 }

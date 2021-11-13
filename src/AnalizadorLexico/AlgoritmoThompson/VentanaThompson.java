@@ -19,9 +19,10 @@ public class VentanaThompson extends JDialog {
 	JPanel panelInformacion;
 	JScrollPane panelTabla;
 	JLabel lblAlfabeto, lblExpresionRegular;
-	JTextField textAlfabeto, textExpresionRegular;
+	JTextField textAlfabeto, textExpresionRegular, mostrarArchivo;
 	JTable transiciones;
 	JButton boton;
+	String prueba = "C:/Descargas/AnalizadorLexico/archivo.txt";
 
 	public VentanaThompson(JFrame parent, boolean modal, String alfabeto, String expresion, String[] encabezado, String[][] datos) {
 		super(parent, modal);
@@ -67,6 +68,11 @@ public class VentanaThompson extends JDialog {
         boton = new JButton("Buscar Archivo");
         boton.setPreferredSize(new Dimension(200,30));
 
+		mostrarArchivo = new JTextField();
+		mostrarArchivo.setPreferredSize(new Dimension(350, 30));
+		mostrarArchivo.setEditable(false);
+        mostrarRutaArchivo(mostrarArchivo,prueba);
+
 		//Agregamos que el boton accione
 		boton.addActionListener(new ActionListener(){
 			@Override
@@ -104,5 +110,9 @@ public class VentanaThompson extends JDialog {
 		textAlfabeto.setText(alfabeto);
 		textExpresionRegular.setText(expresion);
 	}
+
+	public void mostrarRutaArchivo(JTextField mostrarText, String rutaArchvo){
+        mostrarText.setText(rutaArchvo);
+    }
 
 }

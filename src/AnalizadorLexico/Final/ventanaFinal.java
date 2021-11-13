@@ -12,8 +12,8 @@ import javax.swing.BorderFactory;
 import javax.swing.border.TitledBorder;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.*;
 import java.awt.event.*;
-import java.io.File;
 import java.awt.*;
 import Utilidades.Archivo;
 
@@ -28,6 +28,8 @@ public class VentanaFinal extends JDialog{
 	JFileChooser selectorArchivo;
     JButton boton;
     Archivo archivo;
+    String prueba = "C:/Descargas/AnalizadorLexico/archivo.txt";
+    GridBagConstraints gbc = new GridBagConstraints();
 
     public VentanaFinal(JFrame parent, boolean modal, String alfabeto, String expresion, String[] encabezado, String[][] datos, String [] encabezadoErr, String[][] datosErrores, String [] encabezadoId, String [][] datosId) {
 		super(parent, modal);
@@ -70,7 +72,7 @@ public class VentanaFinal extends JDialog{
 	private void inicializarInformacion(){
 		diseñoPanel = new FlowLayout(FlowLayout.LEFT,10,10);
 		ventana = new JDialog();
-		ventana.setSize(1150,940);
+		ventana.setSize(1400,940);
 		ventana.setLocationRelativeTo(null);
 		ventana.setResizable(false);
 		ventana.setLayout(diseñoPanel);
@@ -89,20 +91,23 @@ public class VentanaFinal extends JDialog{
 		mostrarArchivo = new JTextField();
 		mostrarArchivo.setPreferredSize(new Dimension(350, 30));
 		mostrarArchivo.setEditable(false);
+        mostrarRutaArchivo(mostrarArchivo,prueba);   
 
 		//Agregamos que el boton accione
 		boton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed (ActionEvent e) {
-                Archivo.obtenerRutaArchivo();
+                /*Codigo archivo */
 			}
 		});
 
+        
 		// Agregar elementos al panel Informacion
         panelInformacion.add(boton);
 		panelInformacion.add(mostrarArchivo);
 
-		ventana.add(panelInformacion);
+        ventana.setLayout(new BorderLayout());
+		ventana.add(panelInformacion,BorderLayout.PAGE_START);
 
 	}
 
@@ -129,22 +134,20 @@ public class VentanaFinal extends JDialog{
 
 		panelTabla = new JScrollPane(transiciones);
 		panelTabla.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),"1. Tabla de Tokens",TitledBorder.CENTER,TitledBorder.TOP));
-		panelTabla.setPreferredSize(new Dimension(661,550));
+		panelTabla.setPreferredSize(new Dimension(550,550));
 
 		panelId = new JScrollPane(tablaId);
 		panelId.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),"2. Tabla de símbolos",TitledBorder.CENTER,TitledBorder.TOP));
-		panelId.setPreferredSize(new Dimension(220,550));
+		panelId.setPreferredSize(new Dimension(550,550));
 
 		panelErrores = new JScrollPane(tablaErrores);
 		panelErrores.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),"3. Tabla de Errores",TitledBorder.CENTER,TitledBorder.TOP));
-		panelErrores.setPreferredSize(new Dimension(220,550));
+		panelErrores.setPreferredSize(new Dimension(350,550));
 
-		
-		
 		//Hacemos visible la tabla
-		ventana.add(panelTabla);
-		ventana.add(panelErrores);
-		ventana.add(panelId);
+		ventana.add(panelTabla,BorderLayout.LINE_START);
+		ventana.add(panelId,BorderLayout.CENTER);
+		ventana.add(panelErrores,BorderLayout.LINE_END);
 	}
 
 	public void rellenarInformacion(String alfabeto, String expresion){
@@ -152,5 +155,7 @@ public class VentanaFinal extends JDialog{
 		textExpresionRegular.setText(expresion);
     }
 
-	
+	public void mostrarRutaArchivo(JTextField mostrarText, String rutaArchvo){
+        mostrarText.setText(rutaArchvo);
+    }
 }
