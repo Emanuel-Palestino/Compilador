@@ -11,10 +11,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.BorderFactory;
 import javax.swing.border.TitledBorder;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import java.awt.event.*;
 import java.awt.*;
-import Utilidades.Archivo;
 
 public class VentanaFinal extends JDialog{
     JDialog ventana;
@@ -24,9 +22,7 @@ public class VentanaFinal extends JDialog{
     JLabel lblAlfabeto,lblExpresionRegular;
     JTextField textAlfabeto,textExpresionRegular,mostrarArchivo;
     JTable transiciones,tablaErrores,tablaId;
-    JFileChooser selectorArchivo;
     JButton boton;
-    Archivo archivo;
     
 
     public VentanaFinal(JFrame parent, boolean modal, String alfabeto, String expresion, String[] encabezado, String[][] datos, String [] encabezadoErr, String[][] datosErrores, String [] encabezadoId, String [][] datosId,String rutaArchivo) {
@@ -68,7 +64,7 @@ public class VentanaFinal extends JDialog{
   private void inicializarInformacion(String rutaArchivo){
     diseñoPanel = new FlowLayout(FlowLayout.LEFT,10,10);
     ventana = new JDialog();
-    ventana.setSize(1400,940);
+    ventana.setSize(1400,760);
     ventana.setLocationRelativeTo(null);
     ventana.setResizable(false);
     ventana.setLayout(diseñoPanel);
@@ -80,30 +76,33 @@ public class VentanaFinal extends JDialog{
     panelInformacion.setLayout(diseñoPanel);
     
 
-        //agregamos boton
-        boton = new JButton("Buscar Archivo");
-        boton.setPreferredSize(new Dimension(130,30));
+    //agregamos boton
+    boton = new JButton("Buscar Archivo");
+    boton.setPreferredSize(new Dimension(130,30));
 
     mostrarArchivo = new JTextField();
     mostrarArchivo.setPreferredSize(new Dimension(350, 30));
     mostrarArchivo.setEditable(false);
-        mostrarRutaArchivo(rutaArchivo);   
+    mostrarRutaArchivo(rutaArchivo);   
 
     //Agregamos que el boton accione
     boton.addActionListener(new ActionListener(){
       @Override
       public void actionPerformed (ActionEvent e) {
-                /*Codigo archivo */
+          /*Codigo archivo */
+          //rutaNueva = ruta del archivo que saca del codigo;
+          rutaArchivo = "C:/compilador/ejemplo2"
+          mostrarRutaArchivo(rutaArchivo); 
       }
     });
 
         
     // Agregar elementos al panel Informacion
-        panelInformacion.add(mostrarArchivo);
-        panelInformacion.add(boton);
+    panelInformacion.add(mostrarArchivo);
+    panelInformacion.add(boton);
     
 
-        ventana.setLayout(new BorderLayout());
+    ventana.setLayout(new BorderLayout());
     ventana.add(panelInformacion,BorderLayout.PAGE_START);
 
   }
