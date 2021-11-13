@@ -36,7 +36,7 @@ public class VentanaFinal extends JDialog{
     inicializarInformacion(rutaArchivo);
     mostrarTabla(encabezado, datos,encabezadoErr,datosErrores,encabezadoId,datosId); 
     ventana.setVisible(true);
-  }
+    }
 
   public VentanaFinal(JFrame parent, boolean modal, String rutaArchivo){
     super(parent,modal); 
