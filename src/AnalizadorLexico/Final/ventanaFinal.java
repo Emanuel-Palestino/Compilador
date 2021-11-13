@@ -11,20 +11,23 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.BorderFactory;
 import javax.swing.border.TitledBorder;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import java.awt.event.*;
+import java.io.File;
 import java.awt.*;
 
-public class ventanaFinal extends JDialog{
+public class VentanaFinal extends JDialog{
 	JDialog ventana;
     FlowLayout diseñoPanel;
     JPanel panelInformacion;
     JScrollPane panelTabla,panelErrores,panelId;
 	JLabel lblAlfabeto,lblExpresionRegular;
-	JTextField textAlfabeto,textExpresionRegular;
+	JTextField textAlfabeto,textExpresionRegular,mostrarArchivo;
 	JTable transiciones,tablaErrores,tablaId;
+	JFileChooser selectorArchivo;
     JButton boton;
 
-    public ventanaFinal(JFrame parent, boolean modal, String alfabeto, String expresion, String[] encabezado, String[][] datos, String [] encabezadoErr, String[][] datosErrores, String [] encabezadoId, String [][] datosId) {
+    public VentanaFinal(JFrame parent, boolean modal, String alfabeto, String expresion, String[] encabezado, String[][] datos, String [] encabezadoErr, String[][] datosErrores, String [] encabezadoId, String [][] datosId) {
 		super(parent, modal);
                 
 		// Iniciar componentes que se muestran en la ventana
@@ -34,7 +37,7 @@ public class ventanaFinal extends JDialog{
 		ventana.setVisible(true);
 	}
 
-	public ventanaFinal(JFrame parent, boolean modal){
+	public VentanaFinal(JFrame parent, boolean modal){
 		super(parent,modal); 
 		String [] encabezado = {"Encabezado prueba"};
 		String [][] datos ={
@@ -76,38 +79,34 @@ public class ventanaFinal extends JDialog{
 		panelInformacion.setPreferredSize(new Dimension(500,200));
 		panelInformacion.setLayout(diseñoPanel);
 		
-		lblAlfabeto = new JLabel("Alfabeto: ");
-        lblAlfabeto.setPreferredSize(new Dimension(200, 30));
-
-		textAlfabeto = new JTextField();
-		textAlfabeto.setPreferredSize(new Dimension(200, 30));
-		textAlfabeto.setEditable(false);
-
-		lblExpresionRegular = new JLabel("Expresión Regular:");
-		lblExpresionRegular.setPreferredSize(new Dimension(200, 30));
-
-		textExpresionRegular = new JTextField();
-		textExpresionRegular.setPreferredSize(new Dimension(200, 30));
-		textExpresionRegular.setEditable(false);
 
         //agregamos boton
         boton = new JButton("Buscar Archivo");
-        boton.setPreferredSize(new Dimension(200,30));
+        boton.setPreferredSize(new Dimension(130,30));
+
+		mostrarArchivo = new JTextField();
+		mostrarArchivo.setPreferredSize(new Dimension(350, 30));
+		mostrarArchivo.setEditable(false);
 
 		//Agregamos que el boton accione
 		boton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed (ActionEvent e) {
-				/*Codigo para buscar archivo*/
+				selectorArchivo.setCurrentDirectory(new java.io.File("."));
+				selectorArchivo.setDialogTitle("Selecciona tu archivo");
+				selectorArchivo.setAcceptAllFileFilterUsed(false);
+
+				if(selectorArchivo.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
+					System.out.println("getCurrentDirectory(): " + selectorArchivo.getCurrentDirectory());
+  					System.out.println("getSelectedFile() : " + selectorArchivo.getSelectedFile());
+				}
+
 			}
 		});
 
 		// Agregar elementos al panel Informacion
-		panelInformacion.add(lblAlfabeto);
-		panelInformacion.add(textAlfabeto);
-		panelInformacion.add(lblExpresionRegular);
-		panelInformacion.add(textExpresionRegular);
         panelInformacion.add(boton);
+		panelInformacion.add(mostrarArchivo);
 
 		ventana.add(panelInformacion);
 
@@ -136,15 +135,15 @@ public class ventanaFinal extends JDialog{
 
 		panelTabla = new JScrollPane(transiciones);
 		panelTabla.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),"1. Tabla de Tokens",TitledBorder.CENTER,TitledBorder.TOP));
-		panelTabla.setPreferredSize(new Dimension(661,650));
+		panelTabla.setPreferredSize(new Dimension(661,550));
 
 		panelId = new JScrollPane(tablaId);
 		panelId.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),"2. Tabla de símbolos",TitledBorder.CENTER,TitledBorder.TOP));
-		panelId.setPreferredSize(new Dimension(220,650));
+		panelId.setPreferredSize(new Dimension(220,550));
 
 		panelErrores = new JScrollPane(tablaErrores);
 		panelErrores.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),"3. Tabla de Errores",TitledBorder.CENTER,TitledBorder.TOP));
-		panelErrores.setPreferredSize(new Dimension(220,650));
+		panelErrores.setPreferredSize(new Dimension(220,550));
 
 		
 		
