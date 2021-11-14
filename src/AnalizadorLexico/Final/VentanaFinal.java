@@ -23,7 +23,7 @@ public class VentanaFinal extends JDialog{
     JTextField textAlfabeto,textExpresionRegular,mostrarArchivo;
     JTable transiciones,tablaErrores,tablaId;
     JButton boton;
-    
+    String rutaNueva;
 
     public VentanaFinal(JFrame parent, boolean modal, String alfabeto, String expresion, String[] encabezado, String[][] datos, String [] encabezadoErr, String[][] datosErrores, String [] encabezadoId, String [][] datosId,String rutaArchivo) {
     super(parent, modal);
@@ -91,8 +91,8 @@ public class VentanaFinal extends JDialog{
       public void actionPerformed (ActionEvent e) {
           /*Codigo archivo */
           //rutaNueva = ruta del archivo que saca del codigo;
-          rutaArchivo = "C:/compilador/ejemplo2"
-          mostrarRutaArchivo(rutaArchivo); 
+          rutaNueva = "C:/compilador/ejemplo2";
+          mostrarRutaArchivo(rutaNueva); 
       }
     });
 
