@@ -177,9 +177,9 @@ public class VentanaFinal extends JDialog{
         mostrarRutaArchivo.setText(rutaArchvo);
     }
 
-	public void editarTabla(String[][] datosCambio, String[][] datosErroresCambio,  String[][] datosSimbolosCambio){
+	public void editarTabla(String[][] datosTokensCambio, String[][] datosErroresCambio,  String[][] datosSimbolosCambio){
 		//Para efectos de las pruebas solo le puse el "(prueba)" para ver si cambiaba pero como seran las mismas columnas cambiarlo
-		modeloTablaTokens.setDataVector(datosCambio,encabezadoErroresFinal);
+		modeloTablaTokens.setDataVector(datosTokensCambio,encabezadoErroresFinal);
 		modeloTablaErrores.setDataVector(datosErroresCambio,encabezadoErroresFinal);
 		modeloTablaSimbolos.setDataVector(datosSimbolosCambio,encabezadoVariablesFinal);
 
