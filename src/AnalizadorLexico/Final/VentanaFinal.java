@@ -17,178 +17,174 @@ public class VentanaFinal extends JDialog{
     JDialog ventana;
     FlowLayout diseñoPanel;
     JPanel panelInformacion;
-    JScrollPane panelTabla,panelErrores,panelId;
+    JScrollPane panelTablaTokens,panelTablaErrores,panelTablaSimbolos;
     JTextField mostrarRutaArchivo;
-    JTable tablaTokens,tablaErrores,tablaId;
-    JButton boton;
+    JTable tablaTokens,tablaErrores,tablaSimbolos;
+    JButton botonArchivo;
     String rutaNueva;
 
+     //encabezados tablas
+    String [] encabezadoTokensFinal = {"# linea", "Lexema", "Token"};
+    String [] encabezadoErroresFinal = {"# Linea","Descripción"};
+    String [] encabezadoVariablesFinal = {"Id ","Valor","Función"};
+
     //Modelos de tabla
-    DefaultTableModel modeloTokens = new DefaultTableModel();
-    DefaultTableModel modeloErrores = new DefaultTableModel();
-    DefaultTableModel modeloId = new DefaultTableModel();
+    DefaultTableModel modeloTablaTokens = new DefaultTableModel();
+    DefaultTableModel modeloTablaErrores = new DefaultTableModel();
+    DefaultTableModel modeloTablaSimbolos = new DefaultTableModel();
     
-    String [][] datosCambio ={
-      {"1", "int","int"},
-      {"1", "prueba","prueba"},
-      {"1", "(","("},
-      {"1", ")",")"}
-    };
-
-    String [][] datosErroresCambio={
-          {"","En función 'prueba'"},
-          {"2","Error: # simbolo no definido"},
-          {"2","Error: id no tipado"}
-    };
-
-    String [][] datosIdCambio={
-          {"a","34","prueba"},
-          {"g","23","prueba"},
-          {"acumulador","0","prueba"}
-    };
+    
 
     public VentanaFinal(JFrame parent, boolean modal, String alfabeto, String expresion, String[] encabezado, String[][] datos, String [] encabezadoErr, String[][] datosErrores, String [] encabezadoId, String [][] datosId,String rutaArchivo) {
-    super(parent, modal);
-                
-    // Iniciar componentes que se muestran en la ventana
-    inicializarInformacion(rutaArchivo);
-    mostrarTabla(datos,datosErrores,datosId); 
-    ventana.setVisible(true);
+        super(parent, modal);
+                      
+        inicializarInformacion(rutaArchivo);
+        mostrarTabla(datos,datosErrores,datosId); 
+        ventana.setVisible(true);
     }
 
-  public VentanaFinal(JFrame parent, boolean modal, String rutaArchivo){
-    super(parent,modal); 
-    String [][] datos ={
-        {"1", "int","int"},
-        {"1", "main","main"},
-        {"1", "(","("}
-    };
+  	public VentanaFinal(JFrame parent, boolean modal, String rutaArchivo){
+        super(parent,modal); 
 
-    String [][] datosErrores={
-        {"","En función 'main'"},
-        {"2","Error: @ simbolo no definido"}
-    };
+        String [][] datos ={
+            {"1", "int","int"},
+            {"1", "main","main"},
+            {"1", "(","("}
+        };
 
-    String [][] datosId={
-        {"c","4","32"},
-        {"d","6","33"}
-    };
+        String [][] datosErrores={
+            {"","En función 'main'"},
+            {"2","Error: @ simbolo no definido"}
+		};
 
-    //Iniciar componentes
-    inicializarInformacion(rutaArchivo);
-    mostrarTabla(datos,datosErrores,datosId);
-    ventana.setVisible(true);
-  }
+        String [][] datosId={
+            {"c","4","32"},
+            {"d","6","33"}
+        };
 
-  private void inicializarInformacion(String rutaArchivo){
-    
-    diseñoPanel = new FlowLayout(FlowLayout.LEFT,10,10);
-    ventana = new JDialog();
-    ventana.setSize(1400,760);
-    ventana.setLocationRelativeTo(null);
-    ventana.setResizable(false);
-    ventana.setLayout(diseñoPanel);
+		inicializarInformacion(rutaArchivo);
+		mostrarTabla(datos,datosErrores,datosId);
+		ventana.setVisible(true);
+  	}
 
-    ventana.setTitle("Analizador Lexico");
+	private void inicializarInformacion(String rutaArchivo){
+	  	//Strings de prueba
+		String [][] datosTokensPrueba ={
+			{"1", "int","int"},
+			{"1", "prueba","prueba"},
+			{"1", "(","("},
+			{"1", ")",")"}
+		};
 
-    panelInformacion = new JPanel();
-    panelInformacion.setPreferredSize(new Dimension(500,200));
-    panelInformacion.setLayout(diseñoPanel);
-    
+		String [][] datosErroresPrueba={
+			{"","En función 'prueba'"},
+			{"2","Error: # simbolo no definido"},
+			{"2","Error: id no tipado"}
+		};
 
-    //agregamos boton
-    boton = new JButton("Buscar Archivo");
-    boton.setPreferredSize(new Dimension(130,30));
+		String [][] datosSimbolosPrueba={
+			{"a","34","prueba"},
+			{"g","23","prueba"},
+			{"acumulador","0","prueba"}
+		};
+		diseñoPanel = new FlowLayout(FlowLayout.LEFT,10,10);
+		ventana = new JDialog();
+		ventana.setSize(1400,760);
+		ventana.setLocationRelativeTo(null);
+		ventana.setResizable(false);
+		ventana.setLayout(diseñoPanel);
+		
+		ventana.setTitle("Analizador Lexico");
 
-    mostrarRutaArchivo = new JTextField();
-    mostrarRutaArchivo.setPreferredSize(new Dimension(350, 30));
-    mostrarRutaArchivo.setEditable(false);
-    mostrarRutaArchivo(rutaArchivo);   
+		panelInformacion = new JPanel();
+		panelInformacion.setPreferredSize(new Dimension(500,200));
+		panelInformacion.setLayout(diseñoPanel);
 
-    //Agregamos que el boton accione
-    boton.addActionListener(new ActionListener(){
-      @Override
-      public void actionPerformed (ActionEvent e) {
-          /*Codigo archivo */
-          //rutaNueva = ruta del archivo que saca del codigo;
-          rutaNueva = "C:/compilador/ejemplo2";
-          mostrarRutaArchivo(rutaNueva);
-          editarTabla(datosCambio, datosErroresCambio, datosIdCambio);
-      }
-    });
 
-    // Agregar elementos al panel Informacion
-    panelInformacion.add(mostrarRutaArchivo);
-    panelInformacion.add(boton);
-    
+		//agregamos boton
+		botonArchivo = new JButton("Buscar Archivo");
+		botonArchivo.setPreferredSize(new Dimension(130,30));
 
-    ventana.setLayout(new BorderLayout());
-    ventana.add(panelInformacion,BorderLayout.PAGE_START);
+		mostrarRutaArchivo = new JTextField();
+		mostrarRutaArchivo.setPreferredSize(new Dimension(350, 30));
+		mostrarRutaArchivo.setEditable(false);
+		mostrarRutaArchivo(rutaArchivo);   
 
-  }
+		//Agregamos que el boton accione
+		botonArchivo.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed (ActionEvent e) {
+				/*Codigo archivo */
+				//rutaNueva = ruta del archivo que saca del codigo;
+				rutaNueva = "C:/compilador/ejemplo2";
+				mostrarRutaArchivo(rutaNueva);
+				editarTabla(datosTokensPrueba, datosErroresPrueba, datosSimbolosPrueba);
+			}
+		});
+
+		// Agregar elementos al panel Informacion
+		panelInformacion.add(mostrarRutaArchivo);
+		panelInformacion.add(botonArchivo);
+	
+
+		ventana.setLayout(new BorderLayout());    
+		ventana.add(panelInformacion,BorderLayout.PAGE_START);
+	}
 
   
-  public void mostrarTabla( String[][] datos, String[][] datosErrores,  String[][] datosId){
-    String [] encabezado = {"# linea", "Lexema", "Token"};
-    String [] encabezadoErrores = {"# Linea","Descripción"};
-    String [] encabezadoId = {"Id ","Valor","Función"};
+	public void mostrarTabla( String[][] datos, String[][] datosErrores,  String[][] datosId){
+		modeloTablaTokens.setDataVector(datos, encabezadoTokensFinal);
+		modeloTablaErrores.setDataVector(datosErrores, encabezadoErroresFinal);
+		modeloTablaSimbolos.setDataVector(datosId,encabezadoVariablesFinal);
 
-    modeloTokens.setDataVector(datos, encabezado);
-    modeloErrores.setDataVector(datosErrores, encabezadoErrores);
-    modeloId.setDataVector(datosId,encabezadoId);
+		tablaTokens = new JTable();
+		tablaTokens.setEnabled(false);
+		tablaTokens.getTableHeader().setReorderingAllowed(false);
+		tablaTokens.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-    tablaTokens = new JTable();
-    tablaTokens.setEnabled(false);
-    tablaTokens.getTableHeader().setReorderingAllowed(false);
-    tablaTokens.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		tablaErrores = new JTable();
+		tablaErrores.setEnabled(false);
+		tablaErrores.getTableHeader().setReorderingAllowed(false);
 
-    tablaErrores = new JTable();
-    tablaErrores.setEnabled(false);
-    tablaErrores.getTableHeader().setReorderingAllowed(false);
+		tablaSimbolos = new JTable();
+		tablaSimbolos.setEnabled(false);
+		tablaSimbolos.getTableHeader().setReorderingAllowed(false);
+		tablaSimbolos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-    tablaId = new JTable();
-    tablaId.setEnabled(false);
-    tablaId.getTableHeader().setReorderingAllowed(false);
-    tablaId.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		panelTablaTokens = new JScrollPane(tablaTokens);
+		panelTablaTokens.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),"1. Tabla de Tokens",TitledBorder.CENTER,TitledBorder.TOP));
+		panelTablaTokens.setPreferredSize(new Dimension(550,550));
 
-    panelTabla = new JScrollPane(tablaTokens);
-    panelTabla.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),"1. Tabla de Tokens",TitledBorder.CENTER,TitledBorder.TOP));
-    panelTabla.setPreferredSize(new Dimension(550,550));
+		panelTablaSimbolos = new JScrollPane(tablaSimbolos);
+		panelTablaSimbolos.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),"2. Tabla de símbolos",TitledBorder.CENTER,TitledBorder.TOP));
+		panelTablaSimbolos.setPreferredSize(new Dimension(550,550));
 
-    panelId = new JScrollPane(tablaId);
-    panelId.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),"2. Tabla de símbolos",TitledBorder.CENTER,TitledBorder.TOP));
-    panelId.setPreferredSize(new Dimension(550,550));
+		panelTablaErrores = new JScrollPane(tablaErrores);
+		panelTablaErrores.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),"3. Tabla de Errores",TitledBorder.CENTER,TitledBorder.TOP));
+		panelTablaErrores.setPreferredSize(new Dimension(350,550));
 
-    panelErrores = new JScrollPane(tablaErrores);
-    panelErrores.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),"3. Tabla de Errores",TitledBorder.CENTER,TitledBorder.TOP));
-    panelErrores.setPreferredSize(new Dimension(350,550));
+		tablaTokens.setModel(modeloTablaTokens);
+		tablaSimbolos.setModel(modeloTablaSimbolos);
+		tablaErrores.setModel(modeloTablaErrores);
 
-    tablaTokens.setModel(modeloTokens);
-    tablaId.setModel(modeloId);
-    tablaErrores.setModel(modeloErrores);
+		//Hacemos visible la tabla
+		ventana.add(panelTablaTokens,BorderLayout.LINE_START);
+		ventana.add(panelTablaSimbolos,BorderLayout.CENTER);
+		ventana.add(panelTablaErrores,BorderLayout.LINE_END);
+	}
 
-    //Hacemos visible la tabla
-    ventana.add(panelTabla,BorderLayout.LINE_START);
-    ventana.add(panelId,BorderLayout.CENTER);
-    ventana.add(panelErrores,BorderLayout.LINE_END);
-  }
-
-  public void mostrarRutaArchivo(String rutaArchvo){
+  	public void mostrarRutaArchivo(String rutaArchvo){
         mostrarRutaArchivo.setText(rutaArchvo);
     }
 
-  public void editarTabla(String[][] datosCambio, String[][] datosErroresCambio,  String[][] datosIdCambio){
-    //Para efectos de las pruebas solo le puse el "(prueba)" para ver si cambiaba pero como seran las mismas columnas cambiarlo
-    String [] encabezadoPruebas = {"# linea (prueba)", "Lexema(prueba)", "Token(prueba)"};
-    String [] encabezadoErroresPruebas = {"# Linea(prueba)","Descripción(prueba)"};
-    String [] encabezadoIdPruebas = {"Id(prueba) ","Valor(prueba)","Función(prueba)"};
+	public void editarTabla(String[][] datosCambio, String[][] datosErroresCambio,  String[][] datosSimbolosCambio){
+		//Para efectos de las pruebas solo le puse el "(prueba)" para ver si cambiaba pero como seran las mismas columnas cambiarlo
+		modeloTablaTokens.setDataVector(datosCambio,encabezadoErroresFinal);
+		modeloTablaErrores.setDataVector(datosErroresCambio,encabezadoErroresFinal);
+		modeloTablaSimbolos.setDataVector(datosSimbolosCambio,encabezadoVariablesFinal);
 
-    modeloTokens.setDataVector(datosCambio,encabezadoPruebas);
-    modeloErrores.setDataVector(datosErroresCambio,encabezadoErroresPruebas);
-    modeloId.setDataVector(datosIdCambio,encabezadoIdPruebas);
-
-    modeloTokens.fireTableDataChanged();
-    modeloErrores.fireTableDataChanged();
-    modeloId.fireTableDataChanged();
-  }
+		modeloTablaTokens.fireTableDataChanged();
+		modeloTablaErrores.fireTableDataChanged();
+		modeloTablaSimbolos.fireTableDataChanged();
+	}
 }
