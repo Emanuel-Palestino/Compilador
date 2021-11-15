@@ -181,7 +181,7 @@ public class VentanaFinal extends JDialog{
 
 	public void editarTabla(String[][] datosTokensCambio, String[][] datosErroresCambio,  String[][] datosSimbolosCambio){
 		//Para efectos de las pruebas solo le puse el "(prueba)" para ver si cambiaba pero como seran las mismas columnas cambiarlo
-		modeloTablaTokens.setDataVector(datosTokensCambio,encabezadoErrores);
+		modeloTablaTokens.setDataVector(datosTokensCambio,encabezadoTokens);
 		modeloTablaErrores.setDataVector(datosErroresCambio,encabezadoErrores);
 		modeloTablaSimbolos.setDataVector(datosSimbolosCambio,encabezadoVariables);
 
