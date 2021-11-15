@@ -1,6 +1,6 @@
 package Utilidades.Excepciones;
 
-public class ExcepcionLexico extends Exception{
+public class ExcepcionLexico extends Exception {
 	public int posicionCadena;
 	public String simbolo;
 

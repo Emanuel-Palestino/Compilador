@@ -4,12 +4,12 @@ import java.awt.Component;
 import java.io.*;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
-import javax.swing.*;	
+import javax.swing.*;
 
 public class Archivo {
 
-	private  Component parent;
-	private  JTextField campoTexto;
+	private Component parent;
+	private JTextField campoTexto;
 	String rutaText;
 
 	public ArrayList<String> capturaDatosArchivo(String direccionArchivo) throws FileNotFoundException, IOException {
@@ -30,16 +30,16 @@ public class Archivo {
 		return new BufferedReader(archivo);
 	}
 
-	public  String obtenerRutaArchivo(){
-		campoTexto=new JTextField();
-		JFileChooser chooser = new JFileChooser(System.getProperty("user.dir")+"\\src\\ArchivosExtra");
+	public String obtenerRutaArchivo() {
+		campoTexto = new JTextField();
+		JFileChooser chooser = new JFileChooser(System.getProperty("user.dir") + "\\src\\ArchivosExtra");
 		int seleccion = chooser.showOpenDialog(parent);
 		String rutaAux = "";
 
-		if(seleccion==JFileChooser.APPROVE_OPTION){
+		if (seleccion == JFileChooser.APPROVE_OPTION) {
 			File archivoSeleccionado = chooser.getSelectedFile();
 			campoTexto.setText(archivoSeleccionado.getAbsolutePath());
-			rutaAux=archivoSeleccionado.getAbsolutePath();
+			rutaAux = archivoSeleccionado.getAbsolutePath();
 		}
 		return rutaAux;
 	}

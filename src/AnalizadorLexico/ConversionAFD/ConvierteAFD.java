@@ -2,24 +2,13 @@ package AnalizadorLexico.ConversionAFD;
 
 import java.util.ArrayList;
 
-import AnalizadorLexico.AlgoritmoThompson.Thompson;
 import Utilidades.Automata;
 import Utilidades.AutomataDeterminista;
 import Utilidades.ConjuntoEstados;
 import Utilidades.Alfabeto.Alfabeto;
-import Utilidades.Excepciones.ExcepcionER;
 import Utilidades.Listas.ListaDoblementeEnlazadaD;
 
 public class ConvierteAFD {
-
-	public static void main(String[] args) throws ExcepcionER {
-		Thompson thomp = new Thompson();
-		Automata AFN = thomp.evaluarER("┌ a ı b ┐ × ┼ a ┼ b ┼ b", "a b");
-		// Automata AFN = thomp.evaluarER("i ┼ f ı letra ┼ ┌ letra ı digito ┐ ×", "i f
-		// letra digito");
-		AutomataDeterminista resultado = ConvierteAFD.convierte(AFN);
-		System.out.println("s");
-	}
 
 	public ArrayList<ListaDoblementeEnlazadaD> convierteAFD(Automata automata) {
 
@@ -119,11 +108,9 @@ public class ConvierteAFD {
 		if (inicio.getEstados().contains(AFN.getNumEstados() - 1))
 			inicio.setEstadoFinal(true);
 
-
 		ListaDoblementeEnlazadaD ini = new ListaDoblementeEnlazadaD();
 		ini.setEstado(inicio);
 		adyacencia.add(ini);
-
 
 		// Obtener Alfabeto del AFD
 		Alfabeto alfabeto = resultado.getAlfabeto();
@@ -221,24 +208,17 @@ public class ConvierteAFD {
 
 				// Insertar U como transicion a la Adyacencia (Tabla de Estados Deterministas)
 				// Comprobar si estadosD.get(i) está en adyacencia
-				/* bandera = false;
-				ListaDoblementeEnlazadaD adya = null;
-				for (ListaDoblementeEnlazadaD T : adyacencia) {
-					if (T.getEstado().equals(estadosD.get(i))) {
-						bandera = true;
-						adya = T;
-						break;
-					}
-				}
-				if (!bandera) { // estadosD.get(i) no está en adyacencia
-					ListaDoblementeEnlazadaD lista = new ListaDoblementeEnlazadaD();
-					lista.insertar(U, transicion);
-					lista.setEstado(estadosD.get(i));
-					adyacencia.add(lista);
-				} else { // estadosD.get(i) ya está en adyacencia
-					adya.insertar(U, transicion);
-				} */
-				
+				/*
+				 * bandera = false; ListaDoblementeEnlazadaD adya = null; for
+				 * (ListaDoblementeEnlazadaD T : adyacencia) { if
+				 * (T.getEstado().equals(estadosD.get(i))) { bandera = true; adya = T; break; }
+				 * } if (!bandera) { // estadosD.get(i) no está en adyacencia
+				 * ListaDoblementeEnlazadaD lista = new ListaDoblementeEnlazadaD();
+				 * lista.insertar(U, transicion); lista.setEstado(estadosD.get(i));
+				 * adyacencia.add(lista); } else { // estadosD.get(i) ya está en adyacencia
+				 * adya.insertar(U, transicion); }
+				 */
+
 				ListaDoblementeEnlazadaD adya = null;
 				for (ListaDoblementeEnlazadaD T : adyacencia) {
 					if (T.getEstado().equals(estadosD.get(i))) {

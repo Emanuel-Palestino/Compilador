@@ -11,7 +11,7 @@ import Utilidades.Excepciones.ExcepcionER;
 import Utilidades.Listas.ListaDoblementeEnlazadaD;
 import Utilidades.Listas.NodoListaD;
 
-public class IniciarConjuntos{
+public class IniciarConjuntos {
 
     public static void main(String[] args) throws FileNotFoundException, IOException, ExcepcionER {
         new IniciarConjuntos();
@@ -24,7 +24,6 @@ public class IniciarConjuntos{
         Automata AFN = thomp.evaluarER(expr.get(1), expr.get(0));
         AutomataDeterminista AFD = ConvierteAFD.convierte(AFN);
 
-
         String[] encabezado = new String[AFD.getAlfabeto().getLista().size() + 1];
         encabezado[0] = "Estado";
         for (int i = 0; i < AFD.getAlfabeto().getLista().size(); i++)
@@ -33,7 +32,7 @@ public class IniciarConjuntos{
         // Rellenar matriz con datos
         String[][] datos = new String[AFD.getTotalEstados()][encabezado.length];
 
-        for(int i = 0; i < AFD.getTotalEstados(); i++) {
+        for (int i = 0; i < AFD.getTotalEstados(); i++) {
             ListaDoblementeEnlazadaD transiciones = AFD.getTransiciones(i);
             datos[i][0] = transiciones.getEstado().getId();
 
@@ -63,7 +62,7 @@ public class IniciarConjuntos{
 
         }
 
-        new VentanaConjuntos(null,false, expr.get(0), expr.get(1), encabezado, datos);   
-        
+        new VentanaConjuntos(null, false, expr.get(0), expr.get(1), encabezado, datos);
+
     }
 }

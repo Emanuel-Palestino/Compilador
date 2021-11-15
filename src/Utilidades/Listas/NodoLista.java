@@ -1,14 +1,14 @@
 package Utilidades.Listas;
 
 public class NodoLista {
-	
+
 	private NodoLista anterior, siguiente;
-	private int estadoDestino;	
+	private int estadoDestino;
 	private String simboloTransicion;
 
 	public NodoLista() {
 		anterior = null;
-		siguiente  = null;
+		siguiente = null;
 		estadoDestino = -1;
 		simboloTransicion = null;
 	}

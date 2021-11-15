@@ -6,7 +6,6 @@ public class ResultadoAnalisisLexico {
 	private String[][] simbolos;
 	private String[][] errores;
 
-
 	// Getters and Setters
 	public String[][] getTokens() {
 		return tokens;
@@ -31,5 +30,5 @@ public class ResultadoAnalisisLexico {
 	public void setErrores(String[][] tablaErrores) {
 		errores = tablaErrores;
 	}
-	
+
 }

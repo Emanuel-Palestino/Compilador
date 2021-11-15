@@ -16,7 +16,7 @@ public class Automata {
 		totalEstados = 0;
 		adyacencia = null;
 		alfabeto = null;
-	}	
+	}
 
 	public Automata(Automata a) {
 		totalEstados = a.getNumEstados();
@@ -83,7 +83,6 @@ public class Automata {
 		adyacencia[estado] = tran;
 	}
 
-
 	public String[] getSimbolosTransiciones(int estado) {
 		ArrayList<String> resultado = new ArrayList<String>();
 		NodoLista aux = null;
@@ -97,9 +96,9 @@ public class Automata {
 			aux = aux.getSiguiente();
 		}
 
-		// Devolver Arreglo 
+		// Devolver Arreglo
 		String[] res = new String[resultado.size()];
-		for(int i = 0; i < res.length; i++)
+		for (int i = 0; i < res.length; i++)
 			res[i] = resultado.get(i);
 		return res;
 	}
@@ -112,14 +111,14 @@ public class Automata {
 		} catch (NullPointerException e) {
 			System.out.println("Advertencia El estado (" + estado + ") no contiene transiciones.");
 		}
-		while(aux != null) {
+		while (aux != null) {
 			if (aux.getSimbolo().equals(simbolo))
 				resultado.add(aux.getEstadoDestino());
 			aux = aux.getSiguiente();
 		}
 
 		// Devolver Arreglo
-		int [] res = new int[resultado.size()];
+		int[] res = new int[resultado.size()];
 		for (int i = 0; i < res.length; i++)
 			res[i] = resultado.get(i);
 		return res;

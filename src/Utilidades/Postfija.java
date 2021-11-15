@@ -30,7 +30,7 @@ public class Postfija {
 
 		while (!operadores.empty())
 			post.add(operadores.pop());
-		
+
 		return post.toArray(new String[0]);
 	}
 

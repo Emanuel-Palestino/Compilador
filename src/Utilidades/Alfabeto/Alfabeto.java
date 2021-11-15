@@ -44,7 +44,7 @@ public class Alfabeto {
 		char digito = s.charAt(0);
 		return Character.isDigit(digito);
 	}
-	
+
 	public String[] obtenerArreglo() {
 		int tamaño = simbolos.size();
 		String[] res = new String[tamaño];

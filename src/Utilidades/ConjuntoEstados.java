@@ -22,7 +22,7 @@ public class ConjuntoEstados {
 
 	public void setMarcado(Boolean marcado) {
 		this.marcado = marcado;
-	}	
+	}
 
 	public String getId() {
 		return id;
@@ -47,5 +47,5 @@ public class ConjuntoEstados {
 	public Boolean esFinal() {
 		return estadoFinal;
 	}
-	
+
 }

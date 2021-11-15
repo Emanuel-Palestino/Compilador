@@ -3,17 +3,16 @@ package Utilidades.Listas;
 import Utilidades.ConjuntoEstados;
 
 public class ListaDoblementeEnlazadaD {
-  
-  private NodoListaD inicio;
-  private NodoListaD fin;
-  private ConjuntoEstados estado;
 
+	private NodoListaD inicio;
+	private NodoListaD fin;
+	private ConjuntoEstados estado;
 
-  public ListaDoblementeEnlazadaD() {
-    inicio = null;
-    fin = null;
-	estado = new ConjuntoEstados();
-  }
+	public ListaDoblementeEnlazadaD() {
+		inicio = null;
+		fin = null;
+		estado = new ConjuntoEstados();
+	}
 
 	// Getters and Setters
 	public NodoListaD getInicio() {
@@ -40,7 +39,7 @@ public class ListaDoblementeEnlazadaD {
 		estado = conjunto;
 	}
 
-  public void insertar(ConjuntoEstados estadoDestino, String simbolo) {
+	public void insertar(ConjuntoEstados estadoDestino, String simbolo) {
 		NodoListaD nuevo, actual, anterior;
 		nuevo = new NodoListaD(estadoDestino, simbolo);
 		anterior = null;

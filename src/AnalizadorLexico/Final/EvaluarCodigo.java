@@ -16,11 +16,6 @@ import Utilidades.Excepciones.ExcepcionLexico;
 
 public class EvaluarCodigo {
 
-	public static void main(String[] args) throws IOException, ExcepcionER {
-		ResultadoAnalisisLexico res = EvaluarCodigo.evaluar("src/ArchivosExtra/programa.js");
-		System.out.println("algo");
-	}
-
 	public static ResultadoAnalisisLexico evaluar(String rutaArchivo) throws IOException, ExcepcionER {
 		BufferedReader contenidoArchivo = Archivo.abrirArchivo(rutaArchivo);
 		ResultadoAnalisisLexico resultado = new ResultadoAnalisisLexico();
@@ -56,7 +51,6 @@ public class EvaluarCodigo {
 			if (!palabras.peek().equals(""))
 				palabras.push("");
 			// Recorrer linea leida
-			char[] caracteres = linea.toCharArray();
 			for (int i = 0; i < linea.length(); i++) {
 				palabras.push(palabras.pop() + linea.charAt(i));
 				try {
@@ -165,8 +159,8 @@ public class EvaluarCodigo {
 							ArrayList<String> filaErrores = new ArrayList<String>();
 							filaErrores.add("" + numLinea);
 							filaErrores.add("Error: símbolo " + e.simbolo + " no definido.");
-							//erroresLinea.add("" + numLinea);
-							//erroresDescripcion.add("Error: símbolo " + e.simbolo + " no definido.");
+							// erroresLinea.add("" + numLinea);
+							// erroresDescripcion.add("Error: símbolo " + e.simbolo + " no definido.");
 							errores.add(filaErrores);
 						}
 					}
@@ -184,19 +178,19 @@ public class EvaluarCodigo {
 		// Rellenar los Resultados
 		String[][] tiraTokensArr = new String[tiraTokens.size()][3];
 		for (int i = 0; i < tiraTokens.size(); i++) {
-			for ( int j = 0; j < 3; j++) {
+			for (int j = 0; j < 3; j++) {
 				tiraTokensArr[i][j] = tiraTokens.get(i).get(j);
 			}
 		}
 		String[][] simbolosArr = new String[simbolos.size()][3];
 		for (int i = 0; i < simbolos.size(); i++) {
-			for ( int j = 0; j < 3; j++) {
+			for (int j = 0; j < 3; j++) {
 				simbolosArr[i][j] = simbolos.get(i).get(j);
 			}
 		}
 		String[][] erroresArr = new String[errores.size()][2];
 		for (int i = 0; i < errores.size(); i++) {
-			for ( int j = 0; j < 2; j++) {
+			for (int j = 0; j < 2; j++) {
 				erroresArr[i][j] = errores.get(i).get(j);
 			}
 		}

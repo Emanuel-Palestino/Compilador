@@ -12,10 +12,6 @@ import Utilidades.Listas.NodoLista;
 
 public class IniciarThompson {
 
-	public static void main(String[] args) throws FileNotFoundException, IOException, ExcepcionER {
-		new IniciarThompson();
-	}
-
 	public IniciarThompson() throws FileNotFoundException, IOException, ExcepcionER {
 		Thompson thomp = new Thompson();
 		Archivo file = new Archivo();
@@ -65,7 +61,7 @@ public class IniciarThompson {
 					// poner entre llaves
 					if (datos[i][pos].equals("-"))
 						datos[i][pos] = "" + tran.getEstadoDestino();
-					else if (datos[i][pos].matches("\\d+")) {		// saber si es un digito
+					else if (datos[i][pos].matches("\\d+")) { // saber si es un digito
 						datos[i][pos] = "{" + datos[i][pos] + "," + tran.getEstadoDestino() + "}";
 					} else {
 						datos[i][pos] = datos[i][pos].replace("}", "," + tran.getEstadoDestino() + "}");

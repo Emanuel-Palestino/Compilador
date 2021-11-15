@@ -31,39 +31,39 @@ public class Thompson {
 				Automata resultadoOperacion = new Automata();
 
 				// EVALUACION
-				if (operadorBinario(simbolo)) {			// Evaluacion para operadores binarios
+				if (operadorBinario(simbolo)) { // Evaluacion para operadores binarios
 					Automata operando1, operando2;
 					operando2 = operandosAutomatas.pop();
 					operando1 = operandosAutomatas.pop();
 
 					// Realizar operaciones
 					switch (simbolo) {
-						case "┼":
-							resultadoOperacion = concatenacion(operando1, operando2);
-							resultadoOperacion.setId(operando1.getId() + operando2.getId());
-							break;
-						case "ı":
-							resultadoOperacion = union(operando1, operando2);
-							resultadoOperacion.setId(operando1.getId() + "|" + operando2.getId());
-							break;
+					case "┼":
+						resultadoOperacion = concatenacion(operando1, operando2);
+						resultadoOperacion.setId(operando1.getId() + operando2.getId());
+						break;
+					case "ı":
+						resultadoOperacion = union(operando1, operando2);
+						resultadoOperacion.setId(operando1.getId() + "|" + operando2.getId());
+						break;
 					}
-				} else {			// Evaluacion para operadores unarios
+				} else { // Evaluacion para operadores unarios
 					Automata operando = operandosAutomatas.pop();
 
 					// Realizar operaciones
 					switch (simbolo) {
-						case "×":
-							resultadoOperacion = cerraduraKlenee(operando);
-							resultadoOperacion.setId(operando.getId() + "*");
-							break;
-						case "ß":
-							resultadoOperacion = cerraduraPositiva(operando);
-							resultadoOperacion.setId(operando.getId() + "+");
-							break;
-						case "º":
-							resultadoOperacion = cerraduraOpcional(operando);
-							resultadoOperacion.setId(operando.getId() + "?");
-							break;
+					case "×":
+						resultadoOperacion = cerraduraKlenee(operando);
+						resultadoOperacion.setId(operando.getId() + "*");
+						break;
+					case "ß":
+						resultadoOperacion = cerraduraPositiva(operando);
+						resultadoOperacion.setId(operando.getId() + "+");
+						break;
+					case "º":
+						resultadoOperacion = cerraduraOpcional(operando);
+						resultadoOperacion.setId(operando.getId() + "?");
+						break;
 					}
 				}
 				operandosAutomatas.push(resultadoOperacion);

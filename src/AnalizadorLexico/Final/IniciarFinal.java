@@ -9,7 +9,7 @@ public class IniciarFinal {
 
 	public IniciarFinal() {
 		try {
-			
+
 			ResultadoAnalisisLexico res = EvaluarCodigo.evaluar("src/ArchivosExtra/programa.js");
 
 			// Imprimir Resultado en consola
@@ -56,5 +56,5 @@ public class IniciarFinal {
 			e.printStackTrace();
 		}
 	}
-	
+
 }

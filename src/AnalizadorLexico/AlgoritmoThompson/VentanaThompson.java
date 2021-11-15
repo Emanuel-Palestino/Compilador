@@ -24,9 +24,10 @@ public class VentanaThompson extends JDialog {
 	JButton boton;
 	String prueba = "C:/Descargas/AnalizadorLexico/archivo.txt";
 
-	public VentanaThompson(JFrame parent, boolean modal, String alfabeto, String expresion, String[] encabezado, String[][] datos) {
+	public VentanaThompson(JFrame parent, boolean modal, String alfabeto, String expresion, String[] encabezado,
+			String[][] datos) {
 		super(parent, modal);
-                
+
 		// Iniciar componentes que se muestran en la ventana
 		inicializarInformacion();
 		rellenarInformacion(alfabeto, expresion);
@@ -64,20 +65,20 @@ public class VentanaThompson extends JDialog {
 		textExpresionRegular.setPreferredSize(new Dimension(200, 30));
 		textExpresionRegular.setEditable(false);
 
-		//agregamos boton
-        boton = new JButton("Buscar Archivo");
-        boton.setPreferredSize(new Dimension(200,30));
+		// agregamos boton
+		boton = new JButton("Buscar Archivo");
+		boton.setPreferredSize(new Dimension(200, 30));
 
 		mostrarArchivo = new JTextField();
 		mostrarArchivo.setPreferredSize(new Dimension(350, 30));
 		mostrarArchivo.setEditable(false);
-        mostrarRutaArchivo(mostrarArchivo,prueba);
+		mostrarRutaArchivo(mostrarArchivo, prueba);
 
-		//Agregamos que el boton accione
-		boton.addActionListener(new ActionListener(){
+		// Agregamos que el boton accione
+		boton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed (ActionEvent e) {
-				/*Codigo para buscar archivo*/
+			public void actionPerformed(ActionEvent e) {
+				/* Codigo para buscar archivo */
 			}
 		});
 
@@ -87,7 +88,6 @@ public class VentanaThompson extends JDialog {
 		panelInformacion.add(lblExpresionRegular);
 		panelInformacion.add(textExpresionRegular);
 		panelInformacion.add(boton);
-
 
 		// Integrar elementos a la ventana y mostrar
 		ventana.add(panelInformacion);
@@ -111,8 +111,8 @@ public class VentanaThompson extends JDialog {
 		textExpresionRegular.setText(expresion);
 	}
 
-	public void mostrarRutaArchivo(JTextField mostrarText, String rutaArchvo){
-        mostrarText.setText(rutaArchvo);
-    }
+	public void mostrarRutaArchivo(JTextField mostrarText, String rutaArchvo) {
+		mostrarText.setText(rutaArchvo);
+	}
 
 }

@@ -14,7 +14,6 @@ public class AutomataDeterminista {
 		alfabeto = null;
 	}
 
-
 	// Getters and Setters
 	public int getTotalEstados() {
 		return totalEstados;

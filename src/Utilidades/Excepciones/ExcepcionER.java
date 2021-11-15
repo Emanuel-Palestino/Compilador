@@ -1,6 +1,6 @@
 package Utilidades.Excepciones;
 
-public class ExcepcionER extends Exception{
+public class ExcepcionER extends Exception {
 
 	public ExcepcionER() {
 		super();
@@ -10,5 +10,5 @@ public class ExcepcionER extends Exception{
 	public String getMessage() {
 		return "Error: Expresión Regular mal escrita.";
 	}
-	
+
 }
