@@ -2,7 +2,6 @@ package AnalizadorLexico.Final;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -19,49 +18,70 @@ public class VentanaFinal extends JDialog{
     FlowLayout diseñoPanel;
     JPanel panelInformacion;
     JScrollPane panelTabla,panelErrores,panelId;
-    JLabel lblAlfabeto,lblExpresionRegular;
-    JTextField textAlfabeto,textExpresionRegular,mostrarArchivo;
-    JTable transiciones,tablaErrores,tablaId;
+    JTextField mostrarRutaArchivo;
+    JTable tablaTokens,tablaErrores,tablaId;
     JButton boton;
     String rutaNueva;
+
+    //Modelos de tabla
+    DefaultTableModel modeloTokens = new DefaultTableModel();
+    DefaultTableModel modeloErrores = new DefaultTableModel();
+    DefaultTableModel modeloId = new DefaultTableModel();
+    
+    String [][] datosCambio ={
+      {"1", "int","int"},
+      {"1", "prueba","prueba"},
+      {"1", "(","("},
+      {"1", ")",")"}
+    };
+
+    String [][] datosErroresCambio={
+          {"","En función 'prueba'"},
+          {"2","Error: # simbolo no definido"},
+          {"2","Error: id no tipado"}
+    };
+
+    String [][] datosIdCambio={
+          {"a","34","prueba"},
+          {"g","23","prueba"},
+          {"acumulador","0","prueba"}
+    };
 
     public VentanaFinal(JFrame parent, boolean modal, String alfabeto, String expresion, String[] encabezado, String[][] datos, String [] encabezadoErr, String[][] datosErrores, String [] encabezadoId, String [][] datosId,String rutaArchivo) {
     super(parent, modal);
                 
     // Iniciar componentes que se muestran en la ventana
     inicializarInformacion(rutaArchivo);
-    mostrarTabla(encabezado, datos,encabezadoErr,datosErrores,encabezadoId,datosId); 
+    mostrarTabla(datos,datosErrores,datosId); 
     ventana.setVisible(true);
     }
 
   public VentanaFinal(JFrame parent, boolean modal, String rutaArchivo){
     super(parent,modal); 
-    String [] encabezado = {"# linea", "Lexema", "Token"};
     String [][] datos ={
-      {"1", "int","int"},
-            {"1", "main","main"},
-            {"1", "(","("}
+        {"1", "int","int"},
+        {"1", "main","main"},
+        {"1", "(","("}
     };
 
-    String [] encabezadoErr = {"# Linea","Descripción"};
     String [][] datosErrores={
-      {"","En función 'main'"},
-      {"2","Error: @ simbolo no definido"}
+        {"","En función 'main'"},
+        {"2","Error: @ simbolo no definido"}
     };
 
-    String [] encabezadoId = {"Id ","Valor","Función"};
     String [][] datosId={
-      {"c","4","32"},
-      {"d","6","33"}
+        {"c","4","32"},
+        {"d","6","33"}
     };
 
     //Iniciar componentes
     inicializarInformacion(rutaArchivo);
-    mostrarTabla(encabezado, datos,encabezadoErr,datosErrores,encabezadoId,datosId);
+    mostrarTabla(datos,datosErrores,datosId);
     ventana.setVisible(true);
   }
 
   private void inicializarInformacion(String rutaArchivo){
+    
     diseñoPanel = new FlowLayout(FlowLayout.LEFT,10,10);
     ventana = new JDialog();
     ventana.setSize(1400,760);
@@ -80,9 +100,9 @@ public class VentanaFinal extends JDialog{
     boton = new JButton("Buscar Archivo");
     boton.setPreferredSize(new Dimension(130,30));
 
-    mostrarArchivo = new JTextField();
-    mostrarArchivo.setPreferredSize(new Dimension(350, 30));
-    mostrarArchivo.setEditable(false);
+    mostrarRutaArchivo = new JTextField();
+    mostrarRutaArchivo.setPreferredSize(new Dimension(350, 30));
+    mostrarRutaArchivo.setEditable(false);
     mostrarRutaArchivo(rutaArchivo);   
 
     //Agregamos que el boton accione
@@ -92,13 +112,13 @@ public class VentanaFinal extends JDialog{
           /*Codigo archivo */
           //rutaNueva = ruta del archivo que saca del codigo;
           rutaNueva = "C:/compilador/ejemplo2";
-          mostrarRutaArchivo(rutaNueva); 
+          mostrarRutaArchivo(rutaNueva);
+          editarTabla(datosCambio, datosErroresCambio, datosIdCambio);
       }
     });
 
-        
     // Agregar elementos al panel Informacion
-    panelInformacion.add(mostrarArchivo);
+    panelInformacion.add(mostrarRutaArchivo);
     panelInformacion.add(boton);
     
 
@@ -108,26 +128,30 @@ public class VentanaFinal extends JDialog{
   }
 
   
-  public void mostrarTabla(String [] encabezado, String[][] datos, String[] encabezadoErrores, String[][] datosErrores, String[] encabezadoId, String[][] datosId){
-    DefaultTableModel modeloTabla = new DefaultTableModel(datos,encabezado);
-    DefaultTableModel modeloErrores = new DefaultTableModel(datosErrores,encabezadoErrores);
-    DefaultTableModel modeloId = new DefaultTableModel(datosId,encabezadoId);
+  public void mostrarTabla( String[][] datos, String[][] datosErrores,  String[][] datosId){
+    String [] encabezado = {"# linea", "Lexema", "Token"};
+    String [] encabezadoErrores = {"# Linea","Descripción"};
+    String [] encabezadoId = {"Id ","Valor","Función"};
 
-    transiciones = new JTable(modeloTabla);
-    transiciones.setEnabled(false);
-    transiciones.getTableHeader().setReorderingAllowed(false);
-    transiciones.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+    modeloTokens.setDataVector(datos, encabezado);
+    modeloErrores.setDataVector(datosErrores, encabezadoErrores);
+    modeloId.setDataVector(datosId,encabezadoId);
 
-    tablaErrores = new JTable(modeloErrores);
+    tablaTokens = new JTable();
+    tablaTokens.setEnabled(false);
+    tablaTokens.getTableHeader().setReorderingAllowed(false);
+    tablaTokens.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+    tablaErrores = new JTable();
     tablaErrores.setEnabled(false);
     tablaErrores.getTableHeader().setReorderingAllowed(false);
 
-    tablaId = new JTable(modeloId);
+    tablaId = new JTable();
     tablaId.setEnabled(false);
     tablaId.getTableHeader().setReorderingAllowed(false);
     tablaId.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-    panelTabla = new JScrollPane(transiciones);
+    panelTabla = new JScrollPane(tablaTokens);
     panelTabla.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),"1. Tabla de Tokens",TitledBorder.CENTER,TitledBorder.TOP));
     panelTabla.setPreferredSize(new Dimension(550,550));
 
@@ -139,6 +163,10 @@ public class VentanaFinal extends JDialog{
     panelErrores.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),"3. Tabla de Errores",TitledBorder.CENTER,TitledBorder.TOP));
     panelErrores.setPreferredSize(new Dimension(350,550));
 
+    tablaTokens.setModel(modeloTokens);
+    tablaId.setModel(modeloId);
+    tablaErrores.setModel(modeloErrores);
+
     //Hacemos visible la tabla
     ventana.add(panelTabla,BorderLayout.LINE_START);
     ventana.add(panelId,BorderLayout.CENTER);
@@ -146,6 +174,21 @@ public class VentanaFinal extends JDialog{
   }
 
   public void mostrarRutaArchivo(String rutaArchvo){
-        mostrarArchivo.setText(rutaArchvo);
+        mostrarRutaArchivo.setText(rutaArchvo);
     }
+
+  public void editarTabla(String[][] datosCambio, String[][] datosErroresCambio,  String[][] datosIdCambio){
+    //Para efectos de las pruebas solo le puse el "(prueba)" para ver si cambiaba pero como seran las mismas columnas cambiarlo
+    String [] encabezadoPruebas = {"# linea (prueba)", "Lexema(prueba)", "Token(prueba)"};
+    String [] encabezadoErroresPruebas = {"# Linea(prueba)","Descripción(prueba)"};
+    String [] encabezadoIdPruebas = {"Id(prueba) ","Valor(prueba)","Función(prueba)"};
+
+    modeloTokens.setDataVector(datosCambio,encabezadoPruebas);
+    modeloErrores.setDataVector(datosErroresCambio,encabezadoErroresPruebas);
+    modeloId.setDataVector(datosIdCambio,encabezadoIdPruebas);
+
+    modeloTokens.fireTableDataChanged();
+    modeloErrores.fireTableDataChanged();
+    modeloId.fireTableDataChanged();
+  }
 }
