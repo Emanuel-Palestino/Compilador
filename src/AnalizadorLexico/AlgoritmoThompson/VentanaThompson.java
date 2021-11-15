@@ -14,7 +14,6 @@ import java.awt.*;
 
 public class VentanaThompson extends JDialog {
 
-	JDialog ventana;
 	FlowLayout diseñoPanel;
 	JPanel panelInformacion;
 	JScrollPane panelTabla;
@@ -28,23 +27,22 @@ public class VentanaThompson extends JDialog {
 			String[][] datos) {
 		super(parent, modal);
 
-		// Iniciar componentes que se muestran en la ventana
+		// Iniciar componentes que se muestran en la this
 		inicializarInformacion();
 		rellenarInformacion(alfabeto, expresion);
 		mostrarTabla(encabezado, datos);
-		ventana.setVisible(true);
+		this.setVisible(true);
 	}
 
 	private void inicializarInformacion() {
-		// Propiedades de la ventana
+		// Propiedades de la this
 		diseñoPanel = new FlowLayout(FlowLayout.LEFT, 10, 10);
-		ventana = new JDialog();
-		ventana.setSize(1000, 680);
-		ventana.setLocationRelativeTo(null);
-		ventana.setResizable(false);
-		ventana.setLayout(diseñoPanel);
+		this.setSize(1000, 680);
+		this.setLocationRelativeTo(null);
+		this.setResizable(false);
+		this.setLayout(diseñoPanel);
 
-		ventana.setTitle("Algoritmo de Thompson");
+		this.setTitle("Algoritmo de Thompson");
 
 		// Mostrar Alfabeto y Expresión regular
 		panelInformacion = new JPanel();
@@ -89,8 +87,8 @@ public class VentanaThompson extends JDialog {
 		panelInformacion.add(textExpresionRegular);
 		panelInformacion.add(boton);
 
-		// Integrar elementos a la ventana y mostrar
-		ventana.add(panelInformacion);
+		// Integrar elementos a la this y mostrar
+		this.add(panelInformacion);
 	}
 
 	public void mostrarTabla(String[] encabezado, String[][] datos) {
@@ -103,7 +101,7 @@ public class VentanaThompson extends JDialog {
 		panelTabla = new JScrollPane(transiciones);
 		panelTabla.setPreferredSize(new Dimension(960, 410));
 
-		ventana.add(panelTabla);
+		this.add(panelTabla);
 	}
 
 	public void rellenarInformacion(String alfabeto, String expresion) {

@@ -3,7 +3,7 @@ package AnalizadorLexico.AlgoritmoThompson;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-
+import javax.swing.JFrame;
 import Utilidades.Archivo;
 import Utilidades.Automata;
 import Utilidades.Excepciones.ExcepcionER;
@@ -12,10 +12,9 @@ import Utilidades.Listas.NodoLista;
 
 public class IniciarThompson {
 
-	public IniciarThompson() throws FileNotFoundException, IOException, ExcepcionER {
+	public IniciarThompson(JFrame parent) throws FileNotFoundException, IOException, ExcepcionER {
 		Thompson thomp = new Thompson();
-		Archivo file = new Archivo();
-		ArrayList<String> expr = file.capturaDatosArchivo("src/ArchivosExtra/ExpresionRegular.txt");
+		ArrayList<String> expr = Archivo.capturaDatosArchivo("src/ArchivosExtra/ExpresionRegular.txt");
 		Automata result = thomp.evaluarER(expr.get(1), expr.get(0));
 
 		String[] alfa = expr.get(0).split(" ");
@@ -72,7 +71,7 @@ public class IniciarThompson {
 			}
 		}
 
-		new VentanaThompson(null, false, expr.get(0), expr.get(1), encabezado, datos);
+		new VentanaThompson(parent, true, expr.get(0), expr.get(1), encabezado, datos);
 	}
 
 }

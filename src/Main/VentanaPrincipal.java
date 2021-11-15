@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import AnalizadorLexico.ConversionAFD.IniciarConjuntos;
+import AnalizadorLexico.Final.IniciarFinal;
 import AnalizadorLexico.AlgoritmoThompson.IniciarThompson;
 import Utilidades.ImagenFondo;
 import Utilidades.Excepciones.ExcepcionER;
@@ -17,6 +18,7 @@ public class VentanaPrincipal extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JLabel label1;
+    private final JFrame ventanaPrincipal = this;
 
     public VentanaPrincipal() {
         super("Compilador");
@@ -78,7 +80,7 @@ public class VentanaPrincipal extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent ev) {
                     try {
-                        new IniciarThompson();
+                        new IniciarThompson(ventanaPrincipal);
                     } catch (IOException | ExcepcionER e) {
                         e.printStackTrace();
                     }
@@ -90,7 +92,7 @@ public class VentanaPrincipal extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent ev) {
                     try {
-                        new IniciarConjuntos();
+                        new IniciarConjuntos(ventanaPrincipal);
                     } catch (IOException | ExcepcionER e) {
                         e.printStackTrace();
                     }
@@ -101,7 +103,7 @@ public class VentanaPrincipal extends JFrame {
             botonAnalizadorlex.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent ev) {
-                    // POR AGREGAR FINAL
+                    new IniciarFinal(ventanaPrincipal);
                 }
             });
         }

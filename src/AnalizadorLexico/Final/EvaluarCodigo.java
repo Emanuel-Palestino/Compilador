@@ -22,8 +22,7 @@ public class EvaluarCodigo {
 
 		// Cargar expresion regular para reconocer el lexico
 		Thompson thomp = new Thompson();
-		Archivo file = new Archivo();
-		ArrayList<String> expr = file.capturaDatosArchivo("src/ArchivosExtra/ExpresionRegular.txt");
+		ArrayList<String> expr = Archivo.capturaDatosArchivo("src/ArchivosExtra/ExpresionRegular.txt");
 		Automata AFN = thomp.evaluarER(expr.get(1), expr.get(0));
 		AutomataDeterminista AFD = ConvierteAFD.convierte(AFN);
 

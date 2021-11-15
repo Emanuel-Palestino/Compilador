@@ -3,6 +3,7 @@ package AnalizadorLexico.ConversionAFD;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import AnalizadorLexico.AlgoritmoThompson.Thompson;
 import Utilidades.Archivo;
 import Utilidades.Automata;
@@ -13,10 +14,9 @@ import Utilidades.Listas.NodoListaD;
 
 public class IniciarConjuntos {
 
-    public IniciarConjuntos() throws FileNotFoundException, IOException, ExcepcionER {
+    public IniciarConjuntos(JFrame parent) throws FileNotFoundException, IOException, ExcepcionER {
         Thompson thomp = new Thompson();
-        Archivo file = new Archivo();
-        ArrayList<String> expr = file.capturaDatosArchivo("src/ArchivosExtra/ExpresionRegular.txt");
+        ArrayList<String> expr = Archivo.capturaDatosArchivo("src/ArchivosExtra/ExpresionRegular.txt");
         Automata AFN = thomp.evaluarER(expr.get(1), expr.get(0));
         AutomataDeterminista AFD = ConvierteAFD.convierte(AFN);
 
@@ -58,7 +58,7 @@ public class IniciarConjuntos {
 
         }
 
-        new VentanaConjuntos(null, false, expr.get(0), expr.get(1), encabezado, datos);
+        new VentanaConjuntos(parent, true, expr.get(0), expr.get(1), encabezado, datos);
 
     }
 }

@@ -13,7 +13,6 @@ import java.awt.event.*;
 import java.awt.*;
 
 public class VentanaConjuntos extends JDialog {
-	JDialog ventana;
 	FlowLayout diseñoPanel;
 	JPanel panelInformacion;
 	JScrollPane panelTabla;
@@ -27,34 +26,33 @@ public class VentanaConjuntos extends JDialog {
 			String[][] datos) {
 		super(parent, modal);
 
-		// Iniciar componentes que se muestran en la ventana
+		// Iniciar componentes que se muestran en la this
 		inicializarInformacion();
 		rellenarInformacion(alfabeto, expresion);
 		mostrarTabla(encabezado, datos); // Para la funcion ocupa otros 4 parametros que son los
 											// encabezadosErrores,datosErrores,encabezadosId,datosId
-		ventana.setVisible(true);
+		this.setVisible(true);
 	}
 
 	public VentanaConjuntos(JFrame parent, boolean modal) {
 		super(parent, modal);
 		String[] encabezado = { "Encabezado prueba" };
 		String[][] datos = { { "Juan", "25" }, { "Sonia", "33" }, { "Pedro", "42" } };
-		// Iniciar componentes que se muestran en la ventana
+		// Iniciar componentes que se muestran en la this
 		inicializarInformacion();
 		// rellenarInformacion(alfabeto, expresion);
 		mostrarTabla(encabezado, datos);
-		ventana.setVisible(true);
+		this.setVisible(true);
 	}
 
 	private void inicializarInformacion() {
 		diseñoPanel = new FlowLayout(FlowLayout.LEFT, 10, 10);
-		ventana = new JDialog();
-		ventana.setSize(1000, 680);
-		ventana.setLocationRelativeTo(null);
-		ventana.setResizable(false);
-		ventana.setLayout(diseñoPanel);
+		this.setSize(1000, 680);
+		this.setLocationRelativeTo(null);
+		this.setResizable(false);
+		this.setLayout(diseñoPanel);
 
-		ventana.setTitle("Algoritmo de Construcción de Conjuntos");
+		this.setTitle("Algoritmo de Construcción de Conjuntos");
 
 		// Muestra el AFN o una expresión regular
 		panelInformacion = new JPanel();
@@ -99,7 +97,7 @@ public class VentanaConjuntos extends JDialog {
 		panelInformacion.add(textExpresionRegular);
 		panelInformacion.add(boton);
 
-		ventana.add(panelInformacion);
+		this.add(panelInformacion);
 	}
 
 	public void mostrarTabla(String[] encabezado, String[][] datos) {
@@ -113,7 +111,7 @@ public class VentanaConjuntos extends JDialog {
 		panelTabla.setPreferredSize(new Dimension(960, 410));
 
 		// Hacemos visible la tabla
-		ventana.add(panelTabla);
+		this.add(panelTabla);
 	}
 
 	public void rellenarInformacion(String alfabeto, String expresion) {
