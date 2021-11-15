@@ -24,9 +24,9 @@ public class VentanaFinal extends JDialog{
     String rutaNueva;
 
      //encabezados tablas
-    String [] encabezadoTokensFinal = {"# linea", "Lexema", "Token"};
-    String [] encabezadoErroresFinal = {"# Linea","Descripción"};
-    String [] encabezadoVariablesFinal = {"Id ","Valor","Función"};
+    final String [] encabezadoTokens = {"# linea", "Lexema", "Token"};
+    final String [] encabezadoErrores = {"# Linea","Descripción"};
+    final String [] encabezadoVariables = {"Id ","Valor","Función"};
 
     //Modelos de tabla
     DefaultTableModel modeloTablaTokens = new DefaultTableModel();
@@ -35,7 +35,7 @@ public class VentanaFinal extends JDialog{
     
     
 
-    public VentanaFinal(JFrame parent, boolean modal, String alfabeto, String expresion, String[] encabezado, String[][] datos, String [] encabezadoErr, String[][] datosErrores, String [] encabezadoId, String [][] datosId,String rutaArchivo) {
+    public VentanaFinal(JFrame parent, boolean modal,String[][] datos, String[][] datosErrores, String [][] datosId, String rutaArchivo) {
         super(parent, modal);
                       
         inicializarInformacion(rutaArchivo);
@@ -69,24 +69,7 @@ public class VentanaFinal extends JDialog{
 
 	private void inicializarInformacion(String rutaArchivo){
 	  	//Strings de prueba
-		String [][] datosTokensPrueba ={
-			{"1", "int","int"},
-			{"1", "prueba","prueba"},
-			{"1", "(","("},
-			{"1", ")",")"}
-		};
-
-		String [][] datosErroresPrueba={
-			{"","En función 'prueba'"},
-			{"2","Error: # simbolo no definido"},
-			{"2","Error: id no tipado"}
-		};
-
-		String [][] datosSimbolosPrueba={
-			{"a","34","prueba"},
-			{"g","23","prueba"},
-			{"acumulador","0","prueba"}
-		};
+		
 		diseñoPanel = new FlowLayout(FlowLayout.LEFT,10,10);
 		ventana = new JDialog();
 		ventana.setSize(1400,760);
@@ -116,6 +99,25 @@ public class VentanaFinal extends JDialog{
 			public void actionPerformed (ActionEvent e) {
 				/*Codigo archivo */
 				//rutaNueva = ruta del archivo que saca del codigo;
+				String [][] datosTokensPrueba ={
+					{"1", "int","int"},
+					{"1", "prueba","prueba"},
+					{"1", "(","("},
+					{"1", ")",")"}
+				};
+		
+				String [][] datosErroresPrueba={
+					{"","En función 'prueba'"},
+					{"2","Error: # simbolo no definido"},
+					{"2","Error: id no tipado"}
+				};
+		
+				String [][] datosSimbolosPrueba={
+					{"a","34","prueba"},
+					{"g","23","prueba"},
+					{"acumulador","0","prueba"}
+				};
+
 				rutaNueva = "C:/compilador/ejemplo2";
 				mostrarRutaArchivo(rutaNueva);
 				editarTabla(datosTokensPrueba, datosErroresPrueba, datosSimbolosPrueba);
@@ -133,9 +135,9 @@ public class VentanaFinal extends JDialog{
 
   
 	public void mostrarTabla( String[][] datos, String[][] datosErrores,  String[][] datosId){
-		modeloTablaTokens.setDataVector(datos, encabezadoTokensFinal);
-		modeloTablaErrores.setDataVector(datosErrores, encabezadoErroresFinal);
-		modeloTablaSimbolos.setDataVector(datosId,encabezadoVariablesFinal);
+		modeloTablaTokens.setDataVector(datos, encabezadoTokens);
+		modeloTablaErrores.setDataVector(datosErrores, encabezadoErrores);
+		modeloTablaSimbolos.setDataVector(datosId,encabezadoVariables);
 
 		tablaTokens = new JTable();
 		tablaTokens.setEnabled(false);
@@ -179,9 +181,9 @@ public class VentanaFinal extends JDialog{
 
 	public void editarTabla(String[][] datosTokensCambio, String[][] datosErroresCambio,  String[][] datosSimbolosCambio){
 		//Para efectos de las pruebas solo le puse el "(prueba)" para ver si cambiaba pero como seran las mismas columnas cambiarlo
-		modeloTablaTokens.setDataVector(datosTokensCambio,encabezadoErroresFinal);
-		modeloTablaErrores.setDataVector(datosErroresCambio,encabezadoErroresFinal);
-		modeloTablaSimbolos.setDataVector(datosSimbolosCambio,encabezadoVariablesFinal);
+		modeloTablaTokens.setDataVector(datosTokensCambio,encabezadoErrores);
+		modeloTablaErrores.setDataVector(datosErroresCambio,encabezadoErrores);
+		modeloTablaSimbolos.setDataVector(datosSimbolosCambio,encabezadoVariables);
 
 		modeloTablaTokens.fireTableDataChanged();
 		modeloTablaErrores.fireTableDataChanged();
