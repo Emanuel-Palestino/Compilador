@@ -13,10 +13,6 @@ import Utilidades.Listas.NodoListaD;
 
 public class IniciarConjuntos {
 
-    public static void main(String[] args) throws FileNotFoundException, IOException, ExcepcionER {
-        new IniciarConjuntos();
-    }
-
     public IniciarConjuntos() throws FileNotFoundException, IOException, ExcepcionER {
         Thompson thomp = new Thompson();
         Archivo file = new Archivo();
