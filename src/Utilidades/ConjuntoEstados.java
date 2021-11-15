@@ -7,11 +7,13 @@ public class ConjuntoEstados {
 	private Boolean marcado;
 	private String id;
 	private ArrayList<Integer> estados;
+	private Boolean estadoFinal;
 
 	public ConjuntoEstados() {
 		marcado = false;
 		id = "";
 		estados = new ArrayList<>();
+		estadoFinal = false;
 	}
 
 	public Boolean getMarcado() {
@@ -34,8 +36,16 @@ public class ConjuntoEstados {
 		this.id = id;
 	}
 
+	public void setEstadoFinal(Boolean fin) {
+		estadoFinal = fin;
+	}
+
 	public void insertarEstado(int estado) {
 		estados.add(estado);
+	}
+
+	public Boolean esFinal() {
+		return estadoFinal;
 	}
 	
 }

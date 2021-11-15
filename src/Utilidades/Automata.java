@@ -2,17 +2,20 @@ package Utilidades;
 
 import java.util.ArrayList;
 
+import Utilidades.Alfabeto.Alfabeto;
 import Utilidades.Listas.*;
 
 public class Automata {
 	private String id;
 	private int totalEstados;
 	private ListaDoblementeEnlazada[] adyacencia;
+	private Alfabeto alfabeto;
 
 	public Automata() {
 		id = null;
 		totalEstados = 0;
 		adyacencia = null;
+		alfabeto = null;
 	}	
 
 	public Automata(Automata a) {
@@ -53,6 +56,10 @@ public class Automata {
 		return adyacencia[estado];
 	}
 
+	public Alfabeto getAlfabeto() {
+		return alfabeto;
+	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -61,12 +68,12 @@ public class Automata {
 		totalEstados = t;
 	}
 
+	public void setAlfabeto(Alfabeto alf) {
+		alfabeto = alf;
+	}
+
 	// Metodos
 	public void insertarTransicion(int estadoOrigen, int estadoDestino, String simbolo) {
-
-/* 		List<ArrayList<NodoLista>> listOfLists = new ArrayList<ArrayList<NodoLista>>();
-		listOfLists.get(0); */
-
 		if (adyacencia[estadoOrigen] == null)
 			adyacencia[estadoOrigen] = new ListaDoblementeEnlazada();
 		adyacencia[estadoOrigen].insertar(estadoDestino, simbolo);
@@ -83,7 +90,7 @@ public class Automata {
 		try {
 			aux = adyacencia[estado].getInicio();
 		} catch (NullPointerException e) {
-			System.out.println("Advertencia El estado (" + estado + ") no contiene transiciones.");
+			System.out.println("Advertencia: El estado (" + estado + ") no contiene transiciones.");
 		}
 		while (aux != null) {
 			resultado.add(aux.getSimbolo());
@@ -92,9 +99,8 @@ public class Automata {
 
 		// Devolver Arreglo 
 		String[] res = new String[resultado.size()];
-		for(int i = 0; i < res.length; i++) {
+		for(int i = 0; i < res.length; i++)
 			res[i] = resultado.get(i);
-		}
 		return res;
 	}
 
@@ -116,14 +122,11 @@ public class Automata {
 		int [] res = new int[resultado.size()];
 		for (int i = 0; i < res.length; i++)
 			res[i] = resultado.get(i);
-		
 		return res;
 	}
 
 	public String[][] getMatrizAdyacencia() {
 		return new String[0][0];
 	}
-	// Eliminar Nodo
-	// Buscar Nodo
 
 }
