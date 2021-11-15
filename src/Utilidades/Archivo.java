@@ -4,9 +4,7 @@ import java.awt.Component;
 import java.io.*;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
-import javax.swing.*;
-
-
+import javax.swing.*;	
 
 public class Archivo {
 
@@ -34,9 +32,6 @@ public class Archivo {
 
 	public  String obtenerRutaArchivo(){
 		campoTexto=new JTextField();
-		//JFileChooser chooser = new JFileChooser();
-
-
 		JFileChooser chooser = new JFileChooser(System.getProperty("user.dir")+"\\src\\ArchivosExtra");
 		int seleccion = chooser.showOpenDialog(parent);
 		String rutaAux = "";

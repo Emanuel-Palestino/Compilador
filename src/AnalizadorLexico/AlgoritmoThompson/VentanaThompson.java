@@ -8,7 +8,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-
+import javax.swing.JButton;
+import java.awt.event.*;
 import java.awt.*;
 
 public class VentanaThompson extends JDialog {
@@ -18,8 +19,10 @@ public class VentanaThompson extends JDialog {
 	JPanel panelInformacion;
 	JScrollPane panelTabla;
 	JLabel lblAlfabeto, lblExpresionRegular;
-	JTextField textAlfabeto, textExpresionRegular;
+	JTextField textAlfabeto, textExpresionRegular, mostrarArchivo;
 	JTable transiciones;
+	JButton boton;
+	String prueba = "C:/Descargas/AnalizadorLexico/archivo.txt";
 
 	public VentanaThompson(JFrame parent, boolean modal, String alfabeto, String expresion, String[] encabezado, String[][] datos) {
 		super(parent, modal);
@@ -61,11 +64,29 @@ public class VentanaThompson extends JDialog {
 		textExpresionRegular.setPreferredSize(new Dimension(200, 30));
 		textExpresionRegular.setEditable(false);
 
+		//agregamos boton
+        boton = new JButton("Buscar Archivo");
+        boton.setPreferredSize(new Dimension(200,30));
+
+		mostrarArchivo = new JTextField();
+		mostrarArchivo.setPreferredSize(new Dimension(350, 30));
+		mostrarArchivo.setEditable(false);
+        mostrarRutaArchivo(mostrarArchivo,prueba);
+
+		//Agregamos que el boton accione
+		boton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed (ActionEvent e) {
+				/*Codigo para buscar archivo*/
+			}
+		});
+
 		// Agregar elementos al panel Informacion
 		panelInformacion.add(lblAlfabeto);
 		panelInformacion.add(textAlfabeto);
 		panelInformacion.add(lblExpresionRegular);
 		panelInformacion.add(textExpresionRegular);
+		panelInformacion.add(boton);
 
 
 		// Integrar elementos a la ventana y mostrar
@@ -89,5 +110,9 @@ public class VentanaThompson extends JDialog {
 		textAlfabeto.setText(alfabeto);
 		textExpresionRegular.setText(expresion);
 	}
+
+	public void mostrarRutaArchivo(JTextField mostrarText, String rutaArchvo){
+        mostrarText.setText(rutaArchvo);
+    }
 
 }
