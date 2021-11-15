@@ -3,9 +3,9 @@ package AnalizadorLexico.Final;
 import AnalizadorLexico.AlgoritmoThompson.Thompson;
 import AnalizadorLexico.ConversionAFD.ConvierteAFD;
 import AnalizadorLexico.ConversionAFD.Mueve;
-import Utilidades.Automata;
-import Utilidades.AutomataDeterminista;
 import Utilidades.ConjuntoEstados;
+import Utilidades.Automatas.Automata;
+import Utilidades.Automatas.AutomataDeterminista;
 import Utilidades.Excepciones.ExcepcionER;
 import Utilidades.Excepciones.ExcepcionLexico;
 

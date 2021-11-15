@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import Utilidades.Archivo;
-import Utilidades.Automata;
+import Utilidades.Automatas.Automata;
 import Utilidades.Excepciones.ExcepcionER;
 import Utilidades.Listas.ListaDoblementeEnlazada;
 import Utilidades.Listas.NodoLista;

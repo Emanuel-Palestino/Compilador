@@ -2,9 +2,9 @@ package AnalizadorLexico.AlgoritmoThompson;
 
 import java.util.Stack;
 
-import Utilidades.Automata;
 import Utilidades.Postfija;
 import Utilidades.Alfabeto.Alfabeto;
+import Utilidades.Automatas.Automata;
 import Utilidades.Excepciones.ExcepcionER;
 
 public class Thompson {

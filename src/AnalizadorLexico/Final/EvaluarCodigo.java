@@ -4,13 +4,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Stack;
-
 import AnalizadorLexico.AlgoritmoThompson.Thompson;
 import AnalizadorLexico.ConversionAFD.ConvierteAFD;
 import Utilidades.Archivo;
-import Utilidades.Automata;
-import Utilidades.AutomataDeterminista;
 import Utilidades.ResultadoAnalisisLexico;
+import Utilidades.Automatas.Automata;
+import Utilidades.Automatas.AutomataDeterminista;
 import Utilidades.Excepciones.ExcepcionER;
 import Utilidades.Excepciones.ExcepcionLexico;
 

@@ -2,9 +2,9 @@ package AnalizadorLexico.ConversionAFD;
 
 import java.util.ArrayList;
 
-import Utilidades.Automata;
-import Utilidades.AutomataDeterminista;
 import Utilidades.ConjuntoEstados;
+import Utilidades.Automatas.Automata;
+import Utilidades.Automatas.AutomataDeterminista;
 import Utilidades.Listas.ListaDoblementeEnlazadaD;
 import Utilidades.Listas.NodoListaD;
 

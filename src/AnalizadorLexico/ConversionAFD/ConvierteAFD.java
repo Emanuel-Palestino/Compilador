@@ -2,10 +2,10 @@ package AnalizadorLexico.ConversionAFD;
 
 import java.util.ArrayList;
 
-import Utilidades.Automata;
-import Utilidades.AutomataDeterminista;
 import Utilidades.ConjuntoEstados;
 import Utilidades.Alfabeto.Alfabeto;
+import Utilidades.Automatas.Automata;
+import Utilidades.Automatas.AutomataDeterminista;
 import Utilidades.Listas.ListaDoblementeEnlazadaD;
 
 public class ConvierteAFD {

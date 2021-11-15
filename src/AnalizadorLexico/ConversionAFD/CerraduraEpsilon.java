@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Stack;
 import Utilidades.ConjuntoEstados;
-import Utilidades.Automata;
+import Utilidades.Automatas.Automata;
 
 //class como metodo de Thompson
 public class CerraduraEpsilon {

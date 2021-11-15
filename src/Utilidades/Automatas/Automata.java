@@ -1,4 +1,4 @@
-package Utilidades;
+package Utilidades.Automatas;
 
 import java.util.ArrayList;
 

@@ -1,5 +1,6 @@
-package Utilidades;
+package Utilidades.Automatas;
 
+import Utilidades.ConjuntoEstados;
 import Utilidades.Alfabeto.Alfabeto;
 import Utilidades.Listas.ListaDoblementeEnlazadaD;
 
