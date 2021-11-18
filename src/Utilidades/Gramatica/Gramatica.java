@@ -85,10 +85,11 @@ public class Gramatica {
     ArrayList<ReglaProduccion> reglasDeSimbolo(String simbolo) {
         // regresar arraylist de las reglas de produccion del string de entrada
         ArrayList<ReglaProduccion> resultado = new ArrayList<ReglaProduccion>();
-        for (String buscando : reglasProduccion) {//
-            if (buscando == simbolo) {
+        for (ReglaProduccion buscando : reglasProduccion) {
+            if (buscando.getSimboloGramatical() == simbolo ){
                 resultado.add(buscando);
             }
         }
+        return resultado;
     }
 }
