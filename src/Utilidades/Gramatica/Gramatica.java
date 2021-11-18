@@ -13,64 +13,55 @@ public class Gramatica {
 
     //Constructores
     public Gramatica(){
-        noTerminales=null;
-        terminales=null;
-        reglasProduccion=null;
+        noTerminales=new ArrayList<String>();
+        terminales=new ArrayList<String>();
+        reglasProduccion=new ArrayList<ReglaProduccion>();
         simboloInicial=null;
-    }
-    //pasar gramatica entera
-    public Gramatica(Gramatica a){
-        noTerminales=a.noTerminales;
-        terminales=a.terminales;
-        reglasProduccion=a.reglasProduccion;
-        simboloInicial=a.simboloInicial;
     }
     //pasar cada uno de los atributos
     public Gramatica(ArrayList<String>ter,ArrayList<String>noTer){
         noTerminales=noTer;
         terminales=ter;
-        reglasProduccion=null;
+        reglasProduccion=new ArrayList<ReglaProduccion>();
         simboloInicial=null;
     }
-    public Gramatica(ReglaProduccion regla){
-        noTerminales=null;
-        terminales=null;
-        reglasProduccion=regla;
+    public Gramatica(ArrayList<ReglaProduccion> reglas){
+        noTerminales=new ArrayList<String>();
+        terminales=new ArrayList<String>();
+        reglasProduccion=reglas;
         simboloInicial=null;
     }
     public Gramatica(String simbolo){
-        noTerminales=null;
-        terminales=null;
-        reglasProduccion=null;
+        noTerminales=new ArrayList<String>();
+        terminales=new ArrayList<String>();
+        reglasProduccion=new ArrayList<ReglaProduccion>();
         simboloInicial=simbolo;
     }
 
     //getter y setters
 
-    public ArrayList<String> getNoTerminales(){return noTerminales;};
-    public ArrayList<String> getTerminales(){return terminales;};
-    public ArrayList<ReglaProduccion> getReglasProduccion(){return reglasProduccion;};
+    public ArrayList<String> getNoTerminales(){return noTerminales;}
+    public ArrayList<String> getTerminales(){return terminales;}
+    public ArrayList<ReglaProduccion> getReglasProduccion(){return reglasProduccion;}
     public String getSimboloInicial(){return simboloInicial;}
 
-    public ArrayList<String> setNoTerminales(ArrayList<String> noTerminales){this.noTerminales=noTerminales;}
-    public ArrayList<String> setTerminales(ArrayList<String> terminales){this.terminales=terminales;}
-    public ArrayList<ReglaProduccion> setReglasProduccion(ArrayList<ReglasProduccion> reglas){this.reglasProduccion=reglas;}
-    public String setSimboloInicial(string simboloInicial){this.simboloInicial=simboloInicial;}
+    public void setNoTerminales(ArrayList<String> noTerminales){this.noTerminales=noTerminales;}
+    public void setTerminales(ArrayList<String> terminales){this.terminales=terminales;}
+    public void setReglasProduccion(ArrayList<ReglasProduccion> reglas){this.reglasProduccion=reglas;}
+    public void setSimboloInicial(String simboloInicial){this.simboloInicial=simboloInicial;}
 
 
 
 
     //Métodos
-    boolean esTerminal(String entrada1){
-        Gramatica aux = new Gramatica();
-        return aux.getTerminales().contains(entrada1);
+    boolean esTerminal(String aVerificar){
+        return getTerminales().contains(aVerificar);
     }
-    ArrayList<ReglaProduccion> reglaDeSimbolo(String entrada2){
+    ArrayList<ReglaProduccion> reglasDeSimbolo(String simbolo){
         //regresar arraylist de las reglas de produccion del string de entrada
-        ArrayList<ReglaProduccion> busqueda = this.getReglasProduccion();
         ArrayList<ReglaProduccion> resultado = new ArrayList<ReglaProduccion>();
-        for (int i : busqueda) {
-            if(busqueda==entrada2){resultado.add(busqueda)}
+        for(String buscando : reglasProduccion){//
+            if(buscando == simbolo){resultado.add(buscando);}
         }
     }
 }
