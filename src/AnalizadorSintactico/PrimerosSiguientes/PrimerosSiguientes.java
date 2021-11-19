@@ -21,7 +21,7 @@ public class PrimerosSiguientes {
 		ArrayList <ReglaProduccion> reglasSimboloActual = new ArrayList <ReglaProduccion>();
 		ConjuntoSimbolos resultado = new ConjuntoSimbolos();
 
-		int i=0, tamañoVariable, posicionA; //contador
+		int i=0, tamañoVariable, posicionA, contadorBeta; //contador
 		String posicionBeta;
 		//Recorremos gramatica.getReglasProduccion() y movemos esas reglas para siguiente
 		for(ReglaProduccion buscando : gramatica.getReglasProduccion()){
@@ -37,19 +37,20 @@ public class PrimerosSiguientes {
 			if ( posicionA >= 0){
 				tamañoVariable = buscar.getProduccion().size();
 				if (posicionA == tamañoVariable -1){
-					//Tercer caso
+					//Tercer caso alpha
 					
 
 				} else if (buscar.getProduccion().contains(gramatica.getNoTerminales()) == true){
 						posicionBeta = buscar.getProduccion().get(posicionA+1);
-						for(){
-							
+						contadorBeta = Integer.parseInt(posicionBeta);
+						for(int conta = contadorBeta ; i < tamañoVariable ; i++){
+							siguiente(buscar.getProduccion().get(conta),gramatica);
 						}
 						if (contains(gramatica.getNoTerminales()) == true){
 							//Pendiente  A-> A C
 							
 						} else {
-							if (resultado.get(i).getSimbolos().contains(buscar.getProduccion().get(posicionA+1)) == false){
+							if (resultado.getSimbolos().contains(buscar.getProduccion().get(posicionA+1)) == false){
 								//resultados.get(i).getSimbolos().add (buscar.getProduccion().get(posicionA+1));
 
 								//primeros(resultados.get(0).get(buscaProduccion+1).contains(epsilon))
@@ -57,9 +58,9 @@ public class PrimerosSiguientes {
 							//Tercer caso 
 						}
 					}	else {				
-						}
+					
+					}
 			}
-			i++;
 		}
 	} 
 
