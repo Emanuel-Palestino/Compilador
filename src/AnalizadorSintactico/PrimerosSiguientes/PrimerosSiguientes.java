@@ -8,6 +8,7 @@ import Utilidades.ResultadoPrimerosSiguientes;
 import Utilidades.Gramatica.Gramatica;
 import Utilidades.Gramatica.ReglaProduccion;
 
+
 public class PrimerosSiguientes {
 	
 	/*public static ResultadoPrimerosSiguientes hacer(Gramatica gramatica) {
@@ -16,24 +17,22 @@ public class PrimerosSiguientes {
 	}*/
 
 
-	public static ConjuntoSimbolos siguiente (String simbolos){
-		
-	} 
+	public static ConjuntoSimbolos siguiente(String simbolo, Gramatica gramatica){
+		ArrayList <ReglaProduccion> reglasSimboloActual = new ArrayList <ReglaProduccion>();
+		ConjuntoSimbolos resultado = new ConjuntoSimbolos();
 
-	static ArrayList <ConjuntoSimbolos> siguientes(String simbolos, Gramatica gramatica){
-		ArrayList <ConjuntoSimbolos> resultados = new ArrayList <ConjuntoSimbolos>();
-		ArrayList <String> pruebas = new ArrayList<String>();
-		int i,tamañoVariable, posicionA;
-		resultados.add(new ConjuntoSimbolos);
-
-		resultados.get(i).setId(gramatica.simboloInicial);
-		//Primer caso
-		if (i == 0){
-			resultados.get(i).getSimbolos().add("$");
+		int i=0, tamañoVariable, posicionA; //contador
+		//Recorremos gramatica.getReglasProduccion() y movemos esas reglas para siguiente
+		for(ReglaProduccion buscando : gramatica.getReglasProduccion()){
+			reglasSimboloActual.add(new ReglaProduccion());
+			reglasSimboloActual.get(i).setSimboloGramatical(simbolo);
+			if(buscando.getSimboloGramatical() == simbolo){
+				reglasSimboloActual.get(i).getProduccion().addAll(buscando.getProduccion());
+			}
 		}
 
-		for(ReglaProduccion buscar : gramatica.getReglaProduccion()){			
-			posicionA = buscar.getReglaProduccion().IndexOf(buscar.getSimboloGramatical()); 
+		for(ReglaProduccion buscar : gramatica.getReglasProduccion()){			
+			posicionA = buscar.getReglasProduccion().indexOf(buscar.getSimboloGramatical()); 
 			if ( posicionA >= 0){
 				tamañoVariable = buscar.getProduccion().size();
 				if (posicionA == tamañoVariable -1){
@@ -45,7 +44,7 @@ public class PrimerosSiguientes {
 							//Pendiente  A-> A C
 							
 						} else {
-							if (resultados.get(i).getSimbolos().contains(buscar.getProduccion().get(posicionA+1)) == false){
+							if (resultado.get(i).getSimbolos().contains(buscar.getProduccion().get(posicionA+1)) == false){
 								//resultados.get(i).getSimbolos().add (buscar.getProduccion().get(posicionA+1));
 
 								//primeros(resultados.get(0).get(buscaProduccion+1).contains(epsilon))
@@ -56,6 +55,22 @@ public class PrimerosSiguientes {
 						}
 			}
 			i++;
+		}
+	} 
+
+	static ArrayList <ConjuntoSimbolos> siguientes(ArrayList <String> simbolos, Gramatica gramatica){
+		ArrayList <ConjuntoSimbolos> resultados = new ArrayList <ConjuntoSimbolos>();
+		ConjuntoSimbolos temporales = new ConjuntoSimbolos();
+		ArrayList <String> pruebas = new ArrayList<String>();
+		int i=0;
+
+		temporales = siguiente()
+		resultados.add();
+
+		resultados.get(i).setId(gramatica.getSimboloInicial());
+		//Primer caso
+		if (i == 0){
+			resultados.get(i).getSimbolos().add("$");
 		}
 
 	}
