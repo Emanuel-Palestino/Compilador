@@ -13,12 +13,17 @@ public class ReglaProduccion{
         produccion = new ArrayList<String>();
         marcado = false;
     }
-    public ReglaProduccion(String gramatical, ArrayList<String> production,boolean marked){
+    public ReglaProduccion(String gramatical, ArrayList<String> produccionTemp,boolean marcadoTemp){
         simboloGramatical = gramatical;
-        produccion = production;
-        marcado = marked;
+        produccion = produccionTemp;
+        marcado = marcadoTemp;
     } 
-
+    
+    public ReglaProduccion(String gramatical, ArrayList<String> produccionTemp){
+        simboloGramatical = gramatical;
+        produccion = produccionTemp;
+        marcado = false;
+    } 
     //getters
     public String getSimboloGramatical(){
         return simboloGramatical;

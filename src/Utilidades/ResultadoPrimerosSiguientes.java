@@ -1,7 +1,6 @@
-package AnalizadorSintactico.PrimerosSiguientes;
+package Utilidades;
 
 import java.util.ArrayList;
-import Utilidades.Gramatica.ConjuntoSimbolos;
 
 public class ResultadoPrimerosSiguientes{
     private ArrayList<ConjuntoSimbolos> primeros;
@@ -12,9 +11,9 @@ public class ResultadoPrimerosSiguientes{
         primeros = new ArrayList<ConjuntoSimbolos>();
         siguientes = new ArrayList<ConjuntoSimbolos>();
     }
-    public ResultadoPrimerosSiguientes(ArrayList<ConjuntoSimbolos> prim,ArrayList<ConjuntoSimbolos> sig){
-        primeros = prim;
-        siguientes = sig;
+    public ResultadoPrimerosSiguientes(ArrayList<ConjuntoSimbolos> primerosTemp,ArrayList<ConjuntoSimbolos> siguientesTemp){
+        primeros = primerosTemp;
+        siguientes = siguientesTemp;
     } 
 
     //getters

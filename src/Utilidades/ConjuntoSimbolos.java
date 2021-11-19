@@ -1,4 +1,4 @@
-package Utilidades.Gramatica;
+package Utilidades;
 
 import java.util.ArrayList;
 
@@ -12,9 +12,9 @@ public class ConjuntoSimbolos{
         simbolos = new ArrayList<String>();
     }
 
-    public ConjuntoSimbolos(String identificador, ArrayList<String> simbols){
+    public ConjuntoSimbolos(String identificador, ArrayList<String> simbolosTemp){
         id = identificador;
-        simbolos = simbols;
+        simbolos = simbolosTemp;
     }
 
     //getters
@@ -32,5 +32,10 @@ public class ConjuntoSimbolos{
 
     public void setId(String id){
         this.id = id; 
+    }
+
+    //método
+    void agregarSimbolo(String simbolo){
+        simbolos.add(simbolo);
     }
 }
