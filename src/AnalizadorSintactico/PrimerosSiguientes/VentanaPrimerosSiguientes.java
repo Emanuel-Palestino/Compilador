@@ -14,6 +14,7 @@ import Utilidades.Archivo;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -23,11 +24,12 @@ public class VentanaPrimerosSiguientes extends JDialog {
 	private JLabel lblSimbolosNoTerminales, lblSimbolosTerminales, lblSimboloInicial, lblGramatica, lblPrimeros,
 			lblSiguientes;
 	private JTextField textNoTerminales, textTerminales, textSimboloInicial, textRutaArchivo;
-	private JTextArea areaGramatica, areaPrimeros, areaSegundos;
+	private JTextArea areaGramatica, areaPrimeros, areaSiguientes;
 	private JButton botonBuscar;
 	private final JDialog estaVentana = this;
 	private final int altoElementos = 30;
 	private final Border padding = BorderFactory.createEmptyBorder(5, 5, 5, 5);
+	private final Border paddingTextArea = BorderFactory.createEmptyBorder(10, 10, 10, 10);
 
 	public VentanaPrimerosSiguientes(JFrame parent, String noTerminales, String terminales, String simboloInicial,
 			String gramatica, String primeros, String segundos) {
@@ -94,7 +96,7 @@ public class VentanaPrimerosSiguientes extends JDialog {
 
 		// Propiedades del panel Informacion
 		panelInformacion = new JPanel();
-		panelInformacion.setPreferredSize(new Dimension(500, 200));
+		panelInformacion.setPreferredSize(new Dimension(500, 130));
 		panelInformacion.setLayout(diseñoPanel);
 
 		// Mostrar los simbolos no terminales
@@ -118,7 +120,7 @@ public class VentanaPrimerosSiguientes extends JDialog {
 		textTerminales.setBorder(BorderFactory.createCompoundBorder(textTerminales.getBorder(), padding));
 
 		// Mostrar simbolo inicial
-		lblSimboloInicial = new JLabel("Simbolo Inicial");
+		lblSimboloInicial = new JLabel("Simbolo Inicial:");
 		lblSimboloInicial.setPreferredSize(new Dimension(120, altoElementos));
 
 		textSimboloInicial = new JTextField("A");
@@ -126,9 +128,6 @@ public class VentanaPrimerosSiguientes extends JDialog {
 		textSimboloInicial.setEditable(false);
 		// Padding a JTextField
 		textSimboloInicial.setBorder(BorderFactory.createCompoundBorder(textSimboloInicial.getBorder(), padding));
-
-		// Mostrar Gramatica
-		
 
 		// Agregar elementos al panel Informacion
 		panelInformacion.add(lblSimbolosNoTerminales);
@@ -138,9 +137,64 @@ public class VentanaPrimerosSiguientes extends JDialog {
 		panelInformacion.add(lblSimboloInicial);
 		panelInformacion.add(textSimboloInicial);
 
+		/** Panel de Resultados */
+		
+		// Propiedades del panel de Resultados
+		panelResultado = new JPanel();
+		panelResultado.setPreferredSize(new Dimension(900, 430));
+		panelResultado.setLayout(diseñoPanel);
+		// Fuente a utilizar
+		Font fuenteResultado = new Font("Arial", Font.PLAIN, 16);
+
+		// Mostrar Etiqueta Gramatica
+		lblGramatica = new JLabel("Gramática:");
+		lblGramatica.setPreferredSize(new Dimension(287, altoElementos));
+
+		// Mostrar Etiqueta Primeros
+		lblPrimeros = new JLabel("Primeros:");
+		lblPrimeros.setPreferredSize(new Dimension(287, altoElementos));
+
+		// Mostrar Etiqueta Siguientes
+		lblSiguientes = new JLabel("Siguientes:");
+		lblSiguientes.setPreferredSize(new Dimension(287, altoElementos));
+
+		// Mostrar el contenido de la Gramatica
+		areaGramatica = new JTextArea();
+		areaGramatica.setPreferredSize(new Dimension(287, 430 - altoElementos - 20));
+		areaGramatica.setEditable(false);
+		areaGramatica.setFont(fuenteResultado);
+		areaGramatica.setBorder(BorderFactory.createCompoundBorder(areaGramatica.getBorder(), paddingTextArea));
+		areaGramatica.setText("ESTO\nES\nUNA\nPRUEBA");
+
+		// Mostrar el contenido de los Primeros
+		areaPrimeros = new JTextArea();
+		areaPrimeros.setPreferredSize(new Dimension(287, 430 - altoElementos - 20));
+		areaPrimeros.setEditable(false);
+		areaPrimeros.setFont(fuenteResultado);
+		areaPrimeros.setBorder(BorderFactory.createCompoundBorder(areaPrimeros.getBorder(), paddingTextArea));
+		areaPrimeros.setText("ESTO\nES\nUNA\nPRUEBA");
+
+		// Mostrar le contenido de los Siguientes
+		areaSiguientes = new JTextArea();
+		areaSiguientes.setPreferredSize(new Dimension(287, 430 - altoElementos - 20));
+		areaSiguientes.setEditable(false);
+		areaSiguientes.setFont(fuenteResultado);
+		areaSiguientes.setBorder(BorderFactory.createCompoundBorder(areaSiguientes.getBorder(), paddingTextArea));
+		areaSiguientes.setText("ESTO\nES\nUNA\nPRUEBA");
+
+		// Agregar elementos al panel Resultado
+		panelResultado.add(lblGramatica);
+		panelResultado.add(lblPrimeros);
+		panelResultado.add(lblSiguientes);
+		panelResultado.add(areaGramatica);
+		panelResultado.add(areaPrimeros);
+		panelResultado.add(areaSiguientes);
+
+
 		/* Agregar paneles a la ventana */
 		this.add(panelArchivo);
 		this.add(panelInformacion);
+		this.add(panelResultado);
 
 	}
 
