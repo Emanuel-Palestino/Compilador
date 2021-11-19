@@ -6,12 +6,11 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 import Utilidades.Archivo;
-import Utilidades.ResultadoAnalisisLexico;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -21,14 +20,17 @@ import java.awt.event.ActionListener;
 public class VentanaPrimerosSiguientes extends JDialog {
 	private FlowLayout diseñoPanel;
 	private JPanel panelInformacion, panelArchivo, panelResultado;
-	private JLabel lblSimbolosNoTerminales, lblSimbolosTerminales, lblSimboloInicial, lblGramatica, lblPrimeros, lblSiguientes;
+	private JLabel lblSimbolosNoTerminales, lblSimbolosTerminales, lblSimboloInicial, lblGramatica, lblPrimeros,
+			lblSiguientes;
 	private JTextField textNoTerminales, textTerminales, textSimboloInicial, textRutaArchivo;
 	private JTextArea areaGramatica, areaPrimeros, areaSegundos;
 	private JButton botonBuscar;
 	private final JDialog estaVentana = this;
 	private final int altoElementos = 30;
+	private final Border padding = BorderFactory.createEmptyBorder(5, 5, 5, 5);
 
-	public VentanaPrimerosSiguientes(JFrame parent, String noTerminales, String terminales, String simboloInicial, String gramatica, String primeros, String segundos) {
+	public VentanaPrimerosSiguientes(JFrame parent, String noTerminales, String terminales, String simboloInicial,
+			String gramatica, String primeros, String segundos) {
 		super(parent);
 
 		// Iniciar componentes
@@ -55,7 +57,6 @@ public class VentanaPrimerosSiguientes extends JDialog {
 		this.setLayout(diseñoPanel);
 		this.setTitle("Analizador Léxico - Algoritmo de Primeros y Siguientes");
 
-		
 		/* Mostrar ruta del archivo y boton para cargar otro archivo */
 
 		// Propiedades del panel de Archivo
@@ -68,9 +69,7 @@ public class VentanaPrimerosSiguientes extends JDialog {
 		textRutaArchivo.setPreferredSize(new Dimension(500, altoElementos));
 		textRutaArchivo.setEditable(false);
 		// Padding a JTextField
-	 	textRutaArchivo.setBorder(BorderFactory.createCompoundBorder(
-			textRutaArchivo.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 5)
-		));
+		textRutaArchivo.setBorder(BorderFactory.createCompoundBorder(textRutaArchivo.getBorder(), padding));
 
 		// Boton para buscar otro archivo
 		botonBuscar = new JButton("Buscar Archivo");
@@ -91,7 +90,6 @@ public class VentanaPrimerosSiguientes extends JDialog {
 		panelArchivo.add(textRutaArchivo);
 		panelArchivo.add(botonBuscar);
 
-
 		/* Mostrar Simbolos de la gramatica */
 
 		// Propiedades del panel Informacion
@@ -106,6 +104,8 @@ public class VentanaPrimerosSiguientes extends JDialog {
 		textNoTerminales = new JTextField("A B C D E F G");
 		textNoTerminales.setPreferredSize(new Dimension(300, altoElementos));
 		textNoTerminales.setEditable(false);
+		// Padding a JTextField
+		textNoTerminales.setBorder(BorderFactory.createCompoundBorder(textNoTerminales.getBorder(), padding));
 
 		// Mostrar los simbolos terminales
 		lblSimbolosTerminales = new JLabel("Simbolos Terminales: ");
@@ -114,15 +114,21 @@ public class VentanaPrimerosSiguientes extends JDialog {
 		textTerminales = new JTextField("A B C D E F G");
 		textTerminales.setPreferredSize(new Dimension(300, altoElementos));
 		textTerminales.setEditable(false);
+		// Padding a JTextField
+		textTerminales.setBorder(BorderFactory.createCompoundBorder(textTerminales.getBorder(), padding));
 
 		// Mostrar simbolo inicial
 		lblSimboloInicial = new JLabel("Simbolo Inicial");
 		lblSimboloInicial.setPreferredSize(new Dimension(120, altoElementos));
-		
+
 		textSimboloInicial = new JTextField("A");
 		textSimboloInicial.setPreferredSize(new Dimension(300, altoElementos));
 		textSimboloInicial.setEditable(false);
+		// Padding a JTextField
+		textSimboloInicial.setBorder(BorderFactory.createCompoundBorder(textSimboloInicial.getBorder(), padding));
 
+		// Mostrar Gramatica
+		
 
 		// Agregar elementos al panel Informacion
 		panelInformacion.add(lblSimbolosNoTerminales);
@@ -131,7 +137,6 @@ public class VentanaPrimerosSiguientes extends JDialog {
 		panelInformacion.add(textTerminales);
 		panelInformacion.add(lblSimboloInicial);
 		panelInformacion.add(textSimboloInicial);
-
 
 		/* Agregar paneles a la ventana */
 		this.add(panelArchivo);
