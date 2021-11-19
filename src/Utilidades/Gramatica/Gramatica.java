@@ -8,10 +8,6 @@ public class Gramatica {
     private ArrayList<ReglaProduccion> reglasProduccion;
     private String simboloInicial;
 
-    /*
-     * Regla de prodccion es una clase (string:simGram arraylist<string>:producción
-     * booleano:marcado)
-     */
 
     // Constructores
     public Gramatica() {
@@ -69,7 +65,7 @@ public class Gramatica {
         this.terminales = terminales;
     }
 
-    public void setReglasProduccion(ArrayList<ReglasProduccion> reglas) {
+    public void setReglasProduccion(ArrayList<ReglaProduccion> reglas) {
         this.reglasProduccion = reglas;
     }
 
