@@ -35,7 +35,7 @@ public class ConjuntoSimbolos{
     }
 
     //método
-    void agregarSimbolo(String simbolo){
+    public void agregarSimbolo(String simbolo){
         simbolos.add(simbolo);
     }
 }
