@@ -5,8 +5,11 @@ import javax.swing.border.BevelBorder;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.GraphicsEnvironment;
+import java.io.File;
 import java.io.IOException;
 import AnalizadorLexico.ConversionAFD.IniciarConjuntos;
 import AnalizadorLexico.Final.IniciarFinal;
@@ -20,7 +23,7 @@ public class VentanaPrincipal extends JFrame {
     private JLabel tituloAnalizadorLex;
     private final JFrame ventanaPrincipal = this;
 
-    public VentanaPrincipal() {
+    public VentanaPrincipal() throws FontFormatException, IOException {
         super("Compilador");
         ImagenFondo ejemplo = new ImagenFondo();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,6 +32,8 @@ public class VentanaPrincipal extends JFrame {
         this.setLocationRelativeTo(null);
         this.setContentPane(ejemplo);
         this.setLayout(null);
+        GraphicsEnvironment crearFuente = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        crearFuente.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("src\\ArchivosExtra\\good times rg.ttf")));
         menuPrincipal();
     }
 
@@ -44,7 +49,7 @@ public class VentanaPrincipal extends JFrame {
         // PROPIEDADES DEL LOS LABELS A UTILIZAR
         tituloAnalizadorLex = new JLabel("Analizador Léxico");
         tituloAnalizadorLex.setBounds(45, 75, 528, 35);
-        tituloAnalizadorLex.setFont(new Font("Good Times Rg", Font.ROMAN_BASELINE, 40));
+        tituloAnalizadorLex.setFont(new Font("good times rg", Font.ROMAN_BASELINE, 40));
         tituloAnalizadorLex.setForeground(Color.WHITE);
         this.add(tituloAnalizadorLex);
 
