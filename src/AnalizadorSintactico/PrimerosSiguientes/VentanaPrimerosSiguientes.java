@@ -32,11 +32,13 @@ public class VentanaPrimerosSiguientes extends JDialog {
 	private final Border paddingTextArea = BorderFactory.createEmptyBorder(10, 10, 10, 10);
 
 	public VentanaPrimerosSiguientes(JFrame parent, String noTerminales, String terminales, String simboloInicial,
-			String gramatica, String primeros, String segundos) {
+			String gramatica, String primeros, String siguientes) {
 		super(parent);
 
 		// Iniciar componentes
 		inicializarComponentes();
+		// Rellenar con informacion dada
+		rellenarComponentes(noTerminales, terminales, simboloInicial, gramatica, primeros, siguientes);
 
 		this.setVisible(true);
 	}
@@ -67,8 +69,8 @@ public class VentanaPrimerosSiguientes extends JDialog {
 		panelArchivo.setLayout(diseñoPanel);
 
 		// Mostrar la ruta del archivo
-		textRutaArchivo = new JTextField("Prueba");
-		textRutaArchivo.setPreferredSize(new Dimension(500, altoElementos));
+		textRutaArchivo = new JTextField();
+		textRutaArchivo.setPreferredSize(new Dimension(600, altoElementos));
 		textRutaArchivo.setEditable(false);
 		// Padding a JTextField
 		textRutaArchivo.setBorder(BorderFactory.createCompoundBorder(textRutaArchivo.getBorder(), padding));
@@ -83,6 +85,7 @@ public class VentanaPrimerosSiguientes extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				// Obtener nueva ruta del archivo
 				String ruta = Archivo.obtenerRutaArchivo(estaVentana);
+				editarRutaArchivo(ruta);
 
 				// Obtener datos nuevos
 			}
@@ -100,30 +103,30 @@ public class VentanaPrimerosSiguientes extends JDialog {
 		panelInformacion.setLayout(diseñoPanel);
 
 		// Mostrar los simbolos no terminales
-		lblSimbolosNoTerminales = new JLabel("Simbolos No Terminales: ");
+		lblSimbolosNoTerminales = new JLabel("Símbolos No Terminales: ");
 		lblSimbolosNoTerminales.setPreferredSize(new Dimension(120, altoElementos));
 
-		textNoTerminales = new JTextField("A B C D E F G");
+		textNoTerminales = new JTextField();
 		textNoTerminales.setPreferredSize(new Dimension(300, altoElementos));
 		textNoTerminales.setEditable(false);
 		// Padding a JTextField
 		textNoTerminales.setBorder(BorderFactory.createCompoundBorder(textNoTerminales.getBorder(), padding));
 
 		// Mostrar los simbolos terminales
-		lblSimbolosTerminales = new JLabel("Simbolos Terminales: ");
+		lblSimbolosTerminales = new JLabel("Símbolos Terminales: ");
 		lblSimbolosTerminales.setPreferredSize(new Dimension(120, altoElementos));
 
-		textTerminales = new JTextField("A B C D E F G");
+		textTerminales = new JTextField();
 		textTerminales.setPreferredSize(new Dimension(300, altoElementos));
 		textTerminales.setEditable(false);
 		// Padding a JTextField
 		textTerminales.setBorder(BorderFactory.createCompoundBorder(textTerminales.getBorder(), padding));
 
 		// Mostrar simbolo inicial
-		lblSimboloInicial = new JLabel("Simbolo Inicial:");
+		lblSimboloInicial = new JLabel("Símbolo Inicial:");
 		lblSimboloInicial.setPreferredSize(new Dimension(120, altoElementos));
 
-		textSimboloInicial = new JTextField("A");
+		textSimboloInicial = new JTextField();
 		textSimboloInicial.setPreferredSize(new Dimension(300, altoElementos));
 		textSimboloInicial.setEditable(false);
 		// Padding a JTextField
@@ -164,7 +167,6 @@ public class VentanaPrimerosSiguientes extends JDialog {
 		areaGramatica.setEditable(false);
 		areaGramatica.setFont(fuenteResultado);
 		areaGramatica.setBorder(BorderFactory.createCompoundBorder(areaGramatica.getBorder(), paddingTextArea));
-		areaGramatica.setText("ESTO\nES\nUNA\nPRUEBA");
 
 		// Mostrar el contenido de los Primeros
 		areaPrimeros = new JTextArea();
@@ -172,7 +174,6 @@ public class VentanaPrimerosSiguientes extends JDialog {
 		areaPrimeros.setEditable(false);
 		areaPrimeros.setFont(fuenteResultado);
 		areaPrimeros.setBorder(BorderFactory.createCompoundBorder(areaPrimeros.getBorder(), paddingTextArea));
-		areaPrimeros.setText("ESTO\nES\nUNA\nPRUEBA");
 
 		// Mostrar le contenido de los Siguientes
 		areaSiguientes = new JTextArea();
@@ -180,7 +181,6 @@ public class VentanaPrimerosSiguientes extends JDialog {
 		areaSiguientes.setEditable(false);
 		areaSiguientes.setFont(fuenteResultado);
 		areaSiguientes.setBorder(BorderFactory.createCompoundBorder(areaSiguientes.getBorder(), paddingTextArea));
-		areaSiguientes.setText("ESTO\nES\nUNA\nPRUEBA");
 
 		// Agregar elementos al panel Resultado
 		panelResultado.add(lblGramatica);
@@ -196,6 +196,19 @@ public class VentanaPrimerosSiguientes extends JDialog {
 		this.add(panelInformacion);
 		this.add(panelResultado);
 
+	}
+
+	private void rellenarComponentes(String noTerminales, String terminales, String simboloInicial, String gramatica, String primeros, String siguientes) {
+		textNoTerminales.setText(noTerminales);
+		textTerminales.setText(terminales);
+		textSimboloInicial.setText(simboloInicial);
+		areaGramatica.setText(gramatica);
+		areaPrimeros.setText(primeros);
+		areaSiguientes.setText(siguientes);
+	}
+
+	private void editarRutaArchivo(String nuevaRuta) {
+		textRutaArchivo.setText(nuevaRuta);
 	}
 
 }
