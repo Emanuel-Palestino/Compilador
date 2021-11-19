@@ -3,6 +3,11 @@ package AnalizadorSintactico.PrimerosSiguientes;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import Utilidades.ConjuntoSimbolos;
+import Utilidades.ResultadoPrimerosSiguientes;
+import Utilidades.Gramatica.Gramatica;
+import Utilidades.Gramatica.ReglaProduccion;
+
 public class PrimerosSiguientes {
 	
 	/*public static ResultadoPrimerosSiguientes hacer(Gramatica gramatica) {
