@@ -22,6 +22,7 @@ public class PrimerosSiguientes {
 		ConjuntoSimbolos resultado = new ConjuntoSimbolos();
 
 		int i=0, tamañoVariable, posicionA; //contador
+		String posicionBeta;
 		//Recorremos gramatica.getReglasProduccion() y movemos esas reglas para siguiente
 		for(ReglaProduccion buscando : gramatica.getReglasProduccion()){
 			reglasSimboloActual.add(new ReglaProduccion());
@@ -32,15 +33,19 @@ public class PrimerosSiguientes {
 		}
 
 		for(ReglaProduccion buscar : gramatica.getReglasProduccion()){			
-			posicionA = buscar.getReglasProduccion().indexOf(buscar.getSimboloGramatical()); 
+			posicionA = buscar.getProduccion().indexOf(buscar.getSimboloGramatical()); 
 			if ( posicionA >= 0){
 				tamañoVariable = buscar.getProduccion().size();
 				if (posicionA == tamañoVariable -1){
 					//Tercer caso
-
+					
 
 				} else if (buscar.getProduccion().contains(gramatica.getNoTerminales()) == true){
-						if (buscar.getProduccion().get(posicionA+1).contains(gramatica.getNoTerminales()) == true){
+						posicionBeta = buscar.getProduccion().get(posicionA+1);
+						for(){
+							
+						}
+						if (contains(gramatica.getNoTerminales()) == true){
 							//Pendiente  A-> A C
 							
 						} else {
