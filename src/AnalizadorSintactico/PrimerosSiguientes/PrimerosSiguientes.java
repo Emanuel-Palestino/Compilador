@@ -1,6 +1,11 @@
 package AnalizadorSintactico.PrimerosSiguientes;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+import Utilidades.ResultadoPrimerosSiguientes;
+import Utilidades.Gramatica.Gramatica;
+>>>>>>> 114efb95e923402b6cd1f45b87b798e4ebd267cb
 
 public class PrimerosSiguientes {
 
