@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import Utilidades.ConjuntoSimbolos;
 import Utilidades.ResultadoPrimerosSiguientes;
@@ -18,14 +19,15 @@ public class PrimerosSiguientes {
 
 		return new ResultadoPrimerosSiguientes();
 	}*/
-
+	static ArrayList <ConjuntoSimbolos> resultados = new ArrayList <ConjuntoSimbolos>();
 
 	public static ConjuntoSimbolos siguiente(String simbolo, Gramatica gramatica){
 		ArrayList <ReglaProduccion> reglasSimboloActual = new ArrayList <ReglaProduccion>();
+		ArrayList <String> temporal3 = new ArrayList <String> (); 
 		ConjuntoSimbolos resultado = new ConjuntoSimbolos();
 		ConjuntoSimbolos temporal = new ConjuntoSimbolos();
 		Iterator <String> iteradorTerminales = gramatica.getNoTerminales().iterator();
-
+	
 		int i=0, tamañoVariable, posicionA, contadorBeta; //contador
 		String posicionBeta;
 		//Recorremos gramatica.getReglasProduccion() y movemos esas reglas para siguiente
@@ -35,6 +37,7 @@ public class PrimerosSiguientes {
 			if(buscando.getSimboloGramatical() == simbolo){
 				reglasSimboloActual.get(i).getProduccion().addAll(buscando.getProduccion());
 			}
+			i++;
 		}
 
 		for(ReglaProduccion buscar : reglasSimboloActual){			
@@ -43,13 +46,11 @@ public class PrimerosSiguientes {
 				tamañoVariable = buscar.getProduccion().size();
 				if (posicionA == tamañoVariable - 1){
 					//Con esto comprobamos que no hay un beta y solamente queda del tipo B -> αA
-					//Comprobar que en siguientes de B no este vacio
-					if (){
-						
-					}
 					temporal = siguiente(buscar.getSimboloGramatical(),gramatica); //siguiente(B)
-					resultado.getSimbolos().addAll(temporal.getSimbolos());
-
+					List<String> temporal2 = temporal.getSimbolos().stream().distinct().collect(Collectors.toList());
+					resultado.setId(simbolo); 
+					resultado.getSimbolos().addAll(temporal2);		//equals
+					buscar.setMarcado(true);
 				}else if ((buscar.getProduccion().contains(gramatica.getNoTerminales()) == true) || (buscar.getProduccion().contains(gramatica.getTerminales()) == true)){
 					posicionBeta = buscar.getProduccion().get(posicionA+1);
 					contadorBeta = Integer.parseInt(posicionBeta);
@@ -57,14 +58,19 @@ public class PrimerosSiguientes {
 					for(String mueveBeta : betaSubarreglo){	//recorremos el subarreglo de beta
 						//Con ese while comprobamos si lo que tiene mueveBeta en la posicion de la lista es un no terminal
 						if(compruebaNoTerminales(iteradorTerminales,mueveBeta) == 1){
-							//temporal = primeros(mueveBeta);
-							//temporal.getSimbolos().remove(Ɛ);
-							//resultado.getSimbolos().addAll(temporal.getSimbolos());
+							temporal3 = primeros (mueveBeta,gramatica);
+							temporal3.remove('Ɛ');
+							List<String> temporal2 = temporal3.stream().distinct().collect(Collectors.toList());
+							resultado.setId(simbolo);
+							resultado.getSimbolos().addAll(temporal2);	
 						}else{
 							temporal = siguiente(buscar.getSimboloGramatical(),gramatica); //siguiente(B)
-							resultado.getSimbolos().addAll(temporal.getSimbolos());
+							List<String> temporal2 = temporal.getSimbolos().stream().distinct().collect(Collectors.toList());
+							resultado.setId(simbolo);
+							resultado.getSimbolos().addAll(temporal2);					
 						}
 					}
+					buscar.setMarcado(true);
 				}
 			}
 		}
@@ -73,18 +79,19 @@ public class PrimerosSiguientes {
 
 	static ArrayList <ConjuntoSimbolos> siguientes(ArrayList <String> simbolos, Gramatica gramatica){
 		ConjuntoSimbolos temporales = new ConjuntoSimbolos();
-		ArrayList <String> pruebas = new ArrayList<String>();
 		int i=0;
 
-		temporales = siguiente();
-		resultados.add(temporales);
-
-		resultados.get(i).setId(gramatica.getSimboloInicial());
-		//Primer caso
-		if (i == 0){
-			resultados.get(i).getSimbolos().add("$");
+		for (String mueveSimbolos : simbolos){
+			temporales = siguiente(mueveSimbolos,gramatica);
+			resultados.add(temporales);
+			//Primer caso
+			if (i == 0){
+				//resultados.get(i).setId(gramatica.getSimboloInicial()); Por si las moscas 
+				resultados.get(i).getSimbolos().add("$");
+			}
+			i++;
 		}
-		
+		return resultados;
 	}
 
 	static int compruebaNoTerminales(Iterator <String> iteradorTerminales , String simboloComparar){
