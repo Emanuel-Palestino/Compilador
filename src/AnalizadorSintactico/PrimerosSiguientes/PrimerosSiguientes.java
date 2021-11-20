@@ -46,30 +46,34 @@ public class PrimerosSiguientes {
 					temporal = siguiente(buscar.getSimboloGramatical(),gramatica); //siguiente(B)
 					resultado.getSimbolos().addAll(temporal.getSimbolos());
 
-				} else if (buscar.getProduccion().contains(gramatica.getNoTerminales()) == true){
-						posicionBeta = buscar.getProduccion().get(posicionA+1);
-						contadorBeta = Integer.parseInt(posicionBeta);
-						List<String> betaSubarreglo = buscar.getProduccion().subList(contadorBeta, tamañoVariable);
-						
-						for(String mueveBeta : betaSubarreglo){	//recorremos el subarreglo de beta
-							//Con ese while comprobamos si lo que tiene mueveBeta en la posicion de la lista es un no terminal
-							
+				}else if (buscar.getProduccion().contains(gramatica.getNoTerminales()) == true){
+					posicionBeta = buscar.getProduccion().get(posicionA+1);
+					contadorBeta = Integer.parseInt(posicionBeta);
+					List<String> betaSubarreglo = buscar.getProduccion().subList(contadorBeta, tamañoVariable);
+					for(String mueveBeta : betaSubarreglo){	//recorremos el subarreglo de beta
+						//Con ese while comprobamos si lo que tiene mueveBeta en la posicion de la lista es un no terminal
+						if(compruebaNoTerminales(iteradorTerminales,mueveBeta) == 1){
+							//primeros(mueveBeta);
+						}else{
+							temporal = siguiente(buscar.getSimboloGramatical(),gramatica); //siguiente(B)
+							resultado.getSimbolos().addAll(temporal.getSimbolos());
 						}
-						/*if(//contains(gramatica.getNoTerminales()) == true){
-							//Pendiente  A-> A C
-							
-						} */
-						if (resultado.getSimbolos().contains(buscar.getProduccion().get(posicionA+1)) == false){
-							//resultados.get(i).getSimbolos().add (buscar.getProduccion().get(posicionA+1));
-
-							//primeros(resultados.get(0).get(buscaProduccion+1).contains(epsilon))
-						} 
-							//Tercer caso 
-					}	else {				
-					
 					}
+					
+					/*idea
+					if (resultado.getSimbolos().contains(buscar.getProduccion().get(posicionA+1)) == false){
+						//resultados.get(i).getSimbolos().add (buscar.getProduccion().get(posicionA+1));
+
+						//primeros(resultados.get(0).get(buscaProduccion+1).contains(epsilon))
+					} 
+						//Tercer caso */
+				}else{				
+				
+					
+				}
 			}
 		}
+		return resultado;
 	} 
 
 	static ArrayList <ConjuntoSimbolos> siguientes(ArrayList <String> simbolos, Gramatica gramatica){
@@ -78,8 +82,8 @@ public class PrimerosSiguientes {
 		ArrayList <String> pruebas = new ArrayList<String>();
 		int i=0;
 
-		temporales = siguiente()
-		resultados.add();
+		temporales = siguiente();
+		resultados.add(temporales);
 
 		resultados.get(i).setId(gramatica.getSimboloInicial());
 		//Primer caso
@@ -89,7 +93,7 @@ public class PrimerosSiguientes {
 
 	}
 
-	int compruebaNoTerminales(Iterator <String> iteradorTerminales , String simboloComparar){
+	static int compruebaNoTerminales(Iterator <String> iteradorTerminales , String simboloComparar){
 		while(iteradorTerminales.hasNext()){
 			if(simboloComparar == iteradorTerminales.next()){
 				return 1;
