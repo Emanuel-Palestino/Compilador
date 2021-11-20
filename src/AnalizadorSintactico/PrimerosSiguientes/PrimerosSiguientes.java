@@ -12,7 +12,8 @@ import Utilidades.Gramatica.ReglaProduccion;
 
 
 public class PrimerosSiguientes {
-	
+	static ArrayList <ConjuntoSimbolos> resultados = new ArrayList <ConjuntoSimbolos>();
+
 	/*public static ResultadoPrimerosSiguientes hacer(Gramatica gramatica) {
 
 		return new ResultadoPrimerosSiguientes();
@@ -60,13 +61,6 @@ public class PrimerosSiguientes {
 						}
 					}
 					
-					/*idea
-					if (resultado.getSimbolos().contains(buscar.getProduccion().get(posicionA+1)) == false){
-						//resultados.get(i).getSimbolos().add (buscar.getProduccion().get(posicionA+1));
-
-						//primeros(resultados.get(0).get(buscaProduccion+1).contains(epsilon))
-					} 
-						//Tercer caso */
 				}else{				
 				
 					
@@ -77,7 +71,6 @@ public class PrimerosSiguientes {
 	} 
 
 	static ArrayList <ConjuntoSimbolos> siguientes(ArrayList <String> simbolos, Gramatica gramatica){
-		ArrayList <ConjuntoSimbolos> resultados = new ArrayList <ConjuntoSimbolos>();
 		ConjuntoSimbolos temporales = new ConjuntoSimbolos();
 		ArrayList <String> pruebas = new ArrayList<String>();
 		int i=0;
