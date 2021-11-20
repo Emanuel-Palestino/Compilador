@@ -19,7 +19,6 @@ public class PrimerosSiguientes {
 
 		return new ResultadoPrimerosSiguientes();
 	}*/
-	static ArrayList <ConjuntoSimbolos> resultados = new ArrayList <ConjuntoSimbolos>();
 
 	public static ConjuntoSimbolos siguiente(String simbolo, Gramatica gramatica){
 		ArrayList <ReglaProduccion> reglasSimboloActual = new ArrayList <ReglaProduccion>();
@@ -36,13 +35,13 @@ public class PrimerosSiguientes {
 			reglasSimboloActual.get(i).setSimboloGramatical(simbolo);
 			if(buscando.getSimboloGramatical() == simbolo){
 				reglasSimboloActual.get(i).getProduccion().addAll(buscando.getProduccion());
-			}
+			}<
 			i++;
 		}
 
 		for(ReglaProduccion buscar : reglasSimboloActual){			
 			posicionA = buscar.getProduccion().indexOf(buscar.getSimboloGramatical()); 
-			if ( posicionA >= 0){
+			if(posicionA >= 0){
 				tamañoVariable = buscar.getProduccion().size();
 				if (posicionA == tamañoVariable - 1){
 					//Con esto comprobamos que no hay un beta y solamente queda del tipo B -> αA
@@ -50,7 +49,8 @@ public class PrimerosSiguientes {
 					List<String> temporal2 = temporal.getSimbolos().stream().distinct().collect(Collectors.toList());
 					resultado.setId(simbolo); 
 					resultado.getSimbolos().addAll(temporal2);		//equals
-					buscar.setMarcado(true);
+					buscar.setMarcado(true);  //B -> αA (marcado true)
+
 				}else if ((buscar.getProduccion().contains(gramatica.getNoTerminales()) == true) || (buscar.getProduccion().contains(gramatica.getTerminales()) == true)){
 					posicionBeta = buscar.getProduccion().get(posicionA+1);
 					contadorBeta = Integer.parseInt(posicionBeta);
@@ -58,16 +58,17 @@ public class PrimerosSiguientes {
 					for(String mueveBeta : betaSubarreglo){	//recorremos el subarreglo de beta
 						//Con ese while comprobamos si lo que tiene mueveBeta en la posicion de la lista es un no terminal
 						if(compruebaNoTerminales(iteradorTerminales,mueveBeta) == 1){
-							temporal3 = primeros (mueveBeta,gramatica);
+							temporal3 = primeros(mueveBeta,gramatica);
 							temporal3.remove('Ɛ');
 							List<String> temporal2 = temporal3.stream().distinct().collect(Collectors.toList());
 							resultado.setId(simbolo);
-							resultado.getSimbolos().addAll(temporal2);	
+							resultado.getSimbolos().addAll(temporal2);
+							break; //L A   C A G O   M A R I O	
 						}else{
 							temporal = siguiente(buscar.getSimboloGramatical(),gramatica); //siguiente(B)
 							List<String> temporal2 = temporal.getSimbolos().stream().distinct().collect(Collectors.toList());
 							resultado.setId(simbolo);
-							resultado.getSimbolos().addAll(temporal2);					
+							resultado.getSimbolos().addAll(temporal2);				
 						}
 					}
 					buscar.setMarcado(true);
