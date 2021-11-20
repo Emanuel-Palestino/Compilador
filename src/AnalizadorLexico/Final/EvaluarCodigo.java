@@ -40,12 +40,39 @@ public class EvaluarCodigo {
 		ArrayList<ArrayList<String>> errores = new ArrayList<ArrayList<String>>();
 
 		String linea;
-		Boolean agregarUltimoToken = false;
+		Boolean agregarUltimoToken = false, comentarioMultiLinea = false;
 		Stack<String> palabras = new Stack<String>();
 		int numLinea = 0;
 		palabras.push("");
 		while ((linea = contenidoArchivo.readLine()) != null) {
 			numLinea++;
+			// Descartar comentario multilinea y de linea
+			// Encontrar comentario de una linea y quitarlo
+			String[] comentario = linea.split("//");
+			linea = comentario[0];
+			// Encontrar comentario multilinea
+			// Saber si acaba algún comentario multilinea
+			int lineaComentario = linea.indexOf("*/");
+			if (comentarioMultiLinea && lineaComentario >= 0) {
+				linea = linea.substring(lineaComentario + 2, linea.length());	// Actualizamos la linea
+				comentarioMultiLinea = false;
+			}
+
+			// Saber si empieza un comentario multilinea
+			lineaComentario = linea.indexOf("/*");
+			if (!comentarioMultiLinea && lineaComentario >= 0) {		// Existe comentario
+				comentarioMultiLinea = true;
+				String lineaAux = linea.substring(0, lineaComentario);
+				// Saber si termina en esta linea o en otra
+				lineaComentario = linea.lastIndexOf("*/");
+				if (lineaComentario >= 0) {
+					lineaAux += linea.substring(lineaComentario + 2, linea.length());
+					comentarioMultiLinea = false;
+				}
+
+				linea = lineaAux;
+			}
+
 			if (!palabras.peek().equals(""))
 				palabras.push("");
 			// Recorrer linea leida
