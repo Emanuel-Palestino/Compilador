@@ -43,33 +43,27 @@ public class PrimerosSiguientes {
 				if (posicionA == tamañoVariable - 1){
 					//Con esto comprobamos que no hay un beta y solamente queda del tipo B -> αA
 					//Comprobar que en siguientes de B no este vacio
+					if (){
+						
+					}
 					temporal = siguiente(buscar.getSimboloGramatical(),gramatica); //siguiente(B)
 					resultado.getSimbolos().addAll(temporal.getSimbolos());
 
-				}else if (buscar.getProduccion().contains(gramatica.getNoTerminales()) == true){
+				}else if ((buscar.getProduccion().contains(gramatica.getNoTerminales()) == true) || (buscar.getProduccion().contains(gramatica.getTerminales()) == true)){
 					posicionBeta = buscar.getProduccion().get(posicionA+1);
 					contadorBeta = Integer.parseInt(posicionBeta);
 					List<String> betaSubarreglo = buscar.getProduccion().subList(contadorBeta, tamañoVariable);
 					for(String mueveBeta : betaSubarreglo){	//recorremos el subarreglo de beta
 						//Con ese while comprobamos si lo que tiene mueveBeta en la posicion de la lista es un no terminal
 						if(compruebaNoTerminales(iteradorTerminales,mueveBeta) == 1){
-							//primeros(mueveBeta);
+							//temporal = primeros(mueveBeta);
+							//temporal.getSimbolos().remove(Ɛ);
+							//resultado.getSimbolos().addAll(temporal.getSimbolos());
 						}else{
 							temporal = siguiente(buscar.getSimboloGramatical(),gramatica); //siguiente(B)
 							resultado.getSimbolos().addAll(temporal.getSimbolos());
 						}
 					}
-					
-					/*idea
-					if (resultado.getSimbolos().contains(buscar.getProduccion().get(posicionA+1)) == false){
-						//resultados.get(i).getSimbolos().add (buscar.getProduccion().get(posicionA+1));
-
-						//primeros(resultados.get(0).get(buscaProduccion+1).contains(epsilon))
-					} 
-						//Tercer caso */
-				}else{				
-				
-					
 				}
 			}
 		}
@@ -90,7 +84,7 @@ public class PrimerosSiguientes {
 		if (i == 0){
 			resultados.get(i).getSimbolos().add("$");
 		}
-
+		
 	}
 
 	static int compruebaNoTerminales(Iterator <String> iteradorTerminales , String simboloComparar){
