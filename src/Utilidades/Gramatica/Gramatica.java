@@ -7,12 +7,7 @@ public class Gramatica {
     private ArrayList<String> terminales;
     private ArrayList<ReglaProduccion> reglasProduccion;
     private String simboloInicial;
-
-    /*
-     * Regla de prodccion es una clase (string:simGram arraylist<string>:producción
-     * booleano:marcado)
-     */
-
+    
     // Constructores
     public Gramatica() {
         noTerminales = new ArrayList<String>();
@@ -86,7 +81,7 @@ public class Gramatica {
         // regresar arraylist de las reglas de produccion del string de entrada
         ArrayList<ReglaProduccion> resultado = new ArrayList<ReglaProduccion>();
         for (ReglaProduccion buscando : reglasProduccion) {
-            if (buscando.getSimboloGramatical() == simbolo ){
+            if (buscando.getSimboloGramatical() == simbolo) {
                 resultado.add(buscando);
             }
         }
