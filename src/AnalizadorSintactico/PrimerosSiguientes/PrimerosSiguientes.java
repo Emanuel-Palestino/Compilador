@@ -51,7 +51,7 @@ public class PrimerosSiguientes {
 					resultado.getSimbolos().addAll(temporal2);		//equals
 					buscar.setMarcado(true);  //B -> αA (marcado true)
 
-				}else if ((buscar.getProduccion().contains(gramatica.getNoTerminales()) == true) || (buscar.getProduccion().contains(gramatica.getTerminales()) == true)){
+				}else if (buscar.getProduccion().equals(gramatica.getNoTerminales()) || buscar.getProduccion().equals(gramatica.getTerminales()) == true){
 					posicionBeta = buscar.getProduccion().get(posicionA+1);
 					contadorBeta = Integer.parseInt(posicionBeta);
 					List<String> betaSubarreglo = buscar.getProduccion().subList(contadorBeta, tamañoVariable);
