@@ -22,7 +22,7 @@ public class PrimerosSiguientes {
 
 	public static ConjuntoSimbolos siguiente(String simbolo, Gramatica gramatica){
 		ArrayList <ReglaProduccion> reglasSimboloActual = new ArrayList <ReglaProduccion>();
-		ArrayList <String> temporal3 = new ArrayList <String> (); 
+		ConjuntoSimbolos temporal3 = new ConjuntoSimbolos(); 
 		ConjuntoSimbolos resultado = new ConjuntoSimbolos();
 		ConjuntoSimbolos temporal = new ConjuntoSimbolos();
 		Iterator <String> iteradorTerminales = gramatica.getNoTerminales().iterator();
@@ -35,7 +35,7 @@ public class PrimerosSiguientes {
 			reglasSimboloActual.get(i).setSimboloGramatical(simbolo);
 			if(buscando.getSimboloGramatical() == simbolo){
 				reglasSimboloActual.get(i).getProduccion().addAll(buscando.getProduccion());
-			}<
+			}
 			i++;
 		}
 
@@ -58,9 +58,9 @@ public class PrimerosSiguientes {
 					for(String mueveBeta : betaSubarreglo){	//recorremos el subarreglo de beta
 						//Con ese while comprobamos si lo que tiene mueveBeta en la posicion de la lista es un no terminal
 						if(compruebaNoTerminales(iteradorTerminales,mueveBeta) == 1){
-							temporal3 = primeros(mueveBeta,gramatica);
-							temporal3.remove('Ɛ');
-							List<String> temporal2 = temporal3.stream().distinct().collect(Collectors.toList());
+							temporal3 = primero(mueveBeta,gramatica);
+							temporal3.getSimbolos().remove('Ɛ');
+							List<String> temporal2 = temporal3.getSimbolos().stream().distinct().collect(Collectors.toList());
 							resultado.setId(simbolo);
 							resultado.getSimbolos().addAll(temporal2);
 							break; //L A   C A G O   M A R I O	
@@ -77,6 +77,83 @@ public class PrimerosSiguientes {
 		}
 		return resultado;
 	} 
+
+	static public ConjuntoSimbolos primero(String simbolo, Gramatica gramatica){
+
+		ConjuntoSimbolos primeros = new ConjuntoSimbolos();
+		
+		// Si simbolos es un terminal, el PRIMER conjunto es él mismo
+		// Aquí, la cadena vacía también se incluye en el símbolo del terminal
+		if(gramatica.esTerminal(simbolo)){
+			primeros.getSimbolos().add(simbolo);
+			return primeros;
+		}
+		else{
+
+			// De lo contrario, es igual a la suma de los PRIMEROS conjuntos de símbolos de la derecha
+			//Extraer las reglas de produccion desde gramatica
+			ArrayList<ReglaProduccion> produccion = new ArrayList <ReglaProduccion>();
+			ArrayList<ArrayList<String>> elementosDerecha = new ArrayList<ArrayList<String>>();
+			
+			produccion = gramatica.getReglasProduccion();
+			for(ReglaProduccion regla : produccion){ //For each para recorrer las reglas de produccion
+
+				//si la regla de produccion tiene simbolo igual que el simbolo que se analiza y no esta marcada se asigna a elementos derecha
+				if(regla.getSimboloGramatical().equals(simbolo) && regla.getMarcado() == false){
+					elementosDerecha.add( regla.getProduccion());
+					regla.setMarcado(true); //Se marca esta regla
+				}
+			}
+
+			//Pasa por cada elemento de la derecha
+			for (ArrayList<String> regla : elementosDerecha) {
+
+				ArrayList<String> reglaProduccion = regla;
+
+				//Si la produccion de la derecha es un solo simbolo, se agrega directamente al primer conjunto
+				if(reglaProduccion.size() == 1){
+					primeros.getSimbolos().addAll(primero(reglaProduccion.get(0),gramatica).getSimbolos());
+				}else{
+
+					//Si hay varios simbolos a la derecha, mirar al primer simbolo de la cadena
+					for(int i = 0; i < reglaProduccion.size(); i++){
+
+						String caracter = reglaProduccion.get(i);
+						
+                        // Si es un terminal, agregar directamente a la primera colección
+						if(gramatica.esTerminal(caracter)){
+							primeros.getSimbolos().add(caracter);
+							break;
+						}
+						else{
+							// Si es un símbolo no terminal, calcule su PRIMER conjunto
+							
+							ArrayList<String> cPrimeros = primero(caracter,gramatica).getSimbolos();
+							// Si hay una cadena vacía, es necesario continuar calculando el PRIMER conjunto del siguiente símbolo
+							if(cPrimeros.contains("Ɛ")){
+								// Si este es el último símbolo
+                                // Es necesario agregar la página de cadena vacía a la primera colección
+								if (i == cPrimeros.size() - 1){
+									primeros.getSimbolos().addAll(cPrimeros);
+									
+                                } else {
+                                    cPrimeros.remove("Ɛ");
+									primeros.getSimbolos().addAll(cPrimeros);
+                                
+                                }
+                            } else {
+                                // Si no contiene una cadena vacía, no es necesario continuar con el cálculo
+								primeros.getSimbolos().addAll(cPrimeros);
+                                break;
+                            }
+						}
+					}
+				}
+			}
+		}
+		return primeros;
+	}
+	
 
 	static ArrayList <ConjuntoSimbolos> siguientes(ArrayList <String> simbolos, Gramatica gramatica){
 		ConjuntoSimbolos temporales = new ConjuntoSimbolos();

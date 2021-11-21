@@ -118,7 +118,7 @@ public class Gramatica {
     }
 
     // Métodos
-    boolean esTerminal(String aVerificar) {
+    public boolean esTerminal(String aVerificar) {
         return getTerminales().contains(aVerificar);
     }
 
