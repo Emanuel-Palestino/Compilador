@@ -126,31 +126,11 @@ public class Gramatica {
         // regresar arraylist de las reglas de produccion del string de entrada
         ArrayList<ReglaProduccion> resultado = new ArrayList<ReglaProduccion>();
         for (ReglaProduccion buscando : reglasProduccion) {
-            if (buscando.getSimboloGramatical() == simbolo) {
+            if (buscando.getSimboloGramatical().equals(simbolo)) {
                 resultado.add(buscando);
             }
         }
         return resultado;
     }
 
-    public ArrayList<String> desmontar(String value){
-        char c;
-        ArrayList<String> listaFracmentada = new ArrayList<String>();
-
-        for (int i = 0; i < value.length(); i++){
-            
-            if (value.equals("NULL")){
-                listaFracmentada.add(value);
-                break;
-            }
-            if (i + 1 < value.length() && value.charAt(i + 1) == '\''){
-                listaFracmentada.add(value.substring(i, i + 2));
-                i += 1;
-            } else {
-                listaFracmentada.add(value.substring(i, i + 1));
-            }
-        }
-
-        return listaFracmentada;
-    }
 }

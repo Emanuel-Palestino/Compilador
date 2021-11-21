@@ -16,7 +16,7 @@ Así mismo, el alfabeto se debe escribir con espacios entre cada simbolo o palab
 - º: se usa para representar una cerradura opcional
 - ß: se usa para representar una cerradura positiva
 - ┼: se usa para representar una concatenación
-- ı: se usa para representar una union
+- ı: se usa para repr0esentar una union
 
 ## Simbolos utilizados en los automatas
 - Ɛ: se usa para representar epsilon
@@ -24,11 +24,3 @@ Así mismo, el alfabeto se debe escribir con espacios entre cada simbolo o palab
 ## Palabras que se pueden utilizar como alfabeto
 - letra: para representar cualquier letra del alfabeto mayuscula o minuscula
 - digito: para representar cualquier digito
-
-
-# GRAMATICAS
-Para crear una gramática válida se deben separar todos los simbolos gramaticales con espacios.
-
-Se usa el simbolo » para representar una flecha en las reglas de producción. Este símbolo puede estar o no separado por un espacio de los símbolos gramaticales.
-
-Se sigue usando el simbolo Ɛ para representar epsilon.
