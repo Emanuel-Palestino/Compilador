@@ -1,5 +1,6 @@
 S E L
 ; id := print ( ) num + ,
+S
 S » S ; S
 S » id := E
 S » print ( L )
