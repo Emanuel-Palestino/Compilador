@@ -9,7 +9,7 @@ public class pruebaPrimeros {
 
 	public static void main(String[] args) {
 
-		Gramatica gramatica = new Gramatica("src/pruebas/gramatica.txt");
+		Gramatica gramatica = new Gramatica("src/ArchivosExtra/gramatica.txt");
 		PrimerosSiguientes prueba = new PrimerosSiguientes();
 
 		ArrayList<ConjuntoSimbolos> resultados = new ArrayList<ConjuntoSimbolos>();
