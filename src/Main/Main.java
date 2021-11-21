@@ -1,5 +1,6 @@
 package Main;
 
+import java.awt.FontFormatException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.swing.JDialog;
@@ -9,7 +10,7 @@ import Utilidades.Excepciones.ExcepcionER;
 
 public class Main {
 
-	public static void main(String[] args) throws FileNotFoundException, IOException, ExcepcionER {
+	public static void main(String[] args) throws FileNotFoundException, IOException, ExcepcionER, FontFormatException {
 		try {
 			JFrame.setDefaultLookAndFeelDecorated(true);
 			JDialog.setDefaultLookAndFeelDecorated(true);
@@ -18,6 +19,6 @@ public class Main {
 			System.out.println("Error al aplicar estilo Windows");
 		}
 
-		new VentanaPrincipal().setVisible(true);
+		new VentanaPrincipal();
 	}
 }
