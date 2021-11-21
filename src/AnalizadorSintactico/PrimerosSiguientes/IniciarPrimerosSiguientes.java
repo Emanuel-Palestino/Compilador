@@ -62,6 +62,14 @@ public class IniciarPrimerosSiguientes {
 
 		// Siguientes
 		siguientes = "";
+		conjuntoSimbolos = resultado.getSiguientes();
+		for (ConjuntoSimbolos simbolos : conjuntoSimbolos) {
+			siguientes += "S(" + simbolos.getId() + ") = { ";
+			aux = simbolos.getSimbolos();
+			for (String simbolo : aux)
+				siguientes += simbolo + " ";
+			siguientes += "}\n";
+		}
 
 		new VentanaPrimerosSiguientes(parent, noTerminales, terminales, simboloInicial, gramatica, primeros, siguientes);
 	}

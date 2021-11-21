@@ -14,6 +14,9 @@ public class PrimerosSiguientes {
 		// Se hace primeros
 		resultado.setPrimeros(primeros(gramatica.getNoTerminales(), gramatica));
 
+		// Se hace siguientes
+		resultado.setSiguientes(siguientes(gramatica.getNoTerminales(), gramatica));
+
 		return resultado;
 	}
 
@@ -95,7 +98,6 @@ public class PrimerosSiguientes {
 
 	public ArrayList<ConjuntoSimbolos> siguientes(ArrayList<String> simbolos, Gramatica gramatica) {
 		ArrayList<ConjuntoSimbolos> resultados = new ArrayList<ConjuntoSimbolos>();
-		int i = 0;
 
 		for (String mueveSimbolos : simbolos) {
 

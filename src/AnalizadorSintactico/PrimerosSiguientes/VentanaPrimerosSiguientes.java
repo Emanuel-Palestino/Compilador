@@ -143,6 +143,14 @@ public class VentanaPrimerosSiguientes extends JDialog {
 
 				// Siguientes
 				siguientes = "";
+				conjuntoSimbolos = resultado.getSiguientes();
+				for (ConjuntoSimbolos simbolos : conjuntoSimbolos) {
+					siguientes += "S(" + simbolos.getId() + ") = { ";
+					aux = simbolos.getSimbolos();
+					for (String simbolo : aux)
+						siguientes += simbolo + " ";
+					siguientes += "}\n";
+				}
 
 				rellenarComponentes(noTerminales, terminales, simboloInicial, gramatica, primeros, siguientes);
 			}
