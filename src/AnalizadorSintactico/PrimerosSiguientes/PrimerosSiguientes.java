@@ -19,7 +19,7 @@ public class PrimerosSiguientes {
 	// }
 
 
-public static ConjuntoSimbolos siguiente(String simbolo, Gramatica gramatica) {
+public ConjuntoSimbolos siguiente(String simbolo, Gramatica gramatica) {
 		ArrayList<ReglaProduccion> reglasSimboloActual = new ArrayList<ReglaProduccion>();
 		ConjuntoSimbolos resultadoPrimero = new ConjuntoSimbolos();
 		ConjuntoSimbolos resultado = new ConjuntoSimbolos();
