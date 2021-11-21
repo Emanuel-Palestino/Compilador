@@ -7,7 +7,7 @@ public class ReglaProduccion{
     private ArrayList<String> produccion;
     private boolean marcado;
 
-    //constructorcl
+    //constructor
     public ReglaProduccion(){
         simboloGramatical = null;
         produccion = new ArrayList<String>();
