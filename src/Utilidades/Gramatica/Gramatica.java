@@ -118,7 +118,7 @@ public class Gramatica {
     }
 
     // Métodos
-    boolean esTerminal(String aVerificar) {
+    public boolean esTerminal(String aVerificar) {
         return getTerminales().contains(aVerificar);
     }
 
@@ -126,10 +126,11 @@ public class Gramatica {
         // regresar arraylist de las reglas de produccion del string de entrada
         ArrayList<ReglaProduccion> resultado = new ArrayList<ReglaProduccion>();
         for (ReglaProduccion buscando : reglasProduccion) {
-            if (buscando.getSimboloGramatical() == simbolo) {
+            if (buscando.getSimboloGramatical().equals(simbolo)) {
                 resultado.add(buscando);
             }
         }
         return resultado;
     }
+
 }
