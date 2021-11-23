@@ -5,112 +5,160 @@ import javax.swing.border.BevelBorder;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.GraphicsEnvironment;
+import java.io.File;
 import java.io.IOException;
 import AnalizadorLexico.ConversionAFD.IniciarConjuntos;
 import AnalizadorLexico.Final.IniciarFinal;
+import AnalizadorSintactico.PrimerosSiguientes.IniciarPrimerosSiguientes;
 import AnalizadorLexico.AlgoritmoThompson.IniciarThompson;
 import Utilidades.ImagenFondo;
 import Utilidades.Excepciones.ExcepcionER;
 
 public class VentanaPrincipal extends JFrame {
 
-    private static final long serialVersionUID = 1L;
-    private JLabel label1;
+    public JButton botonThompson, botonAfd, botonAnalizadorLex, botonPrimerosSiguientes;
+    private JLabel tituloAnalizadorLex, tituloAnalizadorSintac;
     private final JFrame ventanaPrincipal = this;
 
-    public VentanaPrincipal() {
+    public VentanaPrincipal() throws FontFormatException, IOException {
         super("Compilador");
         ImagenFondo ejemplo = new ImagenFondo();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(new Dimension(600, 400));
+        this.setSize(new Dimension(1200, 700)); // 600 400
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setContentPane(ejemplo);
         this.setLayout(null);
-        ini();
+        GraphicsEnvironment crearFuente = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        crearFuente
+                .registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("src\\ArchivosExtra\\good times rg.ttf")));
+        menuPrincipal();
+        this.setVisible(true);
     }
 
-    public void ini() {
+    public void menuPrincipal() {
         menuAnalizadorLexico();
+        menuAnalizadorSintactico();
     }
 
     public void menuAnalizadorLexico() {
-        JButton botonthompson = new JButton("Thompson");
-        JButton botonafd = new JButton("AFN->AFD");
-        JButton botonAnalizadorlex = new JButton("A.Léxico");
+        botonThompson = new JButton("Algoritmo de Thompson");
+        botonAfd = new JButton("AFN->AFD");
+        botonAnalizadorLex = new JButton("Analizador Léxico");
 
         // PROPIEDADES DEL LOS LABELS A UTILIZAR
-        label1 = new JLabel("Analizador Léxico");
-        label1.setBounds(134, 75, 307, 50);
-        label1.setFont(new Font("Tahoma", Font.ITALIC, 40));
-        label1.setForeground(Color.WHITE);
-        this.add(label1);
+        tituloAnalizadorLex = new JLabel("Analizador Léxico");
+        tituloAnalizadorLex.setBounds(45, 75, 628, 35);
+        tituloAnalizadorLex.setFont(new Font("good times rg", Font.ROMAN_BASELINE, 40));
+        tituloAnalizadorLex.setForeground(Color.WHITE);
+        this.add(tituloAnalizadorLex);
 
         // DIMENSIONES DE LOS BOTONES
-        botonthompson.setBounds(25, 165, 168, 30);
-        botonafd.setBounds(210, 165, 168, 30);
-        botonAnalizadorlex.setBounds(395, 165, 168, 30);
+        botonThompson.setBounds(100, 165, 285, 65);
+        botonAfd.setBounds(450, 165, 285, 65);
+        botonAnalizadorLex.setBounds(800, 165, 285, 65);
 
         // DISEÑO DE LOS BOTONES
-        botonthompson.setBackground(new Color(99, 8, 103));
-        botonafd.setBackground(new Color(99, 8, 103));
-        botonAnalizadorlex.setBackground(new Color(99, 8, 103));
+        botonThompson.setBackground(new Color(99, 8, 103));
+        botonAfd.setBackground(new Color(99, 8, 103));
+        botonAnalizadorLex.setBackground(new Color(99, 8, 103));
 
-        botonthompson.setBorder(new BevelBorder(BevelBorder.RAISED));
-        botonafd.setBorder(new BevelBorder(BevelBorder.RAISED));
-        botonAnalizadorlex.setBorder(new BevelBorder(BevelBorder.RAISED));
+        botonThompson.setBorder(new BevelBorder(BevelBorder.RAISED));
+        botonAfd.setBorder(new BevelBorder(BevelBorder.RAISED));
+        botonAnalizadorLex.setBorder(new BevelBorder(BevelBorder.RAISED));
 
-        botonthompson.setFont(new Font("Tahoma", Font.CENTER_BASELINE, 17));
-        botonafd.setFont(new Font("Tahoma", Font.CENTER_BASELINE, 17));
-        botonAnalizadorlex.setFont(new Font("Tahoma", Font.CENTER_BASELINE, 17));
+        botonThompson.setFont(new Font("Tahoma", Font.CENTER_BASELINE, 20));
+        botonAfd.setFont(new Font("Tahoma", Font.CENTER_BASELINE, 20));
+        botonAnalizadorLex.setFont(new Font("Tahoma", Font.CENTER_BASELINE, 20));
 
-        botonthompson.setForeground(Color.WHITE);
-        botonafd.setForeground(Color.WHITE);
-        botonAnalizadorlex.setForeground(Color.WHITE);
+        botonThompson.setForeground(Color.WHITE);
+        botonAfd.setForeground(Color.WHITE);
+        botonAnalizadorLex.setForeground(Color.WHITE);
 
-        botonthompson.setFocusPainted(false);
-        botonafd.setFocusPainted(false);
-        botonAnalizadorlex.setFocusPainted(false);
+        botonThompson.setContentAreaFilled(false);
+        botonThompson.setOpaque(true);
+        botonThompson.setFocusPainted(false);
+        botonAfd.setContentAreaFilled(false);
+        botonAfd.setOpaque(true);
+        botonAfd.setFocusPainted(false);
+        botonAnalizadorLex.setContentAreaFilled(false);
+        botonAnalizadorLex.setOpaque(true);
+        botonAnalizadorLex.setFocusPainted(false);
 
         // ACCIONES DE LOS BOTONES
-        {
-            botonthompson.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent ev) {
-                    try {
-                        new IniciarThompson(ventanaPrincipal);
-                    } catch (IOException | ExcepcionER e) {
-                        e.printStackTrace();
-                    }
+        botonThompson.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ev) {
+                try {
+                    new IniciarThompson(ventanaPrincipal);
+                } catch (IOException | ExcepcionER e) {
+                    e.printStackTrace();
                 }
-            });
-        }
-        {
-            botonafd.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent ev) {
-                    try {
-                        new IniciarConjuntos(ventanaPrincipal);
-                    } catch (IOException | ExcepcionER e) {
-                        e.printStackTrace();
-                    }
+            }
+        });
+
+        botonAfd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ev) {
+                try {
+                    new IniciarConjuntos(ventanaPrincipal);
+                } catch (IOException | ExcepcionER e) {
+                    e.printStackTrace();
                 }
-            });
-        }
-        {
-            botonAnalizadorlex.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent ev) {
-                    new IniciarFinal(ventanaPrincipal);
-                }
-            });
-        }
+            }
+        });
+        botonAnalizadorLex.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ev) {
+                new IniciarFinal(ventanaPrincipal);
+            }
+        });
         // ANEXO DE LOS BOTONES AL LABEL
-        add(botonthompson);
-        add(botonafd);
-        add(botonAnalizadorlex);
+        add(botonThompson);
+        add(botonAfd);
+        add(botonAnalizadorLex);
+    }
+
+    public void menuAnalizadorSintactico() {
+        botonPrimerosSiguientes = new JButton("Primeros y Siguientes");
+
+        // PROPIEDADES DEL LOS LABELS A UTILIZAR
+        tituloAnalizadorSintac = new JLabel("Analizador Sintáctico");
+        tituloAnalizadorSintac.setBounds(45, 375, 828, 35);
+        tituloAnalizadorSintac.setFont(new Font("good times rg", Font.ROMAN_BASELINE, 40));
+        tituloAnalizadorSintac.setForeground(Color.WHITE);
+        this.add(tituloAnalizadorSintac);
+
+        // DIMENSIONES DE LOS BOTONES
+        botonPrimerosSiguientes.setBounds(100, 465, 285, 65);
+
+        // DISEÑO DE LOS BOTONES
+        botonPrimerosSiguientes.setBackground(new Color(99, 8, 103));
+
+        botonPrimerosSiguientes.setBorder(new BevelBorder(BevelBorder.RAISED));
+
+        botonPrimerosSiguientes.setFont(new Font("Tahoma", Font.CENTER_BASELINE, 20));
+
+        botonPrimerosSiguientes.setForeground(Color.WHITE);
+
+        botonPrimerosSiguientes.setContentAreaFilled(false);
+        botonPrimerosSiguientes.setOpaque(true);
+        botonPrimerosSiguientes.setFocusPainted(false);
+
+        // ACCIONES DE LOS BOTONES
+        botonPrimerosSiguientes.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ev) {
+                new IniciarPrimerosSiguientes(ventanaPrincipal);
+            }
+        });
+
+        // ANEXO DE LOS BOTONES AL LABEL
+        add(botonPrimerosSiguientes);
     }
 
 }

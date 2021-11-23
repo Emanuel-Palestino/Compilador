@@ -1,16 +1,14 @@
-package Main;
+package Pruebas;
 
-import java.awt.FontFormatException;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
-import Utilidades.Excepciones.ExcepcionER;
 
-public class Main {
+import AnalizadorSintactico.PrimerosSiguientes.VentanaPrimerosSiguientes;
 
-	public static void main(String[] args) throws FileNotFoundException, IOException, ExcepcionER, FontFormatException {
+public class PruebaVentanaPS {
+
+	public static void main(String[] args) {
 		try {
 			JFrame.setDefaultLookAndFeelDecorated(true);
 			JDialog.setDefaultLookAndFeelDecorated(true);
@@ -18,7 +16,7 @@ public class Main {
 		} catch (Exception e) {
 			System.out.println("Error al aplicar estilo Windows");
 		}
-
-		new VentanaPrincipal();
+		new VentanaPrimerosSiguientes();
 	}
+
 }
