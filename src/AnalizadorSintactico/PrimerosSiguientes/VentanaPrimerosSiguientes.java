@@ -11,12 +11,17 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 import Utilidades.Archivo;
+import Utilidades.ConjuntoSimbolos;
+import Utilidades.ResultadoPrimerosSiguientes;
+import Utilidades.Gramatica.Gramatica;
+import Utilidades.Gramatica.ReglaProduccion;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class VentanaPrimerosSiguientes extends JDialog {
 	private FlowLayout diseñoPanel;
@@ -69,7 +74,7 @@ public class VentanaPrimerosSiguientes extends JDialog {
 		panelArchivo.setLayout(diseñoPanel);
 
 		// Mostrar la ruta del archivo
-		textRutaArchivo = new JTextField();
+		textRutaArchivo = new JTextField("src/ArchivosExtra/gramatica.txt");
 		textRutaArchivo.setPreferredSize(new Dimension(600, altoElementos));
 		textRutaArchivo.setEditable(false);
 		// Padding a JTextField
@@ -88,6 +93,66 @@ public class VentanaPrimerosSiguientes extends JDialog {
 				editarRutaArchivo(ruta);
 
 				// Obtener datos nuevos
+				PrimerosSiguientes ps = new PrimerosSiguientes();
+				// Cargar gramatica
+				Gramatica grama = new Gramatica(ruta);
+				ResultadoPrimerosSiguientes resultado = ps.hacer(grama);
+
+				// pasarle los datos a la ventana
+				String noTerminales, terminales, simboloInicial, gramatica, primeros, siguientes;
+				ArrayList<String> aux = new ArrayList<String>();
+
+				// No Terminales
+				aux = grama.getNoTerminales();
+				noTerminales = "";
+				for (String simbolo : aux) {
+					noTerminales += simbolo + " ";
+				}
+
+				// Terminales
+				aux = grama.getTerminales();
+				terminales = "";
+				for (String simbolo : aux) {
+					terminales += simbolo + " ";
+				}
+
+				// Simbolo Inicial
+				simboloInicial = grama.getSimboloInicial();
+
+				// Gramatica
+				gramatica = "";
+				ArrayList<ReglaProduccion> reglas = grama.getReglasProduccion();
+				for (ReglaProduccion regla : reglas) {
+					gramatica += regla.getSimboloGramatical() + " -> ";
+					aux = regla.getProduccion();
+					for (String simbolo : aux)
+						gramatica += simbolo + " ";
+					gramatica += "\n";
+				}
+
+				// Primeros
+				primeros = "";
+				ArrayList<ConjuntoSimbolos> conjuntoSimbolos = resultado.getPrimeros();
+				for (ConjuntoSimbolos simbolos : conjuntoSimbolos) {
+					primeros += "P(" + simbolos.getId() + ") = { ";
+					aux = simbolos.getSimbolos();
+					for (String simbolo : aux)
+						primeros += simbolo + " ";
+					primeros += "}\n";
+				}
+
+				// Siguientes
+				siguientes = "";
+				conjuntoSimbolos = resultado.getSiguientes();
+				for (ConjuntoSimbolos simbolos : conjuntoSimbolos) {
+					siguientes += "S(" + simbolos.getId() + ") = { ";
+					aux = simbolos.getSimbolos();
+					for (String simbolo : aux)
+						siguientes += simbolo + " ";
+					siguientes += "}\n";
+				}
+
+				rellenarComponentes(noTerminales, terminales, simboloInicial, gramatica, primeros, siguientes);
 			}
 		});
 
@@ -141,7 +206,7 @@ public class VentanaPrimerosSiguientes extends JDialog {
 		panelInformacion.add(textSimboloInicial);
 
 		/** Panel de Resultados */
-		
+
 		// Propiedades del panel de Resultados
 		panelResultado = new JPanel();
 		panelResultado.setPreferredSize(new Dimension(900, 430));
@@ -190,7 +255,6 @@ public class VentanaPrimerosSiguientes extends JDialog {
 		panelResultado.add(areaPrimeros);
 		panelResultado.add(areaSiguientes);
 
-
 		/* Agregar paneles a la ventana */
 		this.add(panelArchivo);
 		this.add(panelInformacion);
@@ -198,7 +262,8 @@ public class VentanaPrimerosSiguientes extends JDialog {
 
 	}
 
-	private void rellenarComponentes(String noTerminales, String terminales, String simboloInicial, String gramatica, String primeros, String siguientes) {
+	private void rellenarComponentes(String noTerminales, String terminales, String simboloInicial, String gramatica,
+			String primeros, String siguientes) {
 		textNoTerminales.setText(noTerminales);
 		textTerminales.setText(terminales);
 		textSimboloInicial.setText(simboloInicial);

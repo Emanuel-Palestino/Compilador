@@ -1,8 +1,0 @@
-E E' T T' F
-+ | ( ) * id
-E
-E » T E'
-E' » + T E' | Ɛ
-T » F T'
-T' » * F T' | Ɛ
-F » ( E ) | id
