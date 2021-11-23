@@ -48,6 +48,7 @@ public class Elemento {
 		this.produccion = produccion;
 	}
 
+	// Metodos
 	public void insertarPuntoInicial() {
 		produccion.add(0, "■");
 	}
@@ -60,6 +61,16 @@ public class Elemento {
 
 	public int getTamañoProduccion() {
 		return produccion.size();
+	}
+
+	public int getIndexPunto() {
+		return produccion.indexOf("■");
+	}
+
+	public String getSimboloDespuesDePunto() {
+		if (getIndexPunto() <= produccion.size() - 2)
+			return produccion.get(getIndexPunto() + 1);
+		return "";
 	}
 
 }
