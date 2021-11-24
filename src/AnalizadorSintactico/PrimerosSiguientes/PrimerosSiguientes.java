@@ -2,9 +2,7 @@ package AnalizadorSintactico.PrimerosSiguientes;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import Utilidades.ConjuntoSimbolos;
 import Utilidades.ResultadoPrimerosSiguientes;
@@ -26,7 +24,7 @@ public class PrimerosSiguientes {
 		ConjuntoSimbolos temporal = new ConjuntoSimbolos();
 		ConjuntoSimbolos temporalSig = new ConjuntoSimbolos();
 
-		int tamañoVariable, posicionA, contadorBeta; // contador
+		int tamañoVariable, posicionA; // contador
 		int posicionBeta;
 
 		// Le asigna simbolo al atributo id
@@ -67,8 +65,7 @@ public class PrimerosSiguientes {
 
 			} else {
 				posicionBeta = buscar.getProduccion().indexOf(buscar.getProduccion().get(posicionA + 1));
-				contadorBeta = posicionBeta;
-				List<String> betaSubarreglo = buscar.getProduccion().subList(contadorBeta, tamañoVariable);
+				List<String> betaSubarreglo = buscar.getProduccion().subList(posicionBeta, tamañoVariable);
 				// recorremos el subarreglo de beta
 				// Con ese while comprobamos si lo que tiene mueveBeta en la posicion de la
 				// lista es un no terminal
@@ -93,8 +90,32 @@ public class PrimerosSiguientes {
 		}
 
 		return resultado;
+	}	
+	public ArrayList<ConjuntoSimbolos> siguientes(ArrayList<String> simbolos, Gramatica gramatica) {
+		ArrayList<ConjuntoSimbolos> resultados = new ArrayList<ConjuntoSimbolos>();
+
+		for (String mueveSimbolos : simbolos) {
+			
+			
+			ConjuntoSimbolos temporales = new ConjuntoSimbolos();
+			temporales = siguiente(mueveSimbolos, gramatica);
+			temporales.setId(mueveSimbolos);
+			resultados.add(temporales);
+			// Primer caso
+			/*
+			 * if (i == 0) { // resultados.get(i).setId(gramatica.getSimboloInicial()); Por
+			 * si las moscas resultados.get(i).getSimbolos().add("$"); } i++;
+			 */
+			
+			for (ReglaProduccion buscando : gramatica.getReglasProduccion()) {
+				buscando.setMarcadoSiguiente(false);
+			}
+
+		}
+		return resultados;
 	}
 
+	
 	static public ConjuntoSimbolos primero(String simbolo, Gramatica gramatica){
 
 		ConjuntoSimbolos primeros = new ConjuntoSimbolos();
@@ -171,28 +192,4 @@ public class PrimerosSiguientes {
 		return primeros;
 	}
 
-	public ArrayList<ConjuntoSimbolos> siguientes(ArrayList<String> simbolos, Gramatica gramatica) {
-		ArrayList<ConjuntoSimbolos> resultados = new ArrayList<ConjuntoSimbolos>();
-		int i = 0;
-
-		for (String mueveSimbolos : simbolos) {
-			
-			
-			ConjuntoSimbolos temporales = new ConjuntoSimbolos();
-			temporales = siguiente(mueveSimbolos, gramatica);
-			temporales.setId(mueveSimbolos);
-			resultados.add(temporales);
-			// Primer caso
-			/*
-			 * if (i == 0) { // resultados.get(i).setId(gramatica.getSimboloInicial()); Por
-			 * si las moscas resultados.get(i).getSimbolos().add("$"); } i++;
-			 */
-			
-			for (ReglaProduccion buscando : gramatica.getReglasProduccion()) {
-				buscando.setMarcadoSiguiente(false);
-			}
-
-		}
-		return resultados;
-	}
 }
