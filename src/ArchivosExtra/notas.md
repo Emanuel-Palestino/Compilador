@@ -32,3 +32,9 @@ Para crear una gramática válida se deben separar todos los simbolos gramatical
 Se usa el simbolo » para representar una flecha en las reglas de producción. Este símbolo puede estar o no separado por un espacio de los símbolos gramaticales.
 
 Se sigue usando el simbolo Ɛ para representar epsilon.
+
+## El orden correcto para escribir un archivo con una gramatica es el siguiente
+- Primera Línea: Todos los símbolos no terminales.
+- Segunda Línea: Todos los símbolos terminales.
+- Tercera Línea: El símbolo inicial de la gramatica.
+- Cuarta Línea: A partir de esta línea se escriben las regla de producción.

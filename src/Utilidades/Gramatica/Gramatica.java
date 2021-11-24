@@ -11,7 +11,7 @@ public class Gramatica {
     private ArrayList<String> terminales;
     private ArrayList<ReglaProduccion> reglasProduccion;
     private String simboloInicial;
-
+    
     // Constructores
     public Gramatica() {
         noTerminales = new ArrayList<String>();

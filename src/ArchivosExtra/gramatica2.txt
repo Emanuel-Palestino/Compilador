@@ -1,8 +1,8 @@
-D L T
-id ; , float int Ɛ
+D T L
+id ; , Ɛ float int
 D
-D » T id L ;
-L » , id L
-L » Ɛ
-T » float
-T » int
+D»T id L ;
+L», id L
+L»Ɛ
+T»float
+T»int
