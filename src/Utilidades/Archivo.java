@@ -1,6 +1,7 @@
 package Utilidades;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.*;
@@ -9,7 +10,7 @@ public class Archivo {
 
 	public static ArrayList<String> capturaDatosArchivo(String direccionArchivo) throws FileNotFoundException, IOException {
 		ArrayList<String> contenido = new ArrayList<String>();
-		FileReader archivo = new FileReader(direccionArchivo);
+		FileReader archivo = new FileReader(direccionArchivo, StandardCharsets.UTF_8);
 		BufferedReader lectorBuffer = new BufferedReader(archivo);
 		String entradaDeTexto = new String();
 
