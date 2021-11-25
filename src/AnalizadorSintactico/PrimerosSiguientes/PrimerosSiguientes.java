@@ -173,7 +173,11 @@ public class PrimerosSiguientes {
 
 				// Si la produccion de la derecha es un solo simbolo, se agrega directamente al
 				// primer conjunto
-				if (reglaProduccion.size() == 1) {
+				if(reglaProduccion.size() == 1 && reglaProduccion.get(0).equals("Ɛ")){
+					primeros.getSimbolos().add(reglaProduccion.get(0));
+					return primeros;
+				}
+				else if (reglaProduccion.size() == 1) {
 					primeros.getSimbolos().addAll(primero(reglaProduccion.get(0), gramatica).getSimbolos());
 				} else {
 
