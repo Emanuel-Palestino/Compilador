@@ -7,9 +7,8 @@ import Utilidades.Gramatica.Gramatica;
 import Utilidades.Gramatica.ReglaProduccion;
 
 public class Cerradura {
-    static public ConjuntoElementos hacer(ConjuntoElementos entradaElementos) {
+    public ConjuntoElementos hacer(ConjuntoElementos entradaElementos, Gramatica gramatica) {
         String B;
-        Gramatica gramatica = new Gramatica();
         ArrayList<ReglaProduccion> reglasSimbolo = new ArrayList<ReglaProduccion>();
 
         ConjuntoElementos resultadosCerradura = new ConjuntoElementos();
