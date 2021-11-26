@@ -14,8 +14,7 @@ public class pruebaCerradura {
         Elemento elemento = new Elemento();
         produccion.add("■");
         produccion.add("E");
-        produccion.add("+");
-        produccion.add("T");
+        produccion.add("$");
         elemento.setSimboloGramatical("E'");
         elemento.setProduccion(produccion);
         ConjuntoElementos entradaPrueba = new ConjuntoElementos(elemento);
