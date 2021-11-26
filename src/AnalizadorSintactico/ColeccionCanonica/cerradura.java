@@ -7,24 +7,22 @@ import Utilidades.ConjuntoElementos.Elemento;
 import Utilidades.Gramatica.Gramatica;
 import Utilidades.Gramatica.ReglaProduccion;
 
-public class cerradura {
-    public ConjuntoElementos hacer(ConjuntoElementos entradaElementos){
-        String posicionElemento;
+public class Cerradura {
+    public ConjuntoElementos hacer(ConjuntoElementos entradaElementos) {
+        String B;
         Gramatica gramatica = new Gramatica();
-        ArrayList <ReglaProduccion> reglasSimbolo = new ArrayList<ReglaProduccion>();
-
+        ArrayList<ReglaProduccion> reglasSimbolo = new ArrayList<ReglaProduccion>();
 
         ConjuntoElementos resultadosCerradura = new ConjuntoElementos();
-        while(true){
-            for(Elemento recorreElementos : entradaElementos.getElementos()){   //con este for recorremos los elementos que hay en entradaElementos
-                posicionElemento = recorreElementos.getSimboloDespuesDePunto();     //Obtenemos el elemento que esta despues de punto
-                reglasSimbolo = gramatica.reglasDeSimbolo(posicionElemento);
-                for(ReglaProduccion recorreReglasSimbolo : reglasSimbolo){
-                    for(String recorreProduccion : recorreReglasSimbolo.getProduccion()){
-                        
-                    }
-                }        //Con el objeto gramatica sacamos las reglas del elemento obtenido anteriormente
-            }   
+        for (Elemento recorreElementos : entradaElementos.getElementos()) { // con este for recorremos los elementos que
+            B = recorreElementos.getSimboloDespuesDePunto();                //Obtenemos la posición de B                                                    
+            reglasSimbolo = gramatica.reglasDeSimbolo(B);                   //Obtenemos las reglas de produccion para B
+            for (ReglaProduccion recorreReglasSimbolo : reglasSimbolo) {
+                Elemento auxiliarConvierte = new Elemento(recorreReglasSimbolo);
+                auxiliarConvierte.insertarPuntoInicial();
+                resultadosCerradura.agregar(auxiliarConvierte);
+            } 
         }
+        return resultadosCerradura;
     }
 }
