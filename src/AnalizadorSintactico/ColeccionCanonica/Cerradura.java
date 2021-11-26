@@ -36,6 +36,7 @@ public class Cerradura {
                     resultadosCerradura.agregar(auxiliarConvierte);
                 } 
             }
+            resultadosCerradura.agregar(recorreElementos);
             
         }
         return resultadosCerradura;
