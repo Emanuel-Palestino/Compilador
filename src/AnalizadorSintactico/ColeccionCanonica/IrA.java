@@ -10,7 +10,7 @@ public class IrA {
         Set <Elemento> elementos = conjuntoelementos.getElementos();
         for (Elemento busquedaElemento : elementos){
             Elemento auxiliar = new Elemento(busquedaElemento);
-            if (auxiliar.getSimboloDespuesDePunto() != ""){
+            if (auxiliar.getSimboloDespuesDePunto() != "" && auxiliar.getSimboloDespuesDePunto()==simbolo){
                 auxiliar.moverPunto();
                 resultadosIra.agregar(auxiliar);
             }        
