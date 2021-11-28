@@ -11,6 +11,10 @@ public class Cerradura {
         String B;
         ArrayList<ReglaProduccion> reglasSimbolo = new ArrayList<ReglaProduccion>();
         ConjuntoElementos resultadosCerradura = new ConjuntoElementos();
+        
+        for(Elemento recorreElementosEntrada : entradaElementos.getElementos()){
+            resultadosCerradura.agregar(recorreElementosEntrada);
+        }
 
         for(Elemento recorreElementos : entradaElementos.getElementos()) { // con este for recorremos los elementos que      
             B = recorreElementos.getSimboloDespuesDePunto();                //Obtenemos la posición de B                                                    
@@ -20,8 +24,6 @@ public class Cerradura {
                 auxiliarConvierte.insertarPuntoInicial();
                 resultadosCerradura.agregar(auxiliarConvierte);
             } 
-            
-            resultadosCerradura.agregar(recorreElementos);
             
         }
         return resultadosCerradura;

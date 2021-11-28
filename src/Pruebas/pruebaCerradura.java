@@ -12,10 +12,12 @@ public class pruebaCerradura {
         ConjuntoElementos resultados = new ConjuntoElementos();
         ArrayList <String> produccion = new ArrayList <String>();
         Elemento elemento = new Elemento();
+        produccion.add("T");
+        produccion.add("*");
         produccion.add("■");
-        produccion.add("E");
-        produccion.add("$");
-        elemento.setSimboloGramatical("E'");
+        produccion.add("F");
+        
+        elemento.setSimboloGramatical("T");
         elemento.setProduccion(produccion);
         ConjuntoElementos entradaPrueba = new ConjuntoElementos(elemento);
 
