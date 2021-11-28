@@ -9,6 +9,7 @@ import Utilidades.Gramatica.Gramatica;
 
 public class ColeccionCanonica {
 	private Set<ConjuntoElementos> conjuntosElementos;
+	private static String proceso;
 
 	// Constructor vacio
 	public ColeccionCanonica() {
@@ -33,6 +34,7 @@ public class ColeccionCanonica {
 
 
 		ColeccionCanonica coleccionCanonica = new ColeccionCanonica();
+		StringBuilder procesoResultado = new StringBuilder();
 
 		//crear regla 0
 		//---------------------------------------------------------------------------
@@ -46,6 +48,7 @@ public class ColeccionCanonica {
 
 		//_--------------------------------------------------------------------------
 		coleccionCanonica.agregar(Cerradura.hacer(elementoInicial));
+		
 		
 
 		for(ConjuntoElementos conjuntoElementosActual:  coleccionCanonica.getConjuntosElementos()){
@@ -62,11 +65,12 @@ public class ColeccionCanonica {
 
 			for(String X : simbolosGramaticales){
 
-				aux.agregar(Ira.hacer(conjuntoElementosActual,X));
+				aux.agregar(IrA.hacer(conjuntoElementosActual,X));
 
 				if(aux.getElementos().size() > 0){
 					
 					coleccionCanonica.agregar(aux);
+					procesoResultado.append(aux);
 				}
 			}		
 		}
