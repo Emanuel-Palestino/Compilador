@@ -12,20 +12,16 @@ public class pruebaCerradura {
         ConjuntoElementos resultados = new ConjuntoElementos();
         ArrayList <String> produccion = new ArrayList <String>();
         Elemento elemento = new Elemento();
-        produccion.add("T");
-        produccion.add("*");
-        produccion.add("■");
-        produccion.add("F");
+        produccion.add("E");
+        produccion.add("$");
         
-        elemento.setSimboloGramatical("T");
+        elemento.setSimboloGramatical("E'");
         elemento.setProduccion(produccion);
         ConjuntoElementos entradaPrueba = new ConjuntoElementos(elemento);
 
-
-        Cerradura cerradura = new Cerradura();
         Gramatica gramatica = new Gramatica("src/ArchivosExtra/gramatica.txt");
 
-        resultados = cerradura.hacer(entradaPrueba, gramatica);
+        resultados = Cerradura.hacer(entradaPrueba, gramatica);
         for(Elemento recorre : resultados.getElementos()){
             System.out.print(recorre.getSimboloGramatical());
             System.out.println(recorre.getProduccion());
