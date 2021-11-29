@@ -1,11 +1,12 @@
 package AnalizadorSintactico.ColeccionCanonica;
 
+import Utilidades.Gramatica.Gramatica;
 import Utilidades.ConjuntoElementos.ConjuntoElementos;
 import Utilidades.ConjuntoElementos.Elemento;
 import java.util.Set;
 
 public class IrA {
-    public static ConjuntoElementos hacer (ConjuntoElementos conjuntoelementos, String simbolo){
+    public static ConjuntoElementos hacer (ConjuntoElementos conjuntoelementos, String simbolo, Gramatica gramatica){
         ConjuntoElementos resultadosIra = new ConjuntoElementos();
         Set <Elemento> elementos = conjuntoelementos.getElementos();
         for (Elemento busquedaElemento : elementos){
@@ -15,6 +16,6 @@ public class IrA {
                 resultadosIra.agregar(auxiliar);
             }        
         }
-        return resultadosIra;
+        return Cerradura.hacer(resultadosIra, gramatica);
     }
 }
