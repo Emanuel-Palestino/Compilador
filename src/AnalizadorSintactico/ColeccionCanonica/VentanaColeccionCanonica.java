@@ -33,12 +33,14 @@ public class VentanaColeccionCanonica extends JDialog {
 
 	// Constructor de la ventana
 	public VentanaColeccionCanonica(JFrame parent, String noTerminales, String terminales, String simboloInicial,
-			String gramatica, String primeros, String siguientes) {
+			String gramatica, String coleccionCanonica) {
 		super(parent);
 
 		// Iniciar componentes
+		inicializarComponentes();
 
 		// Rellenar con informacion dada
+		rellenarComponentes(noTerminales, terminales, simboloInicial, gramatica, coleccionCanonica);
 
 		this.setVisible(true);
 	}
@@ -85,6 +87,8 @@ public class VentanaColeccionCanonica extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				// Obtener nueva ruta dle archivo
 				String ruta = Archivo.obtenerRutaArchivo(estaVentana);
+
+				editarRutaArchivo(ruta);
 
 				// Obtener datos nuevos
 			}
@@ -180,7 +184,18 @@ public class VentanaColeccionCanonica extends JDialog {
 		this.add(panelArchivo);
 		this.add(panelInformacion);
 		this.add(panelResultado);
+	}
 
+	private void rellenarComponentes(String noTerminales, String terminales, String simboloInicial, String gramatica, String coleccionCanonica) {
+		textNoTerminales.setText(noTerminales);
+		textTerminales.setText(terminales);
+		textSimboloInicial.setText(simboloInicial);
+		areaGramatica.setText(gramatica);
+		areaColeccionCanonica.setText(coleccionCanonica);
+	}
+
+	private void editarRutaArchivo(String nuevaRuta) {
+		textRutaArchivo.setText(nuevaRuta);
 	}
 
 }
