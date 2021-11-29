@@ -14,6 +14,7 @@ import Utilidades.Archivo;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -92,6 +93,93 @@ public class VentanaColeccionCanonica extends JDialog {
 		// Agregar elementos al panel Archivo
 		panelArchivo.add(textRutaArchivo);
 		panelArchivo.add(botonBuscar);
+
+
+		/** MOstrar Simbolos de la gramatica */
+
+		// Propiedades del panel Informacion
+		panelInformacion = new JPanel();
+		panelInformacion.setPreferredSize(new Dimension(500, 130));
+		panelInformacion.setLayout(diseñoPanel);
+
+		// Mostrar los simbolos no terminales
+		lblSimbolosNoTerminales = new JLabel("Símbolos no Terminales");
+		lblSimbolosNoTerminales.setPreferredSize(new Dimension(120, altoElementos));
+
+		textNoTerminales = new JTextField();
+		textNoTerminales.setPreferredSize(new Dimension(300, altoElementos));
+		textNoTerminales.setEditable(false);
+		textNoTerminales.setBorder(BorderFactory.createCompoundBorder(textNoTerminales.getBorder(), padding));
+
+		// Mostrar los simbolos terminales
+		lblSimbolosTerminales = new JLabel("Símbolos Terminales: ");
+		lblSimbolosTerminales.setPreferredSize(new Dimension(120, altoElementos));
+
+		textTerminales = new JTextField();
+		textTerminales.setPreferredSize(new Dimension(300, altoElementos));
+		textTerminales.setEditable(false);
+		textTerminales.setBorder(BorderFactory.createCompoundBorder(textTerminales.getBorder(), padding));
+
+		// Mostrar Simbolo Inicial
+		lblSimboloInicial = new JLabel("Símbolo Inicial:");
+		lblSimboloInicial.setPreferredSize(new Dimension(120, altoElementos));
+
+		textSimboloInicial = new JTextField();
+		textSimboloInicial.setPreferredSize(new Dimension(300, altoElementos));
+		textSimboloInicial.setEditable(false);
+		textSimboloInicial.setBorder(BorderFactory.createCompoundBorder(textSimboloInicial.getBorder(), padding));
+
+		// Agregar elementos al panel Informacion
+		panelInformacion.add(lblSimbolosNoTerminales);
+		panelInformacion.add(textNoTerminales);
+		panelInformacion.add(lblSimbolosTerminales);
+		panelInformacion.add(textTerminales);
+		panelInformacion.add(lblSimboloInicial);
+		panelInformacion.add(textSimboloInicial);
+
+
+		/** Panel de Resultados */
+
+		// Propiedades del panel de Resultado
+		panelResultado = new JPanel();
+		panelResultado.setPreferredSize(new Dimension(900, 430));
+		panelResultado.setLayout(diseñoPanel);
+		Font fuenteResultado = new Font("Arial", Font.PLAIN, 16);
+
+		// Mostrar Etiqueta Gramatica
+		lblGramatica = new JLabel("Gramática");
+		lblGramatica.setPreferredSize(new Dimension(287, altoElementos));
+
+		// Mostrar Etiqueta Coleccion Canonica
+		lblColeccionCanonica = new JLabel("Colección Canonica:");
+		lblColeccionCanonica.setPreferredSize(new Dimension(574, altoElementos));
+
+		// Mostrar Contenido de la Gramatica
+		areaGramatica = new JTextArea();
+		areaGramatica.setPreferredSize(new Dimension(287, 430 - altoElementos - 20));
+		areaGramatica.setEditable(false);
+		areaGramatica.setFont(fuenteResultado);
+		areaGramatica.setBorder(BorderFactory.createCompoundBorder(areaGramatica.getBorder(), paddingTextArea));
+
+		// Mostrar Coleccion Canonica
+		areaColeccionCanonica = new JTextArea();
+		areaColeccionCanonica.setPreferredSize(new Dimension(574, 430 - altoElementos - 20));
+		areaColeccionCanonica.setEditable(false);
+		areaColeccionCanonica.setFont(fuenteResultado);
+		areaColeccionCanonica.setBorder(BorderFactory.createCompoundBorder(areaColeccionCanonica.getBorder(), paddingTextArea));
+
+		// Agregar elementos al panel resultado
+		panelResultado.add(lblGramatica);
+		panelResultado.add(lblColeccionCanonica);
+		panelResultado.add(areaGramatica);
+		panelResultado.add(areaColeccionCanonica);
+
+
+
+		// Agregar componente a la Ventana
+		this.add(panelArchivo);
+		this.add(panelInformacion);
+		this.add(panelResultado);
 
 	}
 
