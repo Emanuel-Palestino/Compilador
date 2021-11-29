@@ -30,12 +30,13 @@ public class pruebaIRA {
         prueba.agregar(temporal2);
         prueba.agregar(temporal3);
         ConjuntoElementos temporalResultados = new ConjuntoElementos();
-        
+        /*
         temporalResultados = IrA.hacer(prueba, temporal2.getSimboloGramatical());
         Set <Elemento> resultados =  temporalResultados.getElementos();
         for (Elemento recorre : resultados) {
             Elemento finale = new Elemento(recorre);
             System.out.println( finale.getProduccion());
-        }        
+        }  
+        */      
     }
 }
