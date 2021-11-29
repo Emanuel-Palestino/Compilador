@@ -1,7 +1,10 @@
 package AnalizadorSintactico.PrimerosSiguientes;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import Utilidades.ConjuntoSimbolos;
 import Utilidades.ResultadoPrimerosSiguientes;
 import Utilidades.Gramatica.Gramatica;
@@ -27,7 +30,7 @@ public class PrimerosSiguientes {
 		ConjuntoSimbolos temporal = new ConjuntoSimbolos();
 		ConjuntoSimbolos temporalSig = new ConjuntoSimbolos();
 
-		int tamañoVariable, posicionA, contadorBeta; // contador
+		int tamañoVariable, posicionA; // contador
 		int posicionBeta;
 
 		// Le asigna simbolo al atributo id
@@ -68,8 +71,7 @@ public class PrimerosSiguientes {
 
 			} else {
 				posicionBeta = buscar.getProduccion().indexOf(buscar.getProduccion().get(posicionA + 1));
-				contadorBeta = posicionBeta;
-				List<String> betaSubarreglo = buscar.getProduccion().subList(contadorBeta, tamañoVariable);
+				List<String> betaSubarreglo = buscar.getProduccion().subList(posicionBeta, tamañoVariable);
 				// recorremos el subarreglo de beta
 				// Con ese while comprobamos si lo que tiene mueveBeta en la posicion de la
 				// lista es un no terminal
@@ -173,7 +175,11 @@ public class PrimerosSiguientes {
 
 				// Si la produccion de la derecha es un solo simbolo, se agrega directamente al
 				// primer conjunto
-				if (reglaProduccion.size() == 1) {
+				if(reglaProduccion.size() == 1 && reglaProduccion.get(0).equals("Ɛ")){
+					primeros.getSimbolos().add(reglaProduccion.get(0));
+					return primeros;
+				}
+				else if (reglaProduccion.size() == 1) {
 					primeros.getSimbolos().addAll(primero(reglaProduccion.get(0), gramatica).getSimbolos());
 				} else {
 
