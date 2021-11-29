@@ -122,7 +122,7 @@ public class Gramatica {
         return getTerminales().contains(aVerificar);
     }
 
-    ArrayList<ReglaProduccion> reglasDeSimbolo(String simbolo) {
+    public ArrayList<ReglaProduccion> reglasDeSimbolo(String simbolo) {
         // regresar arraylist de las reglas de produccion del string de entrada
         ArrayList<ReglaProduccion> resultado = new ArrayList<ReglaProduccion>();
         for (ReglaProduccion buscando : reglasProduccion) {
