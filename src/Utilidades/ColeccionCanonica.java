@@ -29,22 +29,32 @@ public class ColeccionCanonica {
 	public void agregar(ConjuntoElementos conjunto) {
 		Boolean bandera = true;
 		for (ConjuntoElementos conjuntoEle : conjuntosElementos) {
+			bandera = true;
 			ArrayList<Elemento> elementosActual = conjuntoEle.getElementos();
 			ArrayList<Elemento> elementosNuevo = conjunto.getElementos();
+			Boolean bandera2 = true;
 
 			// Comparar si tienen el mismo largo
 			if (elementosActual.size() == elementosNuevo.size()) {
+
 				for (int i = 0; i < elementosActual.size(); i++) {
-					// Comparacion elemento a elemento
-					
+
+					// Comprobar elemento a elemento
+					if (!elementosActual.get(i).esIgual(elementosNuevo.get(i))) {
+						bandera2 = false;
+						break;
+					}
+				}
+
+				if(bandera2) { // El conjunto actual es el mismo que el parametro y se termina el ciclo principal
+					bandera = false;
+					break;
 				}
 			}
 		}
 
 		if (bandera)
 			conjuntosElementos.add(conjunto);
-
-
 	}
 
 	public static ColeccionCanonica hacer(Gramatica gramatica) {
