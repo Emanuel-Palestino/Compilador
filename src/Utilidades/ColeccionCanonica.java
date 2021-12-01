@@ -10,19 +10,29 @@ import Utilidades.Gramatica.Gramatica;
 
 public class ColeccionCanonica {
 	private ArrayList<ConjuntoElementos> conjuntosElementos;
+	private String proceso;
+	private int contador;
 
 	// Constructor vacio
 	public ColeccionCanonica() {
 		conjuntosElementos = new ArrayList<ConjuntoElementos>();
+		proceso = "";
+		contador = 0;
 	}
 
 	public ColeccionCanonica(ArrayList<ConjuntoElementos> conjunto) {
 		conjuntosElementos = conjunto;
+		proceso = "";
+		contador = 0;
 	}
 
-	//Getters
+	// Getters
 	public ArrayList<ConjuntoElementos> getConjuntosElementos() {
 		return conjuntosElementos;
+	}
+
+	public String getProceso() {
+		return this.proceso;
 	}
 
 	// Metodos
@@ -46,7 +56,8 @@ public class ColeccionCanonica {
 					}
 				}
 
-				if(bandera2) { // El conjunto actual es el mismo que el parametro y se termina el ciclo principal
+				if (bandera2) { // El conjunto actual es el mismo que el parametro y se termina el ciclo
+												// principal
 					bandera = false;
 					break;
 				}
@@ -55,6 +66,27 @@ public class ColeccionCanonica {
 
 		if (bandera)
 			conjuntosElementos.add(conjunto);
+
+		
+
+	}
+
+	public void agregarProceso(ColeccionCanonica coleccionCanonica) {
+		
+		for(ConjuntoElementos recorridoElementos : coleccionCanonica.getConjuntosElementos()){
+			proceso += contador;
+			proceso += ": ";
+			
+			for (Elemento recorrido : recorridoElementos.getElementos()) {
+				proceso += '[';
+				proceso += recorrido.getSimboloGramatical();
+				proceso += "->";
+				proceso += recorrido.getProduccion();
+				proceso += "], ";
+			}
+		proceso += '\n';
+		contador ++;
+		}
 	}
 
 	public static ColeccionCanonica hacer(Gramatica gramatica) {
@@ -74,7 +106,7 @@ public class ColeccionCanonica {
 
 		ColeccionCanonica resFinal = new ColeccionCanonica(resultado);
 
-		for (int i = 0; i < resultado.size(); i ++) {
+		for (int i = 0; i < resultado.size(); i++) {
 			ArrayList<Elemento> conjuntoEle = resultado.get(i).getElementos();
 
 			// Obtener todos los simbolos X
@@ -94,8 +126,9 @@ public class ColeccionCanonica {
 
 		}
 
+		resFinal.agregarProceso(resFinal);
 		return resFinal;
-		
+
 	}
 
 }
