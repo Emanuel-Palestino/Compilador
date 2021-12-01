@@ -5,6 +5,8 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 import AnalizadorSintactico.ColeccionCanonica.VentanaColeccionCanonica;
+import Utilidades.ColeccionCanonica;
+import Utilidades.Gramatica.Gramatica;
 
 public class PruebaVentanaCC {
 
@@ -16,7 +18,9 @@ public class PruebaVentanaCC {
 		} catch (Exception e) {
 			System.out.println("Error al aplicar estilo Windows");
 		}
-		new VentanaColeccionCanonica();
+		Gramatica gramatica = new Gramatica("src/ArchivosExtra/gramatica.txt");
+		String resultado = ColeccionCanonica.hacer(gramatica).getProceso();
+		new VentanaColeccionCanonica(null,"","","","",resultado);
 	}
 
 }
