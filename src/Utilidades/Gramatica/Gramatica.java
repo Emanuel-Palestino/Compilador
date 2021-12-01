@@ -11,12 +11,14 @@ public class Gramatica {
     private ArrayList<String> terminales;
     private ArrayList<ReglaProduccion> reglasProduccion;
     private String simboloInicial;
+    private boolean banderaEpsilon;
     
     // Constructores
     public Gramatica() {
         noTerminales = new ArrayList<String>();
         terminales = new ArrayList<String>();
         reglasProduccion = new ArrayList<ReglaProduccion>();
+        banderaEpsilon = false;
         simboloInicial = null;
     }
 
@@ -26,6 +28,7 @@ public class Gramatica {
         terminales = ter;
         reglasProduccion = new ArrayList<ReglaProduccion>();
         simboloInicial = null;
+        banderaEpsilon = false;
     }
 
     public Gramatica(ArrayList<ReglaProduccion> reglas) {
@@ -33,6 +36,7 @@ public class Gramatica {
         terminales = new ArrayList<String>();
         reglasProduccion = reglas;
         simboloInicial = null;
+        banderaEpsilon = false;
     }
 
     // Cargar gramatica desde archivo
@@ -101,6 +105,10 @@ public class Gramatica {
         return simboloInicial;
     }
 
+    public boolean getBanderaEpsilon(){
+        return banderaEpsilon;
+    }
+
     public void setNoTerminales(ArrayList<String> noTerminales) {
         this.noTerminales = noTerminales;
     }
@@ -115,6 +123,10 @@ public class Gramatica {
 
     public void setSimboloInicial(String simboloInicial) {
         this.simboloInicial = simboloInicial;
+    }
+
+    public void setBanderaEpsilon(boolean nuevoValor){
+        this.banderaEpsilon = nuevoValor;
     }
 
     // Métodos
