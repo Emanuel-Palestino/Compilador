@@ -73,4 +73,16 @@ public class Elemento {
 		return "";
 	}
 
+	public Boolean esIgual(Elemento elemento) {
+		String simbolo = elemento.simboloGramatical;
+		ArrayList<String> produccion = elemento.produccion;
+
+		// Comprobar
+		if (simbolo.equals(this.simboloGramatical) && produccion.equals(this.produccion))
+			return true;
+		else
+			return false;
+
+	}
+
 }
