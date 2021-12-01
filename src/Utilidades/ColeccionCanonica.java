@@ -1,45 +1,101 @@
 package Utilidades;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+
+import AnalizadorSintactico.ColeccionCanonica.Cerradura;
+import AnalizadorSintactico.ColeccionCanonica.IrA;
 import Utilidades.ConjuntoElementos.ConjuntoElementos;
-import Utilidades.Gramatica.*;
+import Utilidades.ConjuntoElementos.Elemento;
+import Utilidades.Gramatica.Gramatica;
 
 public class ColeccionCanonica {
-	private Set<ConjuntoElementos> conjuntosElementos;
+	private ArrayList<ConjuntoElementos> conjuntosElementos;
 
 	// Constructor vacio
 	public ColeccionCanonica() {
-		conjuntosElementos = new HashSet<ConjuntoElementos>();
+		conjuntosElementos = new ArrayList<ConjuntoElementos>();
 	}
 
-	// Getters
-	public Set<ConjuntoElementos> getConjuntosElementos() {
+	public ColeccionCanonica(ArrayList<ConjuntoElementos> conjunto) {
+		conjuntosElementos = conjunto;
+	}
+
+	//Getters
+	public ArrayList<ConjuntoElementos> getConjuntosElementos() {
 		return conjuntosElementos;
 	}
 
 	// Metodos
 	public void agregar(ConjuntoElementos conjunto) {
-		conjuntosElementos.add(conjunto);
-	}
+		Boolean bandera = true;
+		for (ConjuntoElementos conjuntoEle : conjuntosElementos) {
+			bandera = true;
+			ArrayList<Elemento> elementosActual = conjuntoEle.getElementos();
+			ArrayList<Elemento> elementosNuevo = conjunto.getElementos();
+			Boolean bandera2 = true;
 
-	public static ColeccionCanonica crear(Gramatica gramatica){
+			// Comparar si tienen el mismo largo
+			if (elementosActual.size() == elementosNuevo.size()) {
 
-		Cerradura cerradura = new cerradura();
-		IrA irA = new IrA();
+				for (int i = 0; i < elementosActual.size(); i++) {
 
-		ColeccionCanonica C = new ColeccionCanonica(); 
-		C.agregar(cerradura.hacer(/*simbolo añadido de la gramatica*/));
-		do{
-			for (ConjuntoElementos i : conjuntosElementos) {//para cada conjunto de elementos i en C							conjuntosElementos es una referencia estatica
-				for (/*cada simbolo gramatical : simbolosgramaticales*/) {//para cada simbolo gramatical x
-					if(irA.hacer(i,i.getElementos())!=0){};//checar como se maneja irA cuando devuelve vacío
-					C.agregar(i);	
+					// Comprobar elemento a elemento
+					if (!elementosActual.get(i).esIgual(elementosNuevo.get(i))) {
+						bandera2 = false;
+						break;
+					}
+				}
+
+				if(bandera2) { // El conjunto actual es el mismo que el parametro y se termina el ciclo principal
+					bandera = false;
+					break;
 				}
 			}
-		}while();
+		}
+
+		if (bandera)
+			conjuntosElementos.add(conjunto);
+	}
+
+	public static ColeccionCanonica hacer(Gramatica gramatica) {
+		ArrayList<ConjuntoElementos> resultado = new ArrayList<ConjuntoElementos>();
+
+		// Regla produccion inicial
+		Elemento regla1 = new Elemento();
+		regla1.setSimboloGramatical(gramatica.getSimboloInicial() + "'");
+		ArrayList<String> produccion = new ArrayList<String>();
+		produccion.add("■");
+		produccion.add(gramatica.getSimboloInicial());
+		produccion.add("$");
+		regla1.setProduccion(produccion);
+		ConjuntoElementos ini = new ConjuntoElementos(regla1);
+
+		resultado.add(Cerradura.hacer(ini, gramatica));
+
+		ColeccionCanonica resFinal = new ColeccionCanonica(resultado);
+
+		for (int i = 0; i < resultado.size(); i ++) {
+			ArrayList<Elemento> conjuntoEle = resultado.get(i).getElementos();
+
+			// Obtener todos los simbolos X
+			ArrayList<String> simbolosX = new ArrayList<String>();
+			for (Elemento ele : conjuntoEle) {
+				String X = ele.getSimboloDespuesDePunto();
+				if (!simbolosX.contains(X) && !X.equals("$"))
+					simbolosX.add(X);
+			}
+
+			// Hacer irA para cada X
+			for (String X : simbolosX) {
+				ConjuntoElementos resIrA = IrA.hacer(resultado.get(i), X, gramatica);
+				if (resIrA.getElementos().size() > 0)
+					resFinal.agregar(resIrA);
+			}
+
+		}
+
+		return resFinal;
 		
-		return C;
 	}
 
 }

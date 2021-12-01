@@ -3,15 +3,16 @@ package AnalizadorSintactico.ColeccionCanonica;
 import Utilidades.Gramatica.Gramatica;
 import Utilidades.ConjuntoElementos.ConjuntoElementos;
 import Utilidades.ConjuntoElementos.Elemento;
-import java.util.Set;
+
+import java.util.ArrayList;
 
 public class IrA {
     public static ConjuntoElementos hacer (ConjuntoElementos conjuntoelementos, String simbolo, Gramatica gramatica){
         ConjuntoElementos resultadosIra = new ConjuntoElementos();
-        Set <Elemento> elementos = conjuntoelementos.getElementos();
+        ArrayList <Elemento> elementos = conjuntoelementos.getElementos();
         for (Elemento busquedaElemento : elementos){
             Elemento auxiliar = new Elemento(busquedaElemento);
-            if (auxiliar.getSimboloDespuesDePunto() != "" && auxiliar.getSimboloDespuesDePunto()==simbolo){
+            if (!auxiliar.getSimboloDespuesDePunto().equals("") && auxiliar.getSimboloDespuesDePunto().equals(simbolo)){
                 auxiliar.moverPunto();
                 resultadosIra.agregar(auxiliar);
             }        
