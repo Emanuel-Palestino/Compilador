@@ -9,18 +9,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
-
 import Utilidades.Archivo;
 import Utilidades.ColeccionCanonica;
 import Utilidades.Gramatica.Gramatica;
-import Utilidades.Gramatica.ReglaProduccion;
-
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class VentanaColeccionCanonica extends JDialog {
 	private FlowLayout diseñoPanel;
@@ -98,40 +94,8 @@ public class VentanaColeccionCanonica extends JDialog {
 				Gramatica grama = new Gramatica(ruta);
 				String coleccionCanonica = ColeccionCanonica.hacer(grama).getProceso();
 
-				// pasarle los datos a la ventana
-				String noTerminales, terminales, simboloInicial, gramatica;
-				ArrayList<String> aux = new ArrayList<String>();
-
-				// No Terminales
-				aux = grama.getNoTerminales();
-				noTerminales = "";
-				for (String simbolo : aux) {
-					noTerminales += simbolo + " ";
-				}
-
-				// Terminales
-				aux = grama.getTerminales();
-				terminales = "";
-				for (String simbolo : aux) {
-					terminales += simbolo + " ";
-				}
-
-				// Simbolo Inicial
-				simboloInicial = grama.getSimboloInicial();
-
-				// Gramatica
-				gramatica = "";
-				ArrayList<ReglaProduccion> reglas = grama.getReglasProduccion();
-				for (ReglaProduccion regla : reglas) {
-					gramatica += regla.getSimboloGramatical() + " -> ";
-					aux = regla.getProduccion();
-					for (String simbolo : aux)
-						gramatica += simbolo + " ";
-					gramatica += "\n";
-				}
-
 				// Modificar datos
-				rellenarComponentes(noTerminales, terminales, simboloInicial, gramatica, coleccionCanonica);
+				rellenarComponentes(grama.stringSimbolosNoTerminales(), grama.stringSimbolosTerminales(), grama.getSimboloInicial(), grama.stringGramatica(), coleccionCanonica);
 
 			}
 		});

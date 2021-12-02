@@ -145,4 +145,38 @@ public class Gramatica {
         return resultado;
     }
 
+    public String stringSimbolosNoTerminales() {
+        String res = "";
+
+        for (String simbolo : noTerminales) {
+			res += simbolo + " ";
+		}
+
+        return res;
+    }
+
+    public String stringSimbolosTerminales() {
+         String res = "";
+
+        for (String simbolo : terminales) {
+			res += simbolo + " ";
+		}
+
+        return res;       
+    }
+
+    public String stringGramatica() {
+        String res = "";
+		ArrayList<String> aux = new ArrayList<String>();
+        for (ReglaProduccion regla : reglasProduccion) {
+			res += regla.getSimboloGramatical() + " -> ";
+			aux = regla.getProduccion();
+			for (String simbolo : aux)
+				res += simbolo + " ";
+			res += "\n";
+		}
+
+        return res;
+    }
+
 }
