@@ -11,12 +11,16 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 import Utilidades.Archivo;
+import Utilidades.ColeccionCanonica;
+import Utilidades.Gramatica.Gramatica;
+import Utilidades.Gramatica.ReglaProduccion;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class VentanaColeccionCanonica extends JDialog {
 	private FlowLayout diseñoPanel;
@@ -34,7 +38,7 @@ public class VentanaColeccionCanonica extends JDialog {
 	// Constructor de la ventana
 	public VentanaColeccionCanonica(JFrame parent, String noTerminales, String terminales, String simboloInicial,
 			String gramatica, String coleccionCanonica) {
-		super(parent);
+		super(parent, true);
 
 		// Iniciar componentes
 		inicializarComponentes();
@@ -91,13 +95,50 @@ public class VentanaColeccionCanonica extends JDialog {
 				editarRutaArchivo(ruta);
 
 				// Obtener datos nuevos
+				Gramatica grama = new Gramatica(ruta);
+				String coleccionCanonica = ColeccionCanonica.hacer(grama).getProceso();
+
+				// pasarle los datos a la ventana
+				String noTerminales, terminales, simboloInicial, gramatica;
+				ArrayList<String> aux = new ArrayList<String>();
+
+				// No Terminales
+				aux = grama.getNoTerminales();
+				noTerminales = "";
+				for (String simbolo : aux) {
+					noTerminales += simbolo + " ";
+				}
+
+				// Terminales
+				aux = grama.getTerminales();
+				terminales = "";
+				for (String simbolo : aux) {
+					terminales += simbolo + " ";
+				}
+
+				// Simbolo Inicial
+				simboloInicial = grama.getSimboloInicial();
+
+				// Gramatica
+				gramatica = "";
+				ArrayList<ReglaProduccion> reglas = grama.getReglasProduccion();
+				for (ReglaProduccion regla : reglas) {
+					gramatica += regla.getSimboloGramatical() + " -> ";
+					aux = regla.getProduccion();
+					for (String simbolo : aux)
+						gramatica += simbolo + " ";
+					gramatica += "\n";
+				}
+
+				// Modificar datos
+				rellenarComponentes(noTerminales, terminales, simboloInicial, gramatica, coleccionCanonica);
+
 			}
 		});
 
 		// Agregar elementos al panel Archivo
 		panelArchivo.add(textRutaArchivo);
 		panelArchivo.add(botonBuscar);
-
 
 		/** MOstrar Simbolos de la gramatica */
 
@@ -141,36 +182,36 @@ public class VentanaColeccionCanonica extends JDialog {
 		panelInformacion.add(lblSimboloInicial);
 		panelInformacion.add(textSimboloInicial);
 
-
 		/** Panel de Resultados */
 
 		// Propiedades del panel de Resultado
 		panelResultado = new JPanel();
-		panelResultado.setPreferredSize(new Dimension(900, 430));
+		panelResultado.setPreferredSize(new Dimension(960, 430));
 		panelResultado.setLayout(diseñoPanel);
 		Font fuenteResultado = new Font("Arial", Font.PLAIN, 16);
 
 		// Mostrar Etiqueta Gramatica
 		lblGramatica = new JLabel("Gramática");
-		lblGramatica.setPreferredSize(new Dimension(287, altoElementos));
+		lblGramatica.setPreferredSize(new Dimension(237, altoElementos));
 
 		// Mostrar Etiqueta Coleccion Canonica
 		lblColeccionCanonica = new JLabel("Colección Canonica:");
-		lblColeccionCanonica.setPreferredSize(new Dimension(574, altoElementos));
+		lblColeccionCanonica.setPreferredSize(new Dimension(700, altoElementos));
 
 		// Mostrar Contenido de la Gramatica
 		areaGramatica = new JTextArea();
-		areaGramatica.setPreferredSize(new Dimension(287, 430 - altoElementos - 20));
+		areaGramatica.setPreferredSize(new Dimension(237, 430 - altoElementos - 20));
 		areaGramatica.setEditable(false);
 		areaGramatica.setFont(fuenteResultado);
 		areaGramatica.setBorder(BorderFactory.createCompoundBorder(areaGramatica.getBorder(), paddingTextArea));
 
 		// Mostrar Coleccion Canonica
 		areaColeccionCanonica = new JTextArea();
-		areaColeccionCanonica.setPreferredSize(new Dimension(574, 430 - altoElementos - 20));
+		areaColeccionCanonica.setPreferredSize(new Dimension(700, 430 - altoElementos - 20));
 		areaColeccionCanonica.setEditable(false);
 		areaColeccionCanonica.setFont(fuenteResultado);
-		areaColeccionCanonica.setBorder(BorderFactory.createCompoundBorder(areaColeccionCanonica.getBorder(), paddingTextArea));
+		areaColeccionCanonica
+				.setBorder(BorderFactory.createCompoundBorder(areaColeccionCanonica.getBorder(), paddingTextArea));
 
 		// Agregar elementos al panel resultado
 		panelResultado.add(lblGramatica);
@@ -178,15 +219,14 @@ public class VentanaColeccionCanonica extends JDialog {
 		panelResultado.add(areaGramatica);
 		panelResultado.add(areaColeccionCanonica);
 
-
-
 		// Agregar componente a la Ventana
 		this.add(panelArchivo);
 		this.add(panelInformacion);
 		this.add(panelResultado);
 	}
 
-	private void rellenarComponentes(String noTerminales, String terminales, String simboloInicial, String gramatica, String coleccionCanonica) {
+	private void rellenarComponentes(String noTerminales, String terminales, String simboloInicial, String gramatica,
+			String coleccionCanonica) {
 		textNoTerminales.setText(noTerminales);
 		textTerminales.setText(terminales);
 		textSimboloInicial.setText(simboloInicial);

@@ -38,7 +38,7 @@ public class VentanaPrimerosSiguientes extends JDialog {
 
 	public VentanaPrimerosSiguientes(JFrame parent, String noTerminales, String terminales, String simboloInicial,
 			String gramatica, String primeros, String siguientes) {
-		super(parent);
+		super(parent, true);
 
 		// Iniciar componentes
 		inicializarComponentes();

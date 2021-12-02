@@ -1,9 +1,6 @@
 package Pruebas;
 
 import java.util.ArrayList;
-import java.util.Set;
-
-import AnalizadorSintactico.ColeccionCanonica.IrA;
 import Utilidades.ConjuntoElementos.ConjuntoElementos;
 import Utilidades.ConjuntoElementos.Elemento;
 
@@ -29,7 +26,7 @@ public class pruebaIRA {
         ConjuntoElementos prueba = new ConjuntoElementos();
         prueba.agregar(temporal2);
         prueba.agregar(temporal3);
-        ConjuntoElementos temporalResultados = new ConjuntoElementos();
+        //ConjuntoElementos temporalResultados = new ConjuntoElementos();
         /*
         temporalResultados = IrA.hacer(prueba, temporal2.getSimboloGramatical());
         Set <Elemento> resultados =  temporalResultados.getElementos();

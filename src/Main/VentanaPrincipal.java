@@ -13,7 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import AnalizadorLexico.ConversionAFD.IniciarConjuntos;
 import AnalizadorLexico.Final.IniciarFinal;
-import AnalizadorSintactico.ColeccionCanonica.VentanaColeccionCanonica;
+import AnalizadorSintactico.ColeccionCanonica.iniciarColeccionCanonica;
 import AnalizadorSintactico.PrimerosSiguientes.IniciarPrimerosSiguientes;
 import AnalizadorLexico.AlgoritmoThompson.IniciarThompson;
 import Utilidades.ImagenFondo;
@@ -170,7 +170,7 @@ public class VentanaPrincipal extends JFrame {
         botonColeccionCanonica.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ev) {
-                new VentanaColeccionCanonica(ventanaPrincipal, "", "", "", "", "");
+                new iniciarColeccionCanonica(ventanaPrincipal);
             }
         });
 

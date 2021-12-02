@@ -23,6 +23,16 @@ public class TablaLR {
 		this.irA = irA;
 	}
 
+	// Getters y Setters
+	public ArrayList<Map<String, String>> getAcciones() {
+		return acciones;
+	}
+
+	public ArrayList<Map<String, String>> getIrA() {
+		return irA;
+	}
+
+	// Metodos
 	public static TablaLR construir(ColeccionCanonica coleccionCanonica, Gramatica gramatica) {
 
 		return new TablaLR();
