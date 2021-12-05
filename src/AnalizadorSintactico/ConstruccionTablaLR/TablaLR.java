@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.lang.model.element.Element;
 
 import AnalizadorSintactico.ColeccionCanonica.IrA;
 import Utilidades.ColeccionCanonica;
@@ -34,25 +33,32 @@ public class TablaLR {
 	public ArrayList<Map<String, String>> getAcciones() {
 		return acciones;
 	}
+	/*
 	public void agregarAcciones(String op1, String op2) {
 		Map<String,String> aux = new HashMap<String,String>();
 		aux.put(op1, op2);
 		this.acciones.add(aux);
 	}
-
+	*/ 
 	public ArrayList<Map<String, String>> getIrA() {
 		return irA;
 	}
-
+	/*
 	public void agregarIra(String op1, String op2) {
 		Map<String,String> aux = new HashMap<String,String>();
 		aux.put(op1, op2);
 		this.irA.add(aux);
 	}
+	*/
 	// Metodos
 	public static TablaLR construir(ColeccionCanonica coleccionCanonica, Gramatica gramatica) {
-		ArrayList <String> temporalProduccion = new ArrayList<String>();
 		TablaLR tabla = new TablaLR();
+		ArrayList <Map<String, String>> temporalAcciones = new ArrayList<Map<String, String>>();
+		ArrayList <Map<String, String>> temporalIrA = new ArrayList<Map<String, String>>();
+		ArrayList <String> temporalProduccion = new ArrayList<String>();
+		HashMap<String, String> auxAcciones = new  HashMap<String, String> ();
+		HashMap<String, String> auxIrA = new  HashMap<String, String> ();
+
 
 		for(ConjuntoElementos recorreConjunto : coleccionCanonica.getConjuntosElementos()){
 			for (Elemento recorreElemento : recorreConjunto.getElementos()){
@@ -62,7 +68,9 @@ public class TablaLR {
 				temporalProduccion = recorreElemento.getProduccion();
 				temporalProduccion.remove(recorreElemento.getTamañoProduccion()-1);
 				if(gramatica.esTerminal(recorreElemento.getSimboloDespuesDePunto()) && coleccionCanonica.getConjuntosElementos().contains(aux)){
-					tabla.agregarAcciones("Desplazar", coleccionCanonica.getConjuntosElementos().indexOf(aux) + "");
+					//tabla.agregarAcciones("Desplazar", coleccionCanonica.getConjuntosElementos().indexOf(aux) + "");
+					auxAcciones.put("Desplazar",coleccionCanonica.getConjuntosElementos().indexOf(aux) + "");
+					temporalAcciones.add (auxAcciones); 
 				}else if(recorreElemento.getIndexPunto() == (recorreElemento.getTamañoProduccion()-1)){
 					
 					for(ReglaProduccion recorreProduccion : gramatica.getReglasProduccion()){
@@ -73,27 +81,29 @@ public class TablaLR {
 					}
 
 
-					tabla.agregarAcciones ("Reducir", gramatica.getReglasProduccion().getProduccion().indexOf(temporalProduccion)+ "");
+					//tabla.agregarAcciones ("Reducir", gramatica.getReglasProduccion().getProduccion().indexOf(temporalProduccion)+ "");
 					//para todos los simbolos terminales que sean siguientes de A, sin contar S'.	
 				}else if(recorreElemento.getSimboloDespuesDePunto().equals("$")){	
-					tabla.agregarAcciones("Aceptar", "");
+					//tabla.agregarAcciones("Aceptar", "");
+					auxAcciones.put ("Aceptar","");
+					temporalAcciones.add (auxAcciones); 
 				}
 			}
 		}
 
 		//elemento_i=0
 		for(ConjuntoElementos recorreConjunto : coleccionCanonica.getConjuntosElementos()){
+			for ( String simbolos_A : gramatica.getNoTerminales()){
 
-			for (/*simbolo_A*/){
-
-				if(IrA(/*conjuntoElementos_i, A == conjuntoElementos_j )*/)){
-
-
+				if(recorreConjunto.equals (IrA.hacer(recorreConjunto, simbolos_A, gramatica))){
+					// VERIFICAR CONDICION   
+					// auxIrA.put (coleccionCanonica.getConjuntosElementos().indexOf()+"",simbolos_A)
+					// temporalIrA.add(auxIrA)
 				}
 			}
 		}
-		
-		return new TablaLR();
+
+		return new TablaLR (temporalAcciones, temporalIrA); 
 	}
 
 }
