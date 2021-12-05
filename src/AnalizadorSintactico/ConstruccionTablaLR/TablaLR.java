@@ -1,10 +1,17 @@
 package AnalizadorSintactico.ConstruccionTablaLR;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
+import javax.lang.model.element.Element;
+
+import AnalizadorSintactico.ColeccionCanonica.IrA;
 import Utilidades.ColeccionCanonica;
+import Utilidades.ConjuntoElementos.ConjuntoElementos;
+import Utilidades.ConjuntoElementos.Elemento;
 import Utilidades.Gramatica.Gramatica;
+import Utilidades.Gramatica.ReglaProduccion;
 
 public class TablaLR {
 
@@ -27,14 +34,65 @@ public class TablaLR {
 	public ArrayList<Map<String, String>> getAcciones() {
 		return acciones;
 	}
+	public void agregarAcciones(String op1, String op2) {
+		Map<String,String> aux = new HashMap<String,String>();
+		aux.put(op1, op2);
+		this.acciones.add(aux);
+	}
 
 	public ArrayList<Map<String, String>> getIrA() {
 		return irA;
 	}
 
+	public void agregarIra(String op1, String op2) {
+		Map<String,String> aux = new HashMap<String,String>();
+		aux.put(op1, op2);
+		this.irA.add(aux);
+	}
 	// Metodos
 	public static TablaLR construir(ColeccionCanonica coleccionCanonica, Gramatica gramatica) {
+		ArrayList <String> temporalProduccion = new ArrayList<String>();
+		TablaLR tabla = new TablaLR();
 
+		for(ConjuntoElementos recorreConjunto : coleccionCanonica.getConjuntosElementos()){
+			for (Elemento recorreElemento : recorreConjunto.getElementos()){
+				//Elemento auxiliar = new Elemento(recorreElemento);
+				ConjuntoElementos aux = IrA.hacer(recorreConjunto,recorreElemento.getSimboloDespuesDePunto(),gramatica);
+				int tamañoRegla = recorreElemento.getTamañoProduccion();recorreElemento.getTamañoProduccion();
+				temporalProduccion = recorreElemento.getProduccion();
+				temporalProduccion.remove(recorreElemento.getTamañoProduccion()-1);
+				if(gramatica.esTerminal(recorreElemento.getSimboloDespuesDePunto()) && coleccionCanonica.getConjuntosElementos().contains(aux)){
+					tabla.agregarAcciones("Desplazar", coleccionCanonica.getConjuntosElementos().indexOf(aux) + "");
+				}else if(recorreElemento.getIndexPunto() == (recorreElemento.getTamañoProduccion()-1)){
+					
+					for(ReglaProduccion recorreProduccion : gramatica.getReglasProduccion()){
+
+						if(recorreProduccion.getProduccion().equals(temporalProduccion)){
+							
+						}
+					}
+
+
+					tabla.agregarAcciones ("Reducir", gramatica.getReglasProduccion().getProduccion().indexOf(temporalProduccion)+ "");
+					//para todos los simbolos terminales que sean siguientes de A, sin contar S'.	
+				}else if(recorreElemento.getSimboloDespuesDePunto().equals("$")){	
+					tabla.agregarAcciones("Aceptar", "");
+				}
+			}
+		}
+
+		//elemento_i=0
+		for(ConjuntoElementos recorreConjunto : coleccionCanonica.getConjuntosElementos()){
+
+			for (/*simbolo_A*/){
+
+				if(IrA(/*conjuntoElementos_i, A == conjuntoElementos_j )*/)){
+
+
+				}
+			}
+		}
+		
 		return new TablaLR();
 	}
 
