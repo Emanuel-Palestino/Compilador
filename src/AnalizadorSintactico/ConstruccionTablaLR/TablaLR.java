@@ -17,7 +17,7 @@ public class TablaLR {
 
 	private ArrayList<Map<String, String>> acciones;
 	private ArrayList<Map<String, String>> irA;
-	private ArrayList<String> simboloTerminal;
+	private ArrayList<String> simboloTerminal; 
 	private ArrayList<String> simboloNoTerminal;
 
 	// Constructor vacio
@@ -69,14 +69,14 @@ public class TablaLR {
 	// Metodos
 	public static TablaLR construir(ColeccionCanonica coleccionCanonica, Gramatica gramatica) {
 		TablaLR tabla = new TablaLR();
-		ReglaProduccion temporalProduccion = new ReglaProduccion();
-
+		
 		for (ConjuntoElementos recorreConjunto : coleccionCanonica.getConjuntosElementos()) {
 			for (Elemento recorreElemento : recorreConjunto.getElementos()) {
-
-				ArrayList<String> temp =recorreElemento.getProduccion();
 				
 				
+				ArrayList<String> temp = new ArrayList<String>(recorreElemento.getProduccion());
+			
+				ReglaProduccion temporalProduccion = new ReglaProduccion();
 				temporalProduccion.setSimboloGramatical(recorreElemento.getSimboloGramatical());
 
 				if (gramatica.esTerminal(recorreElemento.getSimboloDespuesDePunto())) {

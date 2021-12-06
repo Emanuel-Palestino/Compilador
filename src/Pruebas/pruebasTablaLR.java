@@ -31,10 +31,11 @@ public class pruebasTablaLR {
         int n = prueba.getConjuntosElementos().size();
 
         for (int i = 0 ; i < n ; i++){
-			System.out.print(tablaPrueba.getAcciones().get(i));
-            System.out.print(tablaPrueba.getSimboloTerminal().get(i));
-            System.out.print(tablaPrueba.getIrA().get(i));
-            System.out.print(tablaPrueba.getSimboloNoTerminal().get(i));
+			System.out.println(tablaPrueba.getAcciones().get(i));
+            System.out.println(tablaPrueba.getSimboloTerminal().get(i));
+            System.out.println(tablaPrueba.getIrA().get(i));
+            System.out.println(tablaPrueba.getSimboloNoTerminal().get(i));
+            System.out.println();
         }
 		System.out.println(tablaPrueba);
 	}
