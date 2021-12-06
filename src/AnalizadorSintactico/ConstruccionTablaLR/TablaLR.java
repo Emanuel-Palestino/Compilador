@@ -17,23 +17,17 @@ public class TablaLR {
 
 	private ArrayList<Map<String, String>> acciones;
 	private ArrayList<Map<String, String>> irA;
-	private ArrayList<String> simboloTerminal; 
-	private ArrayList<String> simboloNoTerminal;
 
 	// Constructor vacio
 	public TablaLR() {
 		acciones = new ArrayList<Map<String, String>>();
 		irA = new ArrayList<Map<String, String>>();
-		simboloTerminal = new ArrayList<String>();
-		simboloNoTerminal = new ArrayList<String>();
 	}
 
 	// Constructor con parametros
 	public TablaLR(ArrayList<Map<String, String>> acciones, ArrayList<Map<String, String>> irA) {
 		this.acciones = acciones;
 		this.irA = irA;
-		simboloTerminal = new ArrayList<String>();
-		simboloNoTerminal = new ArrayList<String>();
 	}
 
 	// Getters y Setters
@@ -44,32 +38,18 @@ public class TablaLR {
 	public ArrayList<Map<String, String>> getIrA() {
 		return irA;
 	}
-	public ArrayList<String> getSimboloTerminal(){
-		return simboloTerminal;
-	}
-	public ArrayList<String> getSimboloNoTerminal(){
-		return simboloNoTerminal;
-	}
 
 
-	public void agregarAcciones(String op1, String op2, String op3) {
-		HashMap<String, String> auxAcciones = new HashMap<String, String>();
-		auxAcciones.put(op1, op2);
-		this.simboloTerminal.add(op3);
-		this.acciones.add(auxAcciones);
-	}
-
-	public void agregarIra(String op1, String op2, String op3) {
-		HashMap<String, String> auxIrA = new HashMap<String, String>();
-		auxIrA.put(op1, op2);
-		this.simboloNoTerminal.add(op3);
-		this.irA.add(auxIrA);
-	}
 
 	// Metodos
 	public static TablaLR construir(ColeccionCanonica coleccionCanonica, Gramatica gramatica) {
 		TablaLR tabla = new TablaLR();
 		
+		for(int i = 0; i < coleccionCanonica.getConjuntosElementos().size() ; i++){
+
+		
+		}
+
 		for (ConjuntoElementos recorreConjunto : coleccionCanonica.getConjuntosElementos()) {
 			for (Elemento recorreElemento : recorreConjunto.getElementos()) {
 				

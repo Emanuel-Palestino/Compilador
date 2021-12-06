@@ -2,7 +2,6 @@ package Utilidades;
 
 import java.util.ArrayList;
 
-import javax.swing.text.html.HTMLDocument.BlockElement;
 
 import AnalizadorSintactico.ColeccionCanonica.Cerradura;
 import AnalizadorSintactico.ColeccionCanonica.IrA;
