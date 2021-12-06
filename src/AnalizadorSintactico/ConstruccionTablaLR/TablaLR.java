@@ -33,26 +33,27 @@ public class TablaLR {
 	public ArrayList<Map<String, String>> getAcciones() {
 		return acciones;
 	}
+
+	public ArrayList<Map<String, String>> getIrA() {
+		return irA;
+	}
+
 	/*
 	public void agregarAcciones(String op1, String op2) {
 		Map<String,String> aux = new HashMap<String,String>();
 		aux.put(op1, op2);
 		this.acciones.add(aux);
 	}
-	*/ 
-	public ArrayList<Map<String, String>> getIrA() {
-		return irA;
-	}
-	/*
 	public void agregarIra(String op1, String op2) {
 		Map<String,String> aux = new HashMap<String,String>();
 		aux.put(op1, op2);
 		this.irA.add(aux);
 	}
 	*/
+	
 	// Metodos
 	public static TablaLR construir(ColeccionCanonica coleccionCanonica, Gramatica gramatica) {
-		TablaLR tabla = new TablaLR();
+		//TablaLR tabla = new TablaLR();
 		ArrayList <Map<String, String>> temporalAcciones = new ArrayList<Map<String, String>>();
 		ArrayList <Map<String, String>> temporalIrA = new ArrayList<Map<String, String>>();
 		ArrayList <String> temporalProduccion = new ArrayList<String>();
@@ -62,19 +63,17 @@ public class TablaLR {
 
 		for(ConjuntoElementos recorreConjunto : coleccionCanonica.getConjuntosElementos()){
 			for (Elemento recorreElemento : recorreConjunto.getElementos()){
-				//Elemento auxiliar = new Elemento(recorreElemento);
+
 				ConjuntoElementos aux = IrA.hacer(recorreConjunto,recorreElemento.getSimboloDespuesDePunto(),gramatica);
-				int tamañoRegla = recorreElemento.getTamañoProduccion();recorreElemento.getTamañoProduccion();
 				temporalProduccion = recorreElemento.getProduccion();
 				temporalProduccion.remove(recorreElemento.getTamañoProduccion()-1);
+
 				if(gramatica.esTerminal(recorreElemento.getSimboloDespuesDePunto()) && coleccionCanonica.getConjuntosElementos().contains(aux)){
 					//tabla.agregarAcciones("Desplazar", coleccionCanonica.getConjuntosElementos().indexOf(aux) + "");
 					auxAcciones.put("Desplazar",coleccionCanonica.getConjuntosElementos().indexOf(aux) + "");
 					temporalAcciones.add (auxAcciones); 
 				}else if(recorreElemento.getIndexPunto() == (recorreElemento.getTamañoProduccion()-1)){
-					
 					for(ReglaProduccion recorreProduccion : gramatica.getReglasProduccion()){
-
 						if(recorreProduccion.getProduccion().equals(temporalProduccion)){
 							
 						}
@@ -94,11 +93,10 @@ public class TablaLR {
 		//elemento_i=0
 		for(ConjuntoElementos recorreConjunto : coleccionCanonica.getConjuntosElementos()){
 			for ( String simbolos_A : gramatica.getNoTerminales()){
-
-				if(recorreConjunto.equals (IrA.hacer(recorreConjunto, simbolos_A, gramatica))){
-					// VERIFICAR CONDICION   
-					// auxIrA.put (coleccionCanonica.getConjuntosElementos().indexOf()+"",simbolos_A)
-					// temporalIrA.add(auxIrA)
+				ConjuntoElementos temporal = IrA.hacer(recorreConjunto, simbolos_A, gramatica);
+				if(recorreConjunto.equals(temporal)){
+					auxIrA.put (coleccionCanonica.getConjuntosElementos().indexOf(temporal)+"",simbolos_A);
+					temporalIrA.add(auxIrA);
 				}
 			}
 		}
