@@ -40,12 +40,13 @@ public class ColeccionCanonica {
 	// Metodos
 
 	public int indiceDe(ConjuntoElementos I) {
-
+		int i; 
+		int ij = 0;
 		Boolean bandera = true;
-		for (int i = 0; i < conjuntosElementos.size(); i++) {
+
+		for (i = 0; i < conjuntosElementos.size(); i++) {
 			ArrayList<Elemento> elementosActual = conjuntosElementos.get(i).getElementos();
 			ArrayList<Elemento> elementosNuevo = I.getElementos();
-			Boolean bandera2 = true;
 
 			// Comparar si tienen el mismo largo
 			if (elementosActual.size() == elementosNuevo.size()) {
@@ -53,16 +54,13 @@ public class ColeccionCanonica {
 
 					// Comprobar elemento a elemento
 					if (!elementosActual.get(k).esIgual(elementosNuevo.get(k))) {
-						bandera2 = false;
-						break;
+						bandera = false; 
 					} 
-
+					
 				}
-				if(!bandera2){
-					bandera = false;
-				}
+				ij = i;
 			}
-			if(bandera){
+			if(ij != 0){
 				return i;
 			}
 		}
