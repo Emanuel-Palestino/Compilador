@@ -2,6 +2,8 @@ package Utilidades;
 
 import java.util.ArrayList;
 
+import javax.swing.text.html.HTMLDocument.BlockElement;
+
 import AnalizadorSintactico.ColeccionCanonica.Cerradura;
 import AnalizadorSintactico.ColeccionCanonica.IrA;
 import Utilidades.ConjuntoElementos.ConjuntoElementos;
@@ -37,23 +39,31 @@ public class ColeccionCanonica {
 
 	// Metodos
 
-	public int indiceDe(ConjuntoElementos I){
-		
-		for(int i = 0; i < conjuntosElementos.size(); i++){
-			
+	public int indiceDe(ConjuntoElementos I) {
+
+		Boolean bandera = true;
+		for (int i = 0; i < conjuntosElementos.size(); i++) {
 			ArrayList<Elemento> elementosActual = conjuntosElementos.get(i).getElementos();
 			ArrayList<Elemento> elementosNuevo = I.getElementos();
+			Boolean bandera2 = true;
 
 			// Comparar si tienen el mismo largo
 			if (elementosActual.size() == elementosNuevo.size()) {
-
 				for (int k = 0; k < elementosActual.size(); k++) {
 
 					// Comprobar elemento a elemento
-					if (elementosActual.get(k).esIgual(elementosNuevo.get(k))) {
-						return i;
-					}
+					if (!elementosActual.get(k).esIgual(elementosNuevo.get(k))) {
+						bandera2 = false;
+						break;
+					} 
+
 				}
+				if(!bandera2){
+					bandera = false;
+				}
+			}
+			if(bandera){
+				return i;
 			}
 		}
 		return -1;
@@ -80,7 +90,7 @@ public class ColeccionCanonica {
 				}
 
 				if (bandera2) { // El conjunto actual es el mismo que el parametro y se termina el ciclo
-												// principal
+								// principal
 					bandera = false;
 					break;
 				}
@@ -92,11 +102,11 @@ public class ColeccionCanonica {
 	}
 
 	public void agregarProceso(ColeccionCanonica coleccionCanonica) {
-		
-		for(ConjuntoElementos recorridoElementos : coleccionCanonica.getConjuntosElementos()){
+
+		for (ConjuntoElementos recorridoElementos : coleccionCanonica.getConjuntosElementos()) {
 			proceso += contador;
 			proceso += ": ";
-			
+
 			for (Elemento recorrido : recorridoElementos.getElementos()) {
 				proceso += '[';
 				proceso += recorrido.getSimboloGramatical();
@@ -104,8 +114,8 @@ public class ColeccionCanonica {
 				proceso += recorrido.getProduccion();
 				proceso += "], ";
 			}
-		proceso += '\n';
-		contador ++;
+			proceso += '\n';
+			contador++;
 		}
 	}
 
