@@ -41,7 +41,7 @@ public class ColeccionCanonica {
 
 	public int indiceDe(ConjuntoElementos I) {
 		int i; 
-		int ij = 0;
+		int aux = 0;
 		Boolean bandera = true;
 
 		for (i = 0; i < conjuntosElementos.size(); i++) {
@@ -51,20 +51,21 @@ public class ColeccionCanonica {
 			// Comparar si tienen el mismo largo
 			if (elementosActual.size() == elementosNuevo.size()) {
 				for (int k = 0; k < elementosActual.size(); k++) {
-
 					// Comprobar elemento a elemento
 					if (!elementosActual.get(k).esIgual(elementosNuevo.get(k))) {
 						bandera = false; 
 					} 
-					
 				}
-				ij = i;
+				aux = i;
 			}
-			if(ij != 0){
-				return i;
+			if(aux != 0){
+				return aux;
 			}
 		}
-		return -1;
+		if(bandera == false){
+			return -1;
+		}
+		return 1;
 	}
 
 	public void agregar(ConjuntoElementos conjunto) {
