@@ -36,6 +36,29 @@ public class ColeccionCanonica {
 	}
 
 	// Metodos
+
+	public int indiceDe(ConjuntoElementos I){
+		
+		for(int i = 0; i < conjuntosElementos.size(); i++){
+			
+			ArrayList<Elemento> elementosActual = conjuntosElementos.get(i).getElementos();
+			ArrayList<Elemento> elementosNuevo = I.getElementos();
+
+			// Comparar si tienen el mismo largo
+			if (elementosActual.size() == elementosNuevo.size()) {
+
+				for (int k = 0; k < elementosActual.size(); k++) {
+
+					// Comprobar elemento a elemento
+					if (elementosActual.get(k).esIgual(elementosNuevo.get(k))) {
+						return i;
+					}
+				}
+			}
+		}
+		return -1;
+	}
+
 	public void agregar(ConjuntoElementos conjunto) {
 		Boolean bandera = true;
 		for (ConjuntoElementos conjuntoEle : conjuntosElementos) {
@@ -66,9 +89,6 @@ public class ColeccionCanonica {
 
 		if (bandera)
 			conjuntosElementos.add(conjunto);
-
-		
-
 	}
 
 	public void agregarProceso(ColeccionCanonica coleccionCanonica) {

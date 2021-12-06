@@ -1,6 +1,5 @@
 package Pruebas;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import AnalizadorSintactico.ConstruccionTablaLR.TablaLR;

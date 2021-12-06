@@ -74,15 +74,14 @@ public class TablaLR {
 		for (ConjuntoElementos recorreConjunto : coleccionCanonica.getConjuntosElementos()) {
 			for (Elemento recorreElemento : recorreConjunto.getElementos()) {
 
-				ConjuntoElementos aux = IrA.hacer(recorreConjunto, recorreElemento.getSimboloDespuesDePunto(), gramatica);
 				ArrayList<String> temp =recorreElemento.getProduccion();
 				
 				
 				temporalProduccion.setSimboloGramatical(recorreElemento.getSimboloGramatical());
 
-				if (gramatica.esTerminal(recorreElemento.getSimboloDespuesDePunto()) && coleccionCanonica.getConjuntosElementos().contains(aux)) {
-					tabla.agregarAcciones("Desplazar", coleccionCanonica.getConjuntosElementos().indexOf(aux) + "",
-							recorreElemento.getSimboloDespuesDePunto() + "");
+				if (gramatica.esTerminal(recorreElemento.getSimboloDespuesDePunto())) {
+					ConjuntoElementos aux = IrA.hacer(recorreConjunto, recorreElemento.getSimboloDespuesDePunto(), gramatica);
+					tabla.agregarAcciones("Desplazar", coleccionCanonica.indiceDe(aux) + "",recorreElemento.getSimboloDespuesDePunto() + "");
 					continue;
 
 				}
