@@ -103,7 +103,7 @@ public class EvaluarCodigo {
 								} else if (lexema.matches("(\"(\\w*)\")|('(\\w*)')")) { // Es un string
 									fila.add("string");
 									// tokensToken.add("string");
-								} else if (lexema.matches("[a-zA-Z](\\w+)")) { // Es un id
+								} else if (lexema.matches("[a-zA-Z]*(\\w+)")) { // Es un id
 									fila.add("id");
 									// tokensToken.add("id");
 									// Agregar a la tabla de simbolos
@@ -152,7 +152,7 @@ public class EvaluarCodigo {
 						} else if (lexema.matches("(\"(\\w*)\")|('(\\w*)')")) { // Es un string
 							fila.add("string");
 							// tokensToken.add("string");
-						} else if (lexema.matches("[a-zA-Z](\\w+)")) { // Es un id
+						} else if (lexema.matches("[a-zA-Z]*(\\w+)")) { // Es un id
 							fila.add("id");
 							// tokensToken.add("id");
 							// Agregar a la tabla de simbolos

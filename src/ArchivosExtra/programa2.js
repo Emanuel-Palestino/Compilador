@@ -1,6 +1,7 @@
 // Comentario normal
-let esta; // comentario final
+let varia; // comentario final
 console.log("algo aqui");
 /* Comentario
 multilinea */ function nada() /* nada */
-let esto;
+var v;
+let variable;
