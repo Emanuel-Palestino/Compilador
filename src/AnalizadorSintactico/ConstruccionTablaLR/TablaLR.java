@@ -100,7 +100,7 @@ public class TablaLR {
           if (!recorreElemento.getSimboloGramatical().equals(gramatica.getSimboloInicial() + "'")) {
             for (String recorreSiguientes : resultadoSiguiente.getSimbolos()) {
               
-              acciones.get(i).replace(recorreSiguientes, "r" + gramatica.getReglasProduccion().indexOf(temporalProduccion) + 1);
+              acciones.get(i).replace(recorreSiguientes, "r" + gramatica.indiceReglaProduccion(temporalProduccion));
             }
           }
           continue;

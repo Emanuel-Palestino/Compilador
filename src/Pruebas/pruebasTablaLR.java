@@ -1,11 +1,9 @@
 package Pruebas;
 
-import java.util.ArrayList;
 
 import AnalizadorSintactico.ConstruccionTablaLR.TablaLR;
 import Utilidades.ColeccionCanonica;
 import Utilidades.Gramatica.Gramatica;
-import Utilidades.Gramatica.ReglaProduccion;
 
 public class pruebasTablaLR {
 
