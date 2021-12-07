@@ -40,15 +40,14 @@ public class ColeccionCanonica {
 	// Metodos
 
 	public int indiceDe(ConjuntoElementos I) {
-		/*
 		int i; 
 		int aux = 0;
 		Boolean bandera = true;
-
+		
 		for (i = 0; i < conjuntosElementos.size(); i++) {
 			ArrayList<Elemento> elementosActual = conjuntosElementos.get(i).getElementos();
 			ArrayList<Elemento> elementosNuevo = I.getElementos();
-
+			
 			// Comparar si tienen el mismo largo
 			if (elementosActual.size() == elementosNuevo.size()) {
 				for (int k = 0; k < elementosActual.size(); k++) {
@@ -57,7 +56,7 @@ public class ColeccionCanonica {
 						bandera = false; 
 					} 
 				}
-				if (bandera == true ){
+				if (bandera == true){
 					aux = i;
 				}
 			}
@@ -68,9 +67,11 @@ public class ColeccionCanonica {
 		if(bandera == false){
 			return -1;
 		}
-		return 1;  */
+		return 1;  
+		/*
 		
 		Boolean bandera = true;
+		int aux = 0;
 		for (int j = 0; j < conjuntosElementos.size(); j++) {
 			ConjuntoElementos conjuntoEle=conjuntosElementos.get(j);
 			
@@ -93,12 +94,16 @@ public class ColeccionCanonica {
 				if (bandera2) { // El I actual es el mismo que el parametro y se termina el ciclo
 								// principal
 					bandera = false;
-					return j;
+					aux = j;
+					break;
 				}
 			}
 		}
+		if(bandera)
+			return aux;
 
 		return -1; 
+		*/
 	}
 
 
