@@ -59,9 +59,11 @@ public class TablaLR {
 		for(int i = 0; i < coleccionCanonica.getConjuntosElementos().size() ; i++){
 
 			HashMap<String, String> aux = new HashMap<String, String>();
+
 			for (String simbolo : gramatica.getTerminales()){
 				aux.put(simbolo, "");
 			}
+			aux.put("$","");
 			acciones.add(aux);
 		}
 
@@ -122,7 +124,7 @@ public class TablaLR {
 			}
 		}
 
-
-		return tabla;
+	
+		return new TablaLR(acciones,irA);
 	}
 }
