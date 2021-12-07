@@ -51,25 +51,27 @@ public class TablaLR {
 		return simboloNoTerminal;
 	}
 
-
-	public void agregarAcciones(String op1, String op2, String op3) {
-		HashMap<String, String> auxAcciones = new HashMap<String, String>();
-		auxAcciones.put(op1, op2);
-		this.simboloTerminal.add(op3);
-		this.acciones.add(auxAcciones);
-	}
-
-	public void agregarIra(String op1, String op2, String op3) {
-		HashMap<String, String> auxIrA = new HashMap<String, String>();
-		auxIrA.put(op1, op2);
-		this.simboloNoTerminal.add(op3);
-		this.irA.add(auxIrA);
-	}
-
 	// Metodos
 	public static TablaLR construir(ColeccionCanonica coleccionCanonica, Gramatica gramatica) {
 		TablaLR tabla = new TablaLR();
 		ReglaProduccion temporalProduccion = new ReglaProduccion();
+		ArrayList<Map<String, String>> acciones = new ArrayList<Map<String, String>>();
+		ArrayList<Map<String, String>> irA = new ArrayList<Map<String, String>>();
+		for (ConjuntoElementos construirestados: coleccionCanonica.getConjuntosElementos()) {
+			HashMap<String, String> aux = new HashMap<String, String>();
+			HashMap<String, String> aux2 = new HashMap<String, String>();
+			for (String simbolo_a :gramatica.getTerminales()){
+				aux.put(simbolo_a, "");
+			}
+			for (String simbolo_A :gramatica.getNoTerminales()){
+				aux2.put (simbolo_A,"");
+			}
+			acciones.add(aux);
+			irA.add(aux2);
+		}
+
+
+
 
 		for (ConjuntoElementos recorreConjunto : coleccionCanonica.getConjuntosElementos()) {
 			for (Elemento recorreElemento : recorreConjunto.getElementos()) {
@@ -81,7 +83,7 @@ public class TablaLR {
 
 				if (gramatica.esTerminal(recorreElemento.getSimboloDespuesDePunto())) {
 					ConjuntoElementos aux = IrA.hacer(recorreConjunto, recorreElemento.getSimboloDespuesDePunto(), gramatica);
-					tabla.agregarAcciones("Desplazar", coleccionCanonica.indiceDe(aux) + "",recorreElemento.getSimboloDespuesDePunto() + "");
+					tabla.remove("Desplazar", coleccionCanonica.indiceDe(aux) + "",recorreElemento.getSimboloDespuesDePunto() + "");
 					continue;
 
 				}
@@ -108,12 +110,12 @@ public class TablaLR {
 					tabla.agregarAcciones(" ", " ", " ");
 				}
 			}
-			for (String simbolos_A : gramatica.getNoTerminales()) {
-				ConjuntoElementos temporal = IrA.hacer(recorreConjunto, simbolos_A, gramatica);
+			for (String recorreNoTerminales : gramatica.getNoTerminales()) {
+				ConjuntoElementos temporal = IrA.hacer(recorreConjunto, recorreNoTerminales, gramatica);
 				if (recorreConjunto.equals(temporal)) {
-					tabla.agregarIra(coleccionCanonica.getConjuntosElementos().indexOf(temporal) + "", "", simbolos_A);
+					tabla.agregarIra(coleccionCanonica.getConjuntosElementos().indexOf(temporal) + "", "", recorreNoTerminales);
 				} else {
-					tabla.agregarIra("","",simbolos_A);
+					tabla.agregarIra("","",recorreNoTerminales);
 				}
 			}
 		}
