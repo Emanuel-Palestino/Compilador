@@ -14,7 +14,7 @@ public class IniciarThompson {
 
 	public IniciarThompson(JFrame parent) throws FileNotFoundException, IOException, ExcepcionER {
 		Thompson thomp = new Thompson();
-		ArrayList<String> expr = Archivo.capturaDatosArchivo("src/ArchivosExtra/ExpresionRegular.txt");
+		ArrayList<String> expr = Archivo.capturaDatosArchivo("src/ArchivosExtra/ExpresionRegular2.txt");
 		Automata result = thomp.evaluarER(expr.get(1), expr.get(0));
 
 		String[] alfa = expr.get(0).split(" ");

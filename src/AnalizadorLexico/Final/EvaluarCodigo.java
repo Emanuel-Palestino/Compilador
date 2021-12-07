@@ -54,13 +54,13 @@ public class EvaluarCodigo {
 			// Saber si acaba algún comentario multilinea
 			int lineaComentario = linea.indexOf("*/");
 			if (comentarioMultiLinea && lineaComentario >= 0) {
-				linea = linea.substring(lineaComentario + 2, linea.length());	// Actualizamos la linea
+				linea = linea.substring(lineaComentario + 2, linea.length()); // Actualizamos la linea
 				comentarioMultiLinea = false;
 			}
 
 			// Saber si empieza un comentario multilinea
 			lineaComentario = linea.indexOf("/*");
-			if (!comentarioMultiLinea && lineaComentario >= 0) {		// Existe comentario
+			if (!comentarioMultiLinea && lineaComentario >= 0) { // Existe comentario
 				comentarioMultiLinea = true;
 				String lineaAux = linea.substring(0, lineaComentario);
 				// Saber si termina en esta linea o en otra
@@ -83,46 +83,7 @@ public class EvaluarCodigo {
 						// Agregar ultimo token de la linea
 						if (i == linea.length() - 1 && agregarUltimoToken) {
 							// Rellenar resultados
-							String lexema = palabras.peek();
-							if (!lexema.equals("")) {
-								ArrayList<String> fila = new ArrayList<String>();
-								// linea
-								fila.add("" + numLinea);
-								// tokensLinea.add("" + numLinea);
-								// lexema
-								fila.add(lexema);
-								// tokensLexema.add(lexema);
-								// saber qué representa (token)
-								if (palabrasRerservadas.contains(lexema)) { // Es una palabra reservada
-									fila.add(lexema);
-									// tokensToken.add(lexema);
-								} else if (lexema.matches("-?\\d+(\\.\\d+)?")) { // Es un numero, ya sea entero o
-																					// flotante y
-									fila.add("num");
-									// tokensToken.add("num");
-								} else if (lexema.matches("(\"(\\w*)\")|('(\\w*)')")) { // Es un string
-									fila.add("string");
-									// tokensToken.add("string");
-								} else if (lexema.matches("[a-zA-Z]*(\\w+)")) { // Es un id
-									fila.add("id");
-									// tokensToken.add("id");
-									// Agregar a la tabla de simbolos
-									ArrayList<String> filaSimbolos = new ArrayList<String>();
-									filaSimbolos.add(lexema);
-									// simbolosId.add(lexema);
-									// no se cómo obtener estos valores
-									filaSimbolos.add("");
-									filaSimbolos.add("");
-									// simbolosValor.add("");
-									// simbolosFuncion.add("");
-									simbolos.add(filaSimbolos);
-								} else {
-									fila.add("desconocido");
-									// tokensToken.add("desconocido");
-								}
-								tiraTokens.add(fila);
-							}
-
+							rellenarResultados(palabras.peek(), numLinea, palabrasRerservadas, tiraTokens, simbolos);
 						}
 					} else { // incorrecto
 						System.out.println("no esta");
@@ -225,6 +186,40 @@ public class EvaluarCodigo {
 		resultado.setErrores(erroresArr);
 
 		return resultado;
+	}
+
+	private static void rellenarResultados(String lexema, int numLinea, ArrayList<String> palabrasRerservadas,
+			ArrayList<ArrayList<String>> tiraTokens, ArrayList<ArrayList<String>> simbolos) {
+
+		if (!lexema.equals("")) {
+			ArrayList<String> fila = new ArrayList<String>();
+			// linea
+			fila.add("" + numLinea);
+			// lexema
+			fila.add(lexema);
+			// saber qué representa (token)
+			if (palabrasRerservadas.contains(lexema)) { // Es una palabra reservada
+				fila.add(lexema);
+			} else if (lexema.matches("-?\\d+(\\.\\d+)?")) { // Es un numero, ya sea entero o flotante
+				fila.add("num");
+			} else if (lexema.matches("(\"(\\w*)\")|('(\\w*)')")) { // Es un string
+				fila.add("string");
+			} else if (lexema.matches("[a-zA-Z]*(\\w+)")) { // Es un id
+				fila.add("id");
+				// Agregar a la tabla de simbolos
+				ArrayList<String> filaSimbolos = new ArrayList<String>();
+				filaSimbolos.add(lexema);
+				// no se cómo obtener estos valores
+				filaSimbolos.add("");
+				filaSimbolos.add("");
+
+				simbolos.add(filaSimbolos);
+			} else {
+				fila.add("desconocido");
+			}
+			tiraTokens.add(fila);
+		}
+
 	}
 
 }

@@ -174,6 +174,28 @@ public class ConvierteAFD {
 				if (letras.size() > 0)
 					transiciones.remove("letra");
 			}
+			// Todo
+			if (transiciones.contains("todo")) {
+				// obtener todo valido
+				ArrayList<String> todo = new ArrayList<String>();
+				for (String letter : transiciones) {
+					if (!letter.equals("todo") && !todo.contains(letter))
+						todo.add(letter);
+				}
+
+				// Crear nuevos tipos de transiciones
+				int indexTodo = transiciones.indexOf("todo");
+				for (String algo : todo) {
+					String tran = "todo-" + algo;
+					transiciones.add(indexTodo++, tran);
+					if (!alfabeto.getLista().contains(tran))
+						alfabeto.getLista().add(tran);
+				}
+
+				// Elimina transicion "letra"
+				if (todo.size() > 0)
+					transiciones.remove("todo");
+			}
 
 			// Recorrer todas las transiciones
 			for (String transicion : transiciones) {
@@ -205,19 +227,6 @@ public class ConvierteAFD {
 					adyacencia.add(lista);
 					System.out.println("Añadir U a estdos D no marcado");
 				}
-
-				// Insertar U como transicion a la Adyacencia (Tabla de Estados Deterministas)
-				// Comprobar si estadosD.get(i) está en adyacencia
-				/*
-				 * bandera = false; ListaDoblementeEnlazadaD adya = null; for
-				 * (ListaDoblementeEnlazadaD T : adyacencia) { if
-				 * (T.getEstado().equals(estadosD.get(i))) { bandera = true; adya = T; break; }
-				 * } if (!bandera) { // estadosD.get(i) no está en adyacencia
-				 * ListaDoblementeEnlazadaD lista = new ListaDoblementeEnlazadaD();
-				 * lista.insertar(U, transicion); lista.setEstado(estadosD.get(i));
-				 * adyacencia.add(lista); } else { // estadosD.get(i) ya está en adyacencia
-				 * adya.insertar(U, transicion); }
-				 */
 
 				ListaDoblementeEnlazadaD adya = null;
 				for (ListaDoblementeEnlazadaD T : adyacencia) {
