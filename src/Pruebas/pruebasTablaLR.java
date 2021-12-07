@@ -27,7 +27,13 @@ public class pruebasTablaLR {
         gramatica.setReglasProduccion(auxGramatica);
         
         tablaPrueba = TablaLR.construir(prueba,gramatica); 
-		System.out.println(tablaPrueba);
+        int n = prueba.getConjuntosElementos().size();
+
+        for (int i = 0 ; i < n ; i++){
+			System.out.println(tablaPrueba.getAcciones().get(i));
+            System.out.println(tablaPrueba.getIrA().get(i));
+        }
+		//System.out.println(tablaPrueba);
 	}
 
 }
