@@ -39,39 +39,48 @@ public class TablaLR {
 		return irA;
 	}
 
+	public void setAcciones(ArrayList<Map<String, String>> acciones){
+		this.acciones.addAll(acciones);
+	}
+
+	public void setIra(ArrayList<Map<String, String>> irA){
+		this.irA.addAll(irA);
+	}
+
+
+
 	// Metodos
 	public static TablaLR construir(ColeccionCanonica coleccionCanonica, Gramatica gramatica) {
-
-		ReglaProduccion temporalProduccion = new ReglaProduccion();
+		
 		ArrayList<Map<String, String>> acciones = new ArrayList<Map<String, String>>();
 		ArrayList<Map<String, String>> irA = new ArrayList<Map<String, String>>();
-		int i = 0;
+		TablaLR tabla = new TablaLR();
+		
+		for(int i = 0; i < coleccionCanonica.getConjuntosElementos().size() ; i++){
 
-		//Construimos acciones e ira
-		for (ConjuntoElementos construirestados: coleccionCanonica.getConjuntosElementos()) {
 			HashMap<String, String> aux = new HashMap<String, String>();
-			HashMap<String, String> aux2 = new HashMap<String, String>();
-			for (String simbolo_a :gramatica.getTerminales()){
-				aux.put(simbolo_a, "");
-			}
-			for (String simbolo_A :gramatica.getNoTerminales()){
-				aux2.put (simbolo_A,"");
+			for (String simbolo : gramatica.getTerminales()){
+				aux.put(simbolo, "");
 			}
 			acciones.add(aux);
-			irA.add(aux2);
 		}
 
+		for(int i = 0; i < coleccionCanonica.getConjuntosElementos().size() ; i++) {
 
-		//Algoritmo de construcción 
-
-		for (ConjuntoElementos recorreConjunto : coleccionCanonica.getConjuntosElementos()) {
+			ConjuntoElementos recorreConjunto = new ConjuntoElementos();
+			recorreConjunto = coleccionCanonica.getConjuntosElementos().get(i);
 			for (Elemento recorreElemento : recorreConjunto.getElementos()) {
 				
+				
+				ArrayList<String> temp = new ArrayList<String>(recorreElemento.getProduccion());
+			
+				ReglaProduccion temporalProduccion = new ReglaProduccion();
 				temporalProduccion.setSimboloGramatical(recorreElemento.getSimboloGramatical());
 
 				if (gramatica.esTerminal(recorreElemento.getSimboloDespuesDePunto())) {
-					ConjuntoElementos temporal = IrA.hacer(recorreConjunto, recorreElemento.getSimboloDespuesDePunto(), gramatica);
-					acciones.get(i).replace(recorreElemento.getSimboloDespuesDePunto(), "Desplazar" + coleccionCanonica.indiceDe(temporal) + "");
+					ConjuntoElementos aux = IrA.hacer(recorreConjunto, recorreElemento.getSimboloDespuesDePunto(), gramatica);
+					acciones.get(i).replace(recorreElemento.getSimboloDespuesDePunto(), "d" + coleccionCanonica.indiceDe(aux));
+					
 					continue;
 
 				}
@@ -83,26 +92,37 @@ public class TablaLR {
 					temporalProduccion.setProduccion(temp); 
 					if (gramatica.getReglasProduccion().contains(temporalProduccion)) {
 						for (String recorreSiguientes : resultadoSiguiente.getSimbolos()) {
-							acciones.get(i).replace(recorreSiguientes,"Reducir" + gramatica.getReglasProduccion().indexOf(temporalProduccion) + "");
+							acciones.get(i).replace(recorreSiguientes, "r" + gramatica.getReglasProduccion().indexOf(temporalProduccion) );
 						}
 					}
 					continue;
 
 				} 
 				if (recorreElemento.getSimboloDespuesDePunto().equals("$")) {
-					acciones.get(i).replace("$","Aceptar");
+
+					acciones.get(i).replace("$", "acep");
 					continue;
 				}
+
 			}
-			for (String recorreNoTerminales : gramatica.getNoTerminales()) {
-				ConjuntoElementos temporal = IrA.hacer(recorreConjunto, recorreNoTerminales, gramatica);
-				if (recorreConjunto.equals(temporal)) {
-					irA.get(i).replace(recorreNoTerminales, "Regla" + coleccionCanonica.getConjuntosElementos().indexOf(temporal) + "");
-				} 
+
+			for( i = 0; i < coleccionCanonica.getConjuntosElementos().size() ; i++){
+
+				HashMap<String, String> aux = new HashMap<String, String>();
+				for (String simbolo : gramatica.getNoTerminales()){
+					aux.put(simbolo, "");
+				}
+				irA.add(aux);
 			}
-			i++;
+			for(int j = 0; j < gramatica.getNoTerminales().size(); j++) {
+				ConjuntoElementos temporal = IrA.hacer(recorreConjunto, gramatica.getNoTerminales().get(j),gramatica);
+				if (recorreConjunto.equals(temporal)) 
+					irA.get(i).replace(gramatica.getNoTerminales().get(j),coleccionCanonica.indiceDe(temporal) + "");
+
+			}
 		}
 
-		return new TablaLR(acciones, irA);
+
+		return tabla;
 	}
 }

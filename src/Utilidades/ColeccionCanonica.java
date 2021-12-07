@@ -9,6 +9,7 @@ import Utilidades.ConjuntoElementos.ConjuntoElementos;
 import Utilidades.ConjuntoElementos.Elemento;
 import Utilidades.Gramatica.Gramatica;
 
+
 public class ColeccionCanonica {
 	private ArrayList<ConjuntoElementos> conjuntosElementos;
 	private String proceso;
@@ -39,6 +40,7 @@ public class ColeccionCanonica {
 	// Metodos
 
 	public int indiceDe(ConjuntoElementos I) {
+		/*
 		int i; 
 		int aux = 0;
 		Boolean bandera = true;
@@ -55,7 +57,9 @@ public class ColeccionCanonica {
 						bandera = false; 
 					} 
 				}
-				aux = i;
+				if (bandera == true ){
+					aux = i;
+				}
 			}
 			if(aux != 0){
 				return aux;
@@ -64,8 +68,39 @@ public class ColeccionCanonica {
 		if(bandera == false){
 			return -1;
 		}
-		return 1;
+		return 1;  */
+		
+		Boolean bandera = true;
+		for (int j = 0; j < conjuntosElementos.size(); j++) {
+			ConjuntoElementos conjuntoEle=conjuntosElementos.get(j);
+			
+			bandera = true;
+			ArrayList<Elemento> elementosActual = conjuntoEle.getElementos();
+			ArrayList<Elemento> elementosNuevo = I.getElementos();
+			Boolean bandera2 = true;
+
+			// Comparar si tienen el mismo largo
+			if (elementosActual.size() == elementosNuevo.size()) {
+
+				for (int i = 0; i < elementosActual.size(); i++) {
+
+					// Comprobar elemento a elemento
+					if (!elementosActual.get(i).esIgual(elementosNuevo.get(i))) {
+						break;
+					}
+				}
+
+				if (bandera2) { // El I actual es el mismo que el parametro y se termina el ciclo
+								// principal
+					bandera = false;
+					return j;
+				}
+			}
+		}
+
+		return -1; 
 	}
+
 
 	public void agregar(ConjuntoElementos conjunto) {
 		Boolean bandera = true;
