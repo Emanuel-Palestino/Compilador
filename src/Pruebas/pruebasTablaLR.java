@@ -25,7 +25,6 @@ public class pruebasTablaLR {
         auxGramatica.addAll(gramatica.getReglasProduccion());
         auxGramatica.add(0, aumentada);
         gramatica.setReglasProduccion(auxGramatica);
-        //
         
         tablaPrueba = TablaLR.construir(prueba,gramatica); 
         int n = prueba.getConjuntosElementos().size();
