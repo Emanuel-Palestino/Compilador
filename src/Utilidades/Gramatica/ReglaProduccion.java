@@ -61,4 +61,12 @@ public class ReglaProduccion{
     public void setMarcadoSiguiente(boolean marcadoSiguiente){
         this.marcadoSiguiente = marcadoSiguiente;
     }
+    public boolean indexReglaProduccion (String producciones,ArrayList<String> produccionTemp){
+        for (String recorreProducciones : produccionTemp) {
+            if (recorreProducciones.equals(producciones)){
+                return true;
+            }
+        } 
+        return false;
+    }
 }

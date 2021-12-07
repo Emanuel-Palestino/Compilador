@@ -58,11 +58,19 @@ public class TablaLR {
 		for(int i = 0; i < coleccionCanonica.getConjuntosElementos().size() ; i++){
 
 			HashMap<String, String> aux = new HashMap<String, String>();
-			for (String simbolo : gramatica.getTerminales()){
-				aux.put(simbolo, "");
+			for (String simbolo_A : gramatica.getTerminales()){
+				aux.put(simbolo_A, "");
 			}
 			aux.put ("$","");
 			acciones.add(aux);
+		}
+		for( int k = 0; k < coleccionCanonica.getConjuntosElementos().size() ; k++){
+
+			HashMap<String, String> aux = new HashMap<String, String>();
+			for (String simbolo_a : gramatica.getNoTerminales()){
+				aux.put(simbolo_a, "");
+			}
+			irA.add(aux);
 		}
 
 		for(int i = 0; i < coleccionCanonica.getConjuntosElementos().size() ; i++) {
@@ -80,7 +88,6 @@ public class TablaLR {
 				if (gramatica.esTerminal(recorreElemento.getSimboloDespuesDePunto())) {
 					ConjuntoElementos aux = IrA.hacer(recorreConjunto, recorreElemento.getSimboloDespuesDePunto(), gramatica);
 					acciones.get(i).replace(recorreElemento.getSimboloDespuesDePunto(), "d" + coleccionCanonica.indiceDe(aux));
-					
 					continue;
 
 				}
@@ -90,9 +97,10 @@ public class TablaLR {
 					resultadoSiguiente = auxSiguientes.siguiente(recorreElemento.getSimboloGramatical(), gramatica);
 					temp.remove(recorreElemento.getTamañoProduccion() - 1);
 					temporalProduccion.setProduccion(temp); 
-					if (gramatica.getReglasProduccion().contains(temporalProduccion)) {
-						for (String recorreSiguientes : resultadoSiguiente.getSimbolos()) {
-							acciones.get(i).replace(recorreSiguientes, "r" + gramatica.getReglasProduccion().indexOf(temporalProduccion) );
+					if (!recorreElemento.getSimboloGramatical().equals(gramatica.getSimboloInicial() + "'")) {
+					 	for (String recorreSiguientes : resultadoSiguiente.getSimbolos()) {
+							
+							acciones.get(i).replace(recorreSiguientes, "r" + gramatica.getReglasProduccion().indexOf(temporalProduccion) + 1);
 						}
 					}
 					continue;
@@ -105,20 +113,10 @@ public class TablaLR {
 				}
 
 			}
-
-			for( int k = 0; k < coleccionCanonica.getConjuntosElementos().size() ; k++){
-
-				HashMap<String, String> aux = new HashMap<String, String>();
-				for (String simbolo : gramatica.getNoTerminales()){
-					aux.put(simbolo, "");
-				}
-				irA.add(aux);
-			}
 			for(int j = 0; j < gramatica.getNoTerminales().size(); j++) {
 				ConjuntoElementos temporal = IrA.hacer(recorreConjunto, gramatica.getNoTerminales().get(j),gramatica);
 				if (recorreConjunto.equals(temporal)) 
 					irA.get(i).replace(gramatica.getNoTerminales().get(j),coleccionCanonica.indiceDe(temporal) + "");
-
 			}
 		}
 

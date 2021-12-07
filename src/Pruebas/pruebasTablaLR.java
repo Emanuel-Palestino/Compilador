@@ -15,7 +15,7 @@ public class pruebasTablaLR {
 		Gramatica gramatica = new Gramatica("src/Pruebas/gramatica.txt");
         ColeccionCanonica prueba = ColeccionCanonica.hacer(gramatica);
         // Gramatica aumentada
-        ArrayList<ReglaProduccion> auxGramatica = new ArrayList<ReglaProduccion>();
+        /*ArrayList<ReglaProduccion> auxGramatica = new ArrayList<ReglaProduccion>();
         ReglaProduccion aumentada = new ReglaProduccion();
         ArrayList<String> produ = new ArrayList<String>();
         produ.add("E");
@@ -24,7 +24,7 @@ public class pruebasTablaLR {
         aumentada.setProduccion(produ);
         auxGramatica.addAll(gramatica.getReglasProduccion());
         auxGramatica.add(0, aumentada);
-        gramatica.setReglasProduccion(auxGramatica);
+        gramatica.setReglasProduccion(auxGramatica);*/
         
         tablaPrueba = TablaLR.construir(prueba,gramatica); 
         int n = prueba.getConjuntosElementos().size();
