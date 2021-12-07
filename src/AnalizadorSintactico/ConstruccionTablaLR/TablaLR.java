@@ -43,11 +43,18 @@ public class TablaLR {
 
 	// Metodos
 	public static TablaLR construir(ColeccionCanonica coleccionCanonica, Gramatica gramatica) {
-		TablaLR tabla = new TablaLR();
+		
+		ArrayList<Map<String, String>> acciones = new ArrayList<Map<String, String>>();
+		ArrayList<Map<String, String>> irA = new ArrayList<Map<String, String>>();
+
 		
 		for(int i = 0; i < coleccionCanonica.getConjuntosElementos().size() ; i++){
 
-		
+			HashMap<String, String> aux = new HashMap<String, String>();
+			for (String simbolo : gramatica.getTerminales()){
+				aux.put(simbolo, "");
+			}
+			acciones.add(aux);
 		}
 
 		for (ConjuntoElementos recorreConjunto : coleccionCanonica.getConjuntosElementos()) {
