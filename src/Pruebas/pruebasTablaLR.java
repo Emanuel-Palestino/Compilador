@@ -9,10 +9,10 @@ import Utilidades.Gramatica.ReglaProduccion;
 
 public class pruebasTablaLR {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
         TablaLR tablaPrueba = new TablaLR();
-	
-		Gramatica gramatica = new Gramatica("src/Pruebas/gramatica.txt");
+    
+        Gramatica gramatica = new Gramatica("src/Pruebas/gramatica.txt");
         ColeccionCanonica prueba = ColeccionCanonica.hacer(gramatica);
         // Gramatica aumentada
         /*ArrayList<ReglaProduccion> auxGramatica = new ArrayList<ReglaProduccion>();
@@ -30,10 +30,10 @@ public class pruebasTablaLR {
         int n = prueba.getConjuntosElementos().size();
 
         for (int i = 0 ; i < n ; i++){
-			System.out.println(tablaPrueba.getAcciones().get(i));
+            System.out.println(tablaPrueba.getAcciones().get(i));
             System.out.println(tablaPrueba.getIrA().get(i));
         }
-		//System.out.println(tablaPrueba);
-	}
+        //System.out.println(tablaPrueba);
+    }
 
 }
