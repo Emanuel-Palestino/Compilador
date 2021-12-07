@@ -118,7 +118,14 @@ public class TablaLR {
 		for(int j = 0; j < gramatica.getNoTerminales().size(); j++) {
 			ConjuntoElementos temporal = new ConjuntoElementos(); 
 			temporal = IrA.hacer(coleccionCanonica.getConjuntosElementos().get(i), gramatica.getNoTerminales().get(j),gramatica);
-			irA.get(i).replace(gramatica.getNoTerminales().get(j),coleccionCanonica.indiceDe(temporal) + "");
+			if(coleccionCanonica.indiceDe(temporal) == -1){
+
+				irA.get(i).replace(gramatica.getNoTerminales().get(j), "");
+			}else{
+
+				irA.get(i).replace(gramatica.getNoTerminales().get(j),coleccionCanonica.indiceDe(temporal) + "");
+			}
+				
 		}
 	}
     return new TablaLR(acciones, irA);
