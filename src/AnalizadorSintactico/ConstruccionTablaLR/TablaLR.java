@@ -39,36 +39,39 @@ public class TablaLR {
 		return irA;
 	}
 
-
-
 	// Metodos
 	public static TablaLR construir(ColeccionCanonica coleccionCanonica, Gramatica gramatica) {
-		
+
+		ReglaProduccion temporalProduccion = new ReglaProduccion();
 		ArrayList<Map<String, String>> acciones = new ArrayList<Map<String, String>>();
 		ArrayList<Map<String, String>> irA = new ArrayList<Map<String, String>>();
+		int i = 0;
 
-		
-		for(int i = 0; i < coleccionCanonica.getConjuntosElementos().size() ; i++){
-
+		//Construimos acciones e ira
+		for (ConjuntoElementos construirestados: coleccionCanonica.getConjuntosElementos()) {
 			HashMap<String, String> aux = new HashMap<String, String>();
-			for (String simbolo : gramatica.getTerminales()){
-				aux.put(simbolo, "");
+			HashMap<String, String> aux2 = new HashMap<String, String>();
+			for (String simbolo_a :gramatica.getTerminales()){
+				aux.put(simbolo_a, "");
+			}
+			for (String simbolo_A :gramatica.getNoTerminales()){
+				aux2.put (simbolo_A,"");
 			}
 			acciones.add(aux);
+			irA.add(aux2);
 		}
+
+
+		//Algoritmo de construcción 
 
 		for (ConjuntoElementos recorreConjunto : coleccionCanonica.getConjuntosElementos()) {
 			for (Elemento recorreElemento : recorreConjunto.getElementos()) {
 				
-				
-				ArrayList<String> temp = new ArrayList<String>(recorreElemento.getProduccion());
-			
-				ReglaProduccion temporalProduccion = new ReglaProduccion();
 				temporalProduccion.setSimboloGramatical(recorreElemento.getSimboloGramatical());
 
 				if (gramatica.esTerminal(recorreElemento.getSimboloDespuesDePunto())) {
-					ConjuntoElementos aux = IrA.hacer(recorreConjunto, recorreElemento.getSimboloDespuesDePunto(), gramatica);
-					tabla.agregarAcciones("Desplazar", coleccionCanonica.indiceDe(aux) + "",recorreElemento.getSimboloDespuesDePunto() + "");
+					ConjuntoElementos temporal = IrA.hacer(recorreConjunto, recorreElemento.getSimboloDespuesDePunto(), gramatica);
+					acciones.get(i).replace(recorreElemento.getSimboloDespuesDePunto(), "Desplazar" + coleccionCanonica.indiceDe(temporal) + "");
 					continue;
 
 				}
@@ -80,31 +83,26 @@ public class TablaLR {
 					temporalProduccion.setProduccion(temp); 
 					if (gramatica.getReglasProduccion().contains(temporalProduccion)) {
 						for (String recorreSiguientes : resultadoSiguiente.getSimbolos()) {
-							tabla.agregarAcciones("Reducir",gramatica.getReglasProduccion().indexOf(temporalProduccion) + "",recorreSiguientes);
+							acciones.get(i).replace(recorreSiguientes,"Reducir" + gramatica.getReglasProduccion().indexOf(temporalProduccion) + "");
 						}
 					}
 					continue;
 
 				} 
 				if (recorreElemento.getSimboloDespuesDePunto().equals("$")) {
-					tabla.agregarAcciones("Aceptar", "", "$");
+					acciones.get(i).replace("$","Aceptar");
 					continue;
 				}
-
-				else{
-					tabla.agregarAcciones(" ", " ", " ");
-				}
 			}
-			for (String simbolos_A : gramatica.getNoTerminales()) {
-				ConjuntoElementos temporal = IrA.hacer(recorreConjunto, simbolos_A, gramatica);
+			for (String recorreNoTerminales : gramatica.getNoTerminales()) {
+				ConjuntoElementos temporal = IrA.hacer(recorreConjunto, recorreNoTerminales, gramatica);
 				if (recorreConjunto.equals(temporal)) {
-					tabla.agregarIra(coleccionCanonica.getConjuntosElementos().indexOf(temporal) + "", "", simbolos_A);
-				} else {
-					tabla.agregarIra("","",simbolos_A);
-				}
+					irA.get(i).replace(recorreNoTerminales, "Regla" + coleccionCanonica.getConjuntosElementos().indexOf(temporal) + "");
+				} 
 			}
+			i++;
 		}
 
-		return tabla;
+		return new TablaLR(acciones, irA);
 	}
 }
