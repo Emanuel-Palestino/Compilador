@@ -178,5 +178,36 @@ public class Gramatica {
 
         return res;
     }
-
+    public int indiceReglaProduccion(ReglaProduccion temporalRP) {
+      
+        Boolean bandera = true;
+        for (int j = 0; j < reglasProduccion.size(); j++) {
+          ReglaProduccion conjuntoReglaProduccion=reglasProduccion.get(j);
+          
+          bandera = true;
+          String simboloActual = conjuntoReglaProduccion.getSimboloGramatical();
+          String simboloNuevo = temporalRP.getSimboloGramatical();
+          ArrayList<String> produccionActual = conjuntoReglaProduccion.getProduccion();
+          ArrayList<String> produccionNuevo = temporalRP.getProduccion();
+          Boolean bandera2 = true;
+    
+          // Comparar si tienen el mismo largo
+          if (produccionActual.size() == produccionNuevo.size()) {
+            for (int i = 0; i < produccionActual.size(); i++) {
+              // Comprobar elemento a elemento
+              if (!(produccionActual.get(i).equals(produccionNuevo.get(i)) && simboloActual.equals(simboloNuevo))) {
+                bandera2 = false;
+                break;
+              }
+            }
+            if (bandera2) { // El I actual es el mismo que el parametro y se termina el ciclo
+                    // principal
+              bandera = false;
+              return j+1;
+            }
+          }
+        }
+        return -1; 
+      }
+    
 }
