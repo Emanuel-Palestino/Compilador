@@ -54,7 +54,6 @@ public class TablaLR {
 		
 		ArrayList<Map<String, String>> acciones = new ArrayList<Map<String, String>>();
 		ArrayList<Map<String, String>> irA = new ArrayList<Map<String, String>>();
-		TablaLR tabla = new TablaLR();
 		
 		for(int i = 0; i < coleccionCanonica.getConjuntosElementos().size() ; i++){
 
@@ -62,6 +61,7 @@ public class TablaLR {
 			for (String simbolo : gramatica.getTerminales()){
 				aux.put(simbolo, "");
 			}
+			aux.put ("$","");
 			acciones.add(aux);
 		}
 
@@ -106,7 +106,7 @@ public class TablaLR {
 
 			}
 
-			for( i = 0; i < coleccionCanonica.getConjuntosElementos().size() ; i++){
+			for( int k = 0; k < coleccionCanonica.getConjuntosElementos().size() ; k++){
 
 				HashMap<String, String> aux = new HashMap<String, String>();
 				for (String simbolo : gramatica.getNoTerminales()){
@@ -123,6 +123,6 @@ public class TablaLR {
 		}
 
 
-		return tabla;
+		return new TablaLR(acciones, irA);
 	}
 }

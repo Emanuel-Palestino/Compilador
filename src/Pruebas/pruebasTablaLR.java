@@ -31,12 +31,9 @@ public class pruebasTablaLR {
 
         for (int i = 0 ; i < n ; i++){
 			System.out.println(tablaPrueba.getAcciones().get(i));
-            System.out.println(tablaPrueba.getSimboloTerminal().get(i));
             System.out.println(tablaPrueba.getIrA().get(i));
-            System.out.println(tablaPrueba.getSimboloNoTerminal().get(i));
-            System.out.println();
         }
-		System.out.println(tablaPrueba);
+		//System.out.println(tablaPrueba);
 	}
 
 }
