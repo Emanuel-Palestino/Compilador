@@ -113,12 +113,14 @@ public class TablaLR {
         }
 
       } 
-      for(int j = 0; j < gramatica.getNoTerminales().size(); j++) {
-        ConjuntoElementos temporal = IrA.hacer(recorreConjunto, gramatica.getNoTerminales().get(j),gramatica);
-        if (recorreConjunto.equals(temporal)) 
-          irA.get(i).replace(gramatica.getNoTerminales().get(j),coleccionCanonica.indiceDe(temporal) + "");
-      }
     }
+	for( int i = 0; i < coleccionCanonica.getConjuntosElementos().size() ; i++){
+		for(int j = 0; j < gramatica.getNoTerminales().size(); j++) {
+			ConjuntoElementos temporal = new ConjuntoElementos(); 
+			temporal = IrA.hacer(coleccionCanonica.getConjuntosElementos().get(i), gramatica.getNoTerminales().get(j),gramatica);
+			irA.get(i).replace(gramatica.getNoTerminales().get(j),coleccionCanonica.indiceDe(temporal) + "");
+		}
+	}
     return new TablaLR(acciones, irA);
   }
 }
