@@ -40,7 +40,7 @@ public class EvaluarCodigo {
 		ArrayList<ArrayList<String>> errores = new ArrayList<ArrayList<String>>();
 
 		String linea;
-		Boolean agregarUltimoToken = false, comentarioMultiLinea = false;
+		Boolean comentarioMultiLinea = false;
 		Stack<String> palabras = new Stack<String>();
 		int numLinea = 0;
 		palabras.push("");
@@ -81,7 +81,7 @@ public class EvaluarCodigo {
 				try {
 					if (EvaluarAFD.evaluar(AFD, palabras.peek())) { // correcto
 						// Agregar ultimo token de la linea
-						if (i == linea.length() - 1 && agregarUltimoToken) {
+						if (i == linea.length() - 1) {
 							// Rellenar resultados
 							rellenarResultados(palabras.peek(), numLinea, palabrasRerservadas, tiraTokens, simbolos);
 						}
@@ -90,64 +90,27 @@ public class EvaluarCodigo {
 					}
 				} catch (ExcepcionLexico e) { // Simbolo no encontrado
 					palabras.push(palabras.pop().replace(e.simbolo, ""));
-					// bandera para agregar el ultimo token de la linea
-					agregarUltimoToken = true;
 
 					// Rellenar resultados
-					String lexema = palabras.peek();
-					if (!lexema.equals("")) {
-						ArrayList<String> fila = new ArrayList<String>();
-						// linea
-						fila.add("" + numLinea);
-						// tokensLinea.add("" + numLinea);
-						// lexema
-						fila.add(lexema);
-						// tokensLexema.add(lexema);
-						// saber qué representa (token)
-						if (palabrasRerservadas.contains(lexema)) { // Es una palabra reservada
-							fila.add(lexema);
-							// tokensToken.add(lexema);
-						} else if (lexema.matches("-?\\d+(\\.\\d+)?")) { // Es un numero, ya sea entero o flotante y
-							fila.add("num");
-							// tokensToken.add("num");
-						} else if (lexema.matches("(\"(\\w*)\")|('(\\w*)')")) { // Es un string
-							fila.add("string");
-							// tokensToken.add("string");
-						} else if (lexema.matches("[a-zA-Z]*(\\w+)")) { // Es un id
-							fila.add("id");
-							// tokensToken.add("id");
-							// Agregar a la tabla de simbolos
-							ArrayList<String> filaSimbolos = new ArrayList<String>();
-							filaSimbolos.add(lexema);
-							// simbolosId.add(lexema);
-							// no se cómo obtener estos valores
-							filaSimbolos.add("");
-							filaSimbolos.add("");
-							// simbolosValor.add("");
-							// simbolosFuncion.add("");
-							simbolos.add(filaSimbolos);
-						} else {
-							fila.add("desconocido");
-							// tokensToken.add("desconocido");
-						}
-						tiraTokens.add(fila);
-					}
+					rellenarResultados(palabras.peek(), numLinea, palabrasRerservadas, tiraTokens, simbolos);
 
 					// aquí sabe lo que se va a eliminar (omitir) por ahora espacios y tabs
 					if (!e.simbolo.equals(" ") && !e.simbolo.equals("	")) {
 						i--;
 						// Si hay algun simbolo no valido, agregar a la tabla de errores
-						if (!AFN.getAlfabeto().simboloValido(e.simbolo)) {
+						try {
+							EvaluarAFD.evaluar(AFD, e.simbolo);
+						} catch (ExcepcionLexico e1) {
 							// Eliminar de la cadena
 							palabras.pop();
 							linea = linea.replaceFirst(e.simbolo, "");
-							// Agregar
+
+							// Agregar a Errores
 							ArrayList<String> filaErrores = new ArrayList<String>();
 							filaErrores.add("" + numLinea);
 							filaErrores.add("Error: símbolo " + e.simbolo + " no definido.");
-							// erroresLinea.add("" + numLinea);
-							// erroresDescripcion.add("Error: símbolo " + e.simbolo + " no definido.");
 							errores.add(filaErrores);
+
 						}
 					}
 
@@ -202,7 +165,7 @@ public class EvaluarCodigo {
 				fila.add(lexema);
 			} else if (lexema.matches("-?\\d+(\\.\\d+)?")) { // Es un numero, ya sea entero o flotante
 				fila.add("num");
-			} else if (lexema.matches("(\"(\\w*)\")|('(\\w*)')")) { // Es un string
+			} else if (lexema.matches("(\"(.*)\")|('(.*)')")) { // Es un string
 				fila.add("string");
 			} else if (lexema.matches("[a-zA-Z]*(\\w+)")) { // Es un id
 				fila.add("id");

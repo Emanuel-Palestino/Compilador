@@ -16,7 +16,7 @@ public class IniciarConjuntos {
 
     public IniciarConjuntos(JFrame parent) throws FileNotFoundException, IOException, ExcepcionER {
         Thompson thomp = new Thompson();
-        ArrayList<String> expr = Archivo.capturaDatosArchivo("src/ArchivosExtra/ExpresionRegular2.txt");
+        ArrayList<String> expr = Archivo.capturaDatosArchivo("src/ArchivosExtra/ExpresionRegular.txt");
         Automata AFN = thomp.evaluarER(expr.get(1), expr.get(0));
         AutomataDeterminista AFD = ConvierteAFD.convierte(AFN);
 
