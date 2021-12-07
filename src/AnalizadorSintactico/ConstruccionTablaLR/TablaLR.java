@@ -112,7 +112,7 @@ public class TablaLR {
 					continue;
 				}
 
-			}
+			} 
 			for(int j = 0; j < gramatica.getNoTerminales().size(); j++) {
 				ConjuntoElementos temporal = IrA.hacer(recorreConjunto, gramatica.getNoTerminales().get(j),gramatica);
 				if (recorreConjunto.equals(temporal)) 
