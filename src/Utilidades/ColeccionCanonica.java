@@ -41,11 +41,9 @@ public class ColeccionCanonica {
 
   public int indiceDe(ConjuntoElementos I) {
       
-    Boolean bandera = true;
     for (int j = 0; j < conjuntosElementos.size(); j++) {
       ConjuntoElementos conjuntoEle=conjuntosElementos.get(j);
       
-      bandera = true;
       ArrayList<Elemento> elementosActual = conjuntoEle.getElementos();
       ArrayList<Elemento> elementosNuevo = I.getElementos();
       Boolean bandera2 = true;
@@ -61,7 +59,6 @@ public class ColeccionCanonica {
         }
         if (bandera2) { // El I actual es el mismo que el parametro y se termina el ciclo
                 // principal
-          bandera = false;
           return j;
         }
       }

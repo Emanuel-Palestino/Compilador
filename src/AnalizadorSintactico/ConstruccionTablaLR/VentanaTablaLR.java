@@ -22,6 +22,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class VentanaTablaLR extends JDialog {
 	private FlowLayout diseñoPanel;
@@ -42,25 +44,25 @@ public class VentanaTablaLR extends JDialog {
 
 	// Constructor de la ventana
 	public VentanaTablaLR(JFrame parent, String noTerminales, String terminales, String simboloInicial,
-			String gramatica, String coleccionCanonica) {
+			String gramatica, TablaLR tabla, ArrayList<String> simbolosTerminales, ArrayList<String> simbolosNoTerminales) {
 		super(parent, true);
 
 		// Iniciar componentes
 		inicializarComponentes();
 
 		// Rellenar con informacion dada
-		rellenarComponentes(noTerminales, terminales, simboloInicial, gramatica, coleccionCanonica);
+		rellenarComponentes(noTerminales, terminales, simboloInicial, gramatica, tabla, simbolosTerminales, simbolosNoTerminales);
 
 		this.setVisible(true);
 	}
 
 	// Constructor Vacio
-	public VentanaTablaLR() {
-		super();
+	public VentanaTablaLR(JFrame parent) {
+		super(parent, true);
 
 		// Iniciar Componentes
 		inicializarComponentes();
-		rellenarTabla();
+		rellenarTabla(null, null, null);
 
 		this.setVisible(true);
 	}
@@ -102,11 +104,12 @@ public class VentanaTablaLR extends JDialog {
 
 				// Obtener datos nuevos
 				Gramatica grama = new Gramatica(ruta);
-				String coleccionCanonica = ColeccionCanonica.hacer(grama).getProceso();
+				ColeccionCanonica coleccionCanonica = ColeccionCanonica.hacer(grama);
+				TablaLR resultado = TablaLR.construir(coleccionCanonica, grama);
 
 				// Modificar datos
 				rellenarComponentes(grama.stringSimbolosNoTerminales(), grama.stringSimbolosTerminales(),
-						grama.getSimboloInicial(), grama.stringGramatica(), coleccionCanonica);
+						grama.getSimboloInicial(), grama.stringGramatica(), resultado, grama.getTerminales(), grama.getNoTerminales());
 
 			}
 		});
@@ -193,7 +196,7 @@ public class VentanaTablaLR extends JDialog {
 		// - 20));
 
 		// Mostrar Tabla IrA
-		tablaIrA = new JTable(modeloAccion);
+		tablaIrA = new JTable(modeloIrA);
 		tablaIrA.setEnabled(false);
 		tablaIrA.getTableHeader().setReorderingAllowed(false);
 
@@ -215,25 +218,49 @@ public class VentanaTablaLR extends JDialog {
 		this.add(panelResultado);
 	}
 
-	private void rellenarTabla() {
-		String[][] datos = { { "0", "algo", "algo2", "", "algo3" }, { "0", "algo", "algo2", "", "algo3" },
-				{ "0", "algo", "algo2", "", "algo3" } };
-		String[] encabezado = { "edo", "1", "2", "3", "4" };
+	private void rellenarTabla(TablaLR tabla, ArrayList<String> simbolosTerminales, ArrayList<String> simbolosNoTerminales) {
+		ArrayList<Map<String, String>> acciones = tabla.getAcciones();
+		ArrayList<Map<String, String>> irA = tabla.getIrA();
 
-		modeloAccion.setDataVector(datos, encabezado);
+		// Acciones
+		String[][] datosAcciones = new String[acciones.size()][simbolosTerminales.size() + 2];
+		String[] encabezadoAcciones = new String[simbolosTerminales.size() + 2];
+		encabezadoAcciones[0] = "Estado";
+		for (int i = 0; i < acciones.size(); i++) {
+			datosAcciones[i][0] = "" + i;
+			for (int j = 0; j < simbolosTerminales.size(); j++) {
+				encabezadoAcciones[j + 1] = simbolosTerminales.get(j);
+				datosAcciones[i][j + 1] = acciones.get(i).get(simbolosTerminales.get(j));
+			}
+			encabezadoAcciones[encabezadoAcciones.length - 1] = "$";
+			datosAcciones[i][datosAcciones[0].length - 1] = acciones.get(i).get("$");
+		}
+
+		// Ir A
+		String[][] datosIrA = new String[irA.size()][simbolosNoTerminales.size() + 1];
+		String[] encabezadoIrA = new String[simbolosNoTerminales.size() + 1];
+		encabezadoIrA[0] = "Estado";
+		for (int i = 0; i < irA.size(); i++) {
+			datosIrA[i][0] = "" + i;
+			for (int j = 0; j < simbolosNoTerminales.size(); j++) {
+				encabezadoIrA[j + 1] = simbolosNoTerminales.get(j);
+				datosIrA[i][j + 1] = irA.get(i).get(simbolosNoTerminales.get(j));
+			}
+		}
+
+		modeloAccion.setDataVector(datosAcciones, encabezadoAcciones);
 		modeloAccion.fireTableDataChanged();
-		modeloIrA.setDataVector(datos, encabezado);
+		modeloIrA.setDataVector(datosIrA, encabezadoIrA);
 		modeloIrA.fireTableDataChanged();
 	}
 
-	private void rellenarComponentes(String noTerminales, String terminales, String simboloInicial, String gramatica,
-			String coleccionCanonica) {
+	private void rellenarComponentes(String noTerminales, String terminales, String simboloInicial, String gramatica, TablaLR tabla, ArrayList<String> simbolosTerminales, ArrayList<String> simbolosNoTerminales) {
 		textNoTerminales.setText(noTerminales);
 		textTerminales.setText(terminales);
 		textSimboloInicial.setText(simboloInicial);
 		areaGramatica.setText(gramatica);
 		// Rellenar la tabla LR
-		rellenarTabla();
+		rellenarTabla(tabla, simbolosTerminales, simbolosNoTerminales);
 	}
 
 	private void editarRutaArchivo(String nuevaRuta) {
