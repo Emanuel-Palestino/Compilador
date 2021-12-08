@@ -180,11 +180,9 @@ public class Gramatica {
     }
     public int indiceReglaProduccion(ReglaProduccion temporalRP) {
       
-        Boolean bandera = true;
         for (int j = 0; j < reglasProduccion.size(); j++) {
           ReglaProduccion conjuntoReglaProduccion=reglasProduccion.get(j);
           
-          bandera = true;
           String simboloActual = conjuntoReglaProduccion.getSimboloGramatical();
           String simboloNuevo = temporalRP.getSimboloGramatical();
           ArrayList<String> produccionActual = conjuntoReglaProduccion.getProduccion();
@@ -202,7 +200,6 @@ public class Gramatica {
             }
             if (bandera2) { // El I actual es el mismo que el parametro y se termina el ciclo
                     // principal
-              bandera = false;
               return j+1;
             }
           }
