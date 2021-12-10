@@ -1,4 +1,4 @@
-package AnalizadorSintactico.ColeccionCanonica;
+package AnalizadorSintactico.Analisis;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -12,27 +12,29 @@ import javax.swing.border.Border;
 import Utilidades.Archivo;
 import Utilidades.ColeccionCanonica;
 import Utilidades.Gramatica.Gramatica;
+
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class VentanaColeccionCanonica extends JDialog {
+public class VentanaAnalisisSintactico extends JDialog {
 	private FlowLayout diseñoPanel;
 	private JPanel panelInformacion, panelArchivo, panelResultado;
 	private JLabel lblSimbolosNoTerminales, lblSimbolosTerminales, lblSimboloInicial, lblGramatica,
-			lblColeccionCanonica;
-	private JTextField textNoTerminales, textTerminales, textSimboloInicial, textRutaArchivo;
+			lblColeccionCanonica, lblArchivoGramatica, lblArchivoPrograma;
+	private JTextField textNoTerminales, textTerminales, textSimboloInicial, textRutaArchivoGramatica, textRutaArchivoPrograma;
 	private JTextArea areaGramatica, areaColeccionCanonica;
-	private JButton botonBuscar;
+	private JButton botonBuscarGramatica, botonBuscarPrograma;
 	private final JDialog estaVentana = this;
 	private final int altoElementos = 30;
 	private final Border padding = BorderFactory.createEmptyBorder(5, 5, 5, 5);
 	private final Border paddingTextArea = BorderFactory.createEmptyBorder(10, 10, 10, 10);
 
 	// Constructor de la ventana
-	public VentanaColeccionCanonica(JFrame parent, String noTerminales, String terminales, String simboloInicial,
+	public VentanaAnalisisSintactico(JFrame parent, String noTerminales, String terminales, String simboloInicial,
 			String gramatica, String coleccionCanonica) {
 		super(parent, true);
 
@@ -46,7 +48,7 @@ public class VentanaColeccionCanonica extends JDialog {
 	}
 
 	// Constructor Vacio
-	public VentanaColeccionCanonica() {
+	public VentanaAnalisisSintactico() {
 		super();
 
 		// Iniciar Componentes
@@ -58,31 +60,34 @@ public class VentanaColeccionCanonica extends JDialog {
 	private void inicializarComponentes() {
 		// Propiedades de la ventana
 		diseñoPanel = new FlowLayout(FlowLayout.LEFT, 10, 10);
-		this.setSize(1000, 700);
+		this.setSize(1000, 720);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setLayout(diseñoPanel);
-		this.setTitle("Analizador Sintáctico - Colección Canonica");
+		this.setTitle("Analizador Sintáctico - Análisis Sintactico");
 
 		/** Mostrar ruta dle archivo y boton para cargar otro archivo */
 
 		// Propiedades del panel de Archivo
 		panelArchivo = new JPanel();
-		panelArchivo.setPreferredSize(new Dimension(800, 60));
+		panelArchivo.setPreferredSize(new Dimension(900, 100));
 		panelArchivo.setLayout(diseñoPanel);
 
-		// Mostrar la ruta del archivo
-		textRutaArchivo = new JTextField("src/ArchivosExtra/gramatica.txt");
-		textRutaArchivo.setPreferredSize(new Dimension(600, altoElementos));
-		textRutaArchivo.setEditable(false);
-		textRutaArchivo.setBorder(BorderFactory.createCompoundBorder(textRutaArchivo.getBorder(), padding));
+		// Mostrar la ruta del archivo de Gramatica
+		lblArchivoGramatica = new JLabel("Gramática:");
+		lblArchivoGramatica.setPreferredSize(new Dimension(80, altoElementos));
+
+		textRutaArchivoGramatica = new JTextField("src/ArchivosExtra/gramatica.txt");
+		textRutaArchivoGramatica.setPreferredSize(new Dimension(600, altoElementos));
+		textRutaArchivoGramatica.setEditable(false);
+		textRutaArchivoGramatica.setBorder(BorderFactory.createCompoundBorder(textRutaArchivoGramatica.getBorder(), padding));
 
 		// Boton para buscar otro archivo
-		botonBuscar = new JButton("Buscar Archivo");
-		botonBuscar.setPreferredSize(new Dimension(130, altoElementos));
+		botonBuscarGramatica = new JButton("Buscar Archivo Gramatica");
+		botonBuscarGramatica.setPreferredSize(new Dimension(160, altoElementos));
 
 		// Agregar Accion al boton
-		botonBuscar.addActionListener(new ActionListener() {
+		botonBuscarGramatica.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// Obtener nueva ruta dle archivo
@@ -101,8 +106,45 @@ public class VentanaColeccionCanonica extends JDialog {
 		});
 
 		// Agregar elementos al panel Archivo
-		panelArchivo.add(textRutaArchivo);
-		panelArchivo.add(botonBuscar);
+		panelArchivo.add(lblArchivoGramatica);
+		panelArchivo.add(textRutaArchivoGramatica);
+		panelArchivo.add(botonBuscarGramatica);
+
+		// Mostrar la ruta del archivo del Programa
+		lblArchivoPrograma = new JLabel("Programa:");
+		lblArchivoPrograma.setPreferredSize(new Dimension(80, altoElementos));
+
+		textRutaArchivoPrograma = new JTextField("src/ArchivosExtra/programa.js");
+		textRutaArchivoPrograma.setPreferredSize(new Dimension(600, altoElementos));
+		textRutaArchivoPrograma.setEditable(false);
+		textRutaArchivoPrograma.setBorder(BorderFactory.createCompoundBorder(textRutaArchivoPrograma.getBorder(), padding));
+
+		// Boton para buscar otro archivo
+		botonBuscarPrograma = new JButton("Buscar Archivo Programa");
+		botonBuscarPrograma.setPreferredSize(new Dimension(160, altoElementos));
+
+		// Agregar Accion al boton
+		botonBuscarPrograma.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Obtener nueva ruta dle archivo
+				String ruta = Archivo.obtenerRutaArchivo(estaVentana);
+
+				editarRutaArchivo(ruta);
+
+				// Obtener datos nuevos
+
+				// Modificar datos
+
+			}
+		});
+
+		// Agregar elementos al panel Archivo
+		panelArchivo.add(lblArchivoPrograma);
+		panelArchivo.add(textRutaArchivoPrograma);
+		panelArchivo.add(botonBuscarPrograma);
+		panelArchivo.setBackground(Color.BLUE);
+
 
 		/** MOstrar Simbolos de la gramatica */
 
@@ -199,7 +241,7 @@ public class VentanaColeccionCanonica extends JDialog {
 	}
 
 	private void editarRutaArchivo(String nuevaRuta) {
-		textRutaArchivo.setText(nuevaRuta);
+		textRutaArchivoGramatica.setText(nuevaRuta);
 	}
 
 }

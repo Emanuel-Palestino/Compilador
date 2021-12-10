@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import AnalizadorLexico.ConversionAFD.IniciarConjuntos;
 import AnalizadorLexico.Final.IniciarFinal;
+import AnalizadorSintactico.Analisis.VentanaAnalisisSintactico;
 import AnalizadorSintactico.ColeccionCanonica.iniciarColeccionCanonica;
 import AnalizadorSintactico.ConstruccionTablaLR.IniciarTablaLR;
 import AnalizadorSintactico.PrimerosSiguientes.IniciarPrimerosSiguientes;
@@ -128,7 +129,7 @@ public class VentanaPrincipal extends JFrame {
     public void menuAnalizadorSintactico() {
         botonPrimerosSiguientes = new JButton("Primeros y Siguientes");
         botonColeccionCanonica = new JButton("Coleccion Canonica");
-        botonTablaLR = new JButton("Tabla de Analizador Lexico");
+        botonTablaLR = new JButton("Tabla de Análisis Sintáctico");
 
         // PROPIEDADES DEL LOS LABELS A UTILIZAR
         tituloAnalizadorSintac = new JLabel("Analizador Sintáctico");
@@ -187,7 +188,8 @@ public class VentanaPrincipal extends JFrame {
         botonTablaLR.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ev) {
-                new IniciarTablaLR(ventanaPrincipal);
+                //new IniciarTablaLR(ventanaPrincipal);
+                new VentanaAnalisisSintactico();
             }
         });
 
