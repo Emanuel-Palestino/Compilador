@@ -1,5 +1,7 @@
 package Utilidades;
 
+import java.util.ArrayList;
+
 public class ResultadoAnalisisLexico {
 
 	private String[][] tokens;
@@ -29,6 +31,13 @@ public class ResultadoAnalisisLexico {
 
 	public void setErrores(String[][] tablaErrores) {
 		errores = tablaErrores;
+	}
+
+	public ArrayList<String> getTiraTokens() {
+		ArrayList<String> resultado = new ArrayList<String>();
+		for (String[] token : tokens)
+			resultado.add(token[2]);
+		return resultado;
 	}
 
 }

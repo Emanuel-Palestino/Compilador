@@ -1,9 +1,7 @@
 package AnalizadorSintactico.PrimerosSiguientes;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import Utilidades.ConjuntoSimbolos;
 import Utilidades.ResultadoPrimerosSiguientes;
@@ -50,6 +48,9 @@ public class PrimerosSiguientes {
 				reglasSimboloActual.add(buscando);
 				buscando.setMarcadoSiguiente(true);
 			}
+			if(buscando.getProduccion().contains("Ɛ")){
+				gramatica.setBanderaEpsilon(true);
+			}
 		}
 
 		// Empezamos a calcular las reglas 2 y 3
@@ -88,7 +89,16 @@ public class PrimerosSiguientes {
 					}
 				}
 				buscar.setMarcadoSiguiente(true);
+<<<<<<< HEAD
 			}	
+=======
+			}
+			if(!gramatica.getBanderaEpsilon()){
+				for (ReglaProduccion buscando : gramatica.getReglasProduccion()) {
+				  buscando.setMarcadoSiguiente(false);
+				}
+			}
+>>>>>>> 19689bd739b88ee1f61c9d0184d6b64a43694421
 		}
 
 		return resultado;

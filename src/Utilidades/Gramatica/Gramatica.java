@@ -11,12 +11,14 @@ public class Gramatica {
     private ArrayList<String> terminales;
     private ArrayList<ReglaProduccion> reglasProduccion;
     private String simboloInicial;
+    private boolean banderaEpsilon;
     
     // Constructores
     public Gramatica() {
         noTerminales = new ArrayList<String>();
         terminales = new ArrayList<String>();
         reglasProduccion = new ArrayList<ReglaProduccion>();
+        banderaEpsilon = false;
         simboloInicial = null;
     }
 
@@ -26,6 +28,7 @@ public class Gramatica {
         terminales = ter;
         reglasProduccion = new ArrayList<ReglaProduccion>();
         simboloInicial = null;
+        banderaEpsilon = false;
     }
 
     public Gramatica(ArrayList<ReglaProduccion> reglas) {
@@ -33,6 +36,7 @@ public class Gramatica {
         terminales = new ArrayList<String>();
         reglasProduccion = reglas;
         simboloInicial = null;
+        banderaEpsilon = false;
     }
 
     // Cargar gramatica desde archivo
@@ -101,6 +105,10 @@ public class Gramatica {
         return simboloInicial;
     }
 
+    public boolean getBanderaEpsilon(){
+        return banderaEpsilon;
+    }
+
     public void setNoTerminales(ArrayList<String> noTerminales) {
         this.noTerminales = noTerminales;
     }
@@ -115,6 +123,10 @@ public class Gramatica {
 
     public void setSimboloInicial(String simboloInicial) {
         this.simboloInicial = simboloInicial;
+    }
+
+    public void setBanderaEpsilon(boolean nuevoValor){
+        this.banderaEpsilon = nuevoValor;
     }
 
     // Métodos
@@ -133,4 +145,66 @@ public class Gramatica {
         return resultado;
     }
 
+    public String stringSimbolosNoTerminales() {
+        String res = "";
+
+        for (String simbolo : noTerminales) {
+			res += simbolo + " ";
+		}
+
+        return res;
+    }
+
+    public String stringSimbolosTerminales() {
+         String res = "";
+
+        for (String simbolo : terminales) {
+			res += simbolo + " ";
+		}
+
+        return res;       
+    }
+
+    public String stringGramatica() {
+        String res = "";
+		ArrayList<String> aux = new ArrayList<String>();
+        for (ReglaProduccion regla : reglasProduccion) {
+			res += regla.getSimboloGramatical() + " -> ";
+			aux = regla.getProduccion();
+			for (String simbolo : aux)
+				res += simbolo + " ";
+			res += "\n";
+		}
+
+        return res;
+    }
+    public int indiceReglaProduccion(ReglaProduccion temporalRP) {
+      
+        for (int j = 0; j < reglasProduccion.size(); j++) {
+          ReglaProduccion conjuntoReglaProduccion=reglasProduccion.get(j);
+          
+          String simboloActual = conjuntoReglaProduccion.getSimboloGramatical();
+          String simboloNuevo = temporalRP.getSimboloGramatical();
+          ArrayList<String> produccionActual = conjuntoReglaProduccion.getProduccion();
+          ArrayList<String> produccionNuevo = temporalRP.getProduccion();
+          Boolean bandera2 = true;
+    
+          // Comparar si tienen el mismo largo
+          if (produccionActual.size() == produccionNuevo.size()) {
+            for (int i = 0; i < produccionActual.size(); i++) {
+              // Comprobar elemento a elemento
+              if (!(produccionActual.get(i).equals(produccionNuevo.get(i)) && simboloActual.equals(simboloNuevo))) {
+                bandera2 = false;
+                break;
+              }
+            }
+            if (bandera2) { // El I actual es el mismo que el parametro y se termina el ciclo
+                    // principal
+              return j+1;
+            }
+          }
+        }
+        return -1; 
+      }
+    
 }

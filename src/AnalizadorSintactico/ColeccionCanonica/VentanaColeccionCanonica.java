@@ -1,4 +1,4 @@
-package AnalizadorSintactico.PrimerosSiguientes;
+package AnalizadorSintactico.ColeccionCanonica;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -9,64 +9,62 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
-
 import Utilidades.Archivo;
-import Utilidades.ConjuntoSimbolos;
-import Utilidades.ResultadoPrimerosSiguientes;
+import Utilidades.ColeccionCanonica;
 import Utilidades.Gramatica.Gramatica;
-import Utilidades.Gramatica.ReglaProduccion;
-
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
-public class VentanaPrimerosSiguientes extends JDialog {
+public class VentanaColeccionCanonica extends JDialog {
 	private FlowLayout diseñoPanel;
 	private JPanel panelInformacion, panelArchivo, panelResultado;
-	private JLabel lblSimbolosNoTerminales, lblSimbolosTerminales, lblSimboloInicial, lblGramatica, lblPrimeros,
-			lblSiguientes;
+	private JLabel lblSimbolosNoTerminales, lblSimbolosTerminales, lblSimboloInicial, lblGramatica,
+			lblColeccionCanonica;
 	private JTextField textNoTerminales, textTerminales, textSimboloInicial, textRutaArchivo;
-	private JTextArea areaGramatica, areaPrimeros, areaSiguientes;
+	private JTextArea areaGramatica, areaColeccionCanonica;
 	private JButton botonBuscar;
 	private final JDialog estaVentana = this;
 	private final int altoElementos = 30;
 	private final Border padding = BorderFactory.createEmptyBorder(5, 5, 5, 5);
 	private final Border paddingTextArea = BorderFactory.createEmptyBorder(10, 10, 10, 10);
 
-	public VentanaPrimerosSiguientes(JFrame parent, String noTerminales, String terminales, String simboloInicial,
-			String gramatica, String primeros, String siguientes) {
+	// Constructor de la ventana
+	public VentanaColeccionCanonica(JFrame parent, String noTerminales, String terminales, String simboloInicial,
+			String gramatica, String coleccionCanonica) {
 		super(parent, true);
 
 		// Iniciar componentes
 		inicializarComponentes();
+
 		// Rellenar con informacion dada
-		rellenarComponentes(noTerminales, terminales, simboloInicial, gramatica, primeros, siguientes);
+		rellenarComponentes(noTerminales, terminales, simboloInicial, gramatica, coleccionCanonica);
 
 		this.setVisible(true);
 	}
 
-	public VentanaPrimerosSiguientes() {
+	// Constructor Vacio
+	public VentanaColeccionCanonica() {
 		super();
 
-		// Iniciar componentes
+		// Iniciar Componentes
 		inicializarComponentes();
 
 		this.setVisible(true);
 	}
 
 	private void inicializarComponentes() {
-		// Propiedades de la venta
+		// Propiedades de la ventana
 		diseñoPanel = new FlowLayout(FlowLayout.LEFT, 10, 10);
 		this.setSize(1000, 700);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setLayout(diseñoPanel);
-		this.setTitle("Analizador Léxico - Algoritmo de Primeros y Siguientes");
+		this.setTitle("Analizador Léxico - Colección Canonica");
 
-		/* Mostrar ruta del archivo y boton para cargar otro archivo */
+		/** Mostrar ruta dle archivo y boton para cargar otro archivo */
 
 		// Propiedades del panel de Archivo
 		panelArchivo = new JPanel();
@@ -77,7 +75,6 @@ public class VentanaPrimerosSiguientes extends JDialog {
 		textRutaArchivo = new JTextField("src/ArchivosExtra/gramatica.txt");
 		textRutaArchivo.setPreferredSize(new Dimension(600, altoElementos));
 		textRutaArchivo.setEditable(false);
-		// Padding a JTextField
 		textRutaArchivo.setBorder(BorderFactory.createCompoundBorder(textRutaArchivo.getBorder(), padding));
 
 		// Boton para buscar otro archivo
@@ -88,71 +85,18 @@ public class VentanaPrimerosSiguientes extends JDialog {
 		botonBuscar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// Obtener nueva ruta del archivo
+				// Obtener nueva ruta dle archivo
 				String ruta = Archivo.obtenerRutaArchivo(estaVentana);
+
 				editarRutaArchivo(ruta);
 
 				// Obtener datos nuevos
-				PrimerosSiguientes ps = new PrimerosSiguientes();
-				// Cargar gramatica
 				Gramatica grama = new Gramatica(ruta);
-				ResultadoPrimerosSiguientes resultado = ps.hacer(grama);
+				String coleccionCanonica = ColeccionCanonica.hacer(grama).getProceso();
 
-				// pasarle los datos a la ventana
-				String noTerminales, terminales, simboloInicial, gramatica, primeros, siguientes;
-				ArrayList<String> aux = new ArrayList<String>();
+				// Modificar datos
+				rellenarComponentes(grama.stringSimbolosNoTerminales(), grama.stringSimbolosTerminales(), grama.getSimboloInicial(), grama.stringGramatica(), coleccionCanonica);
 
-				// No Terminales
-				aux = grama.getNoTerminales();
-				noTerminales = "";
-				for (String simbolo : aux) {
-					noTerminales += simbolo + " ";
-				}
-
-				// Terminales
-				aux = grama.getTerminales();
-				terminales = "";
-				for (String simbolo : aux) {
-					terminales += simbolo + " ";
-				}
-
-				// Simbolo Inicial
-				simboloInicial = grama.getSimboloInicial();
-
-				// Gramatica
-				gramatica = "";
-				ArrayList<ReglaProduccion> reglas = grama.getReglasProduccion();
-				for (ReglaProduccion regla : reglas) {
-					gramatica += regla.getSimboloGramatical() + " -> ";
-					aux = regla.getProduccion();
-					for (String simbolo : aux)
-						gramatica += simbolo + " ";
-					gramatica += "\n";
-				}
-
-				// Primeros
-				primeros = "";
-				ArrayList<ConjuntoSimbolos> conjuntoSimbolos = resultado.getPrimeros();
-				for (ConjuntoSimbolos simbolos : conjuntoSimbolos) {
-					primeros += "P(" + simbolos.getId() + ") = { ";
-					aux = simbolos.getSimbolos();
-					for (String simbolo : aux)
-						primeros += simbolo + " ";
-					primeros += "}\n";
-				}
-
-				// Siguientes
-				siguientes = "";
-				conjuntoSimbolos = resultado.getSiguientes();
-				for (ConjuntoSimbolos simbolos : conjuntoSimbolos) {
-					siguientes += "S(" + simbolos.getId() + ") = { ";
-					aux = simbolos.getSimbolos();
-					for (String simbolo : aux)
-						siguientes += simbolo + " ";
-					siguientes += "}\n";
-				}
-
-				rellenarComponentes(noTerminales, terminales, simboloInicial, gramatica, primeros, siguientes);
 			}
 		});
 
@@ -160,7 +104,7 @@ public class VentanaPrimerosSiguientes extends JDialog {
 		panelArchivo.add(textRutaArchivo);
 		panelArchivo.add(botonBuscar);
 
-		/* Mostrar Simbolos de la gramatica */
+		/** MOstrar Simbolos de la gramatica */
 
 		// Propiedades del panel Informacion
 		panelInformacion = new JPanel();
@@ -168,13 +112,12 @@ public class VentanaPrimerosSiguientes extends JDialog {
 		panelInformacion.setLayout(diseñoPanel);
 
 		// Mostrar los simbolos no terminales
-		lblSimbolosNoTerminales = new JLabel("Símbolos No Terminales: ");
+		lblSimbolosNoTerminales = new JLabel("Símbolos no Terminales");
 		lblSimbolosNoTerminales.setPreferredSize(new Dimension(120, altoElementos));
 
 		textNoTerminales = new JTextField();
 		textNoTerminales.setPreferredSize(new Dimension(300, altoElementos));
 		textNoTerminales.setEditable(false);
-		// Padding a JTextField
 		textNoTerminales.setBorder(BorderFactory.createCompoundBorder(textNoTerminales.getBorder(), padding));
 
 		// Mostrar los simbolos terminales
@@ -184,17 +127,15 @@ public class VentanaPrimerosSiguientes extends JDialog {
 		textTerminales = new JTextField();
 		textTerminales.setPreferredSize(new Dimension(300, altoElementos));
 		textTerminales.setEditable(false);
-		// Padding a JTextField
 		textTerminales.setBorder(BorderFactory.createCompoundBorder(textTerminales.getBorder(), padding));
 
-		// Mostrar simbolo inicial
+		// Mostrar Simbolo Inicial
 		lblSimboloInicial = new JLabel("Símbolo Inicial:");
 		lblSimboloInicial.setPreferredSize(new Dimension(120, altoElementos));
 
 		textSimboloInicial = new JTextField();
 		textSimboloInicial.setPreferredSize(new Dimension(300, altoElementos));
 		textSimboloInicial.setEditable(false);
-		// Padding a JTextField
 		textSimboloInicial.setBorder(BorderFactory.createCompoundBorder(textSimboloInicial.getBorder(), padding));
 
 		// Agregar elementos al panel Informacion
@@ -207,69 +148,54 @@ public class VentanaPrimerosSiguientes extends JDialog {
 
 		/** Panel de Resultados */
 
-		// Propiedades del panel de Resultados
+		// Propiedades del panel de Resultado
 		panelResultado = new JPanel();
-		panelResultado.setPreferredSize(new Dimension(900, 430));
+		panelResultado.setPreferredSize(new Dimension(960, 430));
 		panelResultado.setLayout(diseñoPanel);
-		// Fuente a utilizar
 		Font fuenteResultado = new Font("Arial", Font.PLAIN, 16);
 
 		// Mostrar Etiqueta Gramatica
-		lblGramatica = new JLabel("Gramática:");
-		lblGramatica.setPreferredSize(new Dimension(287, altoElementos));
+		lblGramatica = new JLabel("Gramática");
+		lblGramatica.setPreferredSize(new Dimension(237, altoElementos));
 
-		// Mostrar Etiqueta Primeros
-		lblPrimeros = new JLabel("Primeros:");
-		lblPrimeros.setPreferredSize(new Dimension(287, altoElementos));
+		// Mostrar Etiqueta Coleccion Canonica
+		lblColeccionCanonica = new JLabel("Colección Canonica:");
+		lblColeccionCanonica.setPreferredSize(new Dimension(700, altoElementos));
 
-		// Mostrar Etiqueta Siguientes
-		lblSiguientes = new JLabel("Siguientes:");
-		lblSiguientes.setPreferredSize(new Dimension(287, altoElementos));
-
-		// Mostrar el contenido de la Gramatica
+		// Mostrar Contenido de la Gramatica
 		areaGramatica = new JTextArea();
-		areaGramatica.setPreferredSize(new Dimension(287, 430 - altoElementos - 20));
+		areaGramatica.setPreferredSize(new Dimension(237, 430 - altoElementos - 20));
 		areaGramatica.setEditable(false);
 		areaGramatica.setFont(fuenteResultado);
 		areaGramatica.setBorder(BorderFactory.createCompoundBorder(areaGramatica.getBorder(), paddingTextArea));
 
-		// Mostrar el contenido de los Primeros
-		areaPrimeros = new JTextArea();
-		areaPrimeros.setPreferredSize(new Dimension(287, 430 - altoElementos - 20));
-		areaPrimeros.setEditable(false);
-		areaPrimeros.setFont(fuenteResultado);
-		areaPrimeros.setBorder(BorderFactory.createCompoundBorder(areaPrimeros.getBorder(), paddingTextArea));
+		// Mostrar Coleccion Canonica
+		areaColeccionCanonica = new JTextArea();
+		areaColeccionCanonica.setPreferredSize(new Dimension(700, 430 - altoElementos - 20));
+		areaColeccionCanonica.setEditable(false);
+		areaColeccionCanonica.setFont(fuenteResultado);
+		areaColeccionCanonica
+				.setBorder(BorderFactory.createCompoundBorder(areaColeccionCanonica.getBorder(), paddingTextArea));
 
-		// Mostrar le contenido de los Siguientes
-		areaSiguientes = new JTextArea();
-		areaSiguientes.setPreferredSize(new Dimension(287, 430 - altoElementos - 20));
-		areaSiguientes.setEditable(false);
-		areaSiguientes.setFont(fuenteResultado);
-		areaSiguientes.setBorder(BorderFactory.createCompoundBorder(areaSiguientes.getBorder(), paddingTextArea));
-
-		// Agregar elementos al panel Resultado
+		// Agregar elementos al panel resultado
 		panelResultado.add(lblGramatica);
-		panelResultado.add(lblPrimeros);
-		panelResultado.add(lblSiguientes);
+		panelResultado.add(lblColeccionCanonica);
 		panelResultado.add(areaGramatica);
-		panelResultado.add(areaPrimeros);
-		panelResultado.add(areaSiguientes);
+		panelResultado.add(areaColeccionCanonica);
 
-		/* Agregar paneles a la ventana */
+		// Agregar componente a la Ventana
 		this.add(panelArchivo);
 		this.add(panelInformacion);
 		this.add(panelResultado);
-
 	}
 
 	private void rellenarComponentes(String noTerminales, String terminales, String simboloInicial, String gramatica,
-			String primeros, String siguientes) {
+			String coleccionCanonica) {
 		textNoTerminales.setText(noTerminales);
 		textTerminales.setText(terminales);
 		textSimboloInicial.setText(simboloInicial);
 		areaGramatica.setText(gramatica);
-		areaPrimeros.setText(primeros);
-		areaSiguientes.setText(siguientes);
+		areaColeccionCanonica.setText(coleccionCanonica);
 	}
 
 	private void editarRutaArchivo(String nuevaRuta) {

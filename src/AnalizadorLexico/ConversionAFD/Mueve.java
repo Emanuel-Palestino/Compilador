@@ -22,6 +22,8 @@ public class Mueve {
                 simbolos.add("letra");
             else if (simbols[0].equals("digito")) // digito
                 simbolos.add("digito");
+            else if (simbols[0].equals("todo"))
+                simbolos.add("todo");
         } else if (AFN.getAlfabeto().letraValido(simbolo)) {
             simbolos.add(simbolo);
             simbolos.add("letra");
@@ -32,6 +34,8 @@ public class Mueve {
             simbolos.add("digito");
         else if (simbolo.equals("letra"))
             simbolos.add("letra");
+        else if (simbolo.equals("todo"))
+            simbolos.add("todo");
         else if (AFN.getAlfabeto().simboloValido(simbolo)) {
             simbolos.add(simbolo);
         }
@@ -75,6 +79,11 @@ public class Mueve {
                     resultado = aux.getEstados();
                     break;
                 }
+            } else if (aux.getTransicion().equals("todo")) {
+                if (AFD.getAlfabeto().simboloValido(simbolo)) {
+                    resultado = aux.getEstados();
+                    break;
+                }
             } else {
                 String[] parte = aux.getTransicion().split("-");
                 if (parte.length > 1 && parte[0].equals("letra") && !parte[1].equals(simbolo)) {
@@ -84,6 +93,11 @@ public class Mueve {
                     }
                 } else if (parte.length > 1 && parte[0].equals("digito") && !parte[1].equals(simbolo)) {
                     if (AFD.getAlfabeto().digitoValido(simbolo)) {
+                        resultado = aux.getEstados();
+                        break;
+                    }
+                } else if (parte.length > 1 && parte[0].equals("todo") && !parte[1].equals(simbolo)) {
+                    if (AFD.getAlfabeto().simboloValido(simbolo)) {
                         resultado = aux.getEstados();
                         break;
                     }

@@ -27,8 +27,25 @@ public class Alfabeto {
 			return true;
 		else if (simbolos.contains("digito") && digitoValido(s))
 			return true;
+		else if (simbolos.contains("todo") && !esOperador(s))
+			return true;
 		else
 			return false;
+	}
+
+	private boolean esOperador(String s) {
+		switch(s) {
+			case "┌":
+			case "┐":
+			case "×":
+			case "º":
+			case "ß":
+			case "┼":
+			case "ı":
+				return true;
+			default:
+				return false;
+		}
 	}
 
 	public boolean letraValido(String s) {
