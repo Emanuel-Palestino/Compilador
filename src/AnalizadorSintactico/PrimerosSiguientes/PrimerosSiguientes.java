@@ -89,16 +89,12 @@ public class PrimerosSiguientes {
 					}
 				}
 				buscar.setMarcadoSiguiente(true);
-<<<<<<< HEAD
-			}	
-=======
 			}
 			if(!gramatica.getBanderaEpsilon()){
 				for (ReglaProduccion buscando : gramatica.getReglasProduccion()) {
 				  buscando.setMarcadoSiguiente(false);
 				}
 			}
->>>>>>> 19689bd739b88ee1f61c9d0184d6b64a43694421
 		}
 
 		return resultado;

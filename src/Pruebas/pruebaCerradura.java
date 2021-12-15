@@ -11,15 +11,6 @@ public class pruebaCerradura {
         ConjuntoElementos resultados = new ConjuntoElementos();
         ArrayList <String> produccion = new ArrayList <String>();
         Elemento elemento = new Elemento();
-<<<<<<< HEAD
-        produccion.add("T");
-        produccion.add("*");
-        produccion.add("■");
-        produccion.add("F");
-        
-        
-        elemento.setSimboloGramatical("T");
-=======
         Elemento elemento2 = new Elemento();
         Elemento elemento3 = new Elemento();
         Elemento elemento4 = new Elemento();
@@ -62,7 +53,6 @@ public class pruebaCerradura {
 
 
         elemento.setSimboloGramatical("E'");
->>>>>>> 19689bd739b88ee1f61c9d0184d6b64a43694421
         elemento.setProduccion(produccion);
 
         elemento2.setSimboloGramatical("E");
