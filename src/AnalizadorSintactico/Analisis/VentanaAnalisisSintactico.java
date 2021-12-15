@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
+
 import Utilidades.Archivo;
 import Utilidades.ColeccionCanonica;
 import Utilidades.Gramatica.Gramatica;
@@ -60,17 +61,18 @@ public class VentanaAnalisisSintactico extends JDialog {
 	private void inicializarComponentes() {
 		// Propiedades de la ventana
 		diseñoPanel = new FlowLayout(FlowLayout.LEFT, 10, 10);
-		this.setSize(1000, 720);
+		this.setSize(1000, 760);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setLayout(diseñoPanel);
 		this.setTitle("Analizador Sintáctico - Análisis Sintactico");
 
+
 		/** Mostrar ruta dle archivo y boton para cargar otro archivo */
 
 		// Propiedades del panel de Archivo
 		panelArchivo = new JPanel();
-		panelArchivo.setPreferredSize(new Dimension(900, 100));
+		panelArchivo.setPreferredSize(new Dimension(900, 90));
 		panelArchivo.setLayout(diseñoPanel);
 
 		// Mostrar la ruta del archivo de Gramatica
@@ -143,14 +145,13 @@ public class VentanaAnalisisSintactico extends JDialog {
 		panelArchivo.add(lblArchivoPrograma);
 		panelArchivo.add(textRutaArchivoPrograma);
 		panelArchivo.add(botonBuscarPrograma);
-		panelArchivo.setBackground(Color.BLUE);
 
 
-		/** MOstrar Simbolos de la gramatica */
+		/** Mostrar Simbolos de la gramatica */
 
 		// Propiedades del panel Informacion
 		panelInformacion = new JPanel();
-		panelInformacion.setPreferredSize(new Dimension(500, 130));
+		panelInformacion.setPreferredSize(new Dimension(500, 128));
 		panelInformacion.setLayout(diseñoPanel);
 
 		// Mostrar los simbolos no terminales
@@ -192,7 +193,7 @@ public class VentanaAnalisisSintactico extends JDialog {
 
 		// Propiedades del panel de Resultado
 		panelResultado = new JPanel();
-		panelResultado.setPreferredSize(new Dimension(960, 430));
+		panelResultado.setPreferredSize(new Dimension(960, 470));
 		panelResultado.setLayout(diseñoPanel);
 		Font fuenteResultado = new Font("Arial", Font.PLAIN, 16);
 
@@ -206,14 +207,14 @@ public class VentanaAnalisisSintactico extends JDialog {
 
 		// Mostrar Contenido de la Gramatica
 		areaGramatica = new JTextArea();
-		areaGramatica.setPreferredSize(new Dimension(237, 430 - altoElementos - 20));
+		areaGramatica.setPreferredSize(new Dimension(237, 470 - altoElementos - 20));
 		areaGramatica.setEditable(false);
 		areaGramatica.setFont(fuenteResultado);
 		areaGramatica.setBorder(BorderFactory.createCompoundBorder(areaGramatica.getBorder(), paddingTextArea));
 
 		// Mostrar Coleccion Canonica
 		areaColeccionCanonica = new JTextArea();
-		areaColeccionCanonica.setPreferredSize(new Dimension(700, 430 - altoElementos - 20));
+		areaColeccionCanonica.setPreferredSize(new Dimension(700, 470 - altoElementos - 20));
 		areaColeccionCanonica.setEditable(false);
 		areaColeccionCanonica.setFont(fuenteResultado);
 		areaColeccionCanonica
@@ -224,6 +225,7 @@ public class VentanaAnalisisSintactico extends JDialog {
 		panelResultado.add(lblColeccionCanonica);
 		panelResultado.add(areaGramatica);
 		panelResultado.add(areaColeccionCanonica);
+		panelResultado.setBackground(Color.BLUE);
 
 		// Agregar componente a la Ventana
 		this.add(panelArchivo);
