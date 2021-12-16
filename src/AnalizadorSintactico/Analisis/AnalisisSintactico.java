@@ -11,11 +11,15 @@ import Utilidades.Gramatica.ReglaProduccion;
 public class AnalisisSintactico {
 	public static ResultadoAnalisisSintactico analizar(ArrayList<String> tiraTokens, Gramatica gramatica, TablaLR tablaLR) {
 		ArrayList <String> copiaTokens = new ArrayList<String>(tiraTokens);
+		String[] accionResultado = new String[100];
+		ArrayList<String>[] entradaResultado = new ArrayList[100];
+		Stack<String>[] pilaResultado = new Stack[100];
 		Stack<String> pila = new Stack<String>();
+		String casoD = new String();
 		int a = 0; //Posicion actual de la tira de tokens
 		int iterador = 0; 
 		boolean bandera = true;
-		//Pila.push("0");
+		pila.push("0");		//inicializamos la pila en 0
 
 		while(bandera){
 			String temp = tablaLR.getAcciones().get(pila.peek()).get(tiraTokens.get(a));
@@ -24,13 +28,15 @@ public class AnalisisSintactico {
 			switch(operacionSwitch){
 				case'd':
 					int index = Integer.parseInt(num);
-					//accionResultado [iterador] = "d" + index;
-					Stack<String> copiaPila = new Stack<String>(pila);
-					//pilaResultado[iterador] = copiaPila ;
-					//pila.push(a);
-					//pila.push(index);
-					copiaTokens.get(a) = "";
-					//entradaResultado[iterador].addAll(copiaTokens)
+					accionResultado [iterador] = "d" + index;
+					Stack<String> copiaPila = new Stack<String>();
+					copiaPila.addAll(pila);
+					pilaResultado[iterador] = copiaPila ;
+					pila.push(String.valueOf(a));
+					pila.push(String.valueOf(index));
+					casoD = copiaTokens.get(a);
+					casoD =  " ";
+					entradaResultado[iterador].addAll(copiaTokens)
 					a++;
 					iterador ++;
 					break;
@@ -57,7 +63,7 @@ public class AnalisisSintactico {
 
 				case 'a':
 					accionResultado[iterador] = "Aceptar";
-					Stack<String> copiaPila = new Stack<String>(pila);
+					Stack<String> copiaPila = new Stack<String>;
 					pilaResultado[iterador] = copiaPila ;
 					entradaResultado[iterador].addAll(copiaTokens);
 					bandera = false;
@@ -66,7 +72,7 @@ public class AnalisisSintactico {
 				default:
 				int index = Integer.parseInt(num); 
             	entradaResultado[iterador].addAll(copiaTokens);
-            	pilaResultado[iterador] = pila copia;
+            	pilaResultado[iterador] = copiaPila;
             	accionResultado[iterador] = "Error sintáctico, se esperaba: ";
            	 	for(String simboloTerminal : gramatica.getTerminales()){
 					if(!tablaLR.getAcciones().get(index).get(simboloTerminal).equals("")){
