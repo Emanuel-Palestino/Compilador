@@ -2,7 +2,7 @@ DF L C
 function id ( ) { } , 
 DF 
 DF » function id (L) { C }
-L » T id L
+L » id L
 L » , id L  
 L » Ɛ
 C » C 
