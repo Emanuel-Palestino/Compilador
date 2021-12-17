@@ -1,0 +1,14 @@
+RE 
++ - * / ( ) id 
+RE 
+RE » E
+E » E + F 
+E » E - F    
+E » F
+F » F * G 
+F » F / G
+F » G
+G » (E)
+G » id 
+
+ 
