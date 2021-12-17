@@ -1,5 +1,5 @@
-EA
-+ - * / ( ) id 
+EA E F G 
++ - * / ( ) id num  
 EA 
 EA » E
 E » E + F 
@@ -11,4 +11,3 @@ F » G
 G » (E)
 G » id 
 G » num 
- 
