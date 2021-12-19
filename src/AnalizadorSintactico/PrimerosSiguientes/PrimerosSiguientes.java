@@ -27,6 +27,7 @@ public class PrimerosSiguientes {
 		ConjuntoSimbolos resultado = new ConjuntoSimbolos();
 		ConjuntoSimbolos temporal = new ConjuntoSimbolos();
 		ConjuntoSimbolos temporalSig = new ConjuntoSimbolos();
+		boolean bandera = false;
 
 		int tamañoVariable, posicionA; // contador
 		int posicionBeta;
@@ -176,11 +177,10 @@ public class PrimerosSiguientes {
 
 				// Si la produccion de la derecha es un solo simbolo, se agrega directamente al
 				// primer conjunto
-				if(reglaProduccion.size() == 1 && reglaProduccion.get(0).equals("Ɛ")){
+				if (reglaProduccion.size() == 1 && reglaProduccion.get(0).equals("Ɛ")) {
 					primeros.getSimbolos().add(reglaProduccion.get(0));
 					return primeros;
-				}
-				else if (reglaProduccion.size() == 1) {
+				} else if (reglaProduccion.size() == 1) {
 					primeros.getSimbolos().addAll(primero(reglaProduccion.get(0), gramatica).getSimbolos());
 				} else {
 
