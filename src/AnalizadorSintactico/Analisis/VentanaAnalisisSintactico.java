@@ -6,15 +6,18 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 import Utilidades.Archivo;
 import Utilidades.ColeccionCanonica;
 import Utilidades.Gramatica.Gramatica;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -22,17 +25,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class VentanaAnalisisSintactico extends JDialog {
+	private JScrollPane panelPrincipal, scrollPanelTabla, panelAccion, panelIrA;
 	private FlowLayout diseñoPanel;
-	private JPanel panelInformacion, panelArchivo, panelResultado;
+	private JPanel panelContenido, panelInformacion, panelArchivo, panelResultado, panelTabla;
 	private JLabel lblSimbolosNoTerminales, lblSimbolosTerminales, lblSimboloInicial, lblGramatica,
-			lblColeccionCanonica, lblArchivoGramatica, lblArchivoPrograma;
+			lblTablaLR, lblArchivoGramatica, lblArchivoPrograma, lblTablaAnalisis;
 	private JTextField textNoTerminales, textTerminales, textSimboloInicial, textRutaArchivoGramatica, textRutaArchivoPrograma;
 	private JTextArea areaGramatica, areaColeccionCanonica;
+	private JTable tablaAnalisisSintactico, tablaAccion, tablaIrA;
+	private DefaultTableModel modeloTabla = new DefaultTableModel();
+	private DefaultTableModel modeloAccion = new DefaultTableModel();
+	private DefaultTableModel modeloIrA = new DefaultTableModel();
 	private JButton botonBuscarGramatica, botonBuscarPrograma;
 	private final JDialog estaVentana = this;
 	private final int altoElementos = 30;
 	private final Border padding = BorderFactory.createEmptyBorder(5, 5, 5, 5);
 	private final Border paddingTextArea = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+	private final String[] encabezadoTabla = {"Pila", "Entrada", "Accion"};
 
 	// Constructor de la ventana
 	public VentanaAnalisisSintactico(JFrame parent, String noTerminales, String terminales, String simboloInicial,
@@ -61,11 +70,15 @@ public class VentanaAnalisisSintactico extends JDialog {
 	private void inicializarComponentes() {
 		// Propiedades de la ventana
 		diseñoPanel = new FlowLayout(FlowLayout.LEFT, 10, 10);
-		this.setSize(1000, 760);
+		this.setSize(1002, 760);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
-		this.setLayout(diseñoPanel);
 		this.setTitle("Analizador Sintáctico - Análisis Sintactico");
+
+		// panel
+		panelContenido = new JPanel();
+		panelContenido.setLayout(diseñoPanel);
+		panelContenido.setPreferredSize(new Dimension(800, 1200));
 
 
 		/** Mostrar ruta dle archivo y boton para cargar otro archivo */
@@ -202,8 +215,8 @@ public class VentanaAnalisisSintactico extends JDialog {
 		lblGramatica.setPreferredSize(new Dimension(237, altoElementos));
 
 		// Mostrar Etiqueta Coleccion Canonica
-		lblColeccionCanonica = new JLabel("Colección Canonica:");
-		lblColeccionCanonica.setPreferredSize(new Dimension(700, altoElementos));
+		lblTablaLR = new JLabel("Tabla LR");
+		lblTablaLR.setPreferredSize(new Dimension(700, altoElementos));
 
 		// Mostrar Contenido de la Gramatica
 		areaGramatica = new JTextArea();
@@ -212,25 +225,70 @@ public class VentanaAnalisisSintactico extends JDialog {
 		areaGramatica.setFont(fuenteResultado);
 		areaGramatica.setBorder(BorderFactory.createCompoundBorder(areaGramatica.getBorder(), paddingTextArea));
 
-		// Mostrar Coleccion Canonica
-		areaColeccionCanonica = new JTextArea();
-		areaColeccionCanonica.setPreferredSize(new Dimension(700, 470 - altoElementos - 20));
-		areaColeccionCanonica.setEditable(false);
-		areaColeccionCanonica.setFont(fuenteResultado);
-		areaColeccionCanonica
-				.setBorder(BorderFactory.createCompoundBorder(areaColeccionCanonica.getBorder(), paddingTextArea));
+		// Mostrar Tabla Accion
+		tablaAccion = new JTable(modeloAccion);
+		tablaAccion.setEnabled(false);
+		tablaAccion.getTableHeader().setReorderingAllowed(false);
+
+		panelAccion = new JScrollPane(tablaAccion);
+		panelAccion.setPreferredSize(new Dimension(390, 430 - altoElementos - 20));
+		panelAccion.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
+				"Accion", TitledBorder.CENTER, TitledBorder.TOP));
+		// areaColeccionCanonica.setPreferredSize(new Dimension(700, 430 - altoElementos
+		// - 20));
+
+		// Mostrar Tabla IrA
+		tablaIrA = new JTable(modeloIrA);
+		tablaIrA.setEnabled(false);
+		tablaIrA.getTableHeader().setReorderingAllowed(false);
+
+		panelIrA = new JScrollPane(tablaIrA);
+		panelIrA.setPreferredSize(new Dimension(300, 430 - altoElementos - 20));
+		panelIrA.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
+				"Ir A", TitledBorder.CENTER, TitledBorder.TOP));
+
+
 
 		// Agregar elementos al panel resultado
 		panelResultado.add(lblGramatica);
-		panelResultado.add(lblColeccionCanonica);
+		panelResultado.add(lblTablaLR);
 		panelResultado.add(areaGramatica);
-		panelResultado.add(areaColeccionCanonica);
-		panelResultado.setBackground(Color.BLUE);
+		panelResultado.add(panelAccion);
+		panelResultado.add(panelIrA);
 
-		// Agregar componente a la Ventana
-		this.add(panelArchivo);
-		this.add(panelInformacion);
-		this.add(panelResultado);
+		/* Tabla de Análisis */
+		panelTabla = new JPanel();
+		panelTabla.setPreferredSize(new Dimension(960, 500));
+		panelTabla.setLayout(diseñoPanel);
+
+		// Etiqueta tabla de analisis
+		lblTablaAnalisis = new JLabel("Tabla de Analisis");
+		lblTablaAnalisis.setPreferredSize(new Dimension(900, altoElementos));
+		
+		String[][] datos = { { "0 8 3 5 6 g  h ", "D F D E F D F S D F D S F", "Aceptado sdfsdfsdf" }, { "1", "main", "main" }, { "1", "(", "(" } };
+		modeloTabla.setDataVector(datos, encabezadoTabla);
+		tablaAnalisisSintactico = new JTable(modeloTabla);
+		tablaAnalisisSintactico.setEnabled(false);
+		tablaAnalisisSintactico.getTableHeader().setReorderingAllowed(false);
+		tablaAnalisisSintactico.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+		scrollPanelTabla = new JScrollPane(tablaAnalisisSintactico);
+		scrollPanelTabla.setPreferredSize(new Dimension(900, 420));
+
+		panelTabla.add(lblTablaAnalisis);
+		panelTabla.add(scrollPanelTabla);
+
+
+		// Agregar componente al Panel Contenido
+		panelContenido.add(panelArchivo);
+		panelContenido.add(panelInformacion);
+		panelContenido.add(panelResultado);
+		panelContenido.add(panelTabla);
+
+		// Scroll panel
+		panelPrincipal = new JScrollPane();
+		panelPrincipal.setViewportView(panelContenido);
+		this.add(panelPrincipal);
 	}
 
 	private void rellenarComponentes(String noTerminales, String terminales, String simboloInicial, String gramatica,
