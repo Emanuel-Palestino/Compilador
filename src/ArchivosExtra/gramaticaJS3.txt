@@ -8,6 +8,6 @@ E » F
 F » F * G 
 F » F / G
 F » G
-G » (E)
+G » ( E )
 G » id 
 G » num 

@@ -13,7 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import AnalizadorLexico.ConversionAFD.IniciarConjuntos;
 import AnalizadorLexico.Final.IniciarFinal;
-import AnalizadorSintactico.Analisis.VentanaAnalisisSintactico;
+import AnalizadorSintactico.Analisis.IniciarAnalisisSintactico;
 import AnalizadorSintactico.ColeccionCanonica.iniciarColeccionCanonica;
 import AnalizadorSintactico.ConstruccionTablaLR.IniciarTablaLR;
 import AnalizadorSintactico.PrimerosSiguientes.IniciarPrimerosSiguientes;
@@ -23,7 +23,7 @@ import Utilidades.Excepciones.ExcepcionER;
 
 public class VentanaPrincipal extends JFrame {
 
-    public JButton botonThompson, botonAfd, botonAnalizadorLex, botonPrimerosSiguientes, botonColeccionCanonica, botonTablaLR;
+    public JButton botonThompson, botonAfd, botonAnalizadorLex, botonPrimerosSiguientes, botonColeccionCanonica, botonTablaLR, botonAnalisisSintactico;
     private JLabel tituloAnalizadorLex, tituloAnalizadorSintac;
     private final JFrame ventanaPrincipal = this;
 
@@ -51,6 +51,7 @@ public class VentanaPrincipal extends JFrame {
     public void menuAnalizadorLexico() {
         botonThompson = new JButton("Algoritmo de Thompson");
         botonAfd = new JButton("AFN->AFD");
+        botonAnalizadorLex = new JButton("Analizador Léxico");
         botonAnalizadorLex = new JButton("Analizador Léxico");
 
         // PROPIEDADES DEL LOS LABELS A UTILIZAR
@@ -130,6 +131,7 @@ public class VentanaPrincipal extends JFrame {
         botonPrimerosSiguientes = new JButton("Primeros y Siguientes");
         botonColeccionCanonica = new JButton("Coleccion Canonica");
         botonTablaLR = new JButton("Tabla de Análisis Sintáctico");
+        botonAnalisisSintactico = new JButton("Análisis Sintáctico");
 
         // PROPIEDADES DEL LOS LABELS A UTILIZAR
         tituloAnalizadorSintac = new JLabel("Analizador Sintáctico");
@@ -142,23 +144,28 @@ public class VentanaPrincipal extends JFrame {
         botonPrimerosSiguientes.setBounds(100, 465, 285, 65);
         botonColeccionCanonica.setBounds(450, 465, 285, 65);
         botonTablaLR.setBounds(800, 465, 285, 65);
+        botonAnalisisSintactico.setBounds(100, 540, 285, 65);
 
         // DISEÑO DE LOS BOTONES
         botonPrimerosSiguientes.setBackground(new Color(99, 8, 103));
         botonColeccionCanonica.setBackground(new Color(99, 8, 103));
         botonTablaLR.setBackground(new Color(99, 8, 103));
+        botonAnalisisSintactico.setBackground(new Color(99, 8, 103));
 
         botonPrimerosSiguientes.setBorder(new BevelBorder(BevelBorder.RAISED));
         botonColeccionCanonica.setBorder(new BevelBorder(BevelBorder.RAISED));
         botonTablaLR.setBorder(new BevelBorder(BevelBorder.RAISED));
+        botonAnalisisSintactico.setBorder(new BevelBorder(BevelBorder.RAISED));
 
         botonPrimerosSiguientes.setFont(new Font("Tahoma", Font.CENTER_BASELINE, 20));
         botonColeccionCanonica.setFont(new Font("Tahoma", Font.CENTER_BASELINE, 20));
         botonTablaLR.setFont(new Font("Tahoma", Font.CENTER_BASELINE, 20));
+        botonAnalisisSintactico.setFont(new Font("Tahoma", Font.CENTER_BASELINE, 20));
 
         botonPrimerosSiguientes.setForeground(Color.WHITE);
         botonColeccionCanonica.setForeground(Color.WHITE);
         botonTablaLR.setForeground(Color.WHITE);
+        botonAnalisisSintactico.setForeground(Color.WHITE);
 
         botonPrimerosSiguientes.setContentAreaFilled(false);
         botonPrimerosSiguientes.setOpaque(true);
@@ -169,6 +176,9 @@ public class VentanaPrincipal extends JFrame {
         botonTablaLR.setContentAreaFilled(false);
         botonTablaLR.setOpaque(true);
         botonTablaLR.setFocusPainted(false);
+        botonAnalisisSintactico.setContentAreaFilled(false);
+        botonAnalisisSintactico.setOpaque(true);
+        botonAnalisisSintactico.setFocusPainted(false);
 
         // ACCIONES DE LOS BOTONES
         botonPrimerosSiguientes.addActionListener(new ActionListener() {
@@ -188,15 +198,23 @@ public class VentanaPrincipal extends JFrame {
         botonTablaLR.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ev) {
-                //new IniciarTablaLR(ventanaPrincipal);
-                new VentanaAnalisisSintactico();
+                new IniciarTablaLR(ventanaPrincipal);
             }
         });
+
+        botonAnalisisSintactico.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ev) {
+                new IniciarAnalisisSintactico(ventanaPrincipal);
+            }
+        });
+        
 
         // ANEXO DE LOS BOTONES AL LABEL
         add(botonPrimerosSiguientes);
         add(botonColeccionCanonica);
         add(botonTablaLR);
+        add(botonAnalisisSintactico);
     }
 
 }
