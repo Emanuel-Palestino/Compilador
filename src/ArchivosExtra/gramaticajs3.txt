@@ -1,0 +1,13 @@
+EA E F G 
++ - * / ( ) id num  
+EA 
+EA » E
+E » E + F 
+E » E - F    
+E » F
+F » F * G 
+F » F / G
+F » G
+G » (E)
+G » id 
+G » num 
