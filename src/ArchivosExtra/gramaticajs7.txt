@@ -1,0 +1,13 @@
+CII IN CN AC C 
+for ( ) ; { } ++ -- , 
+CII
+CII » for ( IN ; CN ; AC ) { C }
+IN » IN 
+CN » CN
+AC » ++ id
+AC » -- id
+AC » id ++
+AC » id --
+AC » , AC
+C » C
+C » Ɛ
