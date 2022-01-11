@@ -1,0 +1,17 @@
+CO CN C EL R G EL 
+if ( ) { } return continue break id numeric boolean else 
+CO
+CO » if ( CN ) { C } EL
+CO » { C } EL 
+CN » CN 
+C » C R 
+C » Ɛ
+C » R
+R » return G
+R » continue
+R » break 
+G » id 
+G » num 
+G » boolean 
+EL » else CO 
+EL » Ɛ

@@ -18,7 +18,7 @@ public class PruebaVentanaCC {
 		} catch (Exception e) {
 			System.out.println("Error al aplicar estilo Windows");
 		}
-		Gramatica gramatica = new Gramatica("src/ArchivosExtra/gramatica.txt");
+		Gramatica gramatica = new Gramatica("src/ArchivosExtra/gramaticajs1.txt");
 		String resultado = ColeccionCanonica.hacer(gramatica).getProceso();
 		new VentanaColeccionCanonica(null,"","","","",resultado);
 	}
