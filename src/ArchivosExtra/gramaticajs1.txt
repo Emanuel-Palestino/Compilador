@@ -1,8 +1,7 @@
 DV L T
 id , var let const
 DV
-DV » L
-L » T id L 
+DV » T id L 
 L » , id L
 L » Ɛ
 T » var
