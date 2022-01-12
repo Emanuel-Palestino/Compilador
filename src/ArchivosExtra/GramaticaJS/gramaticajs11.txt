@@ -1,0 +1,14 @@
+SW G CS C R 
+switch ( ) { } string num boolean id case : default break 
+SW
+SW » switch ( G ) { CS }
+G » string
+G » num 
+G » boolean 
+G » id 
+CS » case G : C 
+CS » default : C
+C » C R 
+C » R
+R » break
+R » Ɛ

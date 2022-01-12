@@ -1,0 +1,15 @@
+DA T V A B 
+id = [ ] , string num id let var const 
+DA
+DA » T V
+V » id = [ A ]
+A » VA B
+B » , A  
+B » Ɛ
+VA » string 
+VA » num 
+VA » id
+VA » Ɛ
+T » let
+T » var 
+T » const

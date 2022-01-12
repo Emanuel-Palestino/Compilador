@@ -1,9 +1,9 @@
 PR P G 
 console.log ( ) string id numeric 
 PR
-PR » console.log ( P )   
-P » G 	
-P » P , G
+PR » console.log ( I )   
+I » G 	
+I » I , G
 G » string 
 G » id 
 G » num 
