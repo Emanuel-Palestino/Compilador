@@ -47,16 +47,21 @@ public class AnalisisSintactico {
 					index = Integer.parseInt(num);      
 					ReglaProduccion rProduccion = new ReglaProduccion();
 					rProduccion = gramatica.getReglasProduccion().get(index); // f -> id 
+
 					accionResultado[iterador] = "r" + index;
 					accionResultado[iterador] += rProduccion;
 					copiaPila.addAll(pila);
 					pilaResultado[iterador] =  new Stack<String>();
 					pilaResultado[iterador] = copiaPila;
 					entradaResultado[iterador].addAll(copiaTokens);
-					int tamañoPop = rProduccion.getProduccion().size()*2;
-					elementoTopePila = Integer.parseInt(pila.firstElement());	//elemento del tope de la pila antes del pop
-					for(int i = 0; i < tamañoPop ; i++){
-						pila.pop();
+					if(rProduccion.getProduccion().get(0).equals("Ɛ")){
+						elementoTopePila = Integer.parseInt(pila.firstElement());
+					}else{
+						int tamañoPop = rProduccion.getProduccion().size()*2;
+						for(int i = 0; i < tamañoPop ; i++){
+							pila.pop();
+						}
+						elementoTopePila = Integer.parseInt(pila.firstElement());	//elemento del tope de la pila antes del pop
 					}
 					pila.push(rProduccion.getSimboloGramatical());
 					String s = tablaLR.getIrA().get(elementoTopePila).get(rProduccion.getSimboloGramatical());
