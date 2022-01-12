@@ -1,9 +1,9 @@
-CII IN CN AC C 
+CII AS OL AC C 
 for ( ) ; { } ++ -- , 
 CII
-CII » for ( IN ; CN ; AC ) { C }
-IN » IN 
-CN » CN
+CII » for ( AS ; OL ; AC ) { C } 
+AS » AS 
+OL » OL
 AC » ++ id
 AC » -- id
 AC » id ++

@@ -1,7 +1,7 @@
-CI CN C 
+CI OL C 
 while ( ) { }
 CI
-CI » while ( CN ) { C }  
-CN » CN 
+CI » while ( OL ) { C } 
+OL » OL
 C » C
 C » Ɛ

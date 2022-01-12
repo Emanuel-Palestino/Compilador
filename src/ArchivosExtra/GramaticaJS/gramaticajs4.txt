@@ -1,10 +1,10 @@
-PR P G 
+PR P M
 console.log ( ) string id numeric 
 PR
 PR » console.log ( I )   
-I » G 	
-I » I , G
-G » string 
-G » id 
-G » num 
-G » boolean 
+I » M 	
+I » I , M
+M » string 
+M » id 
+M » num 
+M » boolean 

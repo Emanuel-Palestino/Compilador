@@ -1,8 +1,7 @@
 DA T V A B 
 id = [ ] , string num id let var const 
 DA
-DA » T V
-V » id = [ A ]
+DA » T id = [ A ] 
 A » VA B
 B » , A  
 B » Ɛ
