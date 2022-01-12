@@ -1,2 +1,1 @@
-var v
-let variable
+var e

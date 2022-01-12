@@ -1,6 +1,7 @@
 package Pruebas;
 
 import java.io.IOException;
+import java.util.Stack;
 
 import AnalizadorLexico.Final.EvaluarCodigo;
 import AnalizadorSintactico.Analisis.AnalisisSintactico;
@@ -23,11 +24,36 @@ public class pruebaAnalisisSintactico {
         try {
             coleccionPrueba = ColeccionCanonica.hacer(gramatica);
             tablaPrueba = TablaLR.construir(coleccionPrueba, gramatica);
-            resultadoAnalisisL = EvaluarCodigo.evaluar("src/ArchivosExtra/programa2.js");
+            resultadoAnalisisL = EvaluarCodigo.evaluar("src/ArchivosExtra/programaPrueba4.js");
             resultadoAnalisisSin = AnalisisSintactico.analizar(resultadoAnalisisL.getTiraTokens(), gramatica, tablaPrueba);
-            System.out.println(resultadoAnalisisSin.getPila());
-            System.out.println(resultadoAnalisisSin.getAccion());
-            System.out.println(resultadoAnalisisSin.getEntrada());
+            //imprimimos la pila
+            System.out.println("Imprimimos Pila");
+            for(int i = 0 ; i < resultadoAnalisisSin.getPila().length ; i++){
+               if(resultadoAnalisisSin.getPila()[i] == null){
+                   break;
+               }else{
+                    System.out.println(resultadoAnalisisSin.getPila()[i]);
+               }  
+            }
+
+            //imprimimos entrada
+            System.out.println("Imprimimos Entrada");
+            for(int i = 0 ; i < resultadoAnalisisSin.getEntrada().length ; i++){
+                if(resultadoAnalisisSin.getEntrada()[i] == null){
+                    break;
+                }else{
+                     System.out.println(resultadoAnalisisSin.getPila()[i]);
+                }
+            }
+            
+            //imprimimos acciones
+            System.out.println("Imprimimos Acciones");
+            for(String recorreAcciones : resultadoAnalisisSin.getAccion()){
+                System.out.println(recorreAcciones);
+                if(recorreAcciones == null){
+                    break;
+                }
+            }
         } catch (IOException | ExcepcionER e) {
             e.printStackTrace();
         }

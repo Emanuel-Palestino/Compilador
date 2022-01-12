@@ -72,29 +72,12 @@ public class PrimerosSiguientes {
 				}
 				buscar.setMarcadoSiguiente(true); // B -> αA (marcado true)
 
-			} else {
+			} else { 
 				posicionBeta = buscar.getProduccion().indexOf(buscar.getProduccion().get(posicionA + 1));
 				List<String> betaSubarreglo = buscar.getProduccion().subList(posicionBeta, tamañoVariable);
 				// recorremos el subarreglo de beta
 				// Con ese while comprobamos si lo que tiene mueveBeta en la posicion de la
 				// lista es un no terminal
-				if(betaSubarreglo.size() > 0){
-					for(String recorreBeta : betaSubarreglo){
-						temporalBeta = primero(recorreBeta, gramatica);
-						if(temporalBeta.getSimbolos().contains("Ɛ")){
-							temporal = siguiente(buscar.getSimboloGramatical(), gramatica); // siguiente(B)
-							for (String recorreTemporal : temporal.getSimbolos()) {
-								if (!resultado.getSimbolos().contains(recorreTemporal)) {
-									resultado.getSimbolos().add(recorreTemporal);
-								}
-							}
-							bandera = true;
-						}
-						if(bandera == true){
-							break;
-						}
-					}
-				}
 				resultadoPrimero = primero(betaSubarreglo.get(0), gramatica);
 				temporal.getSimbolos().addAll(resultadoPrimero.getSimbolos());
 				if (temporal.getSimbolos().indexOf("Ɛ") >= 0) {
