@@ -2,7 +2,7 @@ P C DF DA DV TN PR CL SL SW AS OL OC EA M PA L T DA A B VA G I AC R EL CS X Y CE
 function id ( ) { } , let var const [ ] string num parseInt parseFloat console.log while do for ; ++ -- if return continue break else switch case : default = += -= *= /= %= **= <<= >>= >>>= &= ^= |= &&= ||= ??= && || ! == != === !== > >= < <= + - * / boolean
 P 
 P » C 
-C » DF C 
+C » DF C
 C » DA C
 C » DV C
 C » TN C
@@ -14,8 +14,8 @@ C » AS C
 C » OL C
 C » OC C
 C » EA C
-C » M C
-C » Ɛ C
+C » M C 
+C » Ɛ
 DF » function id ( PA ) { C } 
 PA » id L
 PA » L  
@@ -26,7 +26,7 @@ T » let
 T » var 
 T » const
 DA » T id = [ A ]
-A » VA B
+A » M B
 B » , A  
 B » Ɛ
 VA » string 
@@ -39,10 +39,6 @@ PR » console.log ( I )
 I » M  
 I » I , M
 I » Ɛ
-M » string 
-M » id 
-M » num 
-M » boolean
 CL » while ( OL ) { C }  
 CL » do { C } while ( OL )  
 CL » for ( AS ; OL ; AC ) { C } 
@@ -111,3 +107,7 @@ F » G
 G » ( E )
 G » id 
 G » num 
+M » string 
+M » id 
+M » num 
+M » boolean

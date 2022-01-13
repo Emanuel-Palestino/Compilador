@@ -2,8 +2,8 @@ DA T VA A B
 id = [ ] , string num id let var const 
 DA
 DA » T id = [ A ] 
-A » VA B
-B » , A  
+A » VA B            
+B » , VA B 
 B » Ɛ
 VA » string 
 VA » num 
