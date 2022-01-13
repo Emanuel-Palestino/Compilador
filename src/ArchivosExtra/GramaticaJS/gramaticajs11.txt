@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 SW M CS C    
+=======
+SW M CS C 
+>>>>>>> 1b8f6e84dc994ae2d733d0f96b2c306774fb4edb
 switch ( ) { } case : break default string num boolean id 
 SW
 SW » switch ( M ) { CS }

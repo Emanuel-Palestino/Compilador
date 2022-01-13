@@ -62,7 +62,7 @@ public class VentanaColeccionCanonica extends JDialog {
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setLayout(diseñoPanel);
-		this.setTitle("Analizador Léxico - Colección Canonica");
+		this.setTitle("Analizador Sintáctico - Colección Canonica");
 
 		/** Mostrar ruta dle archivo y boton para cargar otro archivo */
 

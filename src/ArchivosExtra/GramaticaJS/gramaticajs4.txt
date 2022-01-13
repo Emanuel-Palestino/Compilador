@@ -1,5 +1,9 @@
 PR I M
+<<<<<<< HEAD
 console.log ( ) , string id numeric num boolean 
+=======
+console.log ( ) , string id num boolean 
+>>>>>>> 1b8f6e84dc994ae2d733d0f96b2c306774fb4edb
 PR
 PR » console.log ( I )   
 I » M 	

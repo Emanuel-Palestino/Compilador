@@ -14,5 +14,6 @@ M » id
 M » num 
 M » boolean 
 M » string 
-EL » else SL
+EL » else if ( OL ) { C R } EL
+EL » else { C R } EL 
 EL » Ɛ
