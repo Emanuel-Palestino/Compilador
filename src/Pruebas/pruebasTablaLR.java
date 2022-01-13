@@ -10,7 +10,7 @@ public class pruebasTablaLR {
     public static void main(String[] args) {
         TablaLR tablaPrueba = new TablaLR();
     
-        Gramatica gramatica = new Gramatica("src/Pruebas/gramatica.txt");
+        Gramatica gramatica = new Gramatica("src/ArchivosExtra/gramaticajs1.txt");
         ColeccionCanonica prueba = ColeccionCanonica.hacer(gramatica);
         // Gramatica aumentada
         /*ArrayList<ReglaProduccion> auxGramatica = new ArrayList<ReglaProduccion>();

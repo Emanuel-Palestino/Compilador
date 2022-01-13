@@ -1,9 +1,11 @@
 CII AS OL AC C 
-for ( ) ; { } ++ -- , 
+for ( ) ; { } ++ id -- , 
 CII
 CII » for ( AS ; OL ; AC ) { C } 
-AS » AS 
+AS » AS
+AS » Ɛ 
 OL » OL
+OL » Ɛ
 AC » ++ id
 AC » -- id
 AC » id ++

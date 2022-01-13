@@ -1,5 +1,5 @@
 OC CA CB M 
-== != === !== > >= < <= 
+== != === !== > >= < <= string id num boolean 
 OC
 OC » CA
 CA » CA == CB

@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import java.awt.event.*;
@@ -14,20 +15,21 @@ import java.awt.*;
 
 public class VentanaThompson extends JDialog {
 
-	FlowLayout diseñoPanel;
-	JPanel panelInformacion;
-	JScrollPane panelTabla;
-	JLabel lblAlfabeto, lblExpresionRegular;
-	JTextField textAlfabeto, textExpresionRegular, mostrarArchivo;
-	JTable transiciones;
-	JButton boton;
-	String prueba = "C:/Descargas/AnalizadorLexico/archivo.txt";
+	private FlowLayout diseñoPanel;
+	private JPanel panelInformacion;
+	private JScrollPane panelTabla;
+	private JLabel lblAlfabeto, lblExpresionRegular;
+	private JTextField textAlfabeto, textExpresionRegular, mostrarArchivo;
+	private JTable transiciones;
+	private JButton boton;
+	private final int altoInputs = 30;
+	private String prueba = "C:/Descargas/AnalizadorLexico/archivo.txt";
 
 	public VentanaThompson(JFrame parent, boolean modal, String alfabeto, String expresion, String[] encabezado,
 			String[][] datos) {
 		super(parent, modal);
 
-		// Iniciar componentes que se muestran en la this
+		// Iniciar componentes que se muestran en la ventana
 		inicializarInformacion();
 		rellenarInformacion(alfabeto, expresion);
 		mostrarTabla(encabezado, datos);
@@ -46,29 +48,31 @@ public class VentanaThompson extends JDialog {
 
 		// Mostrar Alfabeto y Expresión regular
 		panelInformacion = new JPanel();
-		panelInformacion.setPreferredSize(new Dimension(500, 200));
+		panelInformacion.setPreferredSize(new Dimension(900, 150));
 		panelInformacion.setLayout(diseñoPanel);
 
 		lblAlfabeto = new JLabel("Alfabeto:");
-		lblAlfabeto.setPreferredSize(new Dimension(200, 30));
+		lblAlfabeto.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblAlfabeto.setPreferredSize(new Dimension(200, altoInputs));
 
 		textAlfabeto = new JTextField();
-		textAlfabeto.setPreferredSize(new Dimension(200, 30));
+		textAlfabeto.setPreferredSize(new Dimension(600, altoInputs));
 		textAlfabeto.setEditable(false);
 
 		lblExpresionRegular = new JLabel("Expresión Regular:");
-		lblExpresionRegular.setPreferredSize(new Dimension(200, 30));
+		lblExpresionRegular.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblExpresionRegular.setPreferredSize(new Dimension(200, altoInputs));
 
 		textExpresionRegular = new JTextField();
-		textExpresionRegular.setPreferredSize(new Dimension(200, 30));
+		textExpresionRegular.setPreferredSize(new Dimension(600, altoInputs));
 		textExpresionRegular.setEditable(false);
 
 		// agregamos boton
 		boton = new JButton("Buscar Archivo");
-		boton.setPreferredSize(new Dimension(200, 30));
+		boton.setPreferredSize(new Dimension(200, altoInputs));
 
 		mostrarArchivo = new JTextField();
-		mostrarArchivo.setPreferredSize(new Dimension(350, 30));
+		mostrarArchivo.setPreferredSize(new Dimension(350, altoInputs));
 		mostrarArchivo.setEditable(false);
 		mostrarRutaArchivo(mostrarArchivo, prueba);
 
@@ -97,6 +101,10 @@ public class VentanaThompson extends JDialog {
 		transiciones.setEnabled(false);
 		transiciones.getTableHeader().setReorderingAllowed(false);
 		transiciones.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		transiciones.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		transiciones.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 14));
+		transiciones.setShowVerticalLines(false);
+		transiciones.setRowHeight(30);
 
 		panelTabla = new JScrollPane(transiciones);
 		panelTabla.setPreferredSize(new Dimension(960, 410));

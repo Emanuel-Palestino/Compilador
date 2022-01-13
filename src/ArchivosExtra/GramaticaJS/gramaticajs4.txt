@@ -1,5 +1,5 @@
-PR P M
-console.log ( ) string id numeric 
+PR I M
+console.log ( ) , string id num boolean 
 PR
 PR » console.log ( I )   
 I » M 	

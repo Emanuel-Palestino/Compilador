@@ -14,7 +14,7 @@ public class IniciarPrimerosSiguientes {
 	public IniciarPrimerosSiguientes(JFrame parent) {
 		PrimerosSiguientes ps = new PrimerosSiguientes();
 		// Cargar gramatica
-		Gramatica grama = new Gramatica("src/ArchivosExtra/gramatica.txt");
+		Gramatica grama = new Gramatica("src/ArchivosExtra/GramaticaJS/gramaticajs10.txt");
 		ResultadoPrimerosSiguientes resultado = ps.hacer(grama);
 
 		// pasarle los datos a la ventana
