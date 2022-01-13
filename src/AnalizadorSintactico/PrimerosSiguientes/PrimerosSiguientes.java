@@ -1,8 +1,6 @@
 package AnalizadorSintactico.PrimerosSiguientes;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import Utilidades.ConjuntoSimbolos;
 import Utilidades.ResultadoPrimerosSiguientes;
 import Utilidades.Gramatica.Gramatica;
@@ -22,80 +20,151 @@ public class PrimerosSiguientes {
 	}
 
 	public ConjuntoSimbolos siguiente(String simbolo, Gramatica gramatica) {
-		ArrayList<ReglaProduccion> reglasSimboloActual = new ArrayList<ReglaProduccion>();
-		ConjuntoSimbolos resultadoPrimero = new ConjuntoSimbolos();
 		ConjuntoSimbolos resultado = new ConjuntoSimbolos();
-		ConjuntoSimbolos temporal = new ConjuntoSimbolos();
-		ConjuntoSimbolos temporalSig = new ConjuntoSimbolos();
-		boolean bandera = false;
 
-		int tamañoVariable, posicionA; // contador
-		int posicionBeta;
-
-		// Le asigna simbolo al atributo id
+		// Asignar id al conjunto
 		resultado.setId(simbolo);
-		// Recorremos gramatica.getReglasProduccion() y movemos esas reglas para
-		// siguiente
-		// Primer Caso (Regla 1)
+
+		// Primer regla
 		if (gramatica.getSimboloInicial().equals(simbolo)) {
 			resultado.agregarSimbolo("$");
 		}
 
-		// Obtener las reglas de produccion del simbolo a calcular que este a la derecha
-
-		for (ReglaProduccion buscando : gramatica.getReglasProduccion()) {
-			if (buscando.getProduccion().contains(simbolo) && buscando.getMarcadoSiguiente() == false) {
-				reglasSimboloActual.add(buscando);
-				buscando.setMarcadoSiguiente(true);
-			}
-			if(buscando.getProduccion().contains("Ɛ")){
-				gramatica.setBanderaEpsilon(true);
+		// Obtener las reglas de produccion donde el simbolo esté en la produccion
+		ArrayList<ReglaProduccion> reglasGramatica = gramatica.getReglasProduccion();
+		ArrayList<ReglaProduccion> reglasSimboloProduccion = new ArrayList<ReglaProduccion>();
+		for (ReglaProduccion regla : reglasGramatica) {
+			if (regla.getProduccion().contains(simbolo)) {
+				reglasSimboloProduccion.add(regla);
 			}
 		}
 
-		// Empezamos a calcular las reglas 2 y 3
+		// Hacer todas las reglas encontradas
+		for (ReglaProduccion regla : reglasSimboloProduccion) {
+			ArrayList<String> produccionRegla = regla.getProduccion();
+			int indexSimbolo = produccionRegla.indexOf(simbolo);
 
-		for (ReglaProduccion buscar : reglasSimboloActual) {
-			// regla 2
-
-			posicionA = buscar.getProduccion().indexOf(simbolo);
-			tamañoVariable = buscar.getProduccion().size();
-			if (posicionA == tamañoVariable - 1) {
-				// Regla 3 (Opción 1)
-				// Con esto comprobamos que no hay un beta y solamente queda del tipo B -> αA
-				temporal = siguiente(buscar.getSimboloGramatical(), gramatica); // siguiente(B)
-				for (String recorreTemporal : temporal.getSimbolos()) {
-					if (!resultado.getSimbolos().contains(recorreTemporal)) {
-						resultado.getSimbolos().add(recorreTemporal);
-					}
-				}
-				buscar.setMarcadoSiguiente(true); // B -> αA (marcado true)
-
-			} else {
-				posicionBeta = buscar.getProduccion().indexOf(buscar.getProduccion().get(posicionA + 1));
-				List<String> betaSubarreglo = buscar.getProduccion().subList(posicionBeta, tamañoVariable);
-				// recorremos el subarreglo de beta
-				// Con ese while comprobamos si lo que tiene mueveBeta en la posicion de la
-				// lista es un no terminal
-				resultadoPrimero = primero(betaSubarreglo.get(0), gramatica);
-				temporal.getSimbolos().addAll(resultadoPrimero.getSimbolos());
-				if (temporal.getSimbolos().indexOf("Ɛ") >= 0) {
-					temporalSig = siguiente(buscar.getSimboloGramatical(), gramatica); // siguiente(B)
-					temporal.getSimbolos().addAll(temporalSig.getSimbolos());
-				}
-				for (String recorreTemporal : temporal.getSimbolos()) {
-					if (!resultado.getSimbolos().contains(recorreTemporal)) {
-						resultado.getSimbolos().add(recorreTemporal);
-					}
-				}
-				buscar.setMarcadoSiguiente(true);
+			// Segunda regla
+			if (indexSimbolo != produccionRegla.size() - 1) {
+				ArrayList<String> simbolosBeta = (ArrayList<String>) produccionRegla.subList(indexSimbolo + 1,
+						produccionRegla.size());
+				ArrayList<ConjuntoSimbolos> primeroBeta = primeros(simbolosBeta, gramatica);
+				// Agregar simbolos de Primeros excepto epsilon
+				primeroBeta.get(0).getSimbolos().remove("Ɛ");
+				for (String simboloPrimero : primeroBeta.get(0).getSimbolos())
+					resultado.agregarSimbolo(simboloPrimero);
 			}
-			if(!gramatica.getBanderaEpsilon()){
-				for (ReglaProduccion buscando : gramatica.getReglasProduccion()) {
-				  buscando.setMarcadoSiguiente(false);
+
+			// Tercera regla primera parte
+			if (indexSimbolo == produccionRegla.size() - 1) {
+				ArrayList<String> simbolosB = new ArrayList<String>();
+				simbolosB.add(regla.getSimboloGramatical());
+				ArrayList<ConjuntoSimbolos> siguienteB = siguientes(simbolosB, gramatica);
+				// Agregar simbolos de Siguientes
+				for (String simboloPrimero : siguienteB.get(0).getSimbolos())
+					resultado.agregarSimbolo(simboloPrimero);
+			}
+
+			// Tercera regla segunda parte
+			if (indexSimbolo != produccionRegla.size() - 1) {
+				ArrayList<String> simbolosBeta = (ArrayList<String>) produccionRegla.subList(indexSimbolo + 1,
+						produccionRegla.size());
+				ArrayList<ConjuntoSimbolos> primeroBeta = primeros(simbolosBeta, gramatica);
+				// Agregar los siguientes de B si existe epsilon en Primeros de Beta
+				if (primeroBeta.get(0).getSimbolos().contains("Ɛ")) {
+					ArrayList<String> simbolosB = new ArrayList<String>();
+					simbolosB.add(regla.getSimboloGramatical());
+					ArrayList<ConjuntoSimbolos> siguienteB = siguientes(simbolosB, gramatica);
+					// Agregar simbolos de Siguientes
+					for (String simboloPrimero : siguienteB.get(0).getSimbolos())
+						resultado.agregarSimbolo(simboloPrimero);
 				}
 			}
+
 		}
+
+		/*
+		 * ArrayList<ReglaProduccion> reglasSimboloActual = new
+		 * ArrayList<ReglaProduccion>();
+		 * ConjuntoSimbolos resultadoPrimero = new ConjuntoSimbolos();
+		 * ConjuntoSimbolos temporal = new ConjuntoSimbolos();
+		 * ConjuntoSimbolos temporalSig = new ConjuntoSimbolos();
+		 * boolean bandera = false;
+		 * 
+		 * int tamañoVariable, posicionA; // contador
+		 * int posicionBeta;
+		 * 
+		 * // Le asigna simbolo al atributo id
+		 * resultado.setId(simbolo);
+		 * // Recorremos gramatica.getReglasProduccion() y movemos esas reglas para
+		 * // siguiente
+		 * // Primer Caso (Regla 1)
+		 * if (gramatica.getSimboloInicial().equals(simbolo)) {
+		 * resultado.agregarSimbolo("$");
+		 * }
+		 * 
+		 * // Obtener las reglas de produccion del simbolo a calcular que este a la
+		 * derecha
+		 * 
+		 * for (ReglaProduccion buscando : gramatica.getReglasProduccion()) {
+		 * if (buscando.getProduccion().contains(simbolo) &&
+		 * buscando.getMarcadoSiguiente() == false) {
+		 * reglasSimboloActual.add(buscando);
+		 * buscando.setMarcadoSiguiente(true);
+		 * }
+		 * if(buscando.getProduccion().contains("Ɛ")){
+		 * gramatica.setBanderaEpsilon(true);
+		 * }
+		 * }
+		 * 
+		 * // Empezamos a calcular las reglas 2 y 3
+		 * 
+		 * for (ReglaProduccion buscar : reglasSimboloActual) {
+		 * // regla 2
+		 * 
+		 * posicionA = buscar.getProduccion().indexOf(simbolo);
+		 * tamañoVariable = buscar.getProduccion().size();
+		 * if (posicionA == tamañoVariable - 1) {
+		 * // Regla 3 (Opción 1)
+		 * // Con esto comprobamos que no hay un beta y solamente queda del tipo B -> αA
+		 * temporal = siguiente(buscar.getSimboloGramatical(), gramatica); //
+		 * siguiente(B)
+		 * for (String recorreTemporal : temporal.getSimbolos()) {
+		 * if (!resultado.getSimbolos().contains(recorreTemporal)) {
+		 * resultado.getSimbolos().add(recorreTemporal);
+		 * }
+		 * }
+		 * buscar.setMarcadoSiguiente(true); // B -> αA (marcado true)
+		 * 
+		 * } else {
+		 * posicionBeta =
+		 * buscar.getProduccion().indexOf(buscar.getProduccion().get(posicionA + 1));
+		 * List<String> betaSubarreglo = buscar.getProduccion().subList(posicionBeta,
+		 * tamañoVariable);
+		 * // recorremos el subarreglo de beta
+		 * // Con ese while comprobamos si lo que tiene mueveBeta en la posicion de la
+		 * // lista es un no terminal
+		 * resultadoPrimero = primero(betaSubarreglo.get(0), gramatica);
+		 * temporal.getSimbolos().addAll(resultadoPrimero.getSimbolos());
+		 * if (temporal.getSimbolos().indexOf("Ɛ") >= 0) {
+		 * temporalSig = siguiente(buscar.getSimboloGramatical(), gramatica); //
+		 * siguiente(B)
+		 * temporal.getSimbolos().addAll(temporalSig.getSimbolos());
+		 * }
+		 * for (String recorreTemporal : temporal.getSimbolos()) {
+		 * if (!resultado.getSimbolos().contains(recorreTemporal)) {
+		 * resultado.getSimbolos().add(recorreTemporal);
+		 * }
+		 * }
+		 * buscar.setMarcadoSiguiente(true);
+		 * }
+		 * if(!gramatica.getBanderaEpsilon()){
+		 * for (ReglaProduccion buscando : gramatica.getReglasProduccion()) {
+		 * buscando.setMarcadoSiguiente(false);
+		 * }
+		 * }
+		 * }
+		 */
 
 		return resultado;
 	}
@@ -103,23 +172,28 @@ public class PrimerosSiguientes {
 	public ArrayList<ConjuntoSimbolos> siguientes(ArrayList<String> simbolos, Gramatica gramatica) {
 		ArrayList<ConjuntoSimbolos> resultados = new ArrayList<ConjuntoSimbolos>();
 
-		for (String mueveSimbolos : simbolos) {
-
-			ConjuntoSimbolos temporales = new ConjuntoSimbolos();
-			temporales = siguiente(mueveSimbolos, gramatica);
-			temporales.setId(mueveSimbolos);
-			resultados.add(temporales);
-			// Primer caso
-			/*
-			 * if (i == 0) { // resultados.get(i).setId(gramatica.getSimboloInicial()); Por
-			 * si las moscas resultados.get(i).getSimbolos().add("$"); } i++;
-			 */
-
-			for (ReglaProduccion buscando : gramatica.getReglasProduccion()) {
-				buscando.setMarcadoSiguiente(false);
-			}
-
+		for (String simbolo : simbolos) {
+			ConjuntoSimbolos resultadoSiguiente = new ConjuntoSimbolos();
+			resultadoSiguiente = siguiente(simbolo, gramatica);
+			resultadoSiguiente.setId(simbolo);
+			resultados.add(resultadoSiguiente);
 		}
+
+		/*
+		 * for (String mueveSimbolos : simbolos) {
+		 * 
+		 * ConjuntoSimbolos temporales = new ConjuntoSimbolos();
+		 * temporales = siguiente(mueveSimbolos, gramatica);
+		 * temporales.setId(mueveSimbolos);
+		 * resultados.add(temporales);
+		 * 
+		 * for (ReglaProduccion buscando : gramatica.getReglasProduccion()) {
+		 * buscando.setMarcadoSiguiente(false);
+		 * }
+		 * 
+		 * }
+		 */
+
 		return resultados;
 	}
 

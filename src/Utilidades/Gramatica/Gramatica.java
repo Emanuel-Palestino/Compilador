@@ -178,6 +178,7 @@ public class Gramatica {
 
         return res;
     }
+    
     public int indiceReglaProduccion(ReglaProduccion temporalRP) {
       
         for (int j = 0; j < reglasProduccion.size(); j++) {
