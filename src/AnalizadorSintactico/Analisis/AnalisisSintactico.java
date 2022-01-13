@@ -25,18 +25,24 @@ public class AnalisisSintactico {
 		pila.push("0");		//inicializamos la pila en 0
 		while(bandera){
 			int indiceTemp = Integer.parseInt(pila.peek());
+			if(a >= tiraTokens.size()){
+				bandera = false;
+				break;
+			}
 			String temp = tablaLR.getAcciones().get(indiceTemp).get(tiraTokens.get(a));
 			if(temp == null){
 				temp = "e";	
 			}
 			String num = temp.substring(1);
+			copiaPila.clear();
 			char operacionSwitch = temp.charAt(0);
 			switch(operacionSwitch){
 				case'd':
 					index = Integer.parseInt(num);
 					accionResultado [iterador] = "d" + index;
-					copiaPila.addAll(pila); //Copia pila
-					pilaResultado[iterador] = copiaPila ;
+					copiaPila = (Stack<String>) pila.clone();//Copia pila
+					pilaResultado[iterador] = new Stack<String>();
+					pilaResultado[iterador].addAll(copiaPila);
 					pila.push(String.valueOf(a));
 					pila.push(String.valueOf(index));
 					copiaTokens.set(a, "");
@@ -51,10 +57,11 @@ public class AnalisisSintactico {
 					ReglaProduccion rProduccion = new ReglaProduccion();
 					rProduccion = gramatica.getReglasProduccion().get(index); // f -> id 
 					accionResultado[iterador] = "r" + index;
-					accionResultado[iterador] += rProduccion;
-					copiaPila.addAll(pila);
+					//colocamos la regla de produccion
+					accionResultado[iterador] += (" " + rProduccion.getSimboloGramatical() + "»" + rProduccion.getProduccion());
+					copiaPila = (Stack<String>) pila.clone();
 					pilaResultado[iterador] =  new Stack<String>();
-					pilaResultado[iterador] = copiaPila;
+					pilaResultado[iterador].addAll(copiaPila);
 					entradaResultado[iterador] = new ArrayList<String>();
 					entradaResultado[iterador].addAll(copiaTokens);
 					if(rProduccion.getProduccion().get(0).equals("Ɛ")){
@@ -74,8 +81,8 @@ public class AnalisisSintactico {
 
 				case 'a':
 					accionResultado[iterador] = "Aceptar";
-					copiaPila.addAll(pila);
-					pilaResultado[iterador] =  new Stack<String>();
+					copiaPila = (Stack<String>) pila.clone();
+					pilaResultado[iterador] = new Stack<String>();
 					pilaResultado[iterador] = copiaPila ;
 					entradaResultado[iterador] = new ArrayList<String>();
 					entradaResultado[iterador].addAll(copiaTokens);
@@ -96,7 +103,7 @@ public class AnalisisSintactico {
 					bandera = false;
 					break;
 			}
-		}
+		} 	
 		return new ResultadoAnalisisSintactico(pilaResultado, entradaResultado, accionResultado);	
 	}
 }

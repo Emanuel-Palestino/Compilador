@@ -25,34 +25,37 @@ public class pruebaAnalisisSintactico {
             coleccionPrueba = ColeccionCanonica.hacer(gramatica);
             tablaPrueba = TablaLR.construir(coleccionPrueba, gramatica);
             resultadoAnalisisL = EvaluarCodigo.evaluar("src/ArchivosExtra/programaPrueba4.js");
-            resultadoAnalisisSin = AnalisisSintactico.analizar(resultadoAnalisisL.getTiraTokens(), gramatica, tablaPrueba);
-            //imprimimos la pila
+            resultadoAnalisisSin = AnalisisSintactico.analizar(resultadoAnalisisL.getTiraTokens(), gramatica,
+                    tablaPrueba);
+            // imprimimos la pila
             System.out.println("Imprimimos Pila");
-            for(int i = 0 ; i < resultadoAnalisisSin.getPila().length ; i++){
-               if(resultadoAnalisisSin.getPila()[i] == null){
-                   break;
-               }else{
+            for (int i = 0; i < resultadoAnalisisSin.getPila().length; i++) {
+                if (resultadoAnalisisSin.getPila()[i] == null) {
+                    break;
+                } else {
                     System.out.println(resultadoAnalisisSin.getPila()[i]);
-               }  
+                }
             }
 
-            //imprimimos entrada
+            // imprimimos entrada
             System.out.println("Imprimimos Entrada");
-            for(int i = 0 ; i < resultadoAnalisisSin.getEntrada().length ; i++){
-                if(resultadoAnalisisSin.getEntrada()[i] == null){
+            for (int i = 0; i < resultadoAnalisisSin.getEntrada().length; i++) {
+                if (resultadoAnalisisSin.getEntrada()[i] == null) {
                     break;
-                }else{
-                     System.out.println(resultadoAnalisisSin.getPila()[i]);
+                } else {
+                    System.out.println(resultadoAnalisisSin.getEntrada()[i]);
                 }
             }
-            
-            //imprimimos acciones
+
+            // imprimimos acciones
             System.out.println("Imprimimos Acciones");
-            for(String recorreAcciones : resultadoAnalisisSin.getAccion()){
-                System.out.println(recorreAcciones);
-                if(recorreAcciones == null){
+            for (String recorreAcciones : resultadoAnalisisSin.getAccion()) {
+                if (recorreAcciones == null) {
                     break;
                 }
+
+                System.out.println(recorreAcciones);
+
             }
         } catch (IOException | ExcepcionER e) {
             e.printStackTrace();
