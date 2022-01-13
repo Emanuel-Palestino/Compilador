@@ -1,5 +1,6 @@
 AS X Y DV M
 = += -= *= /= %= **= <<= >>= >>>= &= ^= |= &&= ||= ??= string id num boolean
+AS
 AS » X Y
 Y » = X  
 Y » += X  
