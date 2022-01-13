@@ -1,5 +1,5 @@
-SW M CS C R 
-switch ( ) { } string num boolean id case : default break 
+SW M CS C 
+switch ( ) { } case : break default string num boolean id 
 SW
 SW » switch ( M ) { CS }
 CS » case M : C break CS

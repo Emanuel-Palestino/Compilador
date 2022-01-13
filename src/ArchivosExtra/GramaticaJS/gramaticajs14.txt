@@ -1,23 +1,14 @@
-EA AS X Y X Y DV M
-= += -= *= /= %= **= <<= >>= >>>= &= ^= |= &&= ||= ??= id string num boolean
+EA AS X Y DV M
+= += -= *= /= %= **= string id num boolean
 EA
 EA » AS 
 AS » X = Y
-AS » X += Y 
+AS » X += Y  
 AS » X -= Y 
 AS » X *= Y
 AS » X /= Y
 AS » X %= Y  
 AS » X **= Y 
-AS » X <<= Y
-AS » X >>= Y
-AS » X >>>= Y 
-AS » X &= Y
-AS » X ^= Y 
-AS » X |= Y 
-AS » X &&= Y
-AS » X ||= Y 
-AS » X ??= Y 
 X » DV 
 X » M   
 Y » AS

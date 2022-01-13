@@ -1,4 +1,4 @@
-DA T V A B 
+DA T VA A B 
 id = [ ] , string num id let var const 
 DA
 DA » T id = [ A ] 
