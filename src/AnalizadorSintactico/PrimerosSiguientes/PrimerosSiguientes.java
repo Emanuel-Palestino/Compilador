@@ -54,8 +54,10 @@ public class PrimerosSiguientes {
 				ArrayList<ConjuntoSimbolos> primeroBeta = primeros(simbolosBeta, gramatica);
 				// Agregar simbolos de Primeros excepto epsilon
 				primeroBeta.get(0).getSimbolos().remove("Ɛ");
-				for (String simboloPrimero : primeroBeta.get(0).getSimbolos())
-					resultado.agregarSimbolo(simboloPrimero);
+				for (String simboloPrimero : primeroBeta.get(0).getSimbolos()) {
+					if (!resultado.contiene(simboloPrimero))
+						resultado.agregarSimbolo(simboloPrimero);
+				}
 			}
 
 			// Tercera regla primera parte
@@ -64,8 +66,10 @@ public class PrimerosSiguientes {
 				simbolosB.add(regla.getSimboloGramatical());
 				ArrayList<ConjuntoSimbolos> siguienteB = siguientes(simbolosB, gramatica);
 				// Agregar simbolos de Siguientes
-				for (String simboloPrimero : siguienteB.get(0).getSimbolos())
-					resultado.agregarSimbolo(simboloPrimero);
+				for (String simboloPrimero : siguienteB.get(0).getSimbolos()) {
+					if (!resultado.contiene(simboloPrimero))
+						resultado.agregarSimbolo(simboloPrimero);
+				}
 			}
 
 			// Tercera regla segunda parte
@@ -81,8 +85,10 @@ public class PrimerosSiguientes {
 					simbolosB.add(regla.getSimboloGramatical());
 					ArrayList<ConjuntoSimbolos> siguienteB = siguientes(simbolosB, gramatica);
 					// Agregar simbolos de Siguientes
-					for (String simboloPrimero : siguienteB.get(0).getSimbolos())
-						resultado.agregarSimbolo(simboloPrimero);
+					for (String simboloPrimero : siguienteB.get(0).getSimbolos()) {
+						if (resultado.contiene(simboloPrimero))
+							resultado.agregarSimbolo(simboloPrimero);
+					}
 				}
 			}
 

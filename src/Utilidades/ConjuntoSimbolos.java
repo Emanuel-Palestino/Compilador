@@ -38,4 +38,8 @@ public class ConjuntoSimbolos{
     public void agregarSimbolo(String simbolo){
         simbolos.add(simbolo);
     }
+
+    public boolean contiene(String simbolo) {
+        return simbolos.contains(simbolo);
+    }
 }
