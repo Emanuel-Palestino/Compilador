@@ -1,0 +1,13 @@
+CII AS OL AC C 
+for ( ) ; { } ++ -- , 
+CII
+CII » for ( AS ; OL ; AC ) { C } 
+AS » AS 
+OL » OL
+AC » ++ id
+AC » -- id
+AC » id ++
+AC » id --
+AC » , AC
+C » C
+C » Ɛ

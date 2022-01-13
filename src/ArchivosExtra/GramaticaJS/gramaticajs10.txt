@@ -1,0 +1,7 @@
+TN G
+parseInt parseFloat ( ) string , num id 
+TN 
+TN » parseInt (string , G )
+TN » parseFloat (string , G )
+G » num 
+G » id 

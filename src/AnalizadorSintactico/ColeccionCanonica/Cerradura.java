@@ -22,6 +22,7 @@ public class Cerradura {
             for (ReglaProduccion recorreReglasProduccion : reglasSimbolo) {
                 Elemento aux = new Elemento(recorreReglasProduccion);
                 aux.insertarPuntoInicial();
+                aux.getProduccion().remove("Ɛ");
                 resultadosCerradura.agregar(aux);
             }
         }

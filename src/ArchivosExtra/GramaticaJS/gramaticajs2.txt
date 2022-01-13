@@ -1,0 +1,10 @@
+DF PA L C 
+function id ( ) { } , 
+DF 
+DF » function id ( PA ) { C } 
+PA » id L
+PA » L  
+L » , id L  
+L » Ɛ
+C » C 
+C » Ɛ
