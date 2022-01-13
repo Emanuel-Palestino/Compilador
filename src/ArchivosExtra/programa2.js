@@ -1,7 +1,5 @@
-// Comentario normal
-let varia; // comentario final
+let varia
 console.log("algo aqui");
-/* Comentario
-multilinea */ function nada() /* nada */
-var v;
+var myArray = [];
 let variable;
+true  = false

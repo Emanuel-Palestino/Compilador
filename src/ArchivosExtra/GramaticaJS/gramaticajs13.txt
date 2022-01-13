@@ -1,0 +1,18 @@
+OC CA CB M 
+== != === !== > >= < <= string id num boolean 
+OC
+OC » CA
+CA » CA == CB
+CA » CA != CB
+CA » CA === CB
+CA » CA !== CB
+CA » CB
+CB » CB > M
+CB » CB >= M
+CB » CB < M
+CB » CB <= M
+CB » M 
+M » string 
+M » id 
+M » num 
+M » boolean

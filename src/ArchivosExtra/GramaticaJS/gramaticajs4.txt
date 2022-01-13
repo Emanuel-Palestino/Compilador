@@ -1,0 +1,10 @@
+PR I M
+console.log ( ) , string id num boolean 
+PR
+PR » console.log ( I )   
+I » M 	
+I » I , M
+M » string 
+M » id 
+M » num 
+M » boolean 
