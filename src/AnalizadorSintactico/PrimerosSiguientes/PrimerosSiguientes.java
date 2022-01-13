@@ -62,13 +62,17 @@ public class PrimerosSiguientes {
 
 			// Tercera regla primera parte
 			if (indexSimbolo == produccionRegla.size() - 1) {
-				ArrayList<String> simbolosB = new ArrayList<String>();
-				simbolosB.add(regla.getSimboloGramatical());
-				ArrayList<ConjuntoSimbolos> siguienteB = siguientes(simbolosB, gramatica);
-				// Agregar simbolos de Siguientes
-				for (String simboloPrimero : siguienteB.get(0).getSimbolos()) {
-					if (!resultado.contiene(simboloPrimero))
-						resultado.agregarSimbolo(simboloPrimero);
+				ArrayList<String> simboloB = new ArrayList<String>();
+				simboloB.add(regla.getSimboloGramatical());
+
+				// comprobar que el simbolo no sea el mismo que el simbolo gramatical
+				if (!simboloB.get(0).equals(simbolo)) {
+					ArrayList<ConjuntoSimbolos> siguienteB = siguientes(simboloB, gramatica);
+					// Agregar simbolos de Siguientes
+					for (String simboloPrimero : siguienteB.get(0).getSimbolos()) {
+						if (!resultado.contiene(simboloPrimero))
+							resultado.agregarSimbolo(simboloPrimero);
+					}
 				}
 			}
 
@@ -81,13 +85,16 @@ public class PrimerosSiguientes {
 				ArrayList<ConjuntoSimbolos> primeroBeta = primeros(simbolosBeta, gramatica);
 				// Agregar los siguientes de B si existe epsilon en Primeros de Beta
 				if (primeroBeta.get(0).getSimbolos().contains("Ɛ")) {
-					ArrayList<String> simbolosB = new ArrayList<String>();
-					simbolosB.add(regla.getSimboloGramatical());
-					ArrayList<ConjuntoSimbolos> siguienteB = siguientes(simbolosB, gramatica);
-					// Agregar simbolos de Siguientes
-					for (String simboloPrimero : siguienteB.get(0).getSimbolos()) {
-						if (resultado.contiene(simboloPrimero))
-							resultado.agregarSimbolo(simboloPrimero);
+					ArrayList<String> simboloB = new ArrayList<String>();
+					simboloB.add(regla.getSimboloGramatical());
+					// comprobar que el simbolo no sea el mismo que el simbolo gramatical
+					if (!simboloB.get(0).equals(simbolo)) {
+						ArrayList<ConjuntoSimbolos> siguienteB = siguientes(simboloB, gramatica);
+						// Agregar simbolos de Siguientes
+						for (String simboloPrimero : siguienteB.get(0).getSimbolos()) {
+							if (resultado.contiene(simboloPrimero))
+								resultado.agregarSimbolo(simboloPrimero);
+						}
 					}
 				}
 			}
@@ -212,7 +219,7 @@ public class PrimerosSiguientes {
 
 		ArrayList<ConjuntoSimbolos> salida = new ArrayList<ConjuntoSimbolos>();
 		// Para cada no terminal
-		for (String valor : gramatica.getNoTerminales()) {
+		for (String valor : simbolos) {
 			ConjuntoSimbolos aux = new ConjuntoSimbolos();
 			aux = primero(valor, gramatica);
 			aux.setId(valor);
