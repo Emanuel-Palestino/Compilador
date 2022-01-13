@@ -2,8 +2,8 @@ OL CE CF OC EA M
 && || ! string id num boolean 
 OL
 OL » CE 
-OL » CE && CF     
-OL » CE || CF  
+OL » CE && CF  
+OL » CE || CF 
 CE » CF
 CE » ! CF
 CF » OC 
