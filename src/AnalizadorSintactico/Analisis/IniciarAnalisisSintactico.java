@@ -15,7 +15,7 @@ import Utilidades.Gramatica.Gramatica;
 public class IniciarAnalisisSintactico {
 
 	public IniciarAnalisisSintactico(JFrame parent) {
-		Gramatica grama = new Gramatica("src/ArchivosExtra/gramaticaJS1.txt");
+		Gramatica grama = new Gramatica("src/ArchivosExtra/GramaticaJS/gramaticajs1.txt");
 		ColeccionCanonica cc = ColeccionCanonica.hacer(grama);
 		TablaLR tablaLR = TablaLR.construir(cc, grama);
 		ResultadoAnalisisLexico analisisLexico = new ResultadoAnalisisLexico();
