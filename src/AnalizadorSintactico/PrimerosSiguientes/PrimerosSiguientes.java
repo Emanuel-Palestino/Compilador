@@ -46,8 +46,11 @@ public class PrimerosSiguientes {
 
 			// Segunda regla
 			if (indexSimbolo != produccionRegla.size() - 1) {
-				ArrayList<String> simbolosBeta = (ArrayList<String>) produccionRegla.subList(indexSimbolo + 1,
-						produccionRegla.size());
+				// Obtener simbolos de Beta
+				ArrayList<String> simbolosBeta = new ArrayList<String>();
+				for (int i = indexSimbolo + 1; i < produccionRegla.size(); i++) {
+					simbolosBeta.add(produccionRegla.get(i));
+				}
 				ArrayList<ConjuntoSimbolos> primeroBeta = primeros(simbolosBeta, gramatica);
 				// Agregar simbolos de Primeros excepto epsilon
 				primeroBeta.get(0).getSimbolos().remove("Ɛ");
@@ -67,8 +70,10 @@ public class PrimerosSiguientes {
 
 			// Tercera regla segunda parte
 			if (indexSimbolo != produccionRegla.size() - 1) {
-				ArrayList<String> simbolosBeta = (ArrayList<String>) produccionRegla.subList(indexSimbolo + 1,
-						produccionRegla.size());
+				ArrayList<String> simbolosBeta = new ArrayList<String>();
+				for (int i = indexSimbolo + 1; i < produccionRegla.size(); i++) {
+					simbolosBeta.add(produccionRegla.get(i));
+				}
 				ArrayList<ConjuntoSimbolos> primeroBeta = primeros(simbolosBeta, gramatica);
 				// Agregar los siguientes de B si existe epsilon en Primeros de Beta
 				if (primeroBeta.get(0).getSimbolos().contains("Ɛ")) {
