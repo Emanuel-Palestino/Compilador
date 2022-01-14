@@ -1,9 +1,5 @@
 CII AS OL AC C 
-<<<<<<< HEAD
 for ( ) ; { } ++ id -- ,
-=======
-for ( ) ; { } ++ id -- , 
->>>>>>> 1b8f6e84dc994ae2d733d0f96b2c306774fb4edb
 CII
 CII » for ( AS ; OL ; AC ) { C } 
 AS » AS

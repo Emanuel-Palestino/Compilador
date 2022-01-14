@@ -46,7 +46,7 @@ public class AnalisisSintactico {
 					copiaPila = (Stack<String>) pila.clone();//Copia pila
 					pilaResultado[iterador] = new Stack<String>();
 					pilaResultado[iterador].addAll(copiaPila);
-					pila.push(String.valueOf(a));
+					pila.push(tiraTokens.get(a));
 					pila.push(String.valueOf(index));
 					copiaTokens.set(a, "");
 					entradaResultado[iterador+1] = new ArrayList<String>();
@@ -74,7 +74,7 @@ public class AnalisisSintactico {
 						for(int i = 0; i < tamañoPop ; i++){
 							pila.pop();
 						}
-						elementoTopePila = Integer.parseInt(pila.firstElement());	//elemento del tope de la pila antes del pop
+						elementoTopePila = Integer.parseInt(pila.lastElement());	//elemento del tope de la pila antes del pop
 					}
 					pila.push(rProduccion.getSimboloGramatical());
 					String s = tablaLR.getIrA().get(elementoTopePila).get(rProduccion.getSimboloGramatical());
