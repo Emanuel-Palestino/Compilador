@@ -14,7 +14,7 @@ import Utilidades.Gramatica.Gramatica;
 
 public class pruebaAnalisisSintactico {
     public static void main(String[] args) {
-        Gramatica gramatica = new Gramatica("src/ArchivosExtra/GramaticaJS/gramaticajs14.txt");
+        Gramatica gramatica = new Gramatica("src/ArchivosExtra/GramaticaJS/gramaticajs1.txt");
         AnalisisSintactico analisisSintactico = new AnalisisSintactico();
         TablaLR tablaPrueba = new TablaLR();
         EvaluarCodigo pruebaCodigo = new EvaluarCodigo();
@@ -24,7 +24,7 @@ public class pruebaAnalisisSintactico {
         try {
             coleccionPrueba = ColeccionCanonica.hacer(gramatica);
             tablaPrueba = TablaLR.construir(coleccionPrueba, gramatica);
-            resultadoAnalisisL = EvaluarCodigo.evaluar("src/ArchivosExtra/programa3.js");
+            resultadoAnalisisL = EvaluarCodigo.evaluar("src/ArchivosExtra/programa.js");
             resultadoAnalisisSin = AnalisisSintactico.analizar(resultadoAnalisisL.getTiraTokens(), gramatica,tablaPrueba);
             // imprimimos la pila
             System.out.println("Imprimimos Pila");
