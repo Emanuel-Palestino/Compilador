@@ -1,19 +1,18 @@
 SL OL C R EL M  
 if ( ) { } return continue break id num boolean string else 
 SL
-SL » if ( OL ) { C R } EL 
-SL » { C R } EL 
-OL » OL 
-C » C 
+SL » if ( OL ) { C } EL 
+SL » { C } EL 
+OL » Ɛ 
 C » Ɛ
-R » return M  
-R » continue
-R » break 
-R » Ɛ
+C » return M  
+C » continue
+C » break 
+C » Ɛ
 M » id 
 M » num 
 M » boolean 
 M » string 
-EL » else if ( OL ) { C R } EL
-EL » else { C R } EL 
+EL » else if ( OL ) { C } EL
+EL » else { C } EL 
 EL » Ɛ
