@@ -1,25 +1,31 @@
-P C DF DA DV AS OL OC EA TN PR CL SL SW M PA L T A V B X Y CE CF CA CB E F G I AC R EL SW CS BR 
-function id ( ) { } , = [ ] string num let var const += -= *= /= %= **= <<= >>= >>>= &= ^= |= &&= ||= ??= && || ! == != === !== > >= < <= + - * / parseInt parseFloat console.log boolean for ; ++ -- while do if return continue break else switch case 
-P
-P » C C 
-C » DF
-C » DA 
-C » DV 
-C » AS 
-C » OL 
-C » OC 
-C » EA 
-C » TN 
-C » PR 
-C » CL 
-C » SL  
-C » SW 
-C » M  
-C » Ɛ
-DF » function id ( PA ) { C } 
+P DF DA DV TN PR CL SL SW AS OL OC EA M PA L T A B V G I AC EL CS X Y CE CF CA CB E F
+function id ( ) { } , let var const [ ] string num parseInt parseFloat console.log while do for ; ++ -- if return continue break else switch case : default = += -= *= /= %= **= <<= >>= >>>= &= ^= |= &&= ||= ??= && || ! == != === !== > >= < <= + - * / boolean
+P 
+P » P P
+P » DF 
+P » DA 
+P » DV 
+P » TN 
+P » PR 
+P » CL 
+P » SL  
+P » SW 
+P » AS 
+P » OL 
+P » OC 
+P » EA 
+P » M  
+P » Ɛ
+DF » function id ( PA ) { P } 
 PA » id L
-PA » L 
-DA » T id = [ A ] 
+PA » L  
+DV » T id L 
+L » , id L
+L » Ɛ 
+T » let
+T » var 
+T » const
+DA » T id = [ A ]
 A » V B
 B » , V B  
 B » Ɛ
@@ -27,14 +33,32 @@ V » string
 V » num 
 V » id
 V » Ɛ
-T » let
-T » var 
-T » const
-DV » T id L 
-L » , id L  
-L » Ɛ
+TN » parseInt ( string , G ) 
+TN » parseFloat ( string , G ) 
+PR » console.log ( I ) 
+I » M  
+I » I , M
+I » Ɛ
+CL » while ( OL ) { P }  
+CL » do { P } while ( OL )  
+CL » for ( AS ; OL ; AC ) { P } 
+AC » ++ id 
+AC » -- id
+AC » id ++
+AC » id --
+SL » if ( OL ) { P } EL 
+P » return M  
+P » continue
+P » break 
+EL » else if ( OL ) { P } EL
+EL » else { P } EL 
+EL » Ɛ
+SW » switch ( M ) { CS }
+CS » case M : P break CS
+CS » default : P 
+CS » Ɛ
 AS » X Y
-Y » = X 
+Y » = X  
 Y » += X  
 Y » -= X   
 Y » *= X 
@@ -53,8 +77,8 @@ Y » ??= X
 X » DV
 X » M 
 OL » CE 
-OL » CE && CF     
-OL » CE || CF  
+OL » CE && CF  
+OL » CE || CF 
 CE » CF
 CE » ! CF
 CF » OC 
@@ -79,39 +103,9 @@ F » F * G
 F » F / G
 F » G
 G » ( E )
-G » num 
 G » id 
-TN » parseInt (string , G ) 
-TN » parseFloat (string , G ) 
-PR » console.log ( I ) 
-I » M 	
-I » I , M
+G » num 
 M » string 
 M » id 
 M » num 
-M » boolean 
-CL » for ( AS ; OL ; AC ) { C } 
-AS » Ɛ
-OL » Ɛ
-AC » ++ id
-AC » -- id
-AC » id ++
-AC » id --
-AC » , AC
-CL » while ( OL ) { C } 
-CL » do { C } while ( OL )  
-SL » if ( OL ) { C R } EL 
-SL » { C R } EL 
-R » return M  
-R » continue
-R » break 
-R » Ɛ 
-EL » else if ( OL ) { C R } EL
-EL » else { C R } EL 
-EL » Ɛ
-SW » switch ( M ) { CS }
-CS » case M : C break CS
-CS » default : C BR
-CS » Ɛ
-BR » break 
-BR » Ɛ
+M » boolean
