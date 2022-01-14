@@ -1,4 +1,4 @@
-P DF DA DV TN PR CL SL SW AS OL OC EA M PA L T A B V G I AC EL CS X Y CE CF CA CB E F
+P DF DA DV TN PR CL SL SW AS OL OC EA M PA L T A V B G I AC EL CS X Y CE CF CA CB E F
 function id ( ) { } , let var const [ ] string num parseInt parseFloat console.log while do for ; ++ -- if return continue break else switch case : default = += -= *= /= %= **= <<= >>= >>>= &= ^= |= &&= ||= ??= && || ! == != === !== > >= < <= + - * / boolean
 P 
 P » P P

@@ -6,5 +6,4 @@ PA » id L
 PA » L  
 L » , id L  
 L » Ɛ
-C » C 
 C » Ɛ
