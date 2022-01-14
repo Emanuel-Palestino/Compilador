@@ -13,7 +13,7 @@ public class AnalisisSintactico {
 		//Agregar "$" en tira de tokens
 		tiraTokens.add("$");
 		ArrayList<String> copiaTokens = new ArrayList<String>(tiraTokens);
-		String[] accionResultado = new String[100];
+		String[] accionResultado = new String[500];
 		Stack<String> copiaPila = new Stack<String>();
 		ArrayList<String>[] entradaResultado = (ArrayList<String>[]) new ArrayList[500];
 		Stack<String>[] pilaResultado = new Stack[500];
@@ -33,7 +33,7 @@ public class AnalisisSintactico {
 			}
 			int indiceTemp = Integer.parseInt(pila.peek());
 			String temp = tablaLR.getAcciones().get(indiceTemp).get(tiraTokens.get(a));
-			if(temp == null){
+			if(temp == null || temp == ""){
 				temp = "e";	
 			}
 			String num = temp.substring(1);
@@ -41,7 +41,7 @@ public class AnalisisSintactico {
 			char operacionSwitch = temp.charAt(0);
 			switch(operacionSwitch){
 				case'd':
-					index = Integer.parseInt(num);
+						index = Integer.parseInt(num);
 					accionResultado [iterador] = "d" + index;
 					copiaPila = (Stack<String>) pila.clone();//Copia pila
 					pilaResultado[iterador] = new Stack<String>();

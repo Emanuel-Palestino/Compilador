@@ -88,12 +88,12 @@ public class Gramatica {
         }
     }
 
-    public int indiceEpsilon(){
+    public int indiceEpsilon(String Simbolo){
         int indice = -33, i = 1;
         for(ReglaProduccion recorreProduccion : this.reglasProduccion){
             if(recorreProduccion.getProduccion().size() == 1){
                 String string = recorreProduccion.getProduccion().get(0);
-                if(string.equals("Ɛ")){
+                if(string.equals("Ɛ") && recorreProduccion.getSimboloGramatical().contentEquals(Simbolo)){
                     indice = i;
                 }
             }

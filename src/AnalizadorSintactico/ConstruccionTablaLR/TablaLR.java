@@ -52,7 +52,6 @@ public class TablaLR {
 
         ArrayList<Map<String, String>> acciones = new ArrayList<Map<String, String>>();
         ArrayList<Map<String, String>> irA = new ArrayList<Map<String, String>>();
-        int indiceEpsilon = gramatica.indiceEpsilon();
 
         for (int i = 0; i < coleccionCanonica.getConjuntosElementos().size(); i++) {
 
@@ -95,6 +94,7 @@ public class TablaLR {
                     PrimerosSiguientes auxSiguientes = new PrimerosSiguientes();
                     ArrayList<ConjuntoSimbolos> resultadoSiguiente = new ArrayList<ConjuntoSimbolos>();
                     ArrayList<String> arreglo = new ArrayList<String>();
+                    int indiceEpsilon = gramatica.indiceEpsilon(recorreElemento.getSimboloGramatical());
                     arreglo.add(recorreElemento.getSimboloGramatical());
                     resultadoSiguiente = auxSiguientes.siguientes(arreglo, gramatica);
                     temp.remove(recorreElemento.getTamañoProduccion() - 1);
