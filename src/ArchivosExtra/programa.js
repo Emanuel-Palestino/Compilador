@@ -1,7 +1,1 @@
-var algo;
-function esto() {
-	while (true) {
-		ala
-	}
-	
-}
+1 * 2 + 1
