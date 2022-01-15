@@ -8,7 +8,7 @@ import Utilidades.Gramatica.Gramatica;
 
 public class pruebasSiguiente {
     public static void main(String[] args) {
-        Gramatica gramatica = new Gramatica("src/ArchivosExtra/gramatica1.txt");
+        Gramatica gramatica = new Gramatica("src/ArchivosExtra/gramaticajs1.txt");
         PrimerosSiguientes prueba = new PrimerosSiguientes();
         ArrayList <ConjuntoSimbolos> resultado = new ArrayList<ConjuntoSimbolos>();
 

@@ -1,5 +1,5 @@
 CII AS OL AC C 
-for ( ) ; { } ++ id -- , 
+for ( ) ; { } ++ id -- ,
 CII
 CII » for ( AS ; OL ; AC ) { C } 
 AS » Ɛ 

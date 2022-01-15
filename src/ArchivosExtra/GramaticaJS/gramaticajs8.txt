@@ -1,5 +1,5 @@
-SL OL C EL M  
-if ( ) { } return continue break id numeric boolean string else 
+SL OL C R EL M  
+if ( ) { } return continue break id num boolean string else 
 SL
 SL » if ( OL ) { C } EL 
 SL » { C } EL 
