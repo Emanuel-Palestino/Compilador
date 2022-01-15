@@ -32,6 +32,8 @@ native
 new
 null
 package
+parseInt
+parseFloat
 private
 protected
 public
@@ -63,6 +65,12 @@ with
 ;
 :
 =
++=
+-=
+*=
+/=
+%=
+**=
 ?
 <
 <=
@@ -70,6 +78,7 @@ with
 >=
 ==
 !=
+!==
 ===
 &&
 ||
