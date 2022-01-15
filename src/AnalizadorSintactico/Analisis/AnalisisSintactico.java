@@ -13,10 +13,10 @@ public class AnalisisSintactico {
 		//Agregar "$" en tira de tokens
 		tiraTokens.add("$");
 		ArrayList<String> copiaTokens = new ArrayList<String>(tiraTokens);
-		String[] accionResultado = new String[500];
+		String[] accionResultado = new String[1000000];
 		Stack<String> copiaPila = new Stack<String>();
-		ArrayList<String>[] entradaResultado = (ArrayList<String>[]) new ArrayList[500];
-		Stack<String>[] pilaResultado = new Stack[500];
+		ArrayList<String>[] entradaResultado = (ArrayList<String>[]) new ArrayList[1000000];
+		Stack<String>[] pilaResultado = new Stack[1000000];
 		Stack<String> pila = new Stack<String>();
 		String casoD = new String();
 		int elementoTopePila; 
