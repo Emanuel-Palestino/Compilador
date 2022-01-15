@@ -3,7 +3,7 @@ function id ( ) { } ,
 DF 
 DF » function id ( PA ) { C } 
 PA » id L
-PA » L  
+PA » Ɛ
 L » , id L  
 L » Ɛ
 C » Ɛ

@@ -1,14 +1,15 @@
-DA T V A B 
+DA T V B 
 id = [ ] , string num id let var const 
 DA
-DA » T id = [ A ] 
-A » V B
-B » , V B  
+DA » T id = [ V ]   
+V » string B
+V » num B
+V » id B
+V » Ɛ 
+B » , id B 
+B » , num B
+B » , string B
 B » Ɛ
-V » string 
-V » num 
-V » id
-V » Ɛ
 T » let
 T » var 
 T » const
