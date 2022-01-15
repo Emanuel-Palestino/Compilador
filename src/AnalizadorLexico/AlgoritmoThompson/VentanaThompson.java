@@ -8,6 +8,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import java.awt.event.*;
@@ -101,10 +102,18 @@ public class VentanaThompson extends JDialog {
 		transiciones.setEnabled(false);
 		transiciones.getTableHeader().setReorderingAllowed(false);
 		transiciones.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
 		transiciones.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		transiciones.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		transiciones.setShowVerticalLines(false);
 		transiciones.setRowHeight(30);
+		int columnas = transiciones.getColumnModel().getColumnCount();
+		DefaultTableCellRenderer celdaCentro = new DefaultTableCellRenderer();
+		celdaCentro.setHorizontalAlignment(SwingConstants.CENTER);
+		((DefaultTableCellRenderer) transiciones.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+		for (int i = 0; i < columnas; i++) {
+			transiciones.getColumnModel().getColumn(i).setCellRenderer(celdaCentro);
+		}
 
 		panelTabla = new JScrollPane(transiciones);
 		panelTabla.setPreferredSize(new Dimension(960, 410));
