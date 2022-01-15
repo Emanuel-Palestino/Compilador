@@ -85,7 +85,9 @@ with
 !
 console.log
 +
+++
 -
+--
 *
 /
 %
