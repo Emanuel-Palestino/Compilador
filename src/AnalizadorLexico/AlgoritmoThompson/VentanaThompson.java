@@ -12,6 +12,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import Utilidades.Tabla;
 import Utilidades.Excepciones.ExcepcionER;
 
 import javax.swing.JButton;
@@ -27,6 +28,7 @@ public class VentanaThompson extends JDialog {
 	private JLabel lblAlfabeto, lblExpresionRegular;
 	private JTextField textAlfabeto, textExpresionRegular, mostrarArchivo;
 	private JTable transiciones;
+	private Tabla tabla;
 	private JButton boton;
 	private final int altoInputs = 30;
 	private ServicioThompson servicioThompson;
@@ -110,29 +112,8 @@ public class VentanaThompson extends JDialog {
 	}
 
 	public void mostrarTabla(String[] encabezado, String[][] datos) {
-		DefaultTableModel modeloTabla = new DefaultTableModel(datos, encabezado);
-		transiciones = new JTable(modeloTabla);
-		transiciones.setEnabled(false);
-		transiciones.getTableHeader().setReorderingAllowed(false);
-		transiciones.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
-		transiciones.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		transiciones.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 14));
-		transiciones.setShowVerticalLines(false);
-		transiciones.setRowHeight(30);
-		int columnas = transiciones.getColumnCount();
-		DefaultTableCellRenderer celdaCentro = new DefaultTableCellRenderer();
-		celdaCentro.setHorizontalAlignment(SwingConstants.CENTER);
-		((DefaultTableCellRenderer) transiciones.getTableHeader().getDefaultRenderer())
-				.setHorizontalAlignment(SwingConstants.CENTER);
-		for (int i = 0; i < columnas; i++) {
-			transiciones.getColumnModel().getColumn(i).setCellRenderer(celdaCentro);
-		}
-
-		panelTabla = new JScrollPane(transiciones);
-		panelTabla.setPreferredSize(new Dimension(960, 410));
-
-		this.add(panelTabla);
+		tabla = new Tabla(960, 410, encabezado, datos);
+		this.add(tabla);
 	}
 
 	public void rellenarInformacion(String alfabeto, String expresion) {
