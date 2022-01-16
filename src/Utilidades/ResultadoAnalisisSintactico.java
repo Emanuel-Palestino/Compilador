@@ -40,4 +40,16 @@ public class ResultadoAnalisisSintactico {
 		this.accion = accion;
 	}
 
+	public String[][] getDatosTabla() {
+		String[][] res = new String[pila.length][3];
+
+		for (int j = 0; j < pila.length; j++) {
+			res[j][0] = (pila[j] == null) ? "" : pila[j].toString();
+			res[j][1] = entrada[j].toString();
+			res[j][2] = accion[j];
+		}
+
+		return res;
+	}
+
 }

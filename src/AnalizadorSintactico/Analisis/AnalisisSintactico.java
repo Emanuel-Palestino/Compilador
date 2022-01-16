@@ -18,7 +18,6 @@ public class AnalisisSintactico {
 		ArrayList<String>[] entradaResultado = (ArrayList<String>[]) new ArrayList[1000000];
 		Stack<String>[] pilaResultado = new Stack[1000000];
 		Stack<String> pila = new Stack<String>();
-		String casoD = new String();
 		int elementoTopePila; 
 		int a = 0; //Posicion actual de la tira de tokens
 		int iterador = 0; 

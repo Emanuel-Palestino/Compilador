@@ -8,47 +8,43 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
-import javax.swing.table.DefaultTableModel;
 
-import AnalizadorSintactico.ConstruccionTablaLR.TablaLR;
 import Utilidades.Archivo;
-import Utilidades.ResultadoAnalisisSintactico;
 import Utilidades.Tabla;
+import Utilidades.Excepciones.ExcepcionER;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Map;
+import java.io.IOException;
 
 public class VentanaAnalisisSintactico extends JDialog {
 	private FlowLayout diseñoPanel;
 	private JPanel panelArchivo, panelResultado;
 	private JLabel lblResultadoAL, lblArchivoPrograma, lblAnalisisSintactico, lblRelleno;
 	private JTextField textRutaArchivoPrograma;
-	private DefaultTableModel modeloTabla = new DefaultTableModel();
-	private DefaultTableModel modeloAccion = new DefaultTableModel();
-	private DefaultTableModel modeloIrA = new DefaultTableModel();
 	private JButton botonBuscarPrograma, botonResultadoAL;
 	private Tabla tablaAnalisis;
 	private final JDialog estaVentana = this;
 	private final int altoElementos = 30;
 	private final Border padding = BorderFactory.createEmptyBorder(5, 5, 5, 5);
 	private final String[] encabezadoTabla = { "Pila", "Entrada", "Accion" };
+	private ServicioAnalisisSintactico servicioAnalisis;
 
 	// Constructor de la ventana
-	public VentanaAnalisisSintactico(JFrame parent, String noTerminales, String terminales, String simboloInicial,
-			String gramatica, TablaLR tablaLR, ArrayList<String> simbolosTerminales,
-			ArrayList<String> simbolosNoTerminales, ResultadoAnalisisSintactico analisisSintactico) {
+	public VentanaAnalisisSintactico(JFrame parent) {
 		super(parent, true);
 
 		// Iniciar componentes
-		inicializarComponentes();
+		servicioAnalisis = new ServicioAnalisisSintactico();
+		try {
+			servicioAnalisis.ejecutar("src/ArchivosExtra/programaGramaticaFinal.js");
+		} catch (IOException | ExcepcionER e) {
+			e.printStackTrace();
+		}
 
-		// Rellenar con informacion dada
-		rellenarComponentes(noTerminales, terminales, simboloInicial, gramatica);
-		//rellenarTablaLR(tablaLR, simbolosTerminales, simbolosNoTerminales);
+		inicializarComponentes();
 
 		this.setVisible(true);
 	}
@@ -103,9 +99,14 @@ public class VentanaAnalisisSintactico extends JDialog {
 				editarRutaArchivo(ruta);
 
 				// Obtener datos nuevos
+				try {
+					servicioAnalisis.ejecutar(ruta);
+					// Modificar datos
+					tablaAnalisis.actualizarDatos(encabezadoTabla, servicioAnalisis.getResultadoSintactico().getDatosTabla());
 
-				// Modificar datos
-
+				} catch (IOException | ExcepcionER e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 
@@ -136,7 +137,7 @@ public class VentanaAnalisisSintactico extends JDialog {
 		lblAnalisisSintactico = new JLabel("Resultado del Análisis Sintáctico:");
 		lblAnalisisSintactico.setPreferredSize(new Dimension(220, altoElementos));
 
-		tablaAnalisis = new Tabla(940, 450);
+		tablaAnalisis = new Tabla(940, 450, encabezadoTabla, servicioAnalisis.getResultadoSintactico().getDatosTabla());
 
 
 		// Agregar elementos al panel resultado
@@ -153,69 +154,8 @@ public class VentanaAnalisisSintactico extends JDialog {
 
 	}
 
-	private void rellenarComponentes(String noTerminales, String terminales, String simboloInicial, String gramatica) {
-	}
-
 	private void editarRutaArchivo(String nuevaRuta) {
 		textRutaArchivoPrograma.setText(nuevaRuta);
-	}
-
-	private void rellenarTablaLR(TablaLR tabla, ArrayList<String> simbolosTerminales,
-			ArrayList<String> simbolosNoTerminales) {
-		ArrayList<Map<String, String>> acciones = tabla.getAcciones();
-		ArrayList<Map<String, String>> irA = tabla.getIrA();
-
-		// Acciones
-		String[][] datosAcciones = new String[acciones.size()][simbolosTerminales.size() + 2];
-		String[] encabezadoAcciones = new String[simbolosTerminales.size() + 2];
-		encabezadoAcciones[0] = "Estado";
-		for (int i = 0; i < acciones.size(); i++) {
-			datosAcciones[i][0] = "" + i;
-			for (int j = 0; j < simbolosTerminales.size(); j++) {
-				encabezadoAcciones[j + 1] = simbolosTerminales.get(j);
-				datosAcciones[i][j + 1] = acciones.get(i).get(simbolosTerminales.get(j));
-			}
-			encabezadoAcciones[encabezadoAcciones.length - 1] = "$";
-			datosAcciones[i][datosAcciones[0].length - 1] = acciones.get(i).get("$");
-		}
-
-		// Ir A
-		String[][] datosIrA = new String[irA.size()][simbolosNoTerminales.size() + 1];
-		String[] encabezadoIrA = new String[simbolosNoTerminales.size() + 1];
-		encabezadoIrA[0] = "Estado";
-		for (int i = 0; i < irA.size(); i++) {
-			datosIrA[i][0] = "" + i;
-			for (int j = 0; j < simbolosNoTerminales.size(); j++) {
-				encabezadoIrA[j + 1] = simbolosNoTerminales.get(j);
-				datosIrA[i][j + 1] = irA.get(i).get(simbolosNoTerminales.get(j));
-			}
-		}
-
-		modeloAccion.setDataVector(datosAcciones, encabezadoAcciones);
-		modeloAccion.fireTableDataChanged();
-		modeloIrA.setDataVector(datosIrA, encabezadoIrA);
-		modeloIrA.fireTableDataChanged();
-	}
-
-	private void rellenarTablaAnalisis(ResultadoAnalisisSintactico resultado) {
-
-		// Acciones
-		/* String[][] datos = new String[acciones.size()][simbolosTerminales.size() + 2];
-		String[] encabezadoAcciones = new String[simbolosTerminales.size() + 2];
-		encabezadoAcciones[0] = "Estado";
-		for (int i = 0; i < acciones.size(); i++) {
-			datosAcciones[i][0] = "" + i;
-			for (int j = 0; j < simbolosTerminales.size(); j++) {
-				encabezadoAcciones[j + 1] = simbolosTerminales.get(j);
-				datosAcciones[i][j + 1] = acciones.get(i).get(simbolosTerminales.get(j));
-			}
-			encabezadoAcciones[encabezadoAcciones.length - 1] = "$";
-			datosAcciones[i][datosAcciones[0].length - 1] = acciones.get(i).get("$");
-		} */
-
-
-		//modeloTabla.setDataVector(datos, encabezadoTabla);
-		modeloTabla.fireTableDataChanged();
 	}
 
 }

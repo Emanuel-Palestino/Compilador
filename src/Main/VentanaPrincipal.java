@@ -13,7 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import AnalizadorLexico.ConversionAFD.IniciarConjuntos;
 import AnalizadorLexico.Final.IniciarFinal;
-import AnalizadorSintactico.Analisis.IniciarAnalisisSintactico;
+import AnalizadorSintactico.Analisis.VentanaAnalisisSintactico;
 import AnalizadorSintactico.ColeccionCanonica.iniciarColeccionCanonica;
 import AnalizadorSintactico.ConstruccionTablaLR.IniciarTablaLR;
 import AnalizadorSintactico.PrimerosSiguientes.IniciarPrimerosSiguientes;
@@ -201,7 +201,7 @@ public class VentanaPrincipal extends JFrame {
         botonAnalisisSintactico.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ev) {
-                new IniciarAnalisisSintactico(ventanaPrincipal);
+                new VentanaAnalisisSintactico(ventanaPrincipal);
             }
         });
         

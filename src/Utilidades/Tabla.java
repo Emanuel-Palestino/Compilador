@@ -74,8 +74,10 @@ public class Tabla extends JScrollPane {
 		celda = new DefaultTableCellRenderer();
 		celda.setHorizontalAlignment(SwingConstants.CENTER);
 		((DefaultTableCellRenderer) header.getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
-		for (int i = 0; i < columnas; i++)
+		for (int i = 0; i < columnas; i++) {
 			tabla.getColumnModel().getColumn(i).setCellRenderer(celda);
+			tabla.getColumnModel().getColumn(i).setMinWidth(ancho / encabezado.length - pixelesQuitar);
+		}
 
 		this.setViewportView(tabla);
 		this.setPreferredSize(new Dimension(ancho, alto));
