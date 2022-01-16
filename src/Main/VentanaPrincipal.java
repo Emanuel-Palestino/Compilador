@@ -17,7 +17,7 @@ import AnalizadorSintactico.Analisis.IniciarAnalisisSintactico;
 import AnalizadorSintactico.ColeccionCanonica.iniciarColeccionCanonica;
 import AnalizadorSintactico.ConstruccionTablaLR.IniciarTablaLR;
 import AnalizadorSintactico.PrimerosSiguientes.IniciarPrimerosSiguientes;
-import AnalizadorLexico.AlgoritmoThompson.IniciarThompson;
+import AnalizadorLexico.AlgoritmoThompson.VentanaThompson;
 import Utilidades.ImagenFondo;
 import Utilidades.Excepciones.ExcepcionER;
 
@@ -97,11 +97,7 @@ public class VentanaPrincipal extends JFrame {
         botonThompson.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ev) {
-                try {
-                    new IniciarThompson(ventanaPrincipal);
-                } catch (IOException | ExcepcionER e) {
-                    e.printStackTrace();
-                }
+                new VentanaThompson(ventanaPrincipal);
             }
         });
 

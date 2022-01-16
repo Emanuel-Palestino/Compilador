@@ -3,37 +3,45 @@ package AnalizadorLexico.AlgoritmoThompson;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.swing.JFrame;
+
 import Utilidades.Archivo;
 import Utilidades.Automatas.Automata;
 import Utilidades.Excepciones.ExcepcionER;
 import Utilidades.Listas.ListaDoblementeEnlazada;
 import Utilidades.Listas.NodoLista;
 
-public class IniciarThompson {
+public class ServicioThompson {
+	private Thompson algoritmo;
 
-	public IniciarThompson(JFrame parent) throws FileNotFoundException, IOException, ExcepcionER {
-		Thompson thomp = new Thompson();
-		ArrayList<String> expr = Archivo.capturaDatosArchivo("src/ArchivosExtra/ExpresionRegular.txt");
-		Automata result = thomp.evaluarER(expr.get(1), expr.get(0));
+	public ServicioThompson() {
+		algoritmo = new Thompson();
+	}
 
-		String[] alfa = expr.get(0).split(" ");
-		String[] encabezado = new String[alfa.length + 2];
+	public ModeloResultadoThompson ejecutar(String rutaExpresionRegular) throws ExcepcionER, FileNotFoundException, IOException {
+		// Se carga la expresion regular y la expresión a evaluar
+		ArrayList<String> expresion = Archivo.capturaDatosArchivo(rutaExpresionRegular);
+
+		// Se evalua la expresion regular para generar el AFN
+		Automata resultado = algoritmo.evaluarER(expresion.get(1), expresion.get(0));
+
+		// Se crea el encabezado de la tabla
+		String[] alfabeto = expresion.get(0).split(" ");
+		String[] encabezado = new String[alfabeto.length + 2];
 		encabezado[0] = "Estado";
-		for (int i = 0; i < alfa.length; i++) {
-			encabezado[i + 1] = alfa[i];
+		for (int i = 0; i < alfabeto.length; i++) {
+			encabezado[i + 1] = alfabeto[i];
 		}
-		encabezado[alfa.length + 1] = "Ɛ";
+		encabezado[alfabeto.length + 1] = "Ɛ";
 
 		// Inicializar matriz con -
-		String[][] datos = new String[result.getNumEstados()][encabezado.length];
+		String[][] datos = new String[resultado.getNumEstados()][encabezado.length];
 		for (int i = 0; i < datos.length; i++) {
 			for (int j = 0; j < datos[0].length; j++)
 				datos[i][j] = "-";
 		}
 
-		for (int i = 0; i < result.getNumEstados(); i++) {
-			ListaDoblementeEnlazada transiciones = result.getTransiciones(i);
+		for (int i = 0; i < resultado.getNumEstados(); i++) {
+			ListaDoblementeEnlazada transiciones = resultado.getTransiciones(i);
 			datos[i][0] = "" + i;
 
 			// Recorrer lista
@@ -71,7 +79,8 @@ public class IniciarThompson {
 			}
 		}
 
-		new VentanaThompson(parent, true, expr.get(0), expr.get(1), encabezado, datos);
+		// Se retornan los datos: Alfabeto, Expresion Regular, Encabezado y Datos
+		return new ModeloResultadoThompson(expresion.get(0), expresion.get(1), encabezado, datos);
+	
 	}
-
 }
