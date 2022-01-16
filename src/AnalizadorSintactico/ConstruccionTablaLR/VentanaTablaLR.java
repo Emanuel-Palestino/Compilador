@@ -10,8 +10,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import Utilidades.Archivo;
@@ -44,14 +46,16 @@ public class VentanaTablaLR extends JDialog {
 
 	// Constructor de la ventana
 	public VentanaTablaLR(JFrame parent, String noTerminales, String terminales, String simboloInicial,
-			String gramatica, TablaLR tabla, ArrayList<String> simbolosTerminales, ArrayList<String> simbolosNoTerminales) {
+			String gramatica, TablaLR tabla, ArrayList<String> simbolosTerminales,
+			ArrayList<String> simbolosNoTerminales) {
 		super(parent, true);
 
 		// Iniciar componentes
 		inicializarComponentes();
 
 		// Rellenar con informacion dada
-		rellenarComponentes(noTerminales, terminales, simboloInicial, gramatica, tabla, simbolosTerminales, simbolosNoTerminales);
+		rellenarComponentes(noTerminales, terminales, simboloInicial, gramatica, tabla, simbolosTerminales,
+				simbolosNoTerminales);
 
 		this.setVisible(true);
 	}
@@ -109,7 +113,8 @@ public class VentanaTablaLR extends JDialog {
 
 				// Modificar datos
 				rellenarComponentes(grama.stringSimbolosNoTerminales(), grama.stringSimbolosTerminales(),
-						grama.getSimboloInicial(), grama.stringGramatica(), resultado, grama.getTerminales(), grama.getNoTerminales());
+						grama.getSimboloInicial(), grama.stringGramatica(), resultado, grama.getTerminales(),
+						grama.getNoTerminales());
 
 			}
 		});
@@ -118,7 +123,7 @@ public class VentanaTablaLR extends JDialog {
 		panelArchivo.add(textRutaArchivo);
 		panelArchivo.add(botonBuscar);
 
-		/** MOstrar Simbolos de la gramatica */
+		/** Mostrar Simbolos de la gramatica */
 
 		// Propiedades del panel Informacion
 		panelInformacion = new JPanel();
@@ -187,13 +192,24 @@ public class VentanaTablaLR extends JDialog {
 		tablaAccion = new JTable(modeloAccion);
 		tablaAccion.setEnabled(false);
 		tablaAccion.getTableHeader().setReorderingAllowed(false);
+		tablaAccion.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		tablaAccion.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		tablaAccion.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 14));
+		tablaAccion.setShowVerticalLines(false);
+		tablaAccion.setRowHeight(30);
+		int columnas = tablaAccion.getColumnModel().getColumnCount();
+		DefaultTableCellRenderer celdaCentro = new DefaultTableCellRenderer();
+		celdaCentro.setHorizontalAlignment(SwingConstants.CENTER);
+		((DefaultTableCellRenderer) tablaAccion.getTableHeader().getDefaultRenderer())
+				.setHorizontalAlignment(SwingConstants.CENTER);
+		for (int i = 0; i < columnas; i++) {
+			tablaAccion.getColumnModel().getColumn(i).setCellRenderer(celdaCentro);
+		}
 
 		panelAccion = new JScrollPane(tablaAccion);
 		panelAccion.setPreferredSize(new Dimension(390, 430 - altoElementos - 20));
 		panelAccion.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
 				"Accion", TitledBorder.CENTER, TitledBorder.TOP));
-		// areaColeccionCanonica.setPreferredSize(new Dimension(700, 430 - altoElementos
-		// - 20));
 
 		// Mostrar Tabla IrA
 		tablaIrA = new JTable(modeloIrA);
@@ -218,7 +234,8 @@ public class VentanaTablaLR extends JDialog {
 		this.add(panelResultado);
 	}
 
-	private void rellenarTabla(TablaLR tabla, ArrayList<String> simbolosTerminales, ArrayList<String> simbolosNoTerminales) {
+	private void rellenarTabla(TablaLR tabla, ArrayList<String> simbolosTerminales,
+			ArrayList<String> simbolosNoTerminales) {
 		ArrayList<Map<String, String>> acciones = tabla.getAcciones();
 		ArrayList<Map<String, String>> irA = tabla.getIrA();
 
@@ -250,11 +267,20 @@ public class VentanaTablaLR extends JDialog {
 
 		modeloAccion.setDataVector(datosAcciones, encabezadoAcciones);
 		modeloAccion.fireTableDataChanged();
+		int columnas = tablaAccion.getColumnModel().getColumnCount();
+		DefaultTableCellRenderer celdaCentro = new DefaultTableCellRenderer();
+		celdaCentro.setHorizontalAlignment(SwingConstants.CENTER);
+		((DefaultTableCellRenderer) tablaAccion.getTableHeader().getDefaultRenderer())
+				.setHorizontalAlignment(SwingConstants.CENTER);
+		for (int i = 0; i < columnas; i++) {
+			tablaAccion.getColumnModel().getColumn(i).setCellRenderer(celdaCentro);
+		}
 		modeloIrA.setDataVector(datosIrA, encabezadoIrA);
 		modeloIrA.fireTableDataChanged();
 	}
 
-	private void rellenarComponentes(String noTerminales, String terminales, String simboloInicial, String gramatica, TablaLR tabla, ArrayList<String> simbolosTerminales, ArrayList<String> simbolosNoTerminales) {
+	private void rellenarComponentes(String noTerminales, String terminales, String simboloInicial, String gramatica,
+			TablaLR tabla, ArrayList<String> simbolosTerminales, ArrayList<String> simbolosNoTerminales) {
 		textNoTerminales.setText(noTerminales);
 		textTerminales.setText(terminales);
 		textSimboloInicial.setText(simboloInicial);

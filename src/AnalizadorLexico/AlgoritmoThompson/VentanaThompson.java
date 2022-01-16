@@ -117,7 +117,7 @@ public class VentanaThompson extends JDialog {
 		transiciones.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
 		transiciones.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		transiciones.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 14));
+		transiciones.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 14));
 		transiciones.setShowVerticalLines(false);
 		transiciones.setRowHeight(30);
 		int columnas = transiciones.getColumnModel().getColumnCount();
