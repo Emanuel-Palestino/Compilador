@@ -3,17 +3,13 @@ package AnalizadorLexico.Final;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
 
 import Utilidades.Archivo;
 import Utilidades.ResultadoAnalisisLexico;
+import Utilidades.Tabla;
 import Utilidades.Excepciones.ExcepcionER;
 
-import javax.swing.BorderFactory;
-import javax.swing.border.TitledBorder;
 import javax.swing.JButton;
 import java.awt.event.*;
 import java.io.IOException;
@@ -22,21 +18,15 @@ import java.awt.*;
 public class VentanaFinal extends JDialog {
 	private FlowLayout diseñoPanel;
 	private JPanel panelInformacion;
-	private JScrollPane panelTablaTokens, panelTablaErrores, panelTablaSimbolos;
 	private JTextField mostrarRutaArchivo;
-	private JTable tablaTokens, tablaErrores, tablaSimbolos;
+	private Tabla tablaTokens, tablaErrores, tablaSimbolos;
 	private JButton botonArchivo;
 	private final JDialog estaVentana = this;
 
 	// encabezados tablas
 	final String[] encabezadoTokens = { "# linea", "Lexema", "Token" };
 	final String[] encabezadoErrores = { "# Linea", "Descripción" };
-	final String[] encabezadoVariables = { "Id ", "Valor", "Función" };
-
-	// Modelos de tabla
-	DefaultTableModel modeloTablaTokens = new DefaultTableModel();
-	DefaultTableModel modeloTablaErrores = new DefaultTableModel();
-	DefaultTableModel modeloTablaSimbolos = new DefaultTableModel();
+	final String[] encabezadoSimbolos = { "Id ", "Valor", "Función" };
 
 	public VentanaFinal(JFrame parent, boolean modal, String[][] datos, String[][] datosErrores, String[][] datosId,
 			String rutaArchivo) {
@@ -73,15 +63,15 @@ public class VentanaFinal extends JDialog {
 		this.setTitle("Analizador Lexico");
 
 		panelInformacion = new JPanel();
-		panelInformacion.setPreferredSize(new Dimension(500, 200));
+		panelInformacion.setPreferredSize(new Dimension(1000, 200));
 		panelInformacion.setLayout(diseñoPanel);
 
 		// agregamos boton
 		botonArchivo = new JButton("Buscar Archivo");
-		botonArchivo.setPreferredSize(new Dimension(130, 30));
+		botonArchivo.setPreferredSize(new Dimension(150, 30));
 
 		mostrarRutaArchivo = new JTextField();
-		mostrarRutaArchivo.setPreferredSize(new Dimension(350, 30));
+		mostrarRutaArchivo.setPreferredSize(new Dimension(700, 30));
 		mostrarRutaArchivo.setEditable(false);
 		mostrarRutaArchivo(rutaArchivo);
 
@@ -113,52 +103,18 @@ public class VentanaFinal extends JDialog {
 		panelInformacion.add(mostrarRutaArchivo);
 		panelInformacion.add(botonArchivo);
 
-		this.setLayout(new BorderLayout());
-		this.add(panelInformacion, BorderLayout.PAGE_START);
+		this.add(panelInformacion);
 	}
 
-	public void mostrarTabla(String[][] datos, String[][] datosErrores, String[][] datosId) {
-		modeloTablaTokens.setDataVector(datos, encabezadoTokens);
-		modeloTablaErrores.setDataVector(datosErrores, encabezadoErrores);
-		modeloTablaSimbolos.setDataVector(datosId, encabezadoVariables);
-
-		tablaTokens = new JTable();
-		tablaTokens.setEnabled(false);
-		tablaTokens.getTableHeader().setReorderingAllowed(false);
-		tablaTokens.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
-		tablaErrores = new JTable();
-		tablaErrores.setEnabled(false);
-		tablaErrores.getTableHeader().setReorderingAllowed(false);
-
-		tablaSimbolos = new JTable();
-		tablaSimbolos.setEnabled(false);
-		tablaSimbolos.getTableHeader().setReorderingAllowed(false);
-		tablaSimbolos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
-		panelTablaTokens = new JScrollPane(tablaTokens);
-		panelTablaTokens.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
-				"1. Tabla de Tokens", TitledBorder.CENTER, TitledBorder.TOP));
-		panelTablaTokens.setPreferredSize(new Dimension(550, 550));
-
-		panelTablaSimbolos = new JScrollPane(tablaSimbolos);
-		panelTablaSimbolos.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
-				"2. Tabla de símbolos", TitledBorder.CENTER, TitledBorder.TOP));
-		panelTablaSimbolos.setPreferredSize(new Dimension(550, 550));
-
-		panelTablaErrores = new JScrollPane(tablaErrores);
-		panelTablaErrores.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
-				"3. Tabla de Errores", TitledBorder.CENTER, TitledBorder.TOP));
-		panelTablaErrores.setPreferredSize(new Dimension(350, 550));
-
-		tablaTokens.setModel(modeloTablaTokens);
-		tablaSimbolos.setModel(modeloTablaSimbolos);
-		tablaErrores.setModel(modeloTablaErrores);
+	public void mostrarTabla(String[][] datos, String[][] datosErrores, String[][] datosSimbolos) {
+		tablaTokens = new Tabla(520, 500, encabezadoTokens, datos, "Tira de Tokens");
+		tablaSimbolos = new Tabla(300, 500, encabezadoSimbolos, datosSimbolos, "Tabla de Símbolos");
+		tablaErrores = new Tabla(520, 500, encabezadoErrores, datosErrores, "Tabla de Errores");
 
 		// Hacemos visible la tabla
-		this.add(panelTablaTokens, BorderLayout.LINE_START);
-		this.add(panelTablaSimbolos, BorderLayout.CENTER);
-		this.add(panelTablaErrores, BorderLayout.LINE_END);
+		this.add(tablaTokens);
+		this.add(tablaSimbolos);
+		this.add(tablaErrores);
 	}
 
 	public void mostrarRutaArchivo(String rutaArchvo) {
@@ -167,15 +123,9 @@ public class VentanaFinal extends JDialog {
 
 	public void editarTabla(String[][] datosTokensCambio, String[][] datosSimbolosCambio,
 			String[][] datosErroresCambio) {
-		// Para efectos de las pruebas solo le puse el "(prueba)" para ver si cambiaba
-		// pero como seran las mismas columnas cambiarlo
-		modeloTablaTokens.setDataVector(datosTokensCambio, encabezadoTokens);
-		modeloTablaErrores.setDataVector(datosErroresCambio, encabezadoErrores);
-		modeloTablaSimbolos.setDataVector(datosSimbolosCambio, encabezadoVariables);
-
-		modeloTablaTokens.fireTableDataChanged();
-		modeloTablaErrores.fireTableDataChanged();
-		modeloTablaSimbolos.fireTableDataChanged();
+		tablaTokens.actualizarDatos(encabezadoTokens, datosTokensCambio);
+		tablaSimbolos.actualizarDatos(encabezadoSimbolos, datosSimbolosCambio);
+		tablaErrores.actualizarDatos(encabezadoErrores, datosErroresCambio);
 	}
 
 }
