@@ -82,6 +82,39 @@ public class Tabla extends JScrollPane {
 	}
 
 	// Tabla con titulo en la parte superior
+	public Tabla(int ancho, int alto, String titulo) {
+		// Iniciar fuente
+		fuente = new Font("Tahoma", Font.PLAIN, 12);
+
+		// Iniciar tabla
+		modeloTabla = new DefaultTableModel();
+		tabla = new JTable(modeloTabla);
+
+		// Propiedades de la tabla
+		JTableHeader header = tabla.getTableHeader();
+		header.setReorderingAllowed(false);
+		header.setFont(fuente.deriveFont(Font.BOLD, 14));
+		tabla.setEnabled(false);
+		tabla.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		tabla.setFont(fuente);
+		tabla.setShowVerticalLines(false);
+		tabla.setRowHeight(30);
+
+		// Centrar texto de las celdas
+		int columnas = tabla.getColumnCount();
+		celda = new DefaultTableCellRenderer();
+		celda.setHorizontalAlignment(SwingConstants.CENTER);
+		((DefaultTableCellRenderer) header.getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
+		for (int i = 0; i < columnas; i++) {
+			tabla.getColumnModel().getColumn(i).setCellRenderer(celda);
+		}
+
+		this.setViewportView(tabla);
+		this.setPreferredSize(new Dimension(ancho, alto));
+		this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.gray), titulo,
+				TitledBorder.CENTER, TitledBorder.TOP));
+	}
+
 	public Tabla(int ancho, int alto, String[] encabezado, String[][] datos, String titulo) {
 		// Iniciar fuente
 		fuente = new Font("Tahoma", Font.PLAIN, 12);
