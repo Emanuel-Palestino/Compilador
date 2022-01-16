@@ -6,19 +6,15 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.border.Border;
-import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 
 import Utilidades.Archivo;
 import Utilidades.ColeccionCanonica;
+import Utilidades.Tabla;
 import Utilidades.Gramatica.Gramatica;
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -35,14 +31,11 @@ public class VentanaTablaLR extends JDialog {
 	private JTextField textNoTerminales, textTerminales, textSimboloInicial, textRutaArchivo;
 	private JTextArea areaGramatica;
 	private JButton botonBuscar;
+	private Tabla tablaAccion, tablaIrA;
 	private final JDialog estaVentana = this;
 	private final int altoElementos = 30;
 	private final Border padding = BorderFactory.createEmptyBorder(5, 5, 5, 5);
 	private final Border paddingTextArea = BorderFactory.createEmptyBorder(10, 10, 10, 10);
-	private JScrollPane panelAccion, panelIrA;
-	private JTable tablaAccion, tablaIrA;
-	private DefaultTableModel modeloAccion = new DefaultTableModel();
-	private DefaultTableModel modeloIrA = new DefaultTableModel();
 
 	// Constructor de la ventana
 	public VentanaTablaLR(JFrame parent, String noTerminales, String terminales, String simboloInicial,
@@ -78,7 +71,7 @@ public class VentanaTablaLR extends JDialog {
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setLayout(diseñoPanel);
-		this.setTitle("Analizador Léxico - Colección Canonica");
+		this.setTitle("Analizador Sintáctico - Tabla de Análisis Sintáctico");
 
 		/** Mostrar ruta dle archivo y boton para cargar otro archivo */
 
@@ -183,50 +176,24 @@ public class VentanaTablaLR extends JDialog {
 
 		// Mostrar Contenido de la Gramatica
 		areaGramatica = new JTextArea();
-		areaGramatica.setPreferredSize(new Dimension(237, 430 - altoElementos - 20));
+		areaGramatica.setPreferredSize(new Dimension(237, 380));
 		areaGramatica.setEditable(false);
 		areaGramatica.setFont(fuenteResultado);
 		areaGramatica.setBorder(BorderFactory.createCompoundBorder(areaGramatica.getBorder(), paddingTextArea));
 
 		// Mostrar Tabla Accion
-		tablaAccion = new JTable(modeloAccion);
-		tablaAccion.setEnabled(false);
-		tablaAccion.getTableHeader().setReorderingAllowed(false);
-		tablaAccion.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		tablaAccion.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		tablaAccion.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 14));
-		tablaAccion.setShowVerticalLines(false);
-		tablaAccion.setRowHeight(30);
-		int columnas = tablaAccion.getColumnModel().getColumnCount();
-		DefaultTableCellRenderer celdaCentro = new DefaultTableCellRenderer();
-		celdaCentro.setHorizontalAlignment(SwingConstants.CENTER);
-		((DefaultTableCellRenderer) tablaAccion.getTableHeader().getDefaultRenderer())
-				.setHorizontalAlignment(SwingConstants.CENTER);
-		for (int i = 0; i < columnas; i++) {
-			tablaAccion.getColumnModel().getColumn(i).setCellRenderer(celdaCentro);
-		}
-
-		panelAccion = new JScrollPane(tablaAccion);
-		panelAccion.setPreferredSize(new Dimension(390, 430 - altoElementos - 20));
-		panelAccion.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
-				"Accion", TitledBorder.CENTER, TitledBorder.TOP));
+		tablaAccion = new Tabla(390, 380, "Accion");
 
 		// Mostrar Tabla IrA
-		tablaIrA = new JTable(modeloIrA);
-		tablaIrA.setEnabled(false);
-		tablaIrA.getTableHeader().setReorderingAllowed(false);
-
-		panelIrA = new JScrollPane(tablaIrA);
-		panelIrA.setPreferredSize(new Dimension(300, 430 - altoElementos - 20));
-		panelIrA.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
-				"Ir A", TitledBorder.CENTER, TitledBorder.TOP));
+		tablaIrA = new Tabla(300, 380, "Ir A");
+		tablaIrA.setOpaque(true);
 
 		// Agregar elementos al panel resultado
 		panelResultado.add(lblGramatica);
 		panelResultado.add(lblTablaLR);
 		panelResultado.add(areaGramatica);
-		panelResultado.add(panelAccion);
-		panelResultado.add(panelIrA);
+		panelResultado.add(tablaAccion);
+		panelResultado.add(tablaIrA);
 
 		// Agregar componente a la Ventana
 		this.add(panelArchivo);
@@ -265,18 +232,8 @@ public class VentanaTablaLR extends JDialog {
 			}
 		}
 
-		modeloAccion.setDataVector(datosAcciones, encabezadoAcciones);
-		modeloAccion.fireTableDataChanged();
-		int columnas = tablaAccion.getColumnModel().getColumnCount();
-		DefaultTableCellRenderer celdaCentro = new DefaultTableCellRenderer();
-		celdaCentro.setHorizontalAlignment(SwingConstants.CENTER);
-		((DefaultTableCellRenderer) tablaAccion.getTableHeader().getDefaultRenderer())
-				.setHorizontalAlignment(SwingConstants.CENTER);
-		for (int i = 0; i < columnas; i++) {
-			tablaAccion.getColumnModel().getColumn(i).setCellRenderer(celdaCentro);
-		}
-		modeloIrA.setDataVector(datosIrA, encabezadoIrA);
-		modeloIrA.fireTableDataChanged();
+		tablaAccion.actualizarDatos(encabezadoAcciones, datosAcciones);
+		tablaIrA.actualizarDatos(encabezadoIrA, datosIrA);
 	}
 
 	private void rellenarComponentes(String noTerminales, String terminales, String simboloInicial, String gramatica,
