@@ -6,7 +6,6 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-
 import java.awt.Dimension;
 import java.awt.Font;
 
@@ -17,7 +16,8 @@ public class Tabla extends JScrollPane {
 	Font fuente;
 
 	public Tabla(int alto, int ancho) {
-		super();
+		// Iniciar fuente
+		fuente = new Font("Tahoma", Font.PLAIN, 12);
 
 		// Iniciar tabla
 		modeloTabla = new DefaultTableModel();
@@ -26,7 +26,7 @@ public class Tabla extends JScrollPane {
 		// Propiedades de la tabla
 		JTableHeader encabezado = tabla.getTableHeader();
 		encabezado.setReorderingAllowed(false);
-		encabezado.setFont(fuente.deriveFont(Font.BOLD));
+		encabezado.setFont(fuente.deriveFont(Font.BOLD, 14));
 		tabla.setEnabled(false);
 		tabla.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		tabla.setFont(fuente);
@@ -46,16 +46,17 @@ public class Tabla extends JScrollPane {
 	}
 	
 	public Tabla(int alto, int ancho, String[] encabezado, String[][] datos) {
-		super();
+		// Iniciar fuente
+		fuente = new Font("Tahoma", Font.PLAIN, 12);
 
 		// Iniciar tabla
-		modeloTabla = new DefaultTableModel();
+		modeloTabla = new DefaultTableModel(datos, encabezado);
 		tabla = new JTable(modeloTabla);
 
 		// Propiedades de la tabla
 		JTableHeader header = tabla.getTableHeader();
 		header.setReorderingAllowed(false);
-		header.setFont(fuente.deriveFont(Font.BOLD));
+		header.setFont(fuente.deriveFont(Font.BOLD, 14));
 		tabla.setEnabled(false);
 		tabla.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		tabla.setFont(fuente);
@@ -70,7 +71,7 @@ public class Tabla extends JScrollPane {
 		for (int i = 0; i < columnas; i++)
 			tabla.getColumnModel().getColumn(i).setCellRenderer(celda);
 
-		this.add(tabla);
+		this.setViewportView(tabla);
 		this.setPreferredSize(new Dimension(alto, ancho));
 	}
 
