@@ -120,7 +120,7 @@ public class VentanaThompson extends JDialog {
 		transiciones.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 14));
 		transiciones.setShowVerticalLines(false);
 		transiciones.setRowHeight(30);
-		int columnas = transiciones.getColumnModel().getColumnCount();
+		int columnas = transiciones.getColumnCount();
 		DefaultTableCellRenderer celdaCentro = new DefaultTableCellRenderer();
 		celdaCentro.setHorizontalAlignment(SwingConstants.CENTER);
 		((DefaultTableCellRenderer) transiciones.getTableHeader().getDefaultRenderer())
