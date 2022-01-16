@@ -5,12 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 
 import Utilidades.Tabla;
 import Utilidades.Excepciones.ExcepcionER;
@@ -24,10 +19,8 @@ public class VentanaThompson extends JDialog {
 
 	private FlowLayout diseñoPanel;
 	private JPanel panelInformacion;
-	private JScrollPane panelTabla;
 	private JLabel lblAlfabeto, lblExpresionRegular;
 	private JTextField textAlfabeto, textExpresionRegular, mostrarArchivo;
-	private JTable transiciones;
 	private Tabla tabla;
 	private JButton boton;
 	private final int altoInputs = 30;
