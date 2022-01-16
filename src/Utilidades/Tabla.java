@@ -97,18 +97,32 @@ public class Tabla extends JScrollPane {
 		tabla.setFont(fuente);
 		tabla.setShowVerticalLines(false);
 		tabla.setRowHeight(30);
-		
+
 		// Centrar texto de las celdas
 		int columnas = tabla.getColumnCount();
 		celda = new DefaultTableCellRenderer();
 		celda.setHorizontalAlignment(SwingConstants.CENTER);
 		((DefaultTableCellRenderer) header.getDefaultRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
-		for (int i = 0; i < columnas; i++)
+		for (int i = 0; i < columnas; i++) {
 			tabla.getColumnModel().getColumn(i).setCellRenderer(celda);
+			tabla.getColumnModel().getColumn(i).setMinWidth(ancho / encabezado.length - 3);
+		}
 
 		this.setViewportView(tabla);
 		this.setPreferredSize(new Dimension(alto, ancho));
-		this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.gray), titulo, TitledBorder.CENTER, TitledBorder.TOP));
+		this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.gray), titulo,
+				TitledBorder.CENTER, TitledBorder.TOP));
+	}
+
+	public void actualizarDatos(String[] encabezado, String[][] datos) {
+		modeloTabla.setDataVector(datos, encabezado);
+		modeloTabla.fireTableDataChanged();
+
+		int columnas = tabla.getColumnCount();
+		for (int i = 0; i < columnas; i++) {
+			tabla.getColumnModel().getColumn(i).setCellRenderer(celda);
+			tabla.getColumnModel().getColumn(i).setMinWidth(this.getWidth() / encabezado.length - 3);
+		}
 	}
 
 }
