@@ -6,8 +6,8 @@ import AnalizadorLexico.Final.EvaluarCodigo;
 import AnalizadorSintactico.Analisis.AnalisisSintactico;
 import AnalizadorSintactico.ConstruccionTablaLR.TablaLR;
 import Utilidades.ColeccionCanonica;
-import Utilidades.ResultadoAnalisisLexico;
 import Utilidades.ResultadoAnalisisSintactico;
+import Utilidades.AnalizadorLexico.ResultadoAnalisisLexico;
 import Utilidades.Excepciones.ExcepcionER;
 import Utilidades.Gramatica.Gramatica;
 

@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 
-import Utilidades.ResultadoAnalisisLexico;
+import Utilidades.AnalizadorLexico.ResultadoAnalisisLexico;
 import Utilidades.Excepciones.ExcepcionER;
 
 public class IniciarFinal {
@@ -16,9 +16,9 @@ public class IniciarFinal {
 
 			// Mostrar resultado en Ventana
 			String[][] resultadoTokens, resultadoSimbolos, resultadoErrores;
-			resultadoTokens = res.getTokens();
-			resultadoSimbolos = res.getSimbolos();
-			resultadoErrores = res.getErrores();
+			resultadoTokens = res.getTokensTabla();
+			resultadoSimbolos = res.getSimbolosTabla();
+			resultadoErrores = res.getErroresTabla();
 
 			new VentanaFinal(parent, true, resultadoTokens, resultadoSimbolos, resultadoErrores, rutaArchivo);
 		} catch (IOException | ExcepcionER e) {

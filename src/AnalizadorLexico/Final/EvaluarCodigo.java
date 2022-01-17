@@ -7,7 +7,10 @@ import java.util.Stack;
 import AnalizadorLexico.AlgoritmoThompson.Thompson;
 import AnalizadorLexico.ConversionAFD.ConvierteAFD;
 import Utilidades.Archivo;
-import Utilidades.ResultadoAnalisisLexico;
+import Utilidades.AnalizadorLexico.Error;
+import Utilidades.AnalizadorLexico.ResultadoAnalisisLexico;
+import Utilidades.AnalizadorLexico.Simbolo;
+import Utilidades.AnalizadorLexico.Token;
 import Utilidades.Automatas.Automata;
 import Utilidades.Automatas.AutomataDeterminista;
 import Utilidades.Excepciones.ExcepcionER;
@@ -35,9 +38,10 @@ public class EvaluarCodigo {
 		contenidoPReservadas.close();
 
 		// Variables auxiliares
-		ArrayList<ArrayList<String>> tiraTokens = new ArrayList<ArrayList<String>>();
-		ArrayList<ArrayList<String>> simbolos = new ArrayList<ArrayList<String>>();
-		ArrayList<ArrayList<String>> errores = new ArrayList<ArrayList<String>>();
+		//ArrayList<ArrayList<String>> tiraTokens = new ArrayList<ArrayList<String>>();
+		ArrayList<Token> tiraTokens = new ArrayList<Token>();
+		ArrayList<Simbolo> simbolos = new ArrayList<Simbolo>();
+		ArrayList<Error> errores = new ArrayList<Error>();
 
 		String linea;
 		Boolean comentarioMultiLinea = false;
@@ -106,9 +110,9 @@ public class EvaluarCodigo {
 							linea = linea.replaceFirst(e.simbolo, "");
 
 							// Agregar a Errores
-							ArrayList<String> filaErrores = new ArrayList<String>();
-							filaErrores.add("" + numLinea);
-							filaErrores.add("Error: símbolo " + e.simbolo + " no definido.");
+							Error filaErrores = new Error();
+							filaErrores.setLinea(numLinea);
+							filaErrores.setDescripcion("Error: símbolo " + e.simbolo + " no definido.");
 							errores.add(filaErrores);
 
 						}
@@ -124,62 +128,43 @@ public class EvaluarCodigo {
 		}
 		contenidoArchivo.close();
 
-		// Rellenar los Resultados
-		String[][] tiraTokensArr = new String[tiraTokens.size()][3];
-		for (int i = 0; i < tiraTokens.size(); i++) {
-			for (int j = 0; j < 3; j++) {
-				tiraTokensArr[i][j] = tiraTokens.get(i).get(j);
-			}
-		}
-		String[][] simbolosArr = new String[simbolos.size()][3];
-		for (int i = 0; i < simbolos.size(); i++) {
-			for (int j = 0; j < 3; j++) {
-				simbolosArr[i][j] = simbolos.get(i).get(j);
-			}
-		}
-		String[][] erroresArr = new String[errores.size()][2];
-		for (int i = 0; i < errores.size(); i++) {
-			for (int j = 0; j < 2; j++) {
-				erroresArr[i][j] = errores.get(i).get(j);
-			}
-		}
-
-		resultado.setTokens(tiraTokensArr);
-		resultado.setSimbolos(simbolosArr);
-		resultado.setErrores(erroresArr);
+		resultado.setTokens(tiraTokens);
+		resultado.setSimbolos(simbolos);
+		resultado.setErrores(errores);
 
 		return resultado;
 	}
 
 	private static void rellenarResultados(String lexema, int numLinea, ArrayList<String> palabrasRerservadas,
-			ArrayList<ArrayList<String>> tiraTokens, ArrayList<ArrayList<String>> simbolos) {
+			ArrayList<Token> tiraTokens, ArrayList<Simbolo> simbolos) {
 
 		if (!lexema.equals("")) {
-			ArrayList<String> fila = new ArrayList<String>();
+			Token fila = new Token();
+
 			// linea
-			fila.add("" + numLinea);
+			fila.setLinea(numLinea);
+
 			// lexema
-			fila.add(lexema);
+			fila.setLexema(lexema);
+
 			// saber qué representa (token)
 			if (palabrasRerservadas.contains(lexema)) { // Es una palabra reservada
-				fila.add(lexema);
+				fila.setToken(lexema);
 			} else if (lexema.matches("-?\\d+(\\.\\d+)?")) { // Es un numero, ya sea entero o flotante
-				fila.add("num");
+				fila.setToken("num");
 			} else if (lexema.matches("(\"(.*)\")|('(.*)')")) { // Es un string
-				fila.add("string");
+				fila.setToken("string");
 			} else if (lexema.matches("[a-zA-Z]*(\\w+)")) { // Es un id
-				fila.add("id");
-				// Agregar a la tabla de simbolos
-				ArrayList<String> filaSimbolos = new ArrayList<String>();
-				filaSimbolos.add(lexema);
-				// no se cómo obtener estos valores
-				filaSimbolos.add("");
-				filaSimbolos.add("");
+				fila.setToken("id");
 
-				simbolos.add(filaSimbolos);
+				// Agregar a la tabla de simbolos
+				Simbolo simbolo = new Simbolo(lexema, "", "");
+
+				simbolos.add(simbolo);
 			} else {
-				fila.add("desconocido");
+				fila.setToken("desconocido");
 			}
+
 			tiraTokens.add(fila);
 		}
 

@@ -6,8 +6,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Utilidades.Archivo;
-import Utilidades.ResultadoAnalisisLexico;
 import Utilidades.Tabla;
+import Utilidades.AnalizadorLexico.ResultadoAnalisisLexico;
 import Utilidades.Excepciones.ExcepcionER;
 
 import javax.swing.JButton;
@@ -87,9 +87,9 @@ public class VentanaFinal extends JDialog {
 					String[][] datosTokens, datosSimbolos, datosErrores;
 					ResultadoAnalisisLexico res;
 					res = EvaluarCodigo.evaluar(ruta);
-					datosTokens = res.getTokens();
-					datosSimbolos = res.getSimbolos();
-					datosErrores = res.getErrores();
+					datosTokens = res.getTokensTabla();
+					datosSimbolos = res.getSimbolosTabla();
+					datosErrores = res.getErroresTabla();
 
 					mostrarRutaArchivo(ruta);
 					editarTabla(datosTokens, datosSimbolos, datosErrores);
