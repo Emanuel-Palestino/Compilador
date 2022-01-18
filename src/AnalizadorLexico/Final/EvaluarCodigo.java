@@ -152,10 +152,13 @@ public class EvaluarCodigo {
 				fila.setToken(lexema);
 			} else if (lexema.matches("-?\\d+(\\.\\d+)?")) { // Es un numero, ya sea entero o flotante
 				fila.setToken("num");
+				fila.setValorLexico(lexema);
 			} else if (lexema.matches("(\"(.*)\")|('(.*)')")) { // Es un string
 				fila.setToken("string");
+				fila.setValorLexico(lexema);
 			} else if (lexema.matches("[a-zA-Z]*(\\w+)")) { // Es un id
 				fila.setToken("id");
+				fila.setValorLexico(lexema);
 
 				// Agregar a la tabla de simbolos
 				Simbolo simbolo = new Simbolo(lexema, "", "");
