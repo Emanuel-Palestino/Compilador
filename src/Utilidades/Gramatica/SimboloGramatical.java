@@ -9,9 +9,14 @@ public class SimboloGramatical {
         simboloGramatical = simbolo;
     }
 
+    public SimboloGramatical( SimboloGramatical simboloACopiar){
+        this.simboloGramatical = simboloACopiar.simboloGramatical;
+        this.almacenadorTraduccion = simboloACopiar.almacenadorTraduccion;
+    }
+
     //setters
-    public void setSimboloGramatical(String simbolo){
-        this.simboloGramatical = simbolo;
+    public void setSimboloGramatical(String simboloGramatical){
+        this.simboloGramatical = simboloGramatical;
     }
     public void setTraducir(String traduccion){
         this.almacenadorTraduccion = traduccion;
