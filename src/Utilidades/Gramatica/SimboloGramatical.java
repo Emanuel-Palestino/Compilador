@@ -5,6 +5,11 @@ public class SimboloGramatical {
     private String almacenadorTraduccion;
 
     //constructor
+    public SimboloGramatical(){
+        simboloGramatical = new String();
+        almacenadorTraduccion = new String();
+    }
+
     public SimboloGramatical(String simbolo){
         simboloGramatical = simbolo;
     }

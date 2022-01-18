@@ -23,7 +23,9 @@ public class ReglaProduccion{
     } 
     
     public ReglaProduccion(String gramatical, ArrayList<String> produccionTemp){
-        simboloGramatical.setSimboloGramatical(gramatical);
+        SimboloGramatical simboloAux = new SimboloGramatical(gramatical);
+
+        simboloGramatical = new SimboloGramatical(simboloAux);
         produccion = produccionTemp;
         marcado = false;
         marcadoSiguiente = false;
@@ -47,7 +49,10 @@ public class ReglaProduccion{
 
     //setters
     public void setSimboloGramatical(String simboloGramatical){
-        this.simboloGramatical.setSimboloGramatical(simboloGramatical);
+        SimboloGramatical simboloAux = new SimboloGramatical(simboloGramatical);
+
+
+        this.simboloGramatical = new SimboloGramatical(simboloAux);
     }
 
     public void setProduccion(ArrayList<String> produccion){
