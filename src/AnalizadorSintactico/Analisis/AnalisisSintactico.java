@@ -26,7 +26,7 @@ public class AnalisisSintactico {
 		pila.push("0");		//inicializamos la pila en 0
 		while(bandera){
 			//Agregamos la tira de tokens como la recibimos para mostrar
-			if(iterador == 0){
+			if(pila.size() == 1){
 				entradaResultado[iterador] = new ArrayList<String>();
 				entradaResultado[iterador].addAll(copiaTokens);
 			}
@@ -40,7 +40,7 @@ public class AnalisisSintactico {
 			char operacionSwitch = temp.charAt(0);
 			switch(operacionSwitch){
 				case'd':
-						index = Integer.parseInt(num);
+					index = Integer.parseInt(num);
 					accionResultado [iterador] = "d" + index;
 					copiaPila = (Stack<String>) pila.clone();//Copia pila
 					pilaResultado[iterador] = new Stack<String>();
@@ -86,8 +86,6 @@ public class AnalisisSintactico {
 					copiaPila = (Stack<String>) pila.clone();
 					pilaResultado[iterador] = new Stack<String>();
 					pilaResultado[iterador].addAll(copiaPila);
-					entradaResultado[iterador+1] = new ArrayList<String>();
-					entradaResultado[iterador+1].addAll(copiaTokens);
 					bandera = false;
 					break;
 				
@@ -105,7 +103,7 @@ public class AnalisisSintactico {
 					bandera = false;
 					break;
 			}
-		} 	
+		}	
 		return new ResultadoAnalisisSintactico(pilaResultado, entradaResultado, accionResultado);	
 	}
 }
