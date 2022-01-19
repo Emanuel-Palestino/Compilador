@@ -2,12 +2,12 @@ package Utilidades.Gramatica;
 
 public class SimboloGramatical {
     private String simboloGramatical;
-    private String almacenadorTraduccion;
+    private String traduccion;
 
     //constructor
     public SimboloGramatical(){
-        simboloGramatical = new String();
-        almacenadorTraduccion = new String();
+        simboloGramatical = "";
+        traduccion = "";
     }
 
     public SimboloGramatical(String simbolo){
@@ -16,23 +16,23 @@ public class SimboloGramatical {
 
     public SimboloGramatical( SimboloGramatical simboloACopiar){
         this.simboloGramatical = simboloACopiar.simboloGramatical;
-        this.almacenadorTraduccion = simboloACopiar.almacenadorTraduccion;
+        this.traduccion = simboloACopiar.traduccion;
     }
 
     //setters
     public void setSimboloGramatical(String simboloGramatical){
         this.simboloGramatical = simboloGramatical;
     }
-    public void setTraducir(String traduccion){
-        this.almacenadorTraduccion = traduccion;
+    public void settraduccion(String traduccion){
+        this.traduccion = traduccion;
     }
 
     //getters
     public String getSimboloGramatical(){
         return simboloGramatical;
     }
-    public String getTraducir(){
-        return almacenadorTraduccion;
+    public String gettraduccion(){
+        return traduccion;
     }
 
 

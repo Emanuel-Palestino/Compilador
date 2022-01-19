@@ -2,6 +2,8 @@ package Utilidades.Gramatica;
 
 import java.util.ArrayList;
 
+import Utilidades.AnalizadorLexico.Simbolo;
+
 public class ReglaProduccion{
     private  SimboloGramatical simboloGramatical;
     private ArrayList<String> produccion;
@@ -31,7 +33,12 @@ public class ReglaProduccion{
         marcadoSiguiente = false;
     } 
     //getters
-    public String getSimboloGramatical(){
+
+    public SimboloGramatical getobjetoSimboloGramatical(){
+        return simboloGramatical;
+    }
+
+    public String getStringSimboloGramatical(){
         return simboloGramatical.getSimboloGramatical();
     }
 
@@ -49,10 +56,7 @@ public class ReglaProduccion{
 
     //setters
     public void setSimboloGramatical(String simboloGramatical){
-        SimboloGramatical simboloAux = new SimboloGramatical(simboloGramatical);
-
-
-        this.simboloGramatical = new SimboloGramatical(simboloAux);
+        this.simboloGramatical = new SimboloGramatical(simboloGramatical);
     }
 
     public void setProduccion(ArrayList<String> produccion){
