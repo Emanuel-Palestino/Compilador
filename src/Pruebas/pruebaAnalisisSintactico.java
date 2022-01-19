@@ -21,38 +21,26 @@ public class pruebaAnalisisSintactico {
         try {
             coleccionPrueba = ColeccionCanonica.hacer(gramatica);
             tablaPrueba = TablaLR.construir(coleccionPrueba, gramatica);
-            resultadoAnalisisL = EvaluarCodigo.evaluar("src/ArchivosExtra/programa3.js");
+            resultadoAnalisisL = EvaluarCodigo.evaluar("src/ArchivosExtra/programaGramaticaFinal.js");
             resultadoAnalisisSin = AnalisisSintactico.analizar(resultadoAnalisisL.getTiraTokens(), gramatica,tablaPrueba);
             // imprimimos la pila
             System.out.println("Imprimimos Pila");
-            for (int i = 0; i < resultadoAnalisisSin.getPila().length; i++) {
-                if (resultadoAnalisisSin.getPila()[i] == null) {
-                    break;
-                } else {
-                    System.out.println(resultadoAnalisisSin.getPila()[i]);
-                }
+            for(String recorrePila : resultadoAnalisisSin.getPila()){
+                System.out.println(recorrePila);
             }
 
             // imprimimos entrada
             System.out.println("Imprimimos Entrada");
-            for (int i = 0; i < resultadoAnalisisSin.getEntrada().length; i++) {
-                if (resultadoAnalisisSin.getEntrada()[i] == null) {
-                    break;
-                } else {
-                    System.out.println(resultadoAnalisisSin.getEntrada()[i]);
-                }
+            for(String recorreEntradas : resultadoAnalisisSin.getEntrada()){
+                System.out.println(recorreEntradas);
             }
 
             // imprimimos acciones
             System.out.println("Imprimimos Acciones");
             for (String recorreAcciones : resultadoAnalisisSin.getAccion()) {
-                if (recorreAcciones == null) {
-                    break;
-                }
-
                 System.out.println(recorreAcciones);
-
             }
+
         } catch (IOException | ExcepcionER e) {
             e.printStackTrace();
         }
