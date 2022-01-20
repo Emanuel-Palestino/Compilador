@@ -1,5 +1,5 @@
 EA E F G 
-+ - * / % ( )id num  
++ - * / % ( ) id num  
 EA 
 EA » E
 E » E + F 
