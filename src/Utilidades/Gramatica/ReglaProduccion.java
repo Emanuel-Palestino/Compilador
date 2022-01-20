@@ -2,8 +2,10 @@ package Utilidades.Gramatica;
 
 import java.util.ArrayList;
 
+import Utilidades.AnalizadorLexico.Simbolo;
+
 public class ReglaProduccion{
-    private String simboloGramatical;
+    private  SimboloGramatical simboloGramatical;
     private ArrayList<String> produccion;
     private boolean marcado;
     private boolean marcadoSiguiente;
@@ -16,21 +18,27 @@ public class ReglaProduccion{
         marcadoSiguiente = false;
     }
     public ReglaProduccion(String gramatical, ArrayList<String> produccionTemp,boolean marcadoTemp){
-        simboloGramatical = gramatical;
+        simboloGramatical.setSimboloGramatical(gramatical);
         produccion = produccionTemp;
         marcado = marcadoTemp;
         marcadoSiguiente = false;
     } 
     
     public ReglaProduccion(String gramatical, ArrayList<String> produccionTemp){
-        simboloGramatical = gramatical;
+        SimboloGramatical simboloAux = new SimboloGramatical(gramatical);
+        simboloGramatical = new SimboloGramatical(simboloAux);
         produccion = produccionTemp;
         marcado = false;
         marcadoSiguiente = false;
     } 
     //getters
-    public String getSimboloGramatical(){
+
+    public SimboloGramatical getObjetoSimboloGramatical(){
         return simboloGramatical;
+    }
+
+    public String getStringSimboloGramatical(){
+        return simboloGramatical.getSimboloGramatical();
     }
 
     public ArrayList<String> getProduccion(){
@@ -47,7 +55,7 @@ public class ReglaProduccion{
 
     //setters
     public void setSimboloGramatical(String simboloGramatical){
-        this.simboloGramatical = simboloGramatical;
+        this.simboloGramatical = new SimboloGramatical(simboloGramatical);
     }
 
     public void setProduccion(ArrayList<String> produccion){
