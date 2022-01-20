@@ -1,10 +1,15 @@
-DV L T
-id , var let const
+DV L T M 
+id , var let const string id num boolean
 DV 
 DV » DV DV 
 DV » T id L 
 L » , id L
+L » = M L
 L » Ɛ
 T » var
 T » let
 T » const  
+M » string  
+M » id 
+M » num 
+M » boolean
