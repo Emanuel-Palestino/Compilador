@@ -1,6 +1,6 @@
 package Utilidades;
 
-import Utilidades.AnalizadorLexico.Simbolo;
+import Utilidades.Gramatica.SimboloGramatical;
 
 enum TipoDato {
 	CADENA, ATRIBUTO
@@ -38,16 +38,7 @@ public class AccionSemantica {
 
 	// Metodos
 
-
-	private void imprimir(String[] arr, String nombre) {
-		System.out.println(nombre + ":");
-		for(int i = 0; i < arr.length; i++) {
-			System.out.println("[" + i + "] = " + arr[i]);
-		}
-		System.out.println();
-	}
-
-	public String evaluar(/* Simbolo[] simbolos */) {
+	public String evaluar(SimboloGramatical[] simbolos) {
 
 		String traduccion = "";
 
@@ -56,65 +47,35 @@ public class AccionSemantica {
 		// Ejecutar cada seccion
 		for (String seccion : secciones) {
 
+			if (seccion.isEmpty())
+				continue;
+
 			// Obtener las partes de las condiciones si es que hay
 			String[] condiciones = seccion.split("if|else");
-			
+
 			// Saber si hay condiciones o no
-			if (condiciones.length == 1) {		// no hay condiciones
+			if (condiciones.length == 1) { // no hay condiciones
 
 				// Obtener la asignacion
-				String[] partesAsignacion = obtenerAsignacion(condiciones[0]);
+				realizarAsignacion(condiciones[0], simbolos);
 
-				// Obtener el id y el valor
-				String id = partesAsignacion[0];
-				String valor = partesAsignacion[1];
 
-				// Obtener el símbolo con el que se trabajará
-				Simbolo actual = obtenerSimbolo(id);
+			} else { // Si hay condiciones
+				// Obtener la condicion IF
+				String[] condicionIf = condiciones[1].trim().split(" ", 4);
 
-				// Obtener el atributo al que se le asignará el valor
-				String atributo = obtenerAtributoString(id);
-
-				// Obtener todas las concatenaciones que haya
-				String[] concatenaciones = obtenerConcatenaciones(valor);
-
-				// Recorrer todas las concatenaciones
-				String valorAsignar = "";
-				for (String parte : concatenaciones) {
-
-					// Actuar según su tipo
-					switch (obtenerTipo(parte)) {
-						case CADENA:
-							valorAsignar += parte.split("'")[1];
-							break;
-
-						case ATRIBUTO:
-							Simbolo simboloAtributo = obtenerSimbolo(parte);
-
-							// Actuar según el atributo correcto
-							switch(obtenerAtributo(parte)) {
-								case TRADUCCION:
-									//valorAsignar += simboloAtributo.traduccion;
-								case TEMPORAL:
-									//valorAsignar += simboloAtributo.temporal;
-								case DESCONOCIDO:
-									System.out.println("Error");
-							}
-
-							break;
-					
-						default:
-							System.out.println("Tipo Desconocido");
-							break;
-					}
-					
+				// Validar condicion
+				if (validarCondicion(obtenerSimboloGramatical(condicionIf[0], simbolos), condicionIf[0], condicionIf[1],
+						condicionIf[2])) {
+					// Obtener la asignacion
+					realizarAsignacion(condicionIf[3], simbolos);
+				} else {
+					// Obtener la asignacion ELSE
+					realizarAsignacion(condiciones[2].trim(), simbolos);
 				}
-
-				//actual.traduccion = valorAsignar;
 
 			}
 		}
-
 
 		return traduccion;
 	}
@@ -124,49 +85,41 @@ public class AccionSemantica {
 	}
 
 	private String[] obtenerConcatenaciones(String cadena) {
-		return cadena.split("||");
+		return cadena.split("\\|\\|");
 	}
 
-	private Simbolo obtenerSimbolo(String cadena/* , Simbolo[] simbolos */) {
-
-		Simbolo[] simbolos = new Simbolo[3];
-
+	private SimboloGramatical obtenerSimboloGramatical(String cadena, SimboloGramatical[] simbolos) {
 		// Obtener el nombre del simbolo gramatical
-		String simbolo = cadena.trim().split(".")[0];
+		String simbolo = cadena.trim().split("\\.")[0];
 
 		// Saber si es único o tiene parecidos en la regla de produccion
-		if (!Character.isDigit(simbolo.charAt(simbolo.length()))) {		// Es único
+		if (!Character.isDigit(simbolo.charAt(simbolo.length() - 1))) { // Es único
 
 			// Buscar en los simbolos
-			for (Simbolo simbol : simbolos) {
-				if (simbol.getId().equals(simbolo))
+			for (SimboloGramatical simbol : simbolos) {
+				if (simbol.getSimboloGramatical().equals(simbolo))
 					return simbol;
 			}
-		} else {		// No es único
+		} else { // No es único
 			// Obtener el digito del simbolo
-			int numeroSimbolo = Character.getNumericValue(simbolo.charAt(simbolo.length() - 1));
+			int numeroSimboloGramatical = Character.getNumericValue(simbolo.charAt(simbolo.length() - 1));
 			// Quitar el digito del id
-			//simbolo = simbolo.substring(0, simbolo.length() - 1);
+			// simbolo = simbolo.substring(0, simbolo.length() - 1);
 			simbolo.replaceAll("\\d", "");
 
 			// Buscar el simbolo que corresponda
-			int indexSimbolo = 0;
-			for (Simbolo simbol : simbolos) {
-				if (simbol.getId().equals(simbolo)) {
-					if (indexSimbolo == numeroSimbolo) {
+			int indexSimboloGramatical = 0;
+			for (SimboloGramatical simbol : simbolos) {
+				if (simbol.getSimboloGramatical().equals(simbolo)) {
+					if (indexSimboloGramatical == numeroSimboloGramatical) {
 						return simbol;
 					}
-					indexSimbolo++;
+					indexSimboloGramatical++;
 				}
 			}
 		}
 
-		
-		return new Simbolo();
-	}
-
-	private String obtenerAtributoString(String cadena) {
-		return cadena.split("\\.")[1];
+		return new SimboloGramatical();
 	}
 
 	private TipoDato obtenerTipo(String cadena) {
@@ -183,7 +136,7 @@ public class AccionSemantica {
 	private Atributo obtenerAtributo(String cadena) {
 		String aux = cadena.trim().split("\\.")[1];
 		Atributo resultado = Atributo.DESCONOCIDO;
-		switch(aux) {
+		switch (aux) {
 			case "traduccion":
 				resultado = Atributo.TRADUCCION;
 				break;
@@ -191,17 +144,131 @@ public class AccionSemantica {
 				resultado = Atributo.TEMPORAL;
 				break;
 		}
-		
+
 		return resultado;
 	}
 
+	private boolean validarCondicion(SimboloGramatical simbolo, String operando1, String operador, String operando2) {
+		boolean resultado = false;
+
+		// Obtener el valor del atributo
+		String valorOperando1 = "";
+		// Actuar según el atributo
+		switch (obtenerAtributo(operando1)) {
+			case TRADUCCION:
+				valorOperando1 = simbolo.getTraduccion();
+				break;
+			case TEMPORAL:
+				// valorOperando1 = simbolo.getTemporal();
+				break;
+			case DESCONOCIDO:
+				System.out.println("Error");
+		}
+
+		// Obtener el valor del segundo operando
+		String valorOperando2 = operando2.trim().split("'")[1];
+
+		// Realizar la comparacion
+		switch (operador) {
+			case "==":
+				if (valorOperando1.equals(valorOperando2))
+					resultado = true;
+				break;
+			case "!=":
+				if (!valorOperando1.equals(valorOperando2))
+					resultado = true;
+				break;
+			default:
+				System.out.println("error:validarCondicion");
+		}
+
+		return resultado;
+	}
+
+	private void realizarAsignacion(String asignacion, SimboloGramatical[] simbolos) {
+		// Obtener la asignacion
+		String[] partesAsignacion = obtenerAsignacion(asignacion);
+
+		// Obtener el id y el valor
+		String id = partesAsignacion[0];
+		String valor = partesAsignacion[1];
+
+		// Obtener el símbolo con el que se trabajará
+		SimboloGramatical actual = obtenerSimboloGramatical(id, simbolos);
+
+		// Obtener todas las concatenaciones que haya
+		String[] concatenaciones = obtenerConcatenaciones(valor);
+
+		// Recorrer todas las concatenaciones
+		String valorAsignar = "";
+		for (String parte : concatenaciones) {
+
+			// Actuar según su tipo
+			switch (obtenerTipo(parte)) {
+				case CADENA:
+					valorAsignar += parte.split("'")[1];
+					break;
+
+				case ATRIBUTO:
+					SimboloGramatical simboloAtributo = obtenerSimboloGramatical(parte, simbolos);
+
+					// Actuar según el atributo correcto
+					switch (obtenerAtributo(parte)) {
+						case TRADUCCION:
+							valorAsignar += simboloAtributo.getTraduccion();
+							break;
+						case TEMPORAL:
+							// valorAsignar += simboloAtributo.getTemporal();
+							System.out.println("valorAsignar += simboloAtributo.getTemporal()");
+							break;
+						case DESCONOCIDO:
+							System.out.println("Error");
+							break;
+					}
+
+					break;
+
+				default:
+					System.out.println("Tipo Desconocido");
+					break;
+			}
+
+		}
+
+		// Se le asigna al simbolo su traduccion dependiendo del atributo
+		switch (obtenerAtributo(id)) {
+			case TRADUCCION:
+				actual.setTraduccion(valorAsignar);
+				break;
+			case TEMPORAL:
+				// actual.setTemporal(valorAsignar);
+				System.out.println("actual.setTemporal(valorAsignar)");
+				break;
+			case DESCONOCIDO:
+				System.out.println("Error");
+				break;
+		}
+
+	}
+
 	public static void main(String[] args) {
-		AccionSemantica accion = new AccionSemantica("{ if V.trad == '' V.temp := 'array' || V'.trad else V.temp := V'.trad } S.trad := 'var' || V.trad || ';'");
-		//accion.evaluar();
+		// Variables auxiliares
+
+		SimboloGramatical simboloS = new SimboloGramatical("S");
+		SimboloGramatical simboloV = new SimboloGramatical("V");
+		simboloV.setTraduccion("traduccionV");
+
+		SimboloGramatical[] simbolos = new SimboloGramatical[2];
+		simbolos[0] = simboloS;
+		simbolos[1] = simboloV;
+
+		AccionSemantica accion = new AccionSemantica(
+				"{ if V.traduccion != 'x' S.traduccion := V.traduccion || 'iDfentro' else S.traduccion := V.traduccion || 'elsDentro' } S.traduccion := S.traduccion || 'var ' || V.traduccion");
+		accion.evaluar(simbolos);
 
 		// Pruebas individuales
 		String algo = " V'.traduccion ";
 		System.out.println(accion.obtenerAtributo(algo));
 	}
-	
+
 }
