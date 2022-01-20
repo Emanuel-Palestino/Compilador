@@ -42,7 +42,7 @@ public class IniciarPrimerosSiguientes {
 		gramatica = "";
 		ArrayList<ReglaProduccion> reglas = grama.getReglasProduccion();
 		for (ReglaProduccion regla : reglas) {
-			gramatica += regla.getSimboloGramatical() + " -> ";
+			gramatica += regla.getStringSimboloGramatical() + " -> ";
 			aux = regla.getProduccion();
 			for (String simbolo : aux)
 				gramatica += simbolo + " ";
