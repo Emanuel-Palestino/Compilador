@@ -23,7 +23,7 @@ public class SimboloGramatical {
     public void setSimboloGramatical(String simboloGramatical){
         this.simboloGramatical = simboloGramatical;
     }
-    public void settraduccion(String traduccion){
+    public void setTraduccion(String traduccion){
         this.traduccion = traduccion;
     }
 
@@ -31,7 +31,7 @@ public class SimboloGramatical {
     public String getSimboloGramatical(){
         return simboloGramatical;
     }
-    public String gettraduccion(){
+    public String getTraduccion(){
         return traduccion;
     }
 

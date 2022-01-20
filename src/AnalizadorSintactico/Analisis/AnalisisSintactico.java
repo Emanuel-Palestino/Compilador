@@ -60,7 +60,7 @@ public class AnalisisSintactico {
 					rProduccion = gramatica.getReglasProduccion().get(index-1); // f -> id 
 					accionResultado[iterador] = "r" + index;
 					//colocamos la regla de produccion
-					accionResultado[iterador] += (" " + rProduccion.getSimboloGramatical() + "»" + rProduccion.getProduccion());
+					accionResultado[iterador] += (" " + rProduccion.getStringSimboloGramatical() + "»" + rProduccion.getProduccion());
 					copiaPila = (Stack<String>) pila.clone();
 					pilaResultado[iterador] =  new Stack<String>();
 					pilaResultado[iterador].addAll(copiaPila);
@@ -75,8 +75,8 @@ public class AnalisisSintactico {
 						}
 						elementoTopePila = Integer.parseInt(pila.lastElement());	//elemento del tope de la pila antes del pop
 					}
-					pila.push(rProduccion.getSimboloGramatical());
-					String s = tablaLR.getIrA().get(elementoTopePila).get(rProduccion.getSimboloGramatical());
+					pila.push(rProduccion.getStringSimboloGramatical());
+					String s = tablaLR.getIrA().get(elementoTopePila).get(rProduccion.getStringSimboloGramatical());
 					pila.push(s);
 					iterador++;
 					break;

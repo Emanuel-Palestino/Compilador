@@ -26,7 +26,6 @@ public class ReglaProduccion{
     
     public ReglaProduccion(String gramatical, ArrayList<String> produccionTemp){
         SimboloGramatical simboloAux = new SimboloGramatical(gramatical);
-
         simboloGramatical = new SimboloGramatical(simboloAux);
         produccion = produccionTemp;
         marcado = false;
@@ -34,7 +33,7 @@ public class ReglaProduccion{
     } 
     //getters
 
-    public SimboloGramatical getobjetoSimboloGramatical(){
+    public SimboloGramatical getObjetoSimboloGramatical(){
         return simboloGramatical;
     }
 
