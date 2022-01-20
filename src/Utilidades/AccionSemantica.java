@@ -2,6 +2,14 @@ package Utilidades;
 
 import Utilidades.AnalizadorLexico.Simbolo;
 
+enum TipoDato {
+	CADENA, ATRIBUTO
+}
+
+enum Atributo {
+	TRADUCCION, TEMPORAL, DESCONOCIDO
+}
+
 public class AccionSemantica {
 
 	private String accion;
@@ -61,9 +69,52 @@ public class AccionSemantica {
 				String id = partesAsignacion[0];
 				String valor = partesAsignacion[1];
 
+				// Obtener el símbolo con el que se trabajará
+				Simbolo actual = obtenerSimbolo(id);
+
+				// Obtener el atributo al que se le asignará el valor
+				String atributo = obtenerAtributoString(id);
+
+				// Obtener todas las concatenaciones que haya
+				String[] concatenaciones = obtenerConcatenaciones(valor);
+
+				// Recorrer todas las concatenaciones
+				String valorAsignar = "";
+				for (String parte : concatenaciones) {
+
+					// Actuar según su tipo
+					switch (obtenerTipo(parte)) {
+						case CADENA:
+							valorAsignar += parte.split("'")[1];
+							break;
+
+						case ATRIBUTO:
+							Simbolo simboloAtributo = obtenerSimbolo(parte);
+
+							// Actuar según el atributo correcto
+							switch(obtenerAtributo(parte)) {
+								case TRADUCCION:
+									//valorAsignar += simboloAtributo.traduccion;
+								case TEMPORAL:
+									//valorAsignar += simboloAtributo.temporal;
+								case DESCONOCIDO:
+									System.out.println("Error");
+							}
+
+							break;
+					
+						default:
+							System.out.println("Tipo Desconocido");
+							break;
+					}
+					
+				}
+
+				//actual.traduccion = valorAsignar;
 
 			}
 		}
+
 
 		return traduccion;
 	}
@@ -76,12 +127,12 @@ public class AccionSemantica {
 		return cadena.split("||");
 	}
 
-	private Simbolo simboloATrabajar(String cadena/* , Simbolo[] simbolos */) {
+	private Simbolo obtenerSimbolo(String cadena/* , Simbolo[] simbolos */) {
 
 		Simbolo[] simbolos = new Simbolo[3];
 
 		// Obtener el nombre del simbolo gramatical
-		String simbolo = cadena.split(".")[0];
+		String simbolo = cadena.trim().split(".")[0];
 
 		// Saber si es único o tiene parecidos en la regla de produccion
 		if (!Character.isDigit(simbolo.charAt(simbolo.length()))) {		// Es único
@@ -114,9 +165,43 @@ public class AccionSemantica {
 		return new Simbolo();
 	}
 
+	private String obtenerAtributoString(String cadena) {
+		return cadena.split("\\.")[1];
+	}
+
+	private TipoDato obtenerTipo(String cadena) {
+		String dato = cadena.trim();
+		String[] cadenaa = dato.split("'");
+
+		if (cadenaa.length == 2 && cadenaa[0].equals("")) {
+			return TipoDato.CADENA;
+		} else {
+			return TipoDato.ATRIBUTO;
+		}
+	}
+
+	private Atributo obtenerAtributo(String cadena) {
+		String aux = cadena.trim().split("\\.")[1];
+		Atributo resultado = Atributo.DESCONOCIDO;
+		switch(aux) {
+			case "traduccion":
+				resultado = Atributo.TRADUCCION;
+				break;
+			case "temporal":
+				resultado = Atributo.TEMPORAL;
+				break;
+		}
+		
+		return resultado;
+	}
+
 	public static void main(String[] args) {
 		AccionSemantica accion = new AccionSemantica("{ if V.trad == '' V.temp := 'array' || V'.trad else V.temp := V'.trad } S.trad := 'var' || V.trad || ';'");
-		accion.evaluar();
+		//accion.evaluar();
+
+		// Pruebas individuales
+		String algo = " V'.traduccion ";
+		System.out.println(accion.obtenerAtributo(algo));
 	}
 	
 }
