@@ -93,7 +93,7 @@ public class Gramatica {
         for(ReglaProduccion recorreProduccion : this.reglasProduccion){
             if(recorreProduccion.getProduccion().size() == 1){
                 String string = recorreProduccion.getProduccion().get(0);
-                if(string.equals("Ɛ") && recorreProduccion.getSimboloGramatical().contentEquals(Simbolo)){
+                if(string.equals("Ɛ") && recorreProduccion.getStringSimboloGramatical().contentEquals(Simbolo)){
                     indice = i;
                 }
             }
@@ -152,7 +152,7 @@ public class Gramatica {
         // regresar arraylist de las reglas de produccion del string de entrada
         ArrayList<ReglaProduccion> resultado = new ArrayList<ReglaProduccion>();
         for (ReglaProduccion buscando : reglasProduccion) {
-            if (buscando.getSimboloGramatical().equals(simbolo)) {
+            if (buscando.getStringSimboloGramatical().equals(simbolo)) {
                 resultado.add(buscando);
             }
         }
@@ -183,7 +183,7 @@ public class Gramatica {
         String res = "";
 		ArrayList<String> aux = new ArrayList<String>();
         for (ReglaProduccion regla : reglasProduccion) {
-			res += regla.getSimboloGramatical() + " -> ";
+			res += regla.getStringSimboloGramatical() + " -> ";
 			aux = regla.getProduccion();
 			for (String simbolo : aux)
 				res += simbolo + " ";
@@ -198,8 +198,8 @@ public class Gramatica {
         for (int j = 0; j < reglasProduccion.size(); j++) {
           ReglaProduccion conjuntoReglaProduccion=reglasProduccion.get(j);
           
-          String simboloActual = conjuntoReglaProduccion.getSimboloGramatical();
-          String simboloNuevo = temporalRP.getSimboloGramatical();
+          String simboloActual = conjuntoReglaProduccion.getStringSimboloGramatical();
+          String simboloNuevo = temporalRP.getStringSimboloGramatical();
           ArrayList<String> produccionActual = conjuntoReglaProduccion.getProduccion();
           ArrayList<String> produccionNuevo = temporalRP.getProduccion();
           Boolean bandera2 = true;

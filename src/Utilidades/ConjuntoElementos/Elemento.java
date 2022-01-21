@@ -16,7 +16,7 @@ public class Elemento {
 
 	// Constructor de copia para una ReglaProduccion
 	public Elemento(ReglaProduccion regla) {
-		simboloGramatical = regla.getSimboloGramatical();
+		simboloGramatical = regla.getStringSimboloGramatical();
 		produccion = new ArrayList<String>();
 		ArrayList<String> aux = regla.getProduccion();
 		for (String simbolo : aux)

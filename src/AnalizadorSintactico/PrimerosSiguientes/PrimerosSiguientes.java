@@ -63,7 +63,7 @@ public class PrimerosSiguientes {
 			// Tercera regla primera parte
 			if (indexSimbolo == produccionRegla.size() - 1) {
 				ArrayList<String> simboloB = new ArrayList<String>();
-				simboloB.add(regla.getSimboloGramatical());
+				simboloB.add(regla.getStringSimboloGramatical());
 
 				// comprobar que el simbolo no sea el mismo que el simbolo gramatical
 				if (!simboloB.get(0).equals(simbolo)) {
@@ -86,7 +86,7 @@ public class PrimerosSiguientes {
 				// Agregar los siguientes de B si existe epsilon en Primeros de Beta
 				if (primeroBeta.get(0).getSimbolos().contains("Ɛ")) {
 					ArrayList<String> simboloB = new ArrayList<String>();
-					simboloB.add(regla.getSimboloGramatical());
+					simboloB.add(regla.getStringSimboloGramatical());
 					// comprobar que el simbolo no sea el mismo que el simbolo gramatical
 					if (!simboloB.get(0).equals(simbolo)) {
 						ArrayList<ConjuntoSimbolos> siguienteB = siguientes(simboloB, gramatica);
@@ -158,7 +158,7 @@ public class PrimerosSiguientes {
 
 				// si la regla de produccion tiene simbolo igual que el simbolo que se analiza y
 				// no esta marcada se asigna a elementos derecha
-				if (regla.getSimboloGramatical().equals(simbolo) && regla.getMarcado() == false) {
+				if (regla.getStringSimboloGramatical().equals(simbolo) && regla.getMarcado() == false) {
 					elementosDerecha.add(regla.getProduccion());
 					regla.setMarcado(true);
 				}
