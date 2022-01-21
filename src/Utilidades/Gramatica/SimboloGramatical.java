@@ -22,19 +22,18 @@ public class SimboloGramatical {
         traduccion = "";
         valorLexico="";
         temporal="";
-        temporal="";
     }
 
     //Constructores de copias
     public SimboloGramatical( SimboloGramatical simboloACopiar){
         this.simboloGramatical = simboloACopiar.simboloGramatical;
         this.traduccion = simboloACopiar.traduccion;
-        this.valorLexico="";
-        this.temporal="";
+        this.valorLexico = simboloACopiar.valorLexico;
+        this.temporal = simboloACopiar.temporal;
     }
     public SimboloGramatical( Token tokenACopiar){
         this.valorLexico = tokenACopiar.getValorLexico();
-        this.simboloGramatical = "";
+        this.simboloGramatical = tokenACopiar.getToken();
         this.traduccion = "";
         this.temporal="";
     }
