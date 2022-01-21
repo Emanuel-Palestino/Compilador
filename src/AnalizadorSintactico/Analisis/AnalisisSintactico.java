@@ -12,24 +12,25 @@ public class AnalisisSintactico {
 	public static ResultadoAnalisisSintactico analizar(ArrayList<String> tiraTokens, Gramatica gramatica, TablaLR tablaLR) {
 		//Agregar "$" en tira de tokens
 		tiraTokens.add("$");
+		
+		//declaramos variables locales
 		ArrayList<String> copiaTokens = new ArrayList<String>(tiraTokens);
-		String[] accionResultado = new String[1000000];
+		ArrayList<String> accionResultado = new ArrayList<String>();
 		Stack<String> copiaPila = new Stack<String>();
-		ArrayList<String>[] entradaResultado = (ArrayList<String>[]) new ArrayList[1000000];
-		Stack<String>[] pilaResultado = new Stack[1000000];
+		ArrayList<String> entradaResultado = new ArrayList<String>();
+		Stack<String> pilaResultado = new Stack<String>();
 		Stack<String> pila = new Stack<String>();
 		int elementoTopePila; 
 		int a = 0; //Posicion actual de la tira de tokens
-		int iterador = 0; 
 		int index = 0;
+		String erroresSintacticos = new String();
 		boolean bandera = true;
 		pila.push("0");		//inicializamos la pila en 0
+
+		//Agregamos los tokens como los recibimos en entradaResultado
+		entradaResultado.add(copiaTokens.toString());
+
 		while(bandera){
-			//Agregamos la tira de tokens como la recibimos para mostrar
-			if(iterador == 0){
-				entradaResultado[iterador] = new ArrayList<String>();
-				entradaResultado[iterador].addAll(copiaTokens);
-			}
 			int indiceTemp = Integer.parseInt(pila.peek());
 			String temp = tablaLR.getAcciones().get(indiceTemp).get(tiraTokens.get(a));
 			if(temp == null || temp == ""){
@@ -40,32 +41,26 @@ public class AnalisisSintactico {
 			char operacionSwitch = temp.charAt(0);
 			switch(operacionSwitch){
 				case'd':
-						index = Integer.parseInt(num);
-					accionResultado [iterador] = "d" + index;
+					index = Integer.parseInt(num);
+					accionResultado.add("d" + index);
 					copiaPila = (Stack<String>) pila.clone();//Copia pila
-					pilaResultado[iterador] = new Stack<String>();
-					pilaResultado[iterador].addAll(copiaPila);
+					pilaResultado.add(copiaPila.toString());
 					pila.push(tiraTokens.get(a));
 					pila.push(String.valueOf(index));
 					copiaTokens.set(a, "");
-					entradaResultado[iterador+1] = new ArrayList<String>();
-					entradaResultado[iterador+1].addAll(copiaTokens);
+					entradaResultado.add(copiaTokens.toString());
 					a++;
-					iterador ++;
 					break;
 
 				case 'r':        /* reducir A -> β*/  
 					index = Integer.parseInt(num);      
 					ReglaProduccion rProduccion = new ReglaProduccion();
 					rProduccion = gramatica.getReglasProduccion().get(index-1); // f -> id 
-					accionResultado[iterador] = "r" + index;
-					//colocamos la regla de produccion
-					accionResultado[iterador] += (" " + rProduccion.getStringSimboloGramatical() + "»" + rProduccion.getProduccion());
+					//colocamos la regla de produccion y el r + indice
+					accionResultado.add("r" + index +" " + rProduccion.getStringSimboloGramatical() + "»" + rProduccion.getProduccion());
 					copiaPila = (Stack<String>) pila.clone();
-					pilaResultado[iterador] =  new Stack<String>();
-					pilaResultado[iterador].addAll(copiaPila);
-					entradaResultado[iterador+1] = new ArrayList<String>();
-					entradaResultado[iterador+1].addAll(copiaTokens);
+					pilaResultado.add(copiaPila.toString());
+					entradaResultado.add(copiaTokens.toString());
 					if(rProduccion.getProduccion().get(0).equals("Ɛ")){
 						elementoTopePila = Integer.parseInt(pila.lastElement());
 					}else{
@@ -78,34 +73,28 @@ public class AnalisisSintactico {
 					pila.push(rProduccion.getStringSimboloGramatical());
 					String s = tablaLR.getIrA().get(elementoTopePila).get(rProduccion.getStringSimboloGramatical());
 					pila.push(s);
-					iterador++;
 					break;
 
 				case 'a':
-					accionResultado[iterador] = "Aceptar";
+					accionResultado.add("Aceptar");
 					copiaPila = (Stack<String>) pila.clone();
-					pilaResultado[iterador] = new Stack<String>();
-					pilaResultado[iterador].addAll(copiaPila);
-					entradaResultado[iterador+1] = new ArrayList<String>();
-					entradaResultado[iterador+1].addAll(copiaTokens);
+					pilaResultado.add(copiaPila.toString());
 					bandera = false;
 					break;
 				
 				default:
-					entradaResultado[iterador] = new ArrayList<String>();
-					entradaResultado[iterador].addAll(copiaTokens);
-					pilaResultado[iterador] =  new Stack<String>();
-					pilaResultado[iterador].addAll(copiaPila);
-					accionResultado[iterador] = "Error sintáctico, se esperaba: ";
+					entradaResultado.add(copiaTokens.toString());
+					pilaResultado.add(copiaPila.toString());
 					for(String simboloTerminal : gramatica.getTerminales()){
 						if(!tablaLR.getAcciones().get(index).get(simboloTerminal).equals("$")){
-							accionResultado[iterador] += simboloTerminal + " ó ";
+							erroresSintacticos += simboloTerminal + " ó ";
 						}
 					}
+					accionResultado.add("Error sintáctico, se esperaba: " + erroresSintacticos);
 					bandera = false;
 					break;
 			}
-		} 	
+		}	
 		return new ResultadoAnalisisSintactico(pilaResultado, entradaResultado, accionResultado);	
 	}
 }

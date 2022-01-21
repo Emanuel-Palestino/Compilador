@@ -34,22 +34,28 @@ public class ServicioAnalisisSintactico {
 
 		// nuevoResultado
 		int tam = 0;
-		for (int i = 0; i < resultadoSintactico.getEntrada().length; i++) {
-			if (resultadoSintactico.getEntrada()[i] == null) {
+		for (int i = 0; i < resultadoSintactico.getEntrada().size(); i++) {
+			if (resultadoSintactico.getEntrada() == null) {
 				tam = i;
 				break;
 			}
 		}
 
+		Stack<String> pila = new Stack<String>();
+		ArrayList<String> entrada = new ArrayList<String>();
+		ArrayList<String> accion = new ArrayList<String>();
 
-		Stack<String>[] pila = new Stack[tam];
-		ArrayList<String>[] entrada = new ArrayList[tam];
-		String[] accion = new String[tam];
-
-		for (int i = 0; i < tam; i++) {
-			pila[i] = resultadoSintactico.getPila()[i];
-			entrada[i] = resultadoSintactico.getEntrada()[i];
-			accion[i] = resultadoSintactico.getAccion()[i];
+		for (String recorrePila : resultadoSintactico.getPila()) {
+			pila.add(recorrePila);
+		}
+		for (String recorreEntradas : resultadoSintactico.getEntrada()) {
+			if(recorreEntradas.contains("")){
+				recorreEntradas.replaceAll("\\s+","");
+			}
+			entrada.add(recorreEntradas);
+		}
+		for (String recorreAcciones : resultadoSintactico.getAccion()) {
+			accion.add(recorreAcciones);
 		}
 
 		ResultadoAnalisisSintactico resultado = new ResultadoAnalisisSintactico(pila, entrada, accion);
