@@ -29,9 +29,14 @@ public class SimboloGramatical {
     public SimboloGramatical( SimboloGramatical simboloACopiar){
         this.simboloGramatical = simboloACopiar.simboloGramatical;
         this.traduccion = simboloACopiar.traduccion;
+        this.valorLexico="";
+        this.temporal="";
     }
     public SimboloGramatical( Token tokenACopiar){
         this.valorLexico = tokenACopiar.getValorLexico();
+        this.simboloGramatical = "";
+        this.traduccion = "";
+        this.temporal="";
     }
 
     //setters
