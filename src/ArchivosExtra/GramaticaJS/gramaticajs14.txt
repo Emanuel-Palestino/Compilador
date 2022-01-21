@@ -1,7 +1,7 @@
-AS X Y DV M
-= += -= *= /= %= **= string id num boolean
+AS X Y M EA E F G 
+= += -= *= /= %= **= <<= >>= >>>= &= ^= |= &&= ||= ??= + - * / % ( ) id num string boolean
 AS
-AS » X Y
+AS » X Y 
 Y » = X  
 Y » += X  
 Y » -= X   
@@ -9,8 +9,28 @@ Y » *= X
 Y » /= X 
 Y » %= X   
 Y » **= X  
-X » DV
+Y » <<= X 
+Y » >>= X 
+Y » >>>= X  
+Y » &= X 
+Y » ^= X  
+Y » |= X  
+Y » &&= X 
+Y » ||= X  
+Y » ??= X  
 X » M 
+X » EA
+EA » E 
+E » E + F 
+E » E - F    
+E » F
+F » F * G 
+F » F / G
+F » F % G
+F » G
+G » ( E )
+G » id 
+G » num 
 M » string 
 M » id 
 M » num 
