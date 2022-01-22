@@ -21,7 +21,7 @@ public class pruebaAnalisisSintactico {
         try {
             coleccionPrueba = ColeccionCanonica.hacer(gramatica);
             tablaPrueba = TablaLR.construir(coleccionPrueba, gramatica);
-            resultadoAnalisisL = EvaluarCodigo.evaluar("src/ArchivosExtra/programaGramaticaFinal.js");
+            resultadoAnalisisL = EvaluarCodigo.evaluar("src/ArchivosExtra/programaPruebaTokens.js");
             resultadoAnalisisSin = AnalisisSintactico.analizar(resultadoAnalisisL.getTiraTokens(), gramatica,tablaPrueba);
             // imprimimos la pila
             System.out.println("Imprimimos Pila");

@@ -3,7 +3,7 @@ package Utilidades.Gramatica;
 import java.util.ArrayList;
 
 public class ReglaProduccion{
-    private  SimboloGramatical simboloGramatical;
+    private SimboloGramatical simboloGramatical;
     private ArrayList<String> produccion;
     private boolean marcado;
     private boolean marcadoSiguiente;

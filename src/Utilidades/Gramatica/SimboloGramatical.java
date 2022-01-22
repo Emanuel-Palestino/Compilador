@@ -14,7 +14,6 @@ public class SimboloGramatical {
         traduccion = "";
         valorLexico="";
         temporal="";
-        temporal="";
     }
 
     public SimboloGramatical(String simbolo){
