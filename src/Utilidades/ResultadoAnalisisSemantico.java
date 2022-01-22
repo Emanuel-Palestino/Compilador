@@ -14,7 +14,7 @@ public class ResultadoAnalisisSemantico {
     private ArrayList<String> entradaString;
     private ArrayList<String> accion;
 
-    //Constructor
+    //Constructores
     public ResultadoAnalisisSemantico(Stack<Stack<SimboloGramatical>> pila, ArrayList<ArrayList<Token>> entrada, ArrayList<String> accion, Stack<String> pilaString, ArrayList<String> entradaString){
         this.pila = pila;
         this.entrada = entrada;
@@ -22,6 +22,7 @@ public class ResultadoAnalisisSemantico {
         this.pilaString = pilaString;
         this.entradaString = entradaString;
     }
+
 
     //Getters 
     public Stack<Stack<SimboloGramatical>> getPila(){

@@ -39,19 +39,19 @@ public class AnalisisSemantico {
 		int index = 0;
 		String erroresSintacticos = new String();
         String auxiliarCopia = new String();
-        Token tokenAuxiliar = new Token();
 		boolean bandera = true;
         boolean banderaAccion = false;
+		ArrayList<Token> temporalTira = new ArrayList<Token>();
 
 		//inicializamos las pilas en 0
         temporalAñadiduras.setSimboloGramatical("0");
         pila.add(temporalAñadiduras);
         pilaString.add("0");
-
+        
 
 		//Agregamos los tokens como los recibimos en las entradasResultados
 		entradaResultadoString.add(copiaTokensString.toString());
-        entradaResultado.add(copiaTokens);
+        entradaResultado.add(tiraTokens);
 
 		while(bandera){
 			int indiceTemp = Integer.parseInt(pilaString.peek());
@@ -71,7 +71,7 @@ public class AnalisisSemantico {
 					pilaResultadoString.add(copiaPilaString.toString());
                     if(!tiraTokens.get(a).getValorLexico().isBlank()){
                         //Si no esta vacio el valor lexico le copiamos con punto y su valor lexico a la pila
-                        auxiliarCopia = "." + tiraTokens.get(a).getValorLexico();
+                        auxiliarCopia = tiraTokensString.get(a) + ".'" + tiraTokens.get(a).getValorLexico() + "'";
                         pilaString.add(auxiliarCopia);
                     }else{
                         //Si esta vacio solo le copiamos lo que este en la pilaString
@@ -88,9 +88,11 @@ public class AnalisisSemantico {
                     pila.push(temporalAñadiduras);
                     auxiliarIndex = new SimboloGramatical(String.valueOf(index));
                     pila.push(auxiliarIndex);
-                    copiaTokens.get(a).setToken("");
+					if(!copiaTokens.get(0).getToken().equals("$")){
+						//Si el ultimo elemento de copiaTokens no es $ elimina el primer elemento
+						copiaTokens.remove(0);
+					}  	
                     entradaResultado.add(copiaTokens);
-
 					a++;
 					break;
 
@@ -122,7 +124,8 @@ public class AnalisisSemantico {
                     //parte Objeto
                     copiaPila = (Stack<SimboloGramatical>)pila.clone();
                     pilaResultado.add(copiaPila);
-                    entradaResultado.add(copiaTokens);
+					temporalTira = (ArrayList<Token>)copiaTokens.clone();
+                    entradaResultado.add(temporalTira);
                     if(banderaAccion == false){     //Si la condición del if de arriba no se cumple
                         int tamañoPop = rProduccion.getProduccion().size()*2;
                         for(int i = 0; i < tamañoPop ; i++){
@@ -179,4 +182,6 @@ public class AnalisisSemantico {
         + reglaProduccionImprimir.getStringSimboloGramatical() + ".trad := " + reglaProduccionImprimir.getObjetoSimboloGramatical().getTraduccion() + "}";
         return temp;
     }
+
+    
 }

@@ -58,7 +58,7 @@ public class pruebaAnalisisSemantico {
             System.out.println("Imprimimos entrada con objeto");
             for(ArrayList<Token> recorreArrayListInterno : resultadoSemantico.getEntrada()){
                 for(Token recorrerTokens : recorreArrayListInterno){
-                    System.out.print(recorrerTokens.getToken());
+                    System.out.print(recorrerTokens.getToken() + " ");
                 }
                 System.out.println();
             }
