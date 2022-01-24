@@ -40,6 +40,21 @@ public class ResultadoAnalisisLexico {
 		return resultado;
 	}
 
+	public ArrayList<String> getTiraTokensSemantico(){
+		ArrayList<String> resultado = new ArrayList<String>();
+		for (Token token : tokens){
+			if(token.esPalabraReservada()){
+				//si es una palabra reservada lo agrega tal y como esta
+				resultado.add(token.getToken());
+			}else{
+				//si no agregamos un punto y su traduccion
+				resultado.add(token.getToken() + "." + token.getValorLexico());
+			}
+			
+		}
+		return resultado;
+	}
+
 	// Metodos
 	public String[][] getTokensTabla() {
 		String[][] res = new String[tokens.size()][3];

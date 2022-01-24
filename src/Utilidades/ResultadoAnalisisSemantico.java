@@ -8,30 +8,20 @@ import Utilidades.Gramatica.SimboloGramatical;
 
 
 public class ResultadoAnalisisSemantico {
-    private Stack<Stack<SimboloGramatical>> pila;
     private Stack<String> pilaString;
-    private ArrayList<ArrayList<Token>> entrada;
     private ArrayList<String> entradaString;
     private ArrayList<String> accion;
+    private String traduccionFinal;
 
     //Constructores
-    public ResultadoAnalisisSemantico(Stack<Stack<SimboloGramatical>> pila, ArrayList<ArrayList<Token>> entrada, ArrayList<String> accion, Stack<String> pilaString, ArrayList<String> entradaString){
-        this.pila = pila;
-        this.entrada = entrada;
+    public ResultadoAnalisisSemantico(Stack<String> pila, ArrayList<String> entrada, ArrayList<String> accion){
+        pilaString = pila;
+        entradaString = entrada;
         this.accion = accion;
-        this.pilaString = pilaString;
-        this.entradaString = entradaString;
     }
 
 
     //Getters 
-    public Stack<Stack<SimboloGramatical>> getPila(){
-        return pila;
-    }
-
-    public ArrayList<ArrayList<Token>> getEntrada(){
-        return entrada;
-    }
 
     public ArrayList<String> getAccion() {
         return accion;
@@ -45,15 +35,12 @@ public class ResultadoAnalisisSemantico {
         return entradaString;
     }
 
+    public String getTraduccionFinal(){
+        return traduccionFinal;
+    }
+
 
     //Setters
-    public void setPila(Stack<Stack<SimboloGramatical>> pila){
-        this.pila = pila;
-    }
-
-    public void setEntrada(ArrayList<ArrayList<Token>> entrada){
-        this.entrada = entrada;
-    }
 
     public void setAccion(ArrayList<String> accion){
         this.accion = accion;
@@ -67,6 +54,9 @@ public class ResultadoAnalisisSemantico {
         this.entradaString = entradaString;
     }
     
+    public void setTraduccionFinal(String traduccionFinal){
+        this.traduccionFinal = traduccionFinal;
+    }
     //Metodos
     
 }
