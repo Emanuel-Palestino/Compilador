@@ -1,19 +1,13 @@
 package AnalizadorSemantico;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Stack;
 
 import AnalizadorSintactico.ConstruccionTablaLR.TablaLR;
-import Utilidades.Archivo;
 import Utilidades.ResultadoAnalisisSemantico;
 import Utilidades.AnalizadorLexico.Token;
 import Utilidades.Gramatica.Gramatica;
 import Utilidades.Gramatica.ReglaProduccion;
-import Utilidades.Gramatica.SimboloGramatical;
 
 public class AnalisisSemantico {
     public static ResultadoAnalisisSemantico analizar(ArrayList<Token> tiraTokens, ArrayList<String>tiraTokensString, ArrayList<String> tiraTokensSemantico, Gramatica gramatica, TablaLR tablaLR) {

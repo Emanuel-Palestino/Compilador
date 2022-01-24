@@ -48,7 +48,7 @@ public class ResultadoAnalisisLexico {
 				resultado.add(token.getToken());
 			}else{
 				//si no agregamos un punto y su traduccion
-				resultado.add(token.getToken() + "." + token.getValorLexico());
+				resultado.add(token.getToken() + ".'" + token.getValorLexico() + "'");
 			}
 			
 		}

@@ -57,7 +57,7 @@ public class Token {
 	
 	//Metodos
 	public boolean esPalabraReservada(){
-		if(lexema.isBlank() && valorLexico.isBlank()){
+		if(valorLexico.isBlank()){
 			return true;
 		}
 		return false;
