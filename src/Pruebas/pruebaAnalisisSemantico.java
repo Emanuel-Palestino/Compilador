@@ -13,7 +13,7 @@ import Utilidades.Gramatica.Gramatica;
 
 public class pruebaAnalisisSemantico {
     public static void main(String[] args) {
-        Gramatica gramatica = new Gramatica("src/ArchivosExtra/GramaticaJS/gramaticajsFinal.txt");
+        Gramatica gramatica = new Gramatica("src/ArchivosExtra/gramatica.txt", "src/ArchivosExtra/accionSemantica1.txt");
         TablaLR tablaPrueba = new TablaLR();
         ResultadoAnalisisLexico resultadoLexico = new ResultadoAnalisisLexico();
         ColeccionCanonica coleccionPrueba = new ColeccionCanonica();
@@ -21,8 +21,11 @@ public class pruebaAnalisisSemantico {
         try {
             coleccionPrueba = ColeccionCanonica.hacer(gramatica);
             tablaPrueba = TablaLR.construir(coleccionPrueba, gramatica);
-            resultadoLexico = EvaluarCodigo.evaluar("src/ArchivosExtra/programaPruebaTokens.js");
+            resultadoLexico = EvaluarCodigo.evaluar("src/ArchivosExtra/programaC1.txt");
+
+            // Resultado
             resultadoSemantico = AnalisisSemantico.analizar(resultadoLexico.getTokens(),resultadoLexico.getTiraTokens(),resultadoLexico.getTiraTokensSemantico(),gramatica,tablaPrueba);
+
             // imprimimos la pilaString
             System.out.println("Imprimimos Pila");
             for(String recorrePila : resultadoSemantico.getPilaString()){

@@ -2,11 +2,14 @@ package Utilidades.Gramatica;
 
 import java.util.ArrayList;
 
+import Utilidades.AccionSemantica;
+
 public class ReglaProduccion{
     private SimboloGramatical simboloGramatical;
     private ArrayList<String> produccion;
     private boolean marcado;
     private boolean marcadoSiguiente;
+    private AccionSemantica accion;
 
     //constructor
     public ReglaProduccion(){
@@ -14,6 +17,7 @@ public class ReglaProduccion{
         produccion = new ArrayList<String>();
         marcado = false;
         marcadoSiguiente = false;
+        accion = new AccionSemantica();
     }
     public ReglaProduccion(String gramatical, ArrayList<String> produccionTemp,boolean marcadoTemp){
         simboloGramatical.setSimboloGramatical(gramatical);
@@ -29,6 +33,15 @@ public class ReglaProduccion{
         marcado = false;
         marcadoSiguiente = false;
     } 
+
+    public ReglaProduccion(String simboloGramatical, ArrayList<String> reglaProduccion, String accionSemantica) {
+        this.simboloGramatical = new SimboloGramatical(simboloGramatical);
+        produccion = reglaProduccion;
+        marcado = false;
+        marcadoSiguiente = false;
+        accion = new AccionSemantica(accionSemantica);
+    }
+
     //getters
 
     public SimboloGramatical getObjetoSimboloGramatical(){
@@ -49,6 +62,10 @@ public class ReglaProduccion{
 
     public boolean getMarcadoSiguiente(){
         return marcadoSiguiente;
+    }
+
+    public AccionSemantica getAccionSemantica() {
+        return accion;
     }
 
     //setters

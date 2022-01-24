@@ -5,9 +5,11 @@ import java.util.Stack;
 
 import AnalizadorSintactico.ConstruccionTablaLR.TablaLR;
 import Utilidades.ResultadoAnalisisSemantico;
+import Utilidades.AnalizadorLexico.Simbolo;
 import Utilidades.AnalizadorLexico.Token;
 import Utilidades.Gramatica.Gramatica;
 import Utilidades.Gramatica.ReglaProduccion;
+import Utilidades.Gramatica.SimboloGramatical;
 
 public class AnalisisSemantico {
     public static ResultadoAnalisisSemantico analizar(ArrayList<Token> tiraTokens, ArrayList<String>tiraTokensString, ArrayList<String> tiraTokensSemantico, Gramatica gramatica, TablaLR tablaLR) {
@@ -16,6 +18,7 @@ public class AnalisisSemantico {
         Stack<String> pilaResultadoString = new Stack<String>();
         ArrayList<String> entradaResultadoString = new ArrayList<String>();
 		ArrayList<String> entradaResultadoSemantico = new ArrayList<String>();
+		ArrayList<SimboloGramatical> pila = new ArrayList<SimboloGramatical>();
 
         //Agregar "$" en tira de token
         tiraTokensString.add("$");
@@ -34,6 +37,9 @@ public class AnalisisSemantico {
 
 		//inicializamos la pila en 0
         pilaString.add("0");
+
+		// Simbolo gramaticl
+		pila.add(new SimboloGramatical("0"));
         
 
 		//Agregamos los tokens como los recibimos en las entradasResultados

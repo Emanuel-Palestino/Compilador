@@ -88,6 +88,60 @@ public class Gramatica {
         }
     }
 
+    // Cargar gramatica desde archivo y acciones semanticas
+    public Gramatica(String rutaGramatica, String rutaAcciones) {
+        noTerminales = new ArrayList<String>();
+        terminales = new ArrayList<String>();
+        reglasProduccion = new ArrayList<ReglaProduccion>();
+        try {
+            // Obtener las lineas del archivo
+            ArrayList<String> lineasArchivo = Archivo.capturaDatosArchivo(rutaGramatica);
+            ArrayList<String> lineaAccionesSemanticas = Archivo.capturaDatosArchivo(rutaAcciones);
+
+            String[] aux;
+
+            // Obtener los símbolos no terminales
+            aux = lineasArchivo.get(0).split(" ");
+            for (String simbolo : aux)
+                noTerminales.add(simbolo);
+
+            // Obtener los símbolos terminales
+            aux = lineasArchivo.get(1).split(" ");
+            for (String simbolo : aux)
+                terminales.add(simbolo);
+
+            // Obtener el símbolo inicial
+            simboloInicial = lineasArchivo.get(2).trim(); // trim es para quitar espacios
+
+            // obtener solo las relgas de producción
+            List<String> reglasProd = lineasArchivo.subList(3, lineasArchivo.size());
+
+            int j = 0;
+            for (String regla : reglasProd) {
+                // dividir la regla
+                String[] partesRegla = regla.split("»");
+                String simbolo = partesRegla[0].trim();
+                String produccion = partesRegla[1].trim();
+
+                // Se crea una nueva Regla de Produccion pasandole el simbolo y el List de simbolos producidos
+                String[] aux2 = produccion.split(" ");
+                ArrayList<String> simbolosProduccion = new ArrayList<String>();
+                for (String simbol : aux2)
+                    simbolosProduccion.add(simbol);
+
+                // Crear regla con produccion y accion semántica
+                ReglaProduccion nuevaRegla = new ReglaProduccion(simbolo, simbolosProduccion, lineaAccionesSemanticas.get(j));
+                j++;
+
+                // Se agrega la nueva regla
+                reglasProduccion.add(nuevaRegla);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Gramatica.java - Error al cargar el archivo!!!");
+        }
+    }
+
     public int indiceEpsilon(String Simbolo){
         int indice = -33, i = 1;
         for(ReglaProduccion recorreProduccion : this.reglasProduccion){

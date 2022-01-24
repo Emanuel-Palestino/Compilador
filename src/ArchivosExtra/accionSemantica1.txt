@@ -1,0 +1,5 @@
+D.traduccion := 'var' || id.valorLexico || L.traduccion || ':' || T.traduccion || ';'
+L.traduccion := ',' || id.valorLexico || L.traduccion
+L.traduccion := ''
+T.traduccion := 'real'
+T.traduccion := 'integer'
