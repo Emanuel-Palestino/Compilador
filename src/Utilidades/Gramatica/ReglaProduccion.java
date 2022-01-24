@@ -2,10 +2,8 @@ package Utilidades.Gramatica;
 
 import java.util.ArrayList;
 
-import Utilidades.AnalizadorLexico.Simbolo;
-
 public class ReglaProduccion{
-    private  SimboloGramatical simboloGramatical;
+    private SimboloGramatical simboloGramatical;
     private ArrayList<String> produccion;
     private boolean marcado;
     private boolean marcadoSiguiente;

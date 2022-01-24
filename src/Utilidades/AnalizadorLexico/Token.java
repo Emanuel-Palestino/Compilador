@@ -55,4 +55,11 @@ public class Token {
 		this.valorLexico = valorLexico;
 	}
 	
+	//Metodos
+	public boolean esPalabraReservada(){
+		if(valorLexico.isBlank()){
+			return true;
+		}
+		return false;
+	}
 }
