@@ -87,8 +87,8 @@ public class AnalisisSemantico {
 					ReglaProduccion rProduccion = new ReglaProduccion();
 					rProduccion = gramatica.getReglasProduccion().get(index-1); // f -> id 
 					//colocamos la regla de produccion y el r + indice
-					accionResultado.add(imprimirAccion(rProduccion, index));    //añadimos la accion a accionResultado
-					
+					accionResultado.add(imprimirAccion(rProduccion, index));    //Aqui llamamos al metodo donde concatenara la acción y la regla de produccion
+																				//La parte comentada del metodo es donde esta la accion Semantica
                     //parte String
                     copiaPilaString = (Stack<String>) pilaString.clone();
 					pilaResultadoString.add(copiaPilaString.toString());
@@ -148,8 +148,8 @@ public class AnalisisSemantico {
 
     static private String imprimirAccion(ReglaProduccion reglaProduccionImprimir, int index){
         String temp = new String();
-        temp = "r" + index + " " + reglaProduccionImprimir.getStringSimboloGramatical() + "»" + reglaProduccionImprimir.getProduccion() + " " 
-        + reglaProduccionImprimir.getStringSimboloGramatical() + ".trad := " + reglaProduccionImprimir.getObjetoSimboloGramatical().getTraduccion();
+        temp = "r" + index + " " + reglaProduccionImprimir.getStringSimboloGramatical() + "»" + reglaProduccionImprimir.getProduccion() /*+ " " 
+        + reglaProduccionImprimir.getStringSimboloGramatical() + ".trad := " + reglaProduccionImprimir.getObjetoSimboloGramatical().getTraduccion()*/;
         return temp;
     }
 	
