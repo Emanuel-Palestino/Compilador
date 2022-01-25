@@ -12,7 +12,7 @@ public class Gramatica {
     private ArrayList<ReglaProduccion> reglasProduccion;
     private String simboloInicial;
     private boolean banderaEpsilon;
-    
+
     // Constructores
     public Gramatica() {
         noTerminales = new ArrayList<String>();
@@ -72,7 +72,8 @@ public class Gramatica {
                 String simbolo = partesRegla[0].trim();
                 String produccion = partesRegla[1].trim();
 
-                // Se crea una nueva Regla de Produccion pasandole el simbolo y el List de simbolos producidos
+                // Se crea una nueva Regla de Produccion pasandole el simbolo y el List de
+                // simbolos producidos
                 String[] aux2 = produccion.split(" ");
                 ArrayList<String> simbolosProduccion = new ArrayList<String>();
                 for (String simbol : aux2)
@@ -123,14 +124,16 @@ public class Gramatica {
                 String simbolo = partesRegla[0].trim();
                 String produccion = partesRegla[1].trim();
 
-                // Se crea una nueva Regla de Produccion pasandole el simbolo y el List de simbolos producidos
+                // Se crea una nueva Regla de Produccion pasandole el simbolo y el List de
+                // simbolos producidos
                 String[] aux2 = produccion.split(" ");
                 ArrayList<String> simbolosProduccion = new ArrayList<String>();
                 for (String simbol : aux2)
                     simbolosProduccion.add(simbol);
 
                 // Crear regla con produccion y accion semántica
-                ReglaProduccion nuevaRegla = new ReglaProduccion(simbolo, simbolosProduccion, lineaAccionesSemanticas.get(j));
+                ReglaProduccion nuevaRegla = new ReglaProduccion(simbolo, simbolosProduccion,
+                        lineaAccionesSemanticas.get(j));
                 j++;
 
                 // Se agrega la nueva regla
@@ -142,12 +145,12 @@ public class Gramatica {
         }
     }
 
-    public int indiceEpsilon(String Simbolo){
+    public int indiceEpsilon(String Simbolo) {
         int indice = -33, i = 1;
-        for(ReglaProduccion recorreProduccion : this.reglasProduccion){
-            if(recorreProduccion.getProduccion().size() == 1){
+        for (ReglaProduccion recorreProduccion : this.reglasProduccion) {
+            if (recorreProduccion.getProduccion().size() == 1) {
                 String string = recorreProduccion.getProduccion().get(0);
-                if(string.equals("Ɛ") && recorreProduccion.getStringSimboloGramatical().contentEquals(Simbolo)){
+                if (string.equals("Ɛ") && recorreProduccion.getStringSimboloGramatical().contentEquals(Simbolo)) {
                     indice = i;
                 }
             }
@@ -173,7 +176,7 @@ public class Gramatica {
         return simboloInicial;
     }
 
-    public boolean getBanderaEpsilon(){
+    public boolean getBanderaEpsilon() {
         return banderaEpsilon;
     }
 
@@ -193,7 +196,7 @@ public class Gramatica {
         this.simboloInicial = simboloInicial;
     }
 
-    public void setBanderaEpsilon(boolean nuevoValor){
+    public void setBanderaEpsilon(boolean nuevoValor) {
         this.banderaEpsilon = nuevoValor;
     }
 
@@ -217,63 +220,70 @@ public class Gramatica {
         String res = "";
 
         for (String simbolo : noTerminales) {
-			res += simbolo + " ";
-		}
+            res += simbolo + " ";
+        }
 
         return res;
     }
 
     public String stringSimbolosTerminales() {
-         String res = "";
+        String res = "";
 
         for (String simbolo : terminales) {
-			res += simbolo + " ";
-		}
+            res += simbolo + " ";
+        }
 
-        return res;       
+        return res;
     }
 
     public String stringGramatica() {
         String res = "";
-		ArrayList<String> aux = new ArrayList<String>();
+        ArrayList<String> aux = new ArrayList<String>();
         for (ReglaProduccion regla : reglasProduccion) {
-			res += regla.getStringSimboloGramatical() + " -> ";
-			aux = regla.getProduccion();
-			for (String simbolo : aux)
-				res += simbolo + " ";
-			res += "\n";
-		}
+            res += regla.getStringSimboloGramatical() + " -> ";
+            aux = regla.getProduccion();
+            for (String simbolo : aux)
+                res += simbolo + " ";
+            res += "\n";
+        }
 
         return res;
     }
-    
+
     public int indiceReglaProduccion(ReglaProduccion temporalRP) {
-      
+
         for (int j = 0; j < reglasProduccion.size(); j++) {
-          ReglaProduccion conjuntoReglaProduccion=reglasProduccion.get(j);
-          
-          String simboloActual = conjuntoReglaProduccion.getStringSimboloGramatical();
-          String simboloNuevo = temporalRP.getStringSimboloGramatical();
-          ArrayList<String> produccionActual = conjuntoReglaProduccion.getProduccion();
-          ArrayList<String> produccionNuevo = temporalRP.getProduccion();
-          Boolean bandera2 = true;
-    
-          // Comparar si tienen el mismo largo
-          if (produccionActual.size() == produccionNuevo.size()) {
-            for (int i = 0; i < produccionActual.size(); i++) {
-              // Comprobar elemento a elemento
-              if (!(produccionActual.get(i).equals(produccionNuevo.get(i)) && simboloActual.equals(simboloNuevo))) {
-                bandera2 = false;
-                break;
-              }
-            }
-            if (bandera2) { // El I actual es el mismo que el parametro y se termina el ciclo
+            ReglaProduccion conjuntoReglaProduccion = reglasProduccion.get(j);
+
+            String simboloActual = conjuntoReglaProduccion.getStringSimboloGramatical();
+            String simboloNuevo = temporalRP.getStringSimboloGramatical();
+            ArrayList<String> produccionActual = conjuntoReglaProduccion.getProduccion();
+            ArrayList<String> produccionNuevo = temporalRP.getProduccion();
+            Boolean bandera2 = true;
+
+            // Comparar si tienen el mismo largo
+            if (produccionActual.size() == produccionNuevo.size()) {
+                for (int i = 0; i < produccionActual.size(); i++) {
+                    // Comprobar elemento a elemento
+                    if (!(produccionActual.get(i).equals(produccionNuevo.get(i))
+                            && simboloActual.equals(simboloNuevo))) {
+                        bandera2 = false;
+                        break;
+                    }
+                }
+                if (bandera2) { // El I actual es el mismo que el parametro y se termina el ciclo
                     // principal
-              return j+1;
+                    return j + 1;
+                }
             }
-          }
         }
-        return -1; 
-      }
-    
+        return -1;
+    }
+
+    public void reiniciarTraduccionReglas() {
+        for (ReglaProduccion regla : reglasProduccion) {
+            regla.getObjetoSimboloGramatical().setTraduccion("");
+        }
+    }
+
 }

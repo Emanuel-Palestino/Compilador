@@ -1,0 +1,6 @@
+E0.traduccion := E1.traduccion || '+' || T.traduccion
+E.traduccion := T.traduccion
+T0.traduccion := T1.traduccion || '*' || F.traduccion
+T.traduccion := F.traduccion
+F.traduccion := '(' || E.traduccion || ')'
+F.traduccion := num.valorLexico

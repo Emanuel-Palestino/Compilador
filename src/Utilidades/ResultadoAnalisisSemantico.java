@@ -10,11 +10,11 @@ public class ResultadoAnalisisSemantico {
     private String traduccionFinal;
 
     //Constructores
-    public ResultadoAnalisisSemantico(Stack<String> pila, ArrayList<String> entrada, ArrayList<String> accion, String traduccion){
+    public ResultadoAnalisisSemantico(Stack<String> pila, ArrayList<String> entrada, ArrayList<String> accion){
         pilaString = pila;
         entradaString = entrada;
         this.accion = accion;
-        traduccionFinal = traduccion;
+        traduccionFinal = "";
     }
 
 

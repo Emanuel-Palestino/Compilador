@@ -33,7 +33,7 @@ public class VentanaPrincipal extends JFrame {
         super("Compilador");
         ImagenFondo ejemplo = new ImagenFondo();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(new Dimension(1200, 850));
+        this.setSize(new Dimension(1200, 800));
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setContentPane(ejemplo);

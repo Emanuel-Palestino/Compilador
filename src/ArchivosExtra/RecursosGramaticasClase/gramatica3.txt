@@ -1,8 +1,8 @@
-E E' T T' F
-+ | ( ) * id 
-E
-E » T E'
-E' » + T E' | Ɛ
-T » F T'
-T' » * F T' | Ɛ
-F » ( E ) | id
+S V T VP
+id num int ; [ ] 
+S
+S » T V ;
+V » id VP
+VP » [ num ] VP
+VP » Ɛ
+T » int

@@ -1,0 +1,5 @@
+S.traduccion := 'var ' || V.traduccion || T.traduccion || ';'
+{ if VP.traduccion != '' V.temporal := 'array[' || VP.traduccion else V.temporal := VP.traduccion } V.traduccion := id.valorLexico || ':' || V.temporal
+{ if VP1.traduccion == '' VP0.traduccion := '0..' || nint.valorLexico-1 || ']of ' else VP0.traduccion := '0..' || nint.valorLexico-1 || ',' || VP1.traduccion }
+VP.traduccion := ''
+T.traduccion := 'integer'

@@ -40,7 +40,7 @@ public class VentanaAnalisisSemantico extends JDialog {
 		// Iniciar componentes
 		servicioAnalisis = new ServicioAnalisisSemantico();
 		try {
-			servicioAnalisis.ejecutar("src/ArchivosExtra/RecursosGramaticasClase/programa1G1.txt");
+			servicioAnalisis.ejecutar("src/ArchivosExtra/RecursosGramaticasClase/programa1G3.txt");
 		} catch (IOException | ExcepcionER e) {
 			e.printStackTrace();
 		}

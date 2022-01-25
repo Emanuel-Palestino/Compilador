@@ -74,7 +74,7 @@ public class AccionSemantica {
 			}
 		}
 
-		return simbolos[0];
+		return new SimboloGramatical(simbolos[0]);
 	}
 
 	private String[] obtenerAsignacion(String cadena) {
@@ -102,7 +102,7 @@ public class AccionSemantica {
 			int numeroSimboloGramatical = Character.getNumericValue(simbolo.charAt(simbolo.length() - 1));
 			// Quitar el digito del id
 			// simbolo = simbolo.substring(0, simbolo.length() - 1);
-			simbolo.replaceAll("\\d", "");
+			simbolo = simbolo.replaceAll("\\d", "");
 
 			// Buscar el simbolo que corresponda
 			int indexSimboloGramatical = 0;
@@ -168,7 +168,7 @@ public class AccionSemantica {
 		}
 
 		// Obtener el valor del segundo operando
-		String valorOperando2 = operando2.trim().split("'")[1];
+		String valorOperando2 = operando2.trim().split("'").length == 0 ? "" : operando2.trim().split("'")[1];
 
 		// Realizar la comparacion
 		switch (operador) {
@@ -224,8 +224,9 @@ public class AccionSemantica {
 							break;
 						case VALORLEXICO:
 							valorAsignar += simboloAtributo.getValorLexico();
+							break;
 						case DESCONOCIDO:
-							System.out.println("Error: AccionSemantica:228");
+							System.out.println("Error: AccionSemantica:229");
 							break;
 					}
 
@@ -254,26 +255,6 @@ public class AccionSemantica {
 				break;
 		}
 
-	}
-
-	public static void main(String[] args) {
-		// Variables auxiliares
-
-		SimboloGramatical simboloS = new SimboloGramatical("S");
-		SimboloGramatical simboloV = new SimboloGramatical("V");
-		simboloV.setTraduccion("traduccionV");
-
-		SimboloGramatical[] simbolos = new SimboloGramatical[2];
-		simbolos[0] = simboloS;
-		simbolos[1] = simboloV;
-
-		AccionSemantica accion = new AccionSemantica(
-				"{ if V.traduccion != 'x' S.traduccion := V.traduccion || 'iDfentro' else S.traduccion := V.traduccion || 'elsDentro' } S.traduccion := S.traduccion || 'var ' || V.traduccion");
-		accion.evaluar(simbolos);
-
-		// Pruebas individuales
-		String algo = " V'.traduccion ";
-		System.out.println(accion.obtenerAtributo(algo));
 	}
 
 }

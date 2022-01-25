@@ -20,7 +20,7 @@ public class ServicioAnalisisSemantico {
 	private String rutaPrograma;
 
 	public ServicioAnalisisSemantico() {
-		gramatica = new Gramatica("src/ArchivosExtra/RecursosGramaticasClase/gramatica1.txt", "src/ArchivosExtra/RecursosGramaticasClase/accionSemantica1.txt");
+		gramatica = new Gramatica("src/ArchivosExtra/RecursosGramaticasClase/gramatica3.txt", "src/ArchivosExtra/RecursosGramaticasClase/accionSemantica3.txt");
 		coleccionCanonica = ColeccionCanonica.hacer(gramatica);
 		tablaAnalisis = TablaLR.construir(coleccionCanonica, gramatica);
 		resultadoLexico = new ResultadoAnalisisLexico();
@@ -33,12 +33,19 @@ public class ServicioAnalisisSemantico {
 		resultadoSemantico = AnalisisSemantico.analizar(resultadoLexico.getTokens(), resultadoLexico.getTiraTokens(),
 				resultadoLexico.getTiraTokensSemantico(), gramatica, tablaAnalisis);
 		this.rutaPrograma = rutaPrograma;
+		gramatica.reiniciarTraduccionReglas();
 	}
 
 	public void actualizarGramatica(String rutaGramatica) throws IOException, ExcepcionER {
 		String numGramatica = rutaGramatica.charAt(rutaGramatica.length() - 5) + "";
 		gramatica = new Gramatica(rutaGramatica, "src/ArchivosExtra/RecursosGramaticasClase/accionSemantica" + numGramatica + ".txt");
-		this.ejecutar(rutaPrograma);
+
+		coleccionCanonica = ColeccionCanonica.hacer(gramatica);
+		tablaAnalisis = TablaLR.construir(coleccionCanonica, gramatica);
+
+		ejecutar(rutaPrograma);
+
+		gramatica.reiniciarTraduccionReglas();
 	}
 
 	// Getters
