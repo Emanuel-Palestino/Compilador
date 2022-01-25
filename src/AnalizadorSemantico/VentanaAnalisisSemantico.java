@@ -23,9 +23,9 @@ public class VentanaAnalisisSemantico extends JDialog {
 
 	private FlowLayout diseñoPanel;
 	private JPanel panelArchivo, panelResultado;
-	private JLabel lblResultadoAL, lblArchivoPrograma, lblAnalisisSintactico, lblRelleno;
-	private JTextField textRutaArchivoPrograma;
-	private JButton botonBuscarPrograma, botonResultadoAL;
+	private JLabel lblArchivoGramatica, lblArchivoPrograma, lblAnalisisSintactico;
+	private JTextField textRutaArchivoPrograma, textRutaArchivoGramatica;
+	private JButton botonBuscarPrograma, botonBuscarGramatica;
 	private Tabla tablaAnalisis;
 	private final JDialog estaVentana = this;
 	private final int altoElementos = 30;
@@ -73,14 +73,14 @@ public class VentanaAnalisisSemantico extends JDialog {
 
 		// Propiedades del panel de Archivo
 		panelArchivo = new JPanel();
-		panelArchivo.setPreferredSize(new Dimension(900, 60));
+		panelArchivo.setPreferredSize(new Dimension(900, 100));
 		panelArchivo.setLayout(diseñoPanel);
 
 		// Mostrar la ruta del archivo del Programa
 		lblArchivoPrograma = new JLabel("Programa:");
 		lblArchivoPrograma.setPreferredSize(new Dimension(80, altoElementos));
 
-		textRutaArchivoPrograma = new JTextField("src/ArchivosExtra/programaGramatica1.js");
+		textRutaArchivoPrograma = new JTextField("src/ArchivosExtra/RecursosGramaticasClase/programa1G1.txt");
 		textRutaArchivoPrograma.setPreferredSize(new Dimension(600, altoElementos));
 		textRutaArchivoPrograma.setEditable(false);
 		textRutaArchivoPrograma
@@ -112,7 +112,47 @@ public class VentanaAnalisisSemantico extends JDialog {
 			}
 		});
 
+		// Ruta de Gramatica
+		lblArchivoGramatica = new JLabel("Gramática:");
+		lblArchivoGramatica.setPreferredSize(new Dimension(80, altoElementos));
+
+		textRutaArchivoGramatica = new JTextField("src/ArchivosExtra/RecursosGramaticasClase/gramatica1.txt");
+		textRutaArchivoGramatica.setPreferredSize(new Dimension(600, altoElementos));
+		textRutaArchivoGramatica.setEditable(false);
+		textRutaArchivoGramatica
+				.setBorder(BorderFactory.createCompoundBorder(textRutaArchivoGramatica.getBorder(), padding));
+
+		// Boton para buscar otro archivo
+		botonBuscarGramatica = new JButton("Buscar Archivo de Gramatica");
+		botonBuscarGramatica.setPreferredSize(new Dimension(180, altoElementos));
+
+		// Agregar Accion al boton
+		botonBuscarGramatica.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Obtener nueva ruta dle archivo
+				String ruta = Archivo.obtenerRutaArchivo(estaVentana);
+
+				editarRutaArchivoGramatica(ruta);
+
+				// Obtener datos nuevos
+				try {
+					servicioAnalisis.actualizarGramatica(ruta);
+					// Modificar datos
+					tablaAnalisis.actualizarDatos(encabezadoTabla,
+							servicioAnalisis.gerResultadoSemantico().getDatosTabla());
+
+				} catch (IOException | ExcepcionER e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+
+
 		// Agregar elementos al panel Archivo
+		panelArchivo.add(lblArchivoGramatica);
+		panelArchivo.add(textRutaArchivoGramatica);
+		panelArchivo.add(botonBuscarGramatica);
 		panelArchivo.add(lblArchivoPrograma);
 		panelArchivo.add(textRutaArchivoPrograma);
 		panelArchivo.add(botonBuscarPrograma);
@@ -124,14 +164,6 @@ public class VentanaAnalisisSemantico extends JDialog {
 		panelResultado.setPreferredSize(new Dimension(960, 550));
 		panelResultado.setLayout(diseñoPanel);
 
-		lblResultadoAL = new JLabel("Resultado del Análisis Léxico:");
-		lblResultadoAL.setPreferredSize(new Dimension(220, altoElementos));
-
-		botonResultadoAL = new JButton("Ver Resultado");
-		botonResultadoAL.setPreferredSize(new Dimension(100, altoElementos));
-
-		lblRelleno = new JLabel();
-		lblRelleno.setPreferredSize(new Dimension(500, 0));
 
 		// Tabla del analisis sintactico
 		lblAnalisisSintactico = new JLabel("Resultado del Análisis Sintáctico:");
@@ -140,9 +172,6 @@ public class VentanaAnalisisSemantico extends JDialog {
 		tablaAnalisis = new Tabla(940, 450, encabezadoTabla, servicioAnalisis.gerResultadoSemantico().getDatosTabla());
 
 		// Agregar elementos al panel resultado
-		panelResultado.add(lblResultadoAL);
-		panelResultado.add(botonResultadoAL);
-		panelResultado.add(lblRelleno);
 		panelResultado.add(lblAnalisisSintactico);
 		panelResultado.add(tablaAnalisis);
 
@@ -154,6 +183,10 @@ public class VentanaAnalisisSemantico extends JDialog {
 
 	private void editarRutaArchivo(String nuevaRuta) {
 		textRutaArchivoPrograma.setText(nuevaRuta);
+	}
+
+	private void editarRutaArchivoGramatica(String nuevaRuta) {
+		textRutaArchivoGramatica.setText(nuevaRuta);
 	}
 
 }
