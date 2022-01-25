@@ -58,10 +58,10 @@ public class SimboloGramatical {
     public String getTraduccion(){
         return traduccion;
     }
-    public String getValorLexico(String valor){
+    public String getValorLexico(){
         return  valorLexico;
     }
-    public String getTemporal(String temporal){
+    public String getTemporal(){
         return temporal;
     }
 

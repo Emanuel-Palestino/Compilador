@@ -13,7 +13,7 @@ import Utilidades.Gramatica.Gramatica;
 
 public class pruebaAnalisisSemantico {
     public static void main(String[] args) {
-        Gramatica gramatica = new Gramatica("src/ArchivosExtra/gramatica.txt", "src/ArchivosExtra/accionSemantica1.txt");
+        Gramatica gramatica = new Gramatica("src/ArchivosExtra/RecursosGramaticasClase/gramatica1.txt", "src/ArchivosExtra/RecursosGramaticasClase/accionSemantica1.txt");
         TablaLR tablaPrueba = new TablaLR();
         ResultadoAnalisisLexico resultadoLexico = new ResultadoAnalisisLexico();
         ColeccionCanonica coleccionPrueba = new ColeccionCanonica();
@@ -21,7 +21,7 @@ public class pruebaAnalisisSemantico {
         try {
             coleccionPrueba = ColeccionCanonica.hacer(gramatica);
             tablaPrueba = TablaLR.construir(coleccionPrueba, gramatica);
-            resultadoLexico = EvaluarCodigo.evaluar("src/ArchivosExtra/programaC1.txt");
+            resultadoLexico = EvaluarCodigo.evaluar("src/ArchivosExtra/RecursosGramaticasClase/programaC1.txt");
 
             // Resultado
             resultadoSemantico = AnalisisSemantico.analizar(resultadoLexico.getTokens(),resultadoLexico.getTiraTokens(),resultadoLexico.getTiraTokensSemantico(),gramatica,tablaPrueba);
@@ -43,6 +43,10 @@ public class pruebaAnalisisSemantico {
             for (String recorreAcciones : resultadoSemantico.getAccion()) {
                 System.out.println(recorreAcciones);
             }
+
+            // imprimimos la traduccion final
+            System.out.println("Traduccion: ");
+            System.out.println(resultadoSemantico.getTraduccionFinal());
 
         } catch (IOException | ExcepcionER e) {
             e.printStackTrace();

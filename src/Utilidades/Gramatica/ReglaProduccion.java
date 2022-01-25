@@ -85,6 +85,8 @@ public class ReglaProduccion{
         this.marcadoSiguiente = marcadoSiguiente;
     }
 
+    // Metodos
+
     public boolean indexReglaProduccion (String producciones,ArrayList<String> produccionTemp){
         for (String recorreProducciones : produccionTemp) {
             if (recorreProducciones.equals(producciones)){
@@ -92,5 +94,15 @@ public class ReglaProduccion{
             }
         } 
         return false;
+    }
+
+    public SimboloGramatical evaluarAccionSemantica(SimboloGramatical[] simbolosProduccion) {
+        SimboloGramatical[] simbolos = new SimboloGramatical[simbolosProduccion.length + 1];
+        simbolos[0] = simboloGramatical;
+        for (int i = 0; i < simbolosProduccion.length; i++) {
+            simbolos[i + 1] = simbolosProduccion[i];
+        }
+
+        return accion.evaluar(simbolos);
     }
 }

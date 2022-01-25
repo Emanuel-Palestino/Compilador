@@ -7,7 +7,7 @@ enum TipoDato {
 }
 
 enum Atributo {
-	TRADUCCION, TEMPORAL, DESCONOCIDO
+	TRADUCCION, TEMPORAL, DESCONOCIDO, VALORLEXICO
 }
 
 public class AccionSemantica {
@@ -38,10 +38,7 @@ public class AccionSemantica {
 
 	// Metodos
 
-	public String evaluar(SimboloGramatical[] simbolos) {
-
-		String traduccion = "";
-
+	public SimboloGramatical evaluar(SimboloGramatical[] simbolos) {
 		// Obtener if's si es que hay
 		String[] secciones = accion.split("\\{|\\}");
 		// Ejecutar cada seccion
@@ -77,7 +74,7 @@ public class AccionSemantica {
 			}
 		}
 
-		return traduccion;
+		return simbolos[0];
 	}
 
 	private String[] obtenerAsignacion(String cadena) {
@@ -126,7 +123,7 @@ public class AccionSemantica {
 		String dato = cadena.trim();
 		String[] cadenaa = dato.split("'");
 
-		if (cadenaa.length == 2 && cadenaa[0].equals("")) {
+		if ((cadenaa.length == 2 && cadenaa[0].equals("")) || cadenaa.length == 0) {
 			return TipoDato.CADENA;
 		} else {
 			return TipoDato.ATRIBUTO;
@@ -143,6 +140,8 @@ public class AccionSemantica {
 			case "temporal":
 				resultado = Atributo.TEMPORAL;
 				break;
+			case "valorLexico":
+				resultado = Atributo.VALORLEXICO;
 		}
 
 		return resultado;
@@ -159,10 +158,13 @@ public class AccionSemantica {
 				valorOperando1 = simbolo.getTraduccion();
 				break;
 			case TEMPORAL:
-				// valorOperando1 = simbolo.getTemporal();
+				valorOperando1 = simbolo.getTemporal();
+				break;
+			case VALORLEXICO:
+				valorOperando1 = simbolo.getValorLexico();
 				break;
 			case DESCONOCIDO:
-				System.out.println("Error");
+				System.out.println("Error: AccionSemantica:167");
 		}
 
 		// Obtener el valor del segundo operando
@@ -206,7 +208,7 @@ public class AccionSemantica {
 			// Actuar según su tipo
 			switch (obtenerTipo(parte)) {
 				case CADENA:
-					valorAsignar += parte.split("'")[1];
+					valorAsignar += parte.trim().split("'").length == 0 ? "" : parte.split("'")[1];
 					break;
 
 				case ATRIBUTO:
@@ -218,11 +220,12 @@ public class AccionSemantica {
 							valorAsignar += simboloAtributo.getTraduccion();
 							break;
 						case TEMPORAL:
-							// valorAsignar += simboloAtributo.getTemporal();
-							System.out.println("valorAsignar += simboloAtributo.getTemporal()");
+							valorAsignar += simboloAtributo.getTemporal();
 							break;
+						case VALORLEXICO:
+							valorAsignar += simboloAtributo.getValorLexico();
 						case DESCONOCIDO:
-							System.out.println("Error");
+							System.out.println("Error: AccionSemantica:228");
 							break;
 					}
 
@@ -241,11 +244,13 @@ public class AccionSemantica {
 				actual.setTraduccion(valorAsignar);
 				break;
 			case TEMPORAL:
-				// actual.setTemporal(valorAsignar);
-				System.out.println("actual.setTemporal(valorAsignar)");
+				actual.setTemporal(valorAsignar);
+				break;
+			case VALORLEXICO:
+				actual.setValorLexico(valorAsignar);
 				break;
 			case DESCONOCIDO:
-				System.out.println("Error");
+				System.out.println("Error: AccionSemantica: 253");
 				break;
 		}
 

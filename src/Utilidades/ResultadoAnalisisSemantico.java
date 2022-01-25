@@ -3,10 +3,6 @@ package Utilidades;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import Utilidades.AnalizadorLexico.Token;
-import Utilidades.Gramatica.SimboloGramatical;
-
-
 public class ResultadoAnalisisSemantico {
     private Stack<String> pilaString;
     private ArrayList<String> entradaString;
@@ -14,10 +10,11 @@ public class ResultadoAnalisisSemantico {
     private String traduccionFinal;
 
     //Constructores
-    public ResultadoAnalisisSemantico(Stack<String> pila, ArrayList<String> entrada, ArrayList<String> accion){
+    public ResultadoAnalisisSemantico(Stack<String> pila, ArrayList<String> entrada, ArrayList<String> accion, String traduccion){
         pilaString = pila;
         entradaString = entrada;
         this.accion = accion;
+        traduccionFinal = traduccion;
     }
 
 
