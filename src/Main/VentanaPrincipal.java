@@ -219,7 +219,7 @@ public class VentanaPrincipal extends JFrame {
         botonAnalisisSemantico = new JButton("Analisis Semantico");
 
         // PROPIEDADES DEL LOS LABELS A UTILIZAR
-        tituloAnalizadorSemantico = new JLabel("Analizador Sintáctico");
+        tituloAnalizadorSemantico = new JLabel("Analizador Semántico");
         tituloAnalizadorSemantico.setBounds(45, 585, 828, 35);
         tituloAnalizadorSemantico.setFont(new Font("good times rg", Font.ROMAN_BASELINE, 40));
         tituloAnalizadorSemantico.setForeground(Color.WHITE);
