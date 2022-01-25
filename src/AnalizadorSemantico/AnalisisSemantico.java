@@ -8,6 +8,7 @@ import Utilidades.ResultadoAnalisisSemantico;
 import Utilidades.AnalizadorLexico.Token;
 import Utilidades.Gramatica.Gramatica;
 import Utilidades.Gramatica.ReglaProduccion;
+import Utilidades.Gramatica.SimboloGramatical;
 
 public class AnalisisSemantico {
     public static ResultadoAnalisisSemantico analizar(ArrayList<Token> tiraTokens, ArrayList<String>tiraTokensString, ArrayList<String> tiraTokensSemantico, Gramatica gramatica, TablaLR tablaLR) {
@@ -16,24 +17,33 @@ public class AnalisisSemantico {
         Stack<String> pilaResultadoString = new Stack<String>();
         ArrayList<String> entradaResultadoString = new ArrayList<String>();
 		ArrayList<String> entradaResultadoSemantico = new ArrayList<String>();
+		Stack<SimboloGramatical> pilaSimboloGramatical = new Stack<SimboloGramatical>();
 
         //Agregar "$" en tira de token
         tiraTokensString.add("$");
 		tiraTokensSemantico.add("$");
 
+		Stack<Stack<SimboloGramatical>> pilaResultado = new Stack<Stack<SimboloGramatical>>();
         ArrayList<String> copiaTokensString = new ArrayList<String>(tiraTokensString);
 		ArrayList<String> copiaTokensSemantico = new ArrayList<String>(tiraTokensSemantico);
         Stack<String> copiaPilaString = new Stack<String>();
         Stack<String> pilaString = new Stack<String>();
+		Stack<SimboloGramatical> copiaPilaGramatical = new Stack<SimboloGramatical>();
+		Stack<SimboloGramatical> pilaGramatical = new Stack<SimboloGramatical>();
+		SimboloGramatical temporalAñadiduras = new SimboloGramatical();
+        SimboloGramatical auxiliarIndex = new SimboloGramatical();
 		int elementoTopePila; 
 		int a = 0; //Posicion actual de la tira de tokens
 		int index = 0;
 		String erroresSintacticos = new String();
         String auxiliarCopia = new String();
 		boolean bandera = true;
+		boolean banderaAccion = false;
 
-		//inicializamos la pila en 0
+		//inicializamos las pilas en 0
+		temporalAñadiduras.setSimboloGramatical("0");
         pilaString.add("0");
+		pilaGramatical.add(temporalAñadiduras);
         
 
 		//Agregamos los tokens como los recibimos en las entradasResultados
@@ -68,6 +78,14 @@ public class AnalisisSemantico {
 					copiaTokensString.set(a, "");
 					entradaResultadoString.add(copiaTokensString.toString());
 
+					//Parte Objeto
+                    copiaPilaGramatical = (Stack<SimboloGramatical>)pilaGramatical.clone();//Copia pila
+                    pilaResultado.add(copiaPilaGramatical);
+                    temporalAñadiduras = new SimboloGramatical(tiraTokens.get(a));
+                    pilaGramatical.push(temporalAñadiduras);
+                    auxiliarIndex = new SimboloGramatical(String.valueOf(index));
+                    pilaGramatical.push(auxiliarIndex);
+
 					//Manipulamos la arrayList de resultado
 					copiaTokensSemantico.set(a,"");
 					entradaResultadoSemantico.add(copiaTokensSemantico.toString());
@@ -93,6 +111,7 @@ public class AnalisisSemantico {
 
 					if(rProduccion.getProduccion().get(0).equals("Ɛ")){
 						elementoTopePila = Integer.parseInt(pilaString.lastElement());
+						banderaAccion = true;
                     }else{
 						int tamañoPop = rProduccion.getProduccion().size()*2;
 						for(int i = 0; i < tamañoPop ; i++){
@@ -103,6 +122,24 @@ public class AnalisisSemantico {
 					pilaString.push(rProduccion.getStringSimboloGramatical());
 					String s = tablaLR.getIrA().get(elementoTopePila).get(rProduccion.getStringSimboloGramatical());
 					pilaString.push(s);
+
+					//parte Objeto
+                    copiaPilaGramatical = (Stack<SimboloGramatical>)pilaGramatical.clone();
+                    pilaResultado.add(copiaPilaGramatical);
+                    if(banderaAccion == false){     //Si la condición del if de arriba no se cumple
+                        int tamañoPop = rProduccion.getProduccion().size()*2;
+                        for(int i = 0; i < tamañoPop ; i++){
+							pilaGramatical.pop();
+						}
+                        elementoTopePila = Integer.parseInt(pilaGramatical.lastElement().getSimboloGramatical());
+                    }else{
+                        elementoTopePila = Integer.parseInt(pilaGramatical.lastElement().getSimboloGramatical());
+                    }
+                    pilaGramatical.push(rProduccion.getObjetoSimboloGramatical());
+                    temporalAñadiduras.setSimboloGramatical(s);
+                    pilaGramatical.push(temporalAñadiduras);
+					
+					banderaAccion = false;
 					break;
 
 				case 'a':
@@ -110,6 +147,9 @@ public class AnalisisSemantico {
                     //parte String
 					copiaPilaString = (Stack<String>) pilaString.clone();
 					pilaResultadoString.add(copiaPilaString.toString());
+					//parte objeto
+                    copiaPilaGramatical = (Stack<SimboloGramatical>)pilaGramatical.clone();
+                    pilaResultado.add(copiaPilaGramatical);
 
 					bandera = false;
 					break;
@@ -133,10 +173,10 @@ public class AnalisisSemantico {
 					break;
 			}
 		}
-		//Arreglamos la entradaString para que se vea con puntos y acciones
-
-
+		//Sacamos el ultimo estado de la pila<SimboloGramatical>
+		pilaSimboloGramatical = pilaResultado.get(pilaResultado.size() - 1);
 		
+
 		return new ResultadoAnalisisSemantico( pilaResultadoString, entradaResultadoSemantico, accionResultado);	
 	}
 
