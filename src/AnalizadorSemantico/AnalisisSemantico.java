@@ -118,9 +118,7 @@ public class AnalisisSemantico {
 						elementoTopePila = Integer.parseInt(pilaString.lastElement()); // elemento del tope de la pila
 																						// antes del pop
 					}
-					pilaString.push(rProduccion.getStringSimboloGramatical());
-					String s = tablaLR.getIrA().get(elementoTopePila).get(rProduccion.getStringSimboloGramatical());
-					pilaString.push(s);
+
 
 					// parte Objeto
 					SimboloGramatical[] simbolosProduccion = new SimboloGramatical[0];
@@ -136,8 +134,14 @@ public class AnalisisSemantico {
 					} else {
 						elementoTopePila = Integer.parseInt(pilaGramatical.lastElement().getSimboloGramatical());
 					}
+
+					String s = tablaLR.getIrA().get(elementoTopePila).get(rProduccion.getStringSimboloGramatical());
+
 					pilaGramatical.push(rProduccion.evaluarAccionSemantica(simbolosProduccion));
 					pilaGramatical.push(new SimboloGramatical(s));
+
+					pilaString.push(rProduccion.getStringSimboloGramatical() + ".\"" + rProduccion.getObjetoSimboloGramatical().getTraduccion() + "\"");
+					pilaString.push(s);
 
 					banderaAccion = false;
 					break;
@@ -180,6 +184,8 @@ public class AnalisisSemantico {
 		String temp = new String();
 		temp = "r" + index + " " + reglaProduccionImprimir.getStringSimboloGramatical() + "»" + reglaProduccionImprimir
 				.getProduccion();
+		// Accion semantica
+		temp += "  { " + reglaProduccionImprimir.getAccionSemantica().getAccion() + " }";
 		return temp;
 	}
 

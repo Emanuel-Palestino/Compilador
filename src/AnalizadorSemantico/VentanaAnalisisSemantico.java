@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
-import AnalizadorSintactico.Analisis.ServicioAnalisisSintactico;
 import Utilidades.Archivo;
 import Utilidades.Tabla;
 import Utilidades.Excepciones.ExcepcionER;
@@ -32,16 +31,16 @@ public class VentanaAnalisisSemantico extends JDialog {
 	private final int altoElementos = 30;
 	private final Border padding = BorderFactory.createEmptyBorder(5, 5, 5, 5);
 	private final String[] encabezadoTabla = { "Pila", "Entrada", "Accion" };
-	private ServicioAnalisisSintactico servicioAnalisis;
+	private ServicioAnalisisSemantico servicioAnalisis;
 
 	// Constructor de la ventana
 	public VentanaAnalisisSemantico(JFrame parent) {
 		super(parent, true);
 
 		// Iniciar componentes
-		servicioAnalisis = new ServicioAnalisisSintactico();
+		servicioAnalisis = new ServicioAnalisisSemantico();
 		try {
-			servicioAnalisis.ejecutar("src/ArchivosExtra/programaGramaticaFinal.js");
+			servicioAnalisis.ejecutar("src/ArchivosExtra/RecursosGramaticasClase/programa1G1.txt");
 		} catch (IOException | ExcepcionER e) {
 			e.printStackTrace();
 		}
@@ -105,7 +104,7 @@ public class VentanaAnalisisSemantico extends JDialog {
 					servicioAnalisis.ejecutar(ruta);
 					// Modificar datos
 					tablaAnalisis.actualizarDatos(encabezadoTabla,
-							servicioAnalisis.getResultadoSintactico().getDatosTabla());
+							servicioAnalisis.gerResultadoSemantico().getDatosTabla());
 
 				} catch (IOException | ExcepcionER e1) {
 					e1.printStackTrace();
@@ -138,7 +137,7 @@ public class VentanaAnalisisSemantico extends JDialog {
 		lblAnalisisSintactico = new JLabel("Resultado del Análisis Sintáctico:");
 		lblAnalisisSintactico.setPreferredSize(new Dimension(220, altoElementos));
 
-		tablaAnalisis = new Tabla(940, 450, encabezadoTabla, servicioAnalisis.getResultadoSintactico().getDatosTabla());
+		tablaAnalisis = new Tabla(940, 450, encabezadoTabla, servicioAnalisis.gerResultadoSemantico().getDatosTabla());
 
 		// Agregar elementos al panel resultado
 		panelResultado.add(lblResultadoAL);

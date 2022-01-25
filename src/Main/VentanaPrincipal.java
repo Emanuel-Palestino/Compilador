@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import AnalizadorLexico.ConversionAFD.IniciarConjuntos;
 import AnalizadorLexico.Final.IniciarFinal;
+import AnalizadorSemantico.VentanaAnalisisSemantico;
 import AnalizadorSintactico.Analisis.VentanaAnalisisSintactico;
 import AnalizadorSintactico.ColeccionCanonica.iniciarColeccionCanonica;
 import AnalizadorSintactico.ConstruccionTablaLR.IniciarTablaLR;
@@ -23,15 +24,16 @@ import Utilidades.Excepciones.ExcepcionER;
 
 public class VentanaPrincipal extends JFrame {
 
-    public JButton botonThompson, botonAfd, botonAnalizadorLex, botonPrimerosSiguientes, botonColeccionCanonica, botonTablaLR, botonAnalisisSintactico;
-    private JLabel tituloAnalizadorLex, tituloAnalizadorSintac;
+    public JButton botonThompson, botonAfd, botonAnalizadorLex, botonPrimerosSiguientes, botonColeccionCanonica,
+            botonTablaLR, botonAnalisisSintactico, botonAnalisisSemantico;
+    private JLabel tituloAnalizadorLex, tituloAnalizadorSintac, tituloAnalizadorSemantico;
     private final JFrame ventanaPrincipal = this;
 
     public VentanaPrincipal() throws FontFormatException, IOException {
         super("Compilador");
         ImagenFondo ejemplo = new ImagenFondo();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(new Dimension(1200, 700)); // 600 400
+        this.setSize(new Dimension(1200, 850));
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setContentPane(ejemplo);
@@ -46,6 +48,7 @@ public class VentanaPrincipal extends JFrame {
     public void menuPrincipal() {
         menuAnalizadorLexico();
         menuAnalizadorSintactico();
+        menuAnalizadorSemantico();
     }
 
     public void menuAnalizadorLexico() {
@@ -62,9 +65,9 @@ public class VentanaPrincipal extends JFrame {
         this.add(tituloAnalizadorLex);
 
         // DIMENSIONES DE LOS BOTONES
-        botonThompson.setBounds(100, 165, 285, 65);
-        botonAfd.setBounds(450, 165, 285, 65);
-        botonAnalizadorLex.setBounds(800, 165, 285, 65);
+        botonThompson.setBounds(100, 145, 285, 65);
+        botonAfd.setBounds(450, 145, 285, 65);
+        botonAnalizadorLex.setBounds(800, 145, 285, 65);
 
         // DISEÑO DE LOS BOTONES
         botonThompson.setBackground(new Color(99, 8, 103));
@@ -131,16 +134,16 @@ public class VentanaPrincipal extends JFrame {
 
         // PROPIEDADES DEL LOS LABELS A UTILIZAR
         tituloAnalizadorSintac = new JLabel("Analizador Sintáctico");
-        tituloAnalizadorSintac.setBounds(45, 375, 828, 35);
+        tituloAnalizadorSintac.setBounds(45, 295, 828, 35);
         tituloAnalizadorSintac.setFont(new Font("good times rg", Font.ROMAN_BASELINE, 40));
         tituloAnalizadorSintac.setForeground(Color.WHITE);
         this.add(tituloAnalizadorSintac);
 
         // DIMENSIONES DE LOS BOTONES
-        botonPrimerosSiguientes.setBounds(100, 465, 285, 65);
-        botonColeccionCanonica.setBounds(450, 465, 285, 65);
-        botonTablaLR.setBounds(800, 465, 285, 65);
-        botonAnalisisSintactico.setBounds(100, 540, 285, 65);
+        botonPrimerosSiguientes.setBounds(100, 365, 285, 65);
+        botonColeccionCanonica.setBounds(450, 365, 285, 65);
+        botonTablaLR.setBounds(800, 365, 285, 65);
+        botonAnalisisSintactico.setBounds(100, 450, 285, 65);
 
         // DISEÑO DE LOS BOTONES
         botonPrimerosSiguientes.setBackground(new Color(99, 8, 103));
@@ -204,7 +207,6 @@ public class VentanaPrincipal extends JFrame {
                 new VentanaAnalisisSintactico(ventanaPrincipal);
             }
         });
-        
 
         // ANEXO DE LOS BOTONES AL LABEL
         add(botonPrimerosSiguientes);
@@ -213,4 +215,41 @@ public class VentanaPrincipal extends JFrame {
         add(botonAnalisisSintactico);
     }
 
+    public void menuAnalizadorSemantico() {
+        botonAnalisisSemantico = new JButton("Analisis Semantico");
+
+        // PROPIEDADES DEL LOS LABELS A UTILIZAR
+        tituloAnalizadorSemantico = new JLabel("Analizador Sintáctico");
+        tituloAnalizadorSemantico.setBounds(45, 585, 828, 35);
+        tituloAnalizadorSemantico.setFont(new Font("good times rg", Font.ROMAN_BASELINE, 40));
+        tituloAnalizadorSemantico.setForeground(Color.WHITE);
+        this.add(tituloAnalizadorSemantico);
+
+        // DIMENSIONES DE LOS BOTONES
+        botonAnalisisSemantico.setBounds(100, 655, 285, 65);
+
+        // DISEÑO DE LOS BOTONES
+        botonAnalisisSemantico.setBackground(new Color(99, 8, 103));
+
+        botonAnalisisSemantico.setBorder(new BevelBorder(BevelBorder.RAISED));
+
+        botonAnalisisSemantico.setFont(new Font("Tahoma", Font.CENTER_BASELINE, 20));
+
+        botonAnalisisSemantico.setForeground(Color.WHITE);
+
+        botonAnalisisSemantico.setContentAreaFilled(false);
+        botonAnalisisSemantico.setOpaque(true);
+        botonAnalisisSemantico.setFocusPainted(false);
+
+        // ACCIONES DE LOS BOTONES
+        botonAnalisisSemantico.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ev) {
+                new VentanaAnalisisSemantico(ventanaPrincipal);
+            }
+        });
+
+        // ANEXO DE LOS BOTONES AL LABEL
+        add(botonAnalisisSemantico);
+    }
 }

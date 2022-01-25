@@ -55,5 +55,15 @@ public class ResultadoAnalisisSemantico {
         this.traduccionFinal = traduccionFinal;
     }
     //Metodos
-    
+    	public String[][] getDatosTabla() {
+		String[][] res = new String[pilaString.size()][3];
+		for (int j = 0; j < pilaString.size(); j++) {
+			res[j][0] = (pilaString.get(j) == null) ? "" : pilaString.get(j).toString();
+			res[j][1] = entradaString.get(j).toString();
+			res[j][2] = accion.get(j).toString();
+		}
+
+		return res;
+	}
+
 }
