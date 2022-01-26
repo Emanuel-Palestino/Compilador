@@ -38,3 +38,22 @@ Se sigue usando el simbolo Ɛ para representar epsilon.
 - Segunda Línea: Todos los símbolos terminales.
 - Tercera Línea: El símbolo inicial de la gramatica.
 - Cuarta Línea: A partir de esta línea se escriben las regla de producción.
+
+# ACCIONES SEMANTICAS
+
+Las acciones semánticas se escriben en un archivo .txt
+Cada acción semántica debe estar en una sóla línea
+Cada simbolo de una acción semántica debe estar separado por un espacio
+Las condiciones deben estar encerradas por {}
+Las constantes cadena deben estar encerradas por ''
+Para denotar una asignación se usa: :=
+Para denotar una concatenación se usa: ||
+Los operadores lógicos disponibles son: == y !=
+Los atributos disponibles de los simbolos gramaticales son: traduccion, temporal y valorLexico
+
+
+## Ejemplo 1:
+{ if A.traduccion != '' A.traduccion := 'var' || B.temporal else A.traduccion := B.valorLexico } A.traduccion := A.traduccion || ';'
+
+## Ejemplo 2:
+A.traduccion := 'let' || B.temporal || A.temporal

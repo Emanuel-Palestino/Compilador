@@ -1,3 +1,3 @@
 # Compilador (Proyecto escolar)
 
-Creación de un compilador que convierta código fuente de un lenguaje a otro
+Creación de un compilador que convierta código JavaScript a PHP
