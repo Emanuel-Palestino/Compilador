@@ -1,0 +1,12 @@
+DV0.traduccion := DV1.traduccion || DV2.traduccion
+DV.traduccion := T.traduccion || '$' || id.valorLexico || L.traduccion
+L.traduccion := '; ' || '$' || id.valorLexico || L.traduccion
+L.traduccion := '=' || M.traduccion || L.traduccion
+L.traduccion := ';'
+T.traduccion := ''
+T.traduccion := ''
+T.traduccion := ''
+M.traduccion := string.valorLexico
+M.traduccion := '$' || id.valorLexico
+M.traduccion := num.valorLexico
+M.traduccion := boolean.valorLexico

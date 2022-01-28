@@ -1,0 +1,6 @@
+DF.traduccion := 'function ' || '$' || id.valorLexico || '(' || PA.traduccion ') ' || '{' C.traduccion '}'
+PA.traduccion := '$' || id.valorLexico || L.traduccion
+PA.traduccion := ''
+L.traduccion := ', ' || '$' || id.valorLexico || L.traduccion
+L.traduccion := ''
+C.traduccion := ''
