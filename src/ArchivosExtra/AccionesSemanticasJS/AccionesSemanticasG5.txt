@@ -1,0 +1,3 @@
+CI.traduccion := 'while (' || OL.traduccion || '){' ||  C.traduccion || '}'
+OL.traduccion := ''
+C.traduccion := ''

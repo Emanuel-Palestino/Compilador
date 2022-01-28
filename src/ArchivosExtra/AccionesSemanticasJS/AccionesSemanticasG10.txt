@@ -1,0 +1,4 @@
+TN.traduccion := 'intval(' || string.valorLexico || ',' || G.traduccion || ');'
+TN.traduccion := 'floatval(' || string.valorLexico || ');'
+G.traduccion := num.valorLexico
+G.traduccion := id.valorLexico
