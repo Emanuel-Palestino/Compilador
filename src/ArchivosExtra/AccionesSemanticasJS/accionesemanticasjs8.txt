@@ -1,0 +1,15 @@
+SL.traduccion := 'if' || '(' || OL.traduccion || ')' || '{' || C.traduccion || '}' || EL.traduccion
+SL.traduccion := '{' || C.traduccion || '}' || EL.traduccion 
+OL.traduccion := ' '    
+C.traduccion := ' ' 
+C.traduccion := R.traduccion
+R.traduccion := 'return' || M.traduccion
+C.traduccion := CY.traduccion
+CY.traduccion := '(' || E.traduccion || ')'
+M.traduccion := '$' || id
+M.traduccion := num.valorLexico 
+M.traduccion := boolean.valorLexico 
+M.traduccion := string.valorLexico 
+EL0.traduccion := 'else' || 'if' || '(' || OL.traduccion || ')' || '{' || C.traduccion || '}' || EL1.traduccion
+EL0.traduccion := 'else' || '{' || C.traduccion || '}' || EL1.traduccion 
+EL.traduccion := ' '  
