@@ -1,0 +1,9 @@
+CII.traduccion := 'for' || '(' || AS.traduccion || ';' || OL.traduccion || ';' || AC.traduccion || ')' || '{' || C.traduccion || '}'
+AS.traduccion := ''
+OL.traduccion := ''
+AC.traduccion := '++' || '$' || id.valorLexico
+AC.traduccion := '--' || '$' || id.valorLexico 
+AC.traduccion := '$' || id.valorLexico || '++'
+AC.traduccion := '$' || id.valorLexico || '--'
+AC0.traduccion := ',' || AC1.traduccion
+C.traduccion := ''
