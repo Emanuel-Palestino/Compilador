@@ -1,4 +1,5 @@
 AS.traduccion := X.traduccion || ' ' || Y.traduccion
+Y.traduccion := X.traduccion
 Y.traduccion := '+=' || X.traduccion
 Y.traduccion := '-=' || X.traduccion
 Y.traduccion := '*=' || X.traduccion
