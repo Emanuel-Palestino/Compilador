@@ -24,8 +24,8 @@ import Utilidades.Excepciones.ExcepcionER;
 
 public class VentanaPrincipal extends JFrame {
 
-    public JButton botonThompson, botonAfd, botonAnalizadorLex, botonPrimerosSiguientes, botonColeccionCanonica,
-            botonTablaLR, botonAnalisisSintactico, botonAnalisisSemantico;
+    private JButton botonThompson, botonAfd, botonAnalizadorLex, botonPrimerosSiguientes, botonColeccionCanonica,
+            botonTablaLR, botonAnalisisSintactico, botonAnalisisSemantico, botonFinalFinal;
     private JLabel tituloAnalizadorLex, tituloAnalizadorSintac, tituloAnalizadorSemantico;
     private final JFrame ventanaPrincipal = this;
 
@@ -217,6 +217,7 @@ public class VentanaPrincipal extends JFrame {
 
     public void menuAnalizadorSemantico() {
         botonAnalisisSemantico = new JButton("Analisis Semantico");
+        botonFinalFinal = new JButton("Analizador y Convertidor Final JavaScript a PHP");
 
         // PROPIEDADES DEL LOS LABELS A UTILIZAR
         tituloAnalizadorSemantico = new JLabel("Analizador Semántico");
@@ -227,19 +228,27 @@ public class VentanaPrincipal extends JFrame {
 
         // DIMENSIONES DE LOS BOTONES
         botonAnalisisSemantico.setBounds(100, 655, 285, 65);
+        botonFinalFinal.setBounds(450, 655, 640, 65);
 
         // DISEÑO DE LOS BOTONES
         botonAnalisisSemantico.setBackground(new Color(99, 8, 103));
+        botonFinalFinal.setBackground(new Color(99, 8, 103));
 
         botonAnalisisSemantico.setBorder(new BevelBorder(BevelBorder.RAISED));
+        botonFinalFinal.setBorder(new BevelBorder(BevelBorder.RAISED));
 
         botonAnalisisSemantico.setFont(new Font("Tahoma", Font.CENTER_BASELINE, 20));
+        botonFinalFinal.setFont(new Font("Tahoma", Font.CENTER_BASELINE, 20));
 
         botonAnalisisSemantico.setForeground(Color.WHITE);
+        botonFinalFinal.setForeground(Color.WHITE);
 
         botonAnalisisSemantico.setContentAreaFilled(false);
         botonAnalisisSemantico.setOpaque(true);
         botonAnalisisSemantico.setFocusPainted(false);
+        botonFinalFinal.setContentAreaFilled(false);
+        botonFinalFinal.setOpaque(true);
+        botonFinalFinal.setFocusPainted(false);
 
         // ACCIONES DE LOS BOTONES
         botonAnalisisSemantico.addActionListener(new ActionListener() {
@@ -249,7 +258,14 @@ public class VentanaPrincipal extends JFrame {
             }
         });
 
+        botonFinalFinal.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ev) {
+            }
+        });
+
         // ANEXO DE LOS BOTONES AL LABEL
         add(botonAnalisisSemantico);
+        add(botonFinalFinal);
     }
 }
