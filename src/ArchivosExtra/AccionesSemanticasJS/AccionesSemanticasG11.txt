@@ -1,0 +1,10 @@
+SW » switch ( M ) { CS }            SW.traduccion := 'switch' || '(' || M.traduccion || ')' || '{'  || CS.traduccion || '}'
+CS » case M : C break CS            CS0.traduccion := 'case' || M.traduccion || ':' || C.traduccion || 'break' || ';' || CS.traduccion
+CS » default : C                    CS.traduccion := 'default' || ':' || C.traduccion
+CS » Ɛ                              CS.traduccion := ''
+M » string                          M.traduccion := string.valorLexico
+M » num                             M.traduccion := num.valorLexico
+M » boolean                         M.traduccion := 'boolean'
+M » id                              M.traduccion := '$' || id.valorLexico
+C » C                               C0.traduccion := C1.traduccion
+C » Ɛ                               C.traduccion := ''
