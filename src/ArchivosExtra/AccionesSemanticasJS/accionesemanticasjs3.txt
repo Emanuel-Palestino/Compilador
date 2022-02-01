@@ -1,0 +1,11 @@
+EA.traduccion := E.traduccion
+E0.traduccion := E1.traduccion || '+' || F.traduccion 
+E0.traduccion := E1.traduccion || '-' || F.traduccion    
+E.traduccion := F.traduccion
+F0.traduccion := F1.traduccion || '*' || G.traduccion 
+F0.traduccion := F1.traduccion || '/' || G.traduccion
+F0.traduccion := F1.traduccion || '%' || G.traduccion
+F.traduccion := G.traduccion
+G.traduccion := '(' || E.traduccion || ')'
+G.traduccion := '$' || id.valorLexico 
+G.traduccion := num.valorLexico 

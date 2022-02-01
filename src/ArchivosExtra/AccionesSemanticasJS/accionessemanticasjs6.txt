@@ -1,0 +1,3 @@
+CIII.traduccion := 'do' || '{' || C.traduccion || 'while' || '(' || OL.traduccion || ')'
+C.traduccion := ' '
+OL.traduccion := ' '
