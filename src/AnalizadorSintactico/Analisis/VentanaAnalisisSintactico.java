@@ -39,7 +39,7 @@ public class VentanaAnalisisSintactico extends JDialog {
 		// Iniciar componentes
 		servicioAnalisis = new ServicioAnalisisSintactico();
 		try {
-			servicioAnalisis.ejecutar("src/ArchivosExtra/programaGramaticaFinal.js");
+			servicioAnalisis.ejecutar("src/ArchivosExtra/programas/programa1G1.js");
 		} catch (IOException | ExcepcionER e) {
 			e.printStackTrace();
 		}

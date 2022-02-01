@@ -1,5 +1,5 @@
 DV L T M 
-id , var let const string id num boolean
+id , = var let const string id num boolean
 DV 
 DV » DV DV 
 DV » T id L 

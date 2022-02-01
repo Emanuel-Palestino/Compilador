@@ -47,7 +47,7 @@ public class AnalisisSintactico {
 					pilaResultado.add(copiaPila.toString());
 					pila.push(tiraTokens.get(a));
 					pila.push(String.valueOf(index));
-					copiaTokens.remove(a);
+					copiaTokens.set(a, "");
 					entradaResultado.add(copiaTokens.toString());
 					a++;
 					break;

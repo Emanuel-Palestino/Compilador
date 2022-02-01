@@ -20,7 +20,7 @@ public class ServicioAnalisisSemantico {
 	private String rutaPrograma;
 
 	public ServicioAnalisisSemantico() {
-		gramatica = new Gramatica("src/ArchivosExtra/RecursosGramaticasClase/gramatica1.txt", "src/ArchivosExtra/RecursosGramaticasClase/accionSemantica1.txt");
+		gramatica = new Gramatica("src/ArchivosExtra/GramaticaJS/gramaticajs1.txt", "src/ArchivosExtra/AccionesSemanticasJS/accionesSemanticasG1.txt");
 		coleccionCanonica = ColeccionCanonica.hacer(gramatica);
 		tablaAnalisis = TablaLR.construir(coleccionCanonica, gramatica);
 		resultadoLexico = new ResultadoAnalisisLexico();
