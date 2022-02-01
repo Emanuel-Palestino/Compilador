@@ -1,0 +1,12 @@
+DA.traduccion := '$' || id.valorLexico || '= array(' || V.traduccion || ');'
+V.traduccion := string.valorLexico || B.traduccion
+V.traduccion := num.valorLexico || B.traduccion
+V.traduccion := '$' || id.valorLexico || B.traduccion
+V.traduccion := ''
+B.traduccion := || ',$' || id.valorLexico || B.traduccion
+B.traduccion := || ',' num.valorLexico || B.traduccion
+B.traduccion := || ',' string.valorLexico || B.traduccion
+B := ''
+T.traduccion := ''
+T.traduccion := ''
+T.traduccion := ''
