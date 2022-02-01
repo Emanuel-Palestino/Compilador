@@ -1,0 +1,15 @@
+PR » console.log ( I )      PR.traduccion := 'echo' || '(' || I.traduccion || ')' || ';'  
+I » M 	                    I.traduccion := M.traduccion 	
+I » I , M                   I0.traduccion := I1.traduccion || ',' || M.traduccion 
+I » I + M                   I0.traduccion := I1.traduccion || '+' || M.traduccion
+M » string                  M.traduccion := string.valorLexico
+M » id                      M.traduccion := '$' || id.valorLexico
+M » num                     M.traduccion := num.valorLexico
+M » boolean                 M.traduccion := 'boolean'
+
+
+
+
+
+
+

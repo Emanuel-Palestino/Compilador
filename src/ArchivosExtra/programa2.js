@@ -1,1 +1,1 @@
-console.log("algo aqui")
+true != false
