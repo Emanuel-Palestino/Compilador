@@ -1,0 +1,34 @@
+AS.traduccion := X.traduccion || ' ' || Y.traduccion
+Y.traduccion := X.traduccion
+Y.traduccion := '+=' || X.traduccion
+Y.traduccion := '-=' || X.traduccion
+Y.traduccion := '*=' || X.traduccion
+Y.traduccion := '/=' || X.traduccion
+Y.traduccion := '%=' || X.traduccion
+Y.traduccion := '**=' || X.traduccion
+Y.traduccion := '<<=' || X.traduccion
+Y.traduccion := '>>=' || X.traduccion
+Y.traduccion := '>>>=' || X.traduccion
+Y.traduccion := '&=' || X.traduccion
+Y.traduccion := '^=' || X.traduccion
+Y.traduccion := '|=' || X.traduccion
+Y.traduccion := '&&=' || X.traduccion
+Y.traduccion := '||=' || X.traduccion
+Y.traduccion := '??=' || X.traduccion
+X.traduccion := M.traduccion
+X.traduccion := EA.traduccion
+EA.traduccion := E.traduccion
+E.traduccion := E.traduccion || '+' || F.traduccion
+E.traduccion := E.traduccion || '-' || F.traduccion
+E.traduccion := F.traduccion
+F.traduccion := F.traduccion || '*' || G.traduccion
+F.traduccion := F.traduccion || '/' || G.traduccion
+F.traduccion := F.traduccion || '%' || G.traduccion
+F.traduccion := G.traduccion
+G.traduccion := '(' || E.traduccion || ')'
+G.traduccion := '$' || id.valorLexico
+G.traduccion := 'int'
+M.traduccion := string.valorLexico
+M.traduccion := '$' || id.valorLexico
+M.traduccion := num.valorLexico
+M.traduccion := 'boolean'

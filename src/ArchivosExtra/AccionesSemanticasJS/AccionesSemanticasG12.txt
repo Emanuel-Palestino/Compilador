@@ -1,0 +1,11 @@
+OL.traduccion := CE.traduccion
+OL.traduccion := CE.traduccion || '&&' || CF.traduccion
+CE.traduccion := CF.traduccion
+CE.traduccion := '!' || CF.traduccion
+CF.traduccion := OC.traduccion
+CF.traduccion := EA.traduccion
+CF.traduccion := M.traduccion
+M.traduccion := string.valorLexico
+M.traduccion := '$' || id.valorLexico
+M.traduccion := num.valorLexico
+M.traduccion := 'boolean'
