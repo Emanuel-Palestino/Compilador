@@ -1,15 +1,15 @@
-OC » CA                 OC.traduccion := CA.traduccion
-CA » CA == CB           CA0.traduccion := CA1.traduccion || '==' || CB.traduccion
-CA » CA != CB           CA0.traduccion := CA1.traduccion || '!=' || CB.traduccion
-CA » CA === CB          CA0.traduccion := CA1.traduccion || '===' || CB.traduccion
-CA » CA !== CB          CA0.traduccion := CA1.traduccion || '!==' || CB.traduccion 
-CA » CB                 CA.traduccion := CB.traduccion 
-CB » CB > M             CB0.traduccion := CB1.traduccion || '>' || M.traduccion
-CB » CB >= M            CB0.traduccion := CB1.traduccion || '>=' || M.traduccion
-CB » CB < M             CB0.traduccion := CB1.traduccion || '<' || M.traduccion
-CB » CB <= M            CB0.traduccion := CB1.traduccion || '<=' || M.traduccion
-CB » M                  CB.traduccion := M.traduccion 
-M » string              M.traduccion := string.valorLexico
-M » id                  M.traduccion := '$' || id.valorLexico
-M » num                 M.traduccion := num.valorLexico
-M » boolean             M.traduccion := 'boolean'
+OC.traduccion := CA.traduccion
+CA0.traduccion := CA1.traduccion || '==' || CB.traduccion
+CA0.traduccion := CA1.traduccion || '!=' || CB.traduccion
+CA0.traduccion := CA1.traduccion || '===' || CB.traduccion
+CA0.traduccion := CA1.traduccion || '!==' || CB.traduccion 
+CA.traduccion := CB.traduccion 
+CB0.traduccion := CB1.traduccion || '>' || M.traduccion
+CB0.traduccion := CB1.traduccion || '>=' || M.traduccion
+CB0.traduccion := CB1.traduccion || '<' || M.traduccion
+CB0.traduccion := CB1.traduccion || '<=' || M.traduccion
+CB.traduccion := M.traduccion 
+M.traduccion := string.valorLexico
+M.traduccion := '$' || id.valorLexico
+M.traduccion := num.valorLexico
+M.traduccion := 'boolean'

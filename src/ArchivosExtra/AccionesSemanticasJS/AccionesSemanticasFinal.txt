@@ -1,0 +1,132 @@
+C.traduccion := P.traduccion || ' ' || C.traduccion
+P.traduccion := DF.traduccion
+P.traduccion := DA.traduccion
+P.traduccion := DV.traduccion
+P.traduccion := TN.traduccion
+P.traduccion := PR.traduccion
+P.traduccion := CL.traduccion
+P.traduccion := SL.traduccion
+P.traduccion := SW.traduccion
+P.traduccion := AS.traduccion
+P.traduccion := OL.traduccion
+P.traduccion := OC.traduccion
+P.traduccion := EA.traduccion
+P.traduccion := M.traduccion
+P.traduccion := R.traduccion
+P.traduccion := CY.traduccion
+P.traduccion := ''
+C.traduccion := DF.traduccion
+C.traduccion := DA.traduccion
+C.traduccion := DV.traduccion
+C.traduccion := TN.traduccion
+C.traduccion := PR.traduccion
+C.traduccion := CL.traduccion
+C.traduccion := SL.traduccion
+C.traduccion := SW.traduccion
+C.traduccion := AS.traduccion
+C.traduccion := OL.traduccion
+C.traduccion := OC.traduccion
+C.traduccion := EA.traduccion
+C.traduccion := M.traduccion
+C.traduccion := R.traduccion
+C.traduccion := CY.traduccion
+C.traduccion := ''
+DF.traduccion := 'function ' || '$' || id.valorLexico || '(' || PA.traduccion ') ' || '{' C.traduccion '}'
+PA.traduccion := '$' || id.valorLexico || L.traduccion
+PA.traduccion := ''
+DV.traduccion := T.traduccion || '$' || id.valorLexico || L.traduccion
+L.traduccion := ', ' || '$' || id.valorLexico || L.traduccion
+L.traduccion := ' = ' || M.traduccion || ' ' || L.traduccion
+L.traduccion := ';'
+T.traduccion := ''
+T.traduccion := ''
+T.traduccion := ''
+DA.traduccion := L.traduccion || '$' || id.valorLexico || ' = array(' || V.traduccion || ');'
+V.traduccion := string.valorLexico || B.traduccion
+V.traduccion := num.valorLexico || B.traduccion
+V.traduccion := '$' || id.valorLexico || B.traduccion
+V.traduccion := ''
+B.traduccion := || ', $' || id.valorLexico || B.traduccion
+B.traduccion := || ', ' || num.valorLexico || B.traduccion
+B.traduccion := || ', ' || string.valorLexico || B.traduccion
+B.traduccion := ''
+TN.traduccion := 'intval(' || string.valorLexico || ', ' || G.traduccion || ');'
+TN.traduccion := 'floatval(' || string.valorLexico || ');'
+PR.traduccion := 'echo(' || I.traduccion || ');'  
+I.traduccion := M.traduccion
+I0.traduccion := I1.traduccion || ', ' || M.traduccion
+I0.traduccion := I1.traduccion || '+ ' || M.traduccion
+I.traduccion := ''
+CL.traduccion := 'while(' || OL.traduccion || ') {' || C.traduccion || '}'
+CL.traduccion := 'do {' || C.traduccion || '} while' || '(' || OL.traduccion || ')'
+CL.traduccion := 'for(' || AS.traduccion || '; ' || OL.traduccion || '; ' || AC.traduccion || ') {' || C.traduccion || '}'
+AC.traduccion := '++' || '$' || id.valorLexico
+AC.traduccion := '--' || '$' || id.valorLexico 
+AC.traduccion := '$' || id.valorLexico || '++'
+AC.traduccion := '$' || id.valorLexico || '--'
+P.traduccion := AC.traduccion
+C.traduccion := AC.traduccion
+SL.traduccion := 'if (' || OL.traduccion || ') {' || C.traduccion || '}' || EL.traduccion
+R.traduccion := 'return' || M.traduccion || ';'
+CY.traduccion := 'continue;'
+EL0.traduccion := 'else if (' || OL.traduccion || ') {' || C.traduccion || '}' || EL1.traduccion
+EL0.traduccion := 'else {' || C.traduccion || '}' || EL1.traduccion 
+EL.traduccion := ''
+SW.traduccion := 'switch(' || M.traduccion || ') {'  || CS.traduccion || '}'
+CS0.traduccion := 'case ' || M.traduccion || ': ' || C.traduccion || 'break' || '; ' || CS1.traduccion
+CS.traduccion := 'default: ' || C.traduccion
+CS.traduccion := ''
+AS.traduccion := X.traduccion || ' ' || Y.traduccion
+Y.traduccion := ' = ' || X.traduccion
+Y.traduccion := ' += ' || X.traduccion
+Y.traduccion := ' -= ' || X.traduccion
+Y.traduccion := ' *= ' || X.traduccion
+Y.traduccion := ' /= ' || X.traduccion
+Y.traduccion := ' %= ' || X.traduccion
+Y.traduccion := ' **= ' || X.traduccion
+Y.traduccion := ' <<= ' || X.traduccion
+Y.traduccion := ' >>= ' || X.traduccion
+Y.traduccion := ' >>>= ' || X.traduccion
+Y.traduccion := ' &= ' || X.traduccion
+Y.traduccion := ' ^= ' || X.traduccion
+Y.traduccion := ' |= ' || X.traduccion
+Y.traduccion := ' &&= ' || X.traduccion
+Y.traduccion := ' ||= ' || X.traduccion
+Y.traduccion := ' ??= ' || X.traduccion
+T.traduccion := ''
+X.traduccion := M.traduccion
+X.traduccion := EA.traduccion
+OL.traduccion := CE.traduccion
+OL.traduccion := CE.traduccion || ' && ' || CF.traduccion
+CE.traduccion := CE.traduccion || 'or' || CF.traduccion
+CE.traduccion := CF.traduccion
+CE.traduccion := '!' || CF.traduccion
+CF.traduccion := OC.traduccion
+CF.traduccion := EA.traduccion
+CF.traduccion := M.traduccion
+OC.traduccion := CA.traduccion
+CA0.traduccion := CA1.traduccion || ' == ' || CB.traduccion
+CA0.traduccion := CA1.traduccion || ' != ' || CB.traduccion
+CA0.traduccion := CA1.traduccion || ' === ' || CB.traduccion
+CA0.traduccion := CA1.traduccion || ' !== ' || CB.traduccion 
+CA.traduccion := CB.traduccion 
+CB0.traduccion := CB1.traduccion || ' > ' || M.traduccion
+CB0.traduccion := CB1.traduccion || ' >= ' || M.traduccion
+CB0.traduccion := CB1.traduccion || ' < ' || M.traduccion
+CB0.traduccion := CB1.traduccion || ' <= ' || M.traduccion
+CB.traduccion := M.traduccion 
+EA.traduccion := E.traduccion
+E0.traduccion := E1.traduccion || ' + ' || F.traduccion 
+E0.traduccion := E1.traduccion || '-' || F.traduccion    
+E.traduccion := F.traduccion
+F0.traduccion := F1.traduccion || ' * ' || G.traduccion 
+F0.traduccion := F1.traduccion || ' / ' || G.traduccion
+F0.traduccion := F1.traduccion || ' % ' || G.traduccion
+F.traduccion := G.traduccion
+G.traduccion := '(' || E.traduccion || ')'
+G.traduccion := '$' || id.valorLexico 
+G.traduccion := num.valorLexico 
+M.traduccion := string.valorLexico
+M.traduccion := id.valorLexico
+M.traduccion := num.valorLexico
+M.traduccion := 'boolean'

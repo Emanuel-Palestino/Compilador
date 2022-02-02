@@ -14,6 +14,7 @@ import java.io.IOException;
 import AnalizadorLexico.ConversionAFD.IniciarConjuntos;
 import AnalizadorLexico.Final.IniciarFinal;
 import AnalizadorSemantico.VentanaAnalisisSemantico;
+import AnalizadorSemantico.AnalisisFinal.VentanaFinal;
 import AnalizadorSintactico.Analisis.VentanaAnalisisSintactico;
 import AnalizadorSintactico.ColeccionCanonica.iniciarColeccionCanonica;
 import AnalizadorSintactico.ConstruccionTablaLR.IniciarTablaLR;
@@ -217,7 +218,7 @@ public class VentanaPrincipal extends JFrame {
 
     public void menuAnalizadorSemantico() {
         botonAnalisisSemantico = new JButton("Analisis Semantico");
-        botonFinalFinal = new JButton("Analizador y Convertidor Final JavaScript a PHP");
+        botonFinalFinal = new JButton("Analizador y Convertidor Final - JavaScript a PHP");
 
         // PROPIEDADES DEL LOS LABELS A UTILIZAR
         tituloAnalizadorSemantico = new JLabel("Analizador Semántico");
@@ -261,6 +262,7 @@ public class VentanaPrincipal extends JFrame {
         botonFinalFinal.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ev) {
+                new VentanaFinal(ventanaPrincipal);
             }
         });
 
