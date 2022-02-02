@@ -177,7 +177,12 @@ public class AnalisisSemantico {
 		}
 		// Sacamos el ultimo estado de la pila<SimboloGramatical>
 
-		return new ResultadoAnalisisSemantico(pilaResultadoString, entradaResultadoSemantico, accionResultado);
+		ResultadoAnalisisSemantico resFinal = new ResultadoAnalisisSemantico(pilaResultadoString, entradaResultadoSemantico, accionResultado);
+		// Asignar traduccion
+		if (pilaGramatical.size() == 3)
+			resFinal.setTraduccionFinal(pilaGramatical.get(1).getTraduccion());
+
+		return resFinal;
 	}
 
 	static private String imprimirAccion(ReglaProduccion reglaProduccionImprimir, int index) {

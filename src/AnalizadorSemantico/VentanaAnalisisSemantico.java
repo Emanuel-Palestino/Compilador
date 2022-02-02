@@ -104,7 +104,7 @@ public class VentanaAnalisisSemantico extends JDialog {
 					servicioAnalisis.ejecutar(ruta);
 					// Modificar datos
 					tablaAnalisis.actualizarDatos(encabezadoTabla,
-							servicioAnalisis.gerResultadoSemantico().getDatosTabla());
+							servicioAnalisis.getResultadoSemantico().getDatosTabla());
 
 				} catch (IOException | ExcepcionER e1) {
 					e1.printStackTrace();
@@ -140,7 +140,7 @@ public class VentanaAnalisisSemantico extends JDialog {
 					servicioAnalisis.actualizarGramatica(ruta);
 					// Modificar datos
 					tablaAnalisis.actualizarDatos(encabezadoTabla,
-							servicioAnalisis.gerResultadoSemantico().getDatosTabla());
+							servicioAnalisis.getResultadoSemantico().getDatosTabla());
 
 				} catch (IOException | ExcepcionER e1) {
 					e1.printStackTrace();
@@ -169,7 +169,7 @@ public class VentanaAnalisisSemantico extends JDialog {
 		lblAnalisisSintactico = new JLabel("Resultado del Análisis Sintáctico:");
 		lblAnalisisSintactico.setPreferredSize(new Dimension(220, altoElementos));
 
-		tablaAnalisis = new Tabla(940, 450, encabezadoTabla, servicioAnalisis.gerResultadoSemantico().getDatosTabla());
+		tablaAnalisis = new Tabla(940, 450, encabezadoTabla, servicioAnalisis.getResultadoSemantico().getDatosTabla());
 
 		// Agregar elementos al panel resultado
 		panelResultado.add(lblAnalisisSintactico);

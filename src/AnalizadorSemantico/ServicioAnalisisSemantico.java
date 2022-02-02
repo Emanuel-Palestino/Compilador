@@ -20,7 +20,7 @@ public class ServicioAnalisisSemantico {
 	private String rutaPrograma;
 
 	public ServicioAnalisisSemantico() {
-		gramatica = new Gramatica("src/ArchivosExtra/GramaticaJS/gramaticajs1.txt", "src/ArchivosExtra/AccionesSemanticasJS/accionesSemanticasG1.txt");
+		gramatica = new Gramatica("src/ArchivosExtra/GramaticaJS/gramaticajsFinal.txt", "src/ArchivosExtra/AccionesSemanticasJS/AccionesSemanticasFinal.txt");
 		coleccionCanonica = ColeccionCanonica.hacer(gramatica);
 		tablaAnalisis = TablaLR.construir(coleccionCanonica, gramatica);
 		resultadoLexico = new ResultadoAnalisisLexico();
@@ -65,7 +65,7 @@ public class ServicioAnalisisSemantico {
 		return resultadoLexico;
 	}
 
-	public ResultadoAnalisisSemantico gerResultadoSemantico() {
+	public ResultadoAnalisisSemantico getResultadoSemantico() {
 		return resultadoSemantico;
 	}
 

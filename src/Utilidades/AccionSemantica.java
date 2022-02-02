@@ -40,7 +40,7 @@ public class AccionSemantica {
 
 	public SimboloGramatical evaluar(SimboloGramatical[] simbolos) {
 		// Obtener if's si es que hay
-		String[] secciones = accion.split("\\{|\\}");
+		String[] secciones = accion.split("´");
 		// Ejecutar cada seccion
 		for (String seccion : secciones) {
 
@@ -48,16 +48,16 @@ public class AccionSemantica {
 				continue;
 
 			// Obtener las partes de las condiciones si es que hay
-			String[] condiciones = seccion.split("if|else");
+			String[] condiciones = seccion.split("´");
 
 			// Saber si hay condiciones o no
-			if (condiciones.length == 1) { // no hay condiciones
+			if (/* condiciones.length == 1 */true) { // no hay condiciones
 
 				// Obtener la asignacion
 				realizarAsignacion(condiciones[0], simbolos);
 
 
-			} else { // Si hay condiciones
+			}/*  else { // Si hay condiciones
 				// Obtener la condicion IF
 				String[] condicionIf = condiciones[1].trim().split(" ", 4);
 
@@ -71,7 +71,7 @@ public class AccionSemantica {
 					realizarAsignacion(condiciones[2].trim(), simbolos);
 				}
 
-			}
+			} */
 		}
 
 		return new SimboloGramatical(simbolos[0]);
@@ -193,6 +193,8 @@ public class AccionSemantica {
 
 		// Obtener el id y el valor
 		String id = partesAsignacion[0];
+		if(partesAsignacion.length == 1)
+			System.out.println("pausa jeje");
 		String valor = partesAsignacion[1];
 
 		// Obtener el símbolo con el que se trabajará

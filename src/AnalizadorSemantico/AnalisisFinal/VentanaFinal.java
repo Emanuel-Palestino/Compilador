@@ -41,7 +41,6 @@ public class VentanaFinal extends JDialog {
 		// Iniciar componentes
 		servicioAnalisis = new ServicioAnalisisSemantico();
 		try {
-			servicioAnalisis.actualizarGramatica("src/ArchivosExtra/AccionesSemanticasJS/accionesSemanticasFinal.txt");
 			servicioAnalisis.ejecutar("src/ArchivosExtra/programas/programa1G1.js");
 		} catch (IOException | ExcepcionER e) {
 			e.printStackTrace();
@@ -107,7 +106,7 @@ public class VentanaFinal extends JDialog {
 					servicioAnalisis.ejecutar(ruta);
 					// Modificar datos
 					tablaAnalisis.actualizarDatos(encabezadoTabla,
-							servicioAnalisis.gerResultadoSemantico().getDatosTabla());
+							servicioAnalisis.getResultadoSemantico().getDatosTabla());
 
 				} catch (IOException | ExcepcionER e1) {
 					e1.printStackTrace();
@@ -131,7 +130,7 @@ public class VentanaFinal extends JDialog {
 		lblAnalisisSintactico = new JLabel("Resultado del Análisis Sintáctico-Semántico:");
 		lblAnalisisSintactico.setPreferredSize(new Dimension(300, altoElementos));
 
-		tablaAnalisis = new Tabla(940, 450, encabezadoTabla, servicioAnalisis.gerResultadoSemantico().getDatosTabla());
+		tablaAnalisis = new Tabla(940, 450, encabezadoTabla, servicioAnalisis.getResultadoSemantico().getDatosTabla());
 
 
 		// Botones para ventanas extra
@@ -143,6 +142,15 @@ public class VentanaFinal extends JDialog {
 
 		botonTablaErrores = new JButton("Ver Tabla de Errores");
 		botonTablaErrores.setPreferredSize(new Dimension(306, altoElementos));
+
+		// Agregar Accion a los botones
+		botonResultado.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Obtener nueva ruta dle archivo
+				new VentanaResultado(estaVentana, servicioAnalisis.getResultadoSemantico().getTraduccionFinal());
+			}
+		});
 
 
 		// Agregar elementos al panel resultado

@@ -1,5 +1,4 @@
 // declaraciones de varios tipos de variables
-i++ 
 var a = 2, b = 10
 let c = 192
 /*comentario
@@ -18,7 +17,6 @@ else{
 	console.log("El numero es", b)
 	JK = 2 % 5 
 	i++ 
-	return 2
 }
 if(categ>=1 && categ<=4) {
 	// El printf y el scanf se podría hacer al mismo tiempo así:
@@ -31,13 +29,6 @@ if(categ>=1 && categ<=4) {
 		case 2: console.log("10 porciento")
 				nsueldo=1.10
 				JK = 2 % 5
-				return jk 
 				break
 	}
-	i++
-	return "hola"
-	continue
 }
-i++ 
-return escuela
-return holadenuevo
