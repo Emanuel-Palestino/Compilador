@@ -6,11 +6,11 @@ function main() {
 	console.log("Teclea el limite superior de n")
 	pot=1
 	for (i = 0; i <= n; i++) {
-		pot = 1
+		pot += 1
 		for(j = 0; j< i; j++) {
 			pot *= 2
 		}
-		suma = suma
+		suma += suma
 	}
 	console.log("la sumatoria es:", suma)
 }

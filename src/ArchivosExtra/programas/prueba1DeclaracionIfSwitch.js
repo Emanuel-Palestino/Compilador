@@ -16,14 +16,12 @@ if(b==0) {
 else{
 	console.log("El numero es", b)
 	JK = 2 % 5 
-	i++ 
 }
 if(categ>=1 && categ<=4) {
 	// El printf y el scanf se podría hacer al mismo tiempo así:
 	switch(categ) {
 		case 1: console.log("15 porciento")
 				nsueldo = 1.15
-				i++
 				JK = 2 % 5
 				break
 		case 2: console.log("10 porciento")

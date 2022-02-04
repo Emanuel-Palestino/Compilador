@@ -131,6 +131,8 @@ public class AccionSemantica {
 	}
 
 	private Atributo obtenerAtributo(String cadena) {
+		if (cadena.trim().split("\\.").length == 1)
+			System.out.println("pausa jejejeje");
 		String aux = cadena.trim().split("\\.")[1];
 		Atributo resultado = Atributo.DESCONOCIDO;
 		switch (aux) {

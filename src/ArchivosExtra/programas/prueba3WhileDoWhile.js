@@ -9,6 +9,6 @@ function main() {
 		suma+=calif
 		i +=1
 	}
-	promedio = suma
+	promedio = suma / 4
 	console.log("El promedio es:", promedio)
 }
