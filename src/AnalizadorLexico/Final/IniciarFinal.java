@@ -10,7 +10,7 @@ import Utilidades.Excepciones.ExcepcionER;
 public class IniciarFinal {
 
 	public IniciarFinal(JFrame parent) {
-		String rutaArchivo = "src/ArchivosExtra/programa2.js";
+		String rutaArchivo = "src/ArchivosExtra/programa3.js";
 		try {
 			ResultadoAnalisisLexico res = EvaluarCodigo.evaluar(rutaArchivo);
 

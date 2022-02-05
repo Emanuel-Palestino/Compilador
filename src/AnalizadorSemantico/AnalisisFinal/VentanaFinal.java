@@ -151,6 +151,22 @@ public class VentanaFinal extends JDialog {
 				new VentanaResultado(estaVentana, servicioAnalisis.getResultadoSemantico().getTraduccionFinal());
 			}
 		});
+		
+		botonTablaSimbolos.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Obtener nueva ruta dle archivo
+				new VentanaSimbolos(estaVentana, new String[]{"Id", "Valor", "Función"}, servicioAnalisis.getResultadoLexico().getSimbolosTabla());
+			}
+		});		
+
+		botonTablaErrores.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Obtener nueva ruta dle archivo
+				new VentanaErrores(estaVentana, new String[]{"Número Línea", "Descripción"}, servicioAnalisis.getResultadoLexico().getErroresTabla());
+			}
+		});
 
 
 		// Agregar elementos al panel resultado
