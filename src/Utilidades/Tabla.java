@@ -47,7 +47,7 @@ public class Tabla extends JScrollPane {
 		for (int i = 0; i < columnas; i++)
 			tabla.getColumnModel().getColumn(i).setCellRenderer(celda);
 
-		this.add(tabla);
+		this.setViewportView(tabla);
 		this.setPreferredSize(new Dimension(ancho, alto));
 	}
 

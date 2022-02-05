@@ -1,9 +1,7 @@
 package AnalizadorSemantico.AnalisisFinal;
 
-import java.awt.Font;
-
 import javax.swing.JDialog;
-import javax.swing.JTextArea;
+import Utilidades.AreaTexto;
 
 public class VentanaResultado extends JDialog {
 
@@ -17,9 +15,9 @@ public class VentanaResultado extends JDialog {
 
 		// Traduccion:
 		String saltoLinea = System.lineSeparator();
-		JTextArea trad = new JTextArea("<?php>" + saltoLinea + traduccion.replace("\\n", saltoLinea));
-		trad.setFont(new Font("Arial", Font.PLAIN, 14));
-		this.add(trad);
+		String trad = "<?php>" + saltoLinea + traduccion.replace("\\n", saltoLinea);
+		AreaTexto area = new AreaTexto(800, 550, trad);
+		this.add(area);
 
 		this.setVisible(true);
 	}
